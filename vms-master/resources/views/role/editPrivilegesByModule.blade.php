@@ -1,0 +1,114 @@
+@extends('layouts.master')
+
+@section('title', 'User | Vehicle Management System')
+
+@section('styles')
+
+@endsection
+
+@section('header', 'User Account Management')
+
+@section('description', 'Updating permissions assigned to a module.')
+
+@section('content')
+    <div class="col-md-6 col-md-offset-3">
+        @include('layouts.errors')
+    </div>
+    @if(session('success'))
+        <div class="box-body col-md-6 col-md-offset-3">
+            <div class="alert alert-success alert-dismissable fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success!</strong> {{session('success')}}
+            </div>
+        </div>
+    @endif
+
+    <div class="col col-sm-6 col-md-offset-3">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Updating {{$module->name}} module's permissions assigned to {{$role->name}}</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <div class="box-body">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        {!! Form::open(['method' => 'patch','action'=>'RoleController@updatePermissionsByModule']) !!}
+
+                        {{Form::hidden('role_id', $role->id)}}
+
+                        {{Form::hidden('module_id', $module->id)}}
+
+                        <div class="col-md-12">
+                            <p class="lead">Select permissions for {{$role->name}}</p>
+
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody id="tblPermissions">
+                                    @foreach($module->permissions as $permission)
+                                        <div class="hidden">{{$a = 0}}</div>
+                                        @foreach($permissions as $per)
+                                            <div class="hidden">{{$permission->name == $per->name ? $a=1:''}} </div>
+                                        @endforeach
+                                        <tr>
+                                        <th>{{$permission->name}}</th>
+                                        <td><input type='checkbox' name='permission_ids[]' {{$a?'checked':''}} value='{{$permission->id}}'></td>
+                                        </tr>
+                                    @endforeach
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group col-md-12 ">
+                            {{Form::submit('Update Privileges', ['class'=>'btn btn-success pull-right'])}}
+                        </div>
+
+                        {!! Form::close() !!}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
+
+    <script>
+        $(function () {
+            $('#cmbModule').on('change',function () {
+                var url = $( "#cmbModule").find("option:selected").attr('url');
+                $.ajax({
+                    method:'GET',
+                    url:url,
+                    success: function (data) {
+                        console.log(data);
+                        var html = '';
+                        $(data).each(function (index,a) {
+                            html+=  "<tr>\n" +
+                                    "<th style=\"width:50%\">"+a.name+"</th>\n" +
+                                    "<td>"+"<input type='checkbox' name='permission_ids[]' value='"+a.id+"'>"+"</td>\n" +
+                                    "</tr>";
+                        });
+                        $('#tblPermissions').html(html);
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                })
+            })
+        })
+    </script>
+@endsection

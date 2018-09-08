@@ -1,0 +1,179 @@
+[33mcommit 9e16ed47267c9fd9b5008a81f423528a10d77d07[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Wed May 16 16:03:35 2018 +0530
+
+    For home work 2
+
+[33mcommit 9d86d20fbe505d3c0bcb952af11ff816af554f19[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Wed May 16 16:02:54 2018 +0530
+
+    For home work
+
+[33mcommit fbf6dadb35de29480b336b1aa97a2fdbfeb4947b[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Tue May 15 12:04:38 2018 +0530
+
+    Login created. Sample Login Added for every user
+
+[33mcommit 9f5bd8c91570f6ca842673c655209b0864200539[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Mon May 14 15:33:16 2018 +0530
+
+    Going to import socialite
+
+[33mcommit 94f1d40997965eccd821ade09c6971588b66cd3b[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Mon May 14 12:48:26 2018 +0530
+
+    completed journeys fill by driver added db.sql
+
+[33mcommit 22416a0025675ec688e235f1ded2300b3d1f9468[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Mon May 14 12:47:26 2018 +0530
+
+    completed journeys fill by driver added
+
+[33mcommit 98288b2c866a4cd8cfc29b9ccf38c43fdf10745f[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Fri May 11 14:27:18 2018 +0530
+
+    Modal changed to bootstrap model.
+
+[33mcommit 10f6df217eccf9a7505c7ee00c158bed70211dcf[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Wed May 9 11:12:47 2018 +0530
+
+    Diagram added to meating
+
+[33mcommit cd07f4a3cbeb8285813fffad63b78a7acc78ab67[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Wed May 9 10:57:53 2018 +0530
+
+    Password changed for deployment
+
+[33mcommit 4455e78b813ffee04cffc45979fe303eaecca7b5[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Wed May 9 10:56:23 2018 +0530
+
+    Ongoing status hardcoded to confiremed journey requests
+
+[33mcommit 7a3bba119634e6aceb1853135ab93ced3e2c9f8c[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Wed May 9 10:30:02 2018 +0530
+
+    Ongoing journeys created
+
+[33mcommit 55322f46053b7c2303a1bbff1d88d537d2a4fb05[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Tue May 8 11:04:28 2018 +0530
+
+    Miner modifications before meating
+
+[33mcommit d70b196ae9b88b5db4aee9203a912318d2da9986[m
+Author: Sanjaya Senadheera <sms@ucsc.cmb.ac.lk>
+Date:   Mon May 7 21:57:15 2018 +0530
+
+    Journey approval, confirmation added
+
+[33mcommit 7b8990ab3b6b867c1344294dd20a1aa70590bd5c[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Fri May 4 15:49:46 2018 +0530
+
+    Database backuped
+
+[33mcommit edf23e5e071813941d482c51c71b35021203304e[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Thu May 3 15:49:31 2018 +0530
+
+    Journey create completed. Request Approval Started
+
+[33mcommit 332aa04d5e00027eb2c287fe994a4650f67b74dc[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Wed May 2 10:31:03 2018 +0530
+
+    EER modified. driver_id added to vehicle table.
+
+[33mcommit 552b6a099c03ff040529a20fec5ae2f55df00b1b[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Tue May 1 15:50:13 2018 +0530
+
+    Journey store method started
+
+[33mcommit f44093f132e2adf9329a862a68629d6b0543bcd2[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Tue May 1 15:19:59 2018 +0530
+
+    ER modified. applicant id added to journey table
+
+[33mcommit 9977f65cb9c12b9dccfe854cc4cd9e95ed39b3eb[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Tue May 1 13:14:31 2018 +0530
+
+    ER modified. divisinal_head_id column added to journey table
+
+[33mcommit 969d4ec93eab7e304260976bc044afd3ac0f5931[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Tue May 1 12:56:53 2018 +0530
+
+    Add journey modified after meating.
+
+[33mcommit 9c829faaf669c6bfd1ddca5ae2d10985b49621a8[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Thu Apr 26 12:21:10 2018 +0530
+
+    View journeys link removed from master template
+
+[33mcommit 1b67f7814ef6a28ccbf20377acd86d6625f1a6a3[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Thu Apr 26 12:08:07 2018 +0530
+
+    Employee Database Intergrated. Journey UI Edited. Google Calender Iframe Added.
+
+[33mcommit 2e9f24b2f9db13cad3d23510f77bf2cde53c1249[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Wed Apr 25 15:21:35 2018 +0530
+
+    Journey UI edited. not completed
+
+[33mcommit 7e9dd7f744b83e5d75b41d7fd4e3c6b62d9c165e[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Tue Apr 24 10:41:33 2018 +0530
+
+    Calender API configured. CalendeAPIController, web.php, api.php
+
+[33mcommit 4f77fcfc88685bc74adcf090e878e676e6ddf931[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Tue Apr 24 09:07:25 2018 +0530
+
+    goolge oauth client secret added
+
+[33mcommit 6a188be869643f4f5d39cba0567086039cc2e062[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Mon Apr 23 13:06:39 2018 +0530
+
+    Google API Client 2.0 added
+
+[33mcommit ef877ce99b4672d6de8b7c8875d10418a0e415e8[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Fri Apr 20 13:07:13 2018 +0530
+
+    Changed .env
+
+[33mcommit 379aaaff54db81b5c704857ea1d1b085c8efdb00[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Fri Apr 20 12:31:03 2018 +0530
+
+    Database file included
+
+[33mcommit b8f79c9a0009afb482039434340d7e7d4fd3f80a[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Thu Apr 19 14:23:36 2018 +0530
+
+    Journey create view completed
+
+[33mcommit fdfe3815792cf0ec4d4dc7fc59d116b5712159d4[m
+Author: Sanjaya Sanadheera <sms@ucsc.cmb.ac.lk>
+Date:   Wed Apr 18 15:36:05 2018 +0530
+
+    Initial Commit
