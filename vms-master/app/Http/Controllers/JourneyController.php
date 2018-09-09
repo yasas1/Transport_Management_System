@@ -49,11 +49,12 @@ class JourneyController extends Controller
      */
     public function create()
     {
+        $journeys = Journey::all();
         $divHeads = Division::all();
         $fundAlFroms = FundsAllocatedFrom::all();
         $drivers = Driver::all()->pluck('fullName','id');
         $vehicles = Vehical::all()->pluck('fullName','id');
-        return view('journey.create',compact('fundAlFroms','drivers','vehicles','divHeads'));
+        return view('journey.create',compact('fundAlFroms','drivers','vehicles','divHeads','journeys'));
     }
 
     /**
@@ -93,7 +94,7 @@ class JourneyController extends Controller
             $journey->funds_allocated_from_id = $request->funds_allocated_from_id;
             $journey->divisional_head_id = $request->divisional_head_id;
 
-//            $journey->save();
+           $journey->save(); //commented
 
         try{
 

@@ -12,6 +12,7 @@ class JourneyRequestController extends Controller
 
     public function approval(Request $request, $id){
 
+
         if($journey = Journey::whereId($id)->first()){
 
             $journey->approved_at = Carbon::now();
