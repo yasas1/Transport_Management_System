@@ -28,7 +28,7 @@ class JourneyCompleteController extends Controller
             $journey->driver_remarks = $request->driver_remarks;
 
             $journey->driver_completed_at = Carbon::now();
-//            $journey->driver_filled_by = Auth::user()->emp_id;
+//          $journey->driver_filled_by = Auth::user()->emp_id;
             $journey->journey_status_id = '6';
             $journey->update();
             return redirect()->back()->with(['success'=>'Journey completed successfully !']);
