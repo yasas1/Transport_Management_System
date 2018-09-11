@@ -16,6 +16,7 @@ use function GuzzleHttp\Psr7\parse_header;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+// use App\Http\Requests\TestRequest;
 
 class JourneyController extends Controller
 {
@@ -65,6 +66,18 @@ class JourneyController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request , [
+             'vehical_id' => 'required',
+             'expected_start_date_time' => 'required',
+             'expected_end_date_time' => 'required',
+             'number_of_persons' => 'required',
+             'expected_distance' => 'required',
+             'divisional_head_id' => 'required',
+             'purpose' => 'required', 
+             'funds_allocated_from_id' => 'required'
+            
+        ]);
+
             $journey = new Journey;
             $journey->applicant_id = '000004';
 //            $journey->applicant_id = Auth::user()->emp_id;

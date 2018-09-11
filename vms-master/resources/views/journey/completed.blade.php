@@ -216,13 +216,13 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <input type="button" class="btn btn-success"  value="OK">
+                                    <input type="button" class="btn btn-success" data-dismiss="modal"  value="OK">
                                 </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
-
+                     <!-- For Calender View -->
                 <div class="col-md-12">
                         <div class="box box-primary">
                             <div class="box-header with-border">
@@ -241,8 +241,8 @@
             @endif
 
         </div>
-        <!-- For Calender Event Click-->
 
+        <!-- For Calender Event Click-->
         @foreach($journeys as $journey)
         
             <div id="myModal" class="modal fade" role="dialog">
@@ -399,7 +399,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <input type="button" class="btn btn-success"  value="OK">
+                                <input type="button" class="btn btn-success" data-dismiss="modal"  value="OK">
                             </div>
                         </div>    
                 </div>
@@ -464,8 +464,9 @@
                     });
                 });
             </script>
-
+ 
 @section('scripts')
+{{-- Script for calender view --}}
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js')}}"></script>
@@ -487,15 +488,10 @@
               
             }
         );             
-     }
-    // var json =JSON.stringify(qEvent);
-     console.log(qEvent);
-    //  journeys.forEach(qEvent => { id: journeys.id,
-    //    start: journeys[],
-    //    end: 	journeys.expected_end_date_time
-        
-    //   });
-    //var journey = @json($journeys);
+    }
+    
+    console.log(qEvent);
+   
     $(function () {
         var aaa;
        $.ajax({
@@ -524,25 +520,17 @@
                console.log(aaa);
                $('#calendar').fullCalendar({
                    selectable: true,
-                   defaultView:'agendaWeek',
+                   defaultView:'month', //agendaWeek
                    header: {
                        left: 'prev,next today myCustomButton',
                        center: 'title',
                        right: 'month,agendaWeek,agendaDay'
                    },
                    googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',
-                  /* events: 
-                     [
-                        { id: '1', resourceId: 'b', start: '2018-09-07T02:10:00', end: '2018-09-08T07:11:00' },
-                        { id: '2', resourceId: 'c', start: '2018-09-07T05:00:00', end: '2018-09-07T22:00:00', title: 'event 2' },
-                        { id: '3', resourceId: 'd', start: '2018-09-06', end: '2018-09-08', title: 'event 3' },
-                        { id: '4', resourceId: 'e', start: '2018-09-07T03:00:00', end: '2018-09-09T08:00:00', title: 'event 4' },
-                        { id: '5', resourceId: 'f', start: '2018-09-07T00:30:00', end: '2018-09-10T02:30:00', title: 'event 5' }
-                      ], */
+                  
                     //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
 
-                   events:qEvent,
-                   //events:[],
+                   events:qEvent,                  
 
                    eventSources: aaa,
                    eventClick: function(event, element) {

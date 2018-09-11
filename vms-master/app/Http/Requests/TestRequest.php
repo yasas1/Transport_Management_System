@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class TestRequest extends FormRequest
 {
@@ -24,7 +25,14 @@ class TestRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'vehical_id' => 'required',
+            'expected_start_date_time' => 'required',
+            'expected_end_date_time' => 'required',
+            'number_of_persons' => 'required',
+            'expected_distance' => 'required',
+            'divisional_head_id' => 'required',
+            'purpose' => 'required', 
+            'funds_allocated_from_id' => 'required'
         ];
     }
 }
