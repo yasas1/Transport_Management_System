@@ -87,7 +87,9 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     /*Show Confirmed Requests to complete*/
     Route::get('/journey/requests/complete','JourneyCompleteController@confirmedJourneys');
     Route::post('/journey/request/{id}/complete','JourneyCompleteController@complete');
-    Route::get('/journey/requests/completed','JourneyController@completed');
+    Route::get('/journey/requests/completed','JourneyController@completed'); 
+
+    Route::get('/journey/read','JourneyController@readJourney');
 
     /*User Crud*/
     Route::get('/users','UserController@index');

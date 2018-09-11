@@ -16,7 +16,7 @@ use function GuzzleHttp\Psr7\parse_header;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
-// use App\Http\Requests\TestRequest;
+use App\Http\Requests\TestRequest;
 
 class JourneyController extends Controller
 {
@@ -58,6 +58,12 @@ class JourneyController extends Controller
         return view('journey.create',compact('fundAlFroms','drivers','vehicles','divHeads','journeys'));
     }
 
+    public function readJourney(){
+
+        $journeys = Journey::all();
+        return response($journeys);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -67,45 +73,42 @@ class JourneyController extends Controller
     public function store(Request $request)
     {
         $this->validate($request , [
-             'vehical_id' => 'required',
-             'time_range' => 'required',
-             'number_of_persons' => 'required',
-             'expected_distance' => 'required',
-             'divisional_head_id' => 'required',
-             'purpose' => 'required', 
-             'funds_allocated_from_id' => 'required'
-            
+            'vehical_id' => 'required',
+            'time_range' => 'required',
+            'number_of_persons' => 'required',
+            'expected_distance' => 'required',
+            'divisional_head_id' => 'required',
+            'purpose' => 'required', 
+            'funds_allocated_from_id' => 'required'          
         ]);
-
-        $ForCheckjourneys = Journey::all();
 
         $string=$request->time_range;
         $pos = strrpos($string, ' - ');
         $first = substr($string, 0, $pos);
         $second = substr($string, $pos + 3);
-        
+
+        /* $ForCheckjourneys = Journey::all();
         $start_date_time = Carbon::parse($first);
         $end_date_time = Carbon::parse($second);
         
-
         foreach ($ForCheckjourneys as $journey){
             if($journey->expected_start_date_time->format('Y-m-d') == $start_date_time->format('Y-m-d') ){
-                return redirect()->back()->withErrors(['Cannot create !']);
-
-            }
-            /*
+                //return redirect()->back()->withErrors(['Cannot create !']);
+                if($journey->expected_start_date_time->format('HH:MM') < $start_date_time->format('HH:MM') && $journey->expected_end_date_time->format('HH:MM') < $expected_start_date_time->format('HH:MM') ){
+                     return $journey->expected_start_date_time->format('HH:MM');
+                }
+            }         
             elseif($journey->expected_start_date_time < $expected_start_date_time && $journey->expected_end_date_time < $expected_start_date_time ){
                 return "get 2";
             }
             elseif($journey->expected_start_date_time > $expected_start_date_time && $journey->expected_start_date_time < $expected_end_date_time ){
                 return "get 3";
-            }
-            */
-        }
+            }          
+        }*/
 
         $journey = new Journey;
         $journey->applicant_id = '000004';
-//            $journey->applicant_id = Auth::user()->emp_id;
+       //$journey->applicant_id = Auth::user()->emp_id;
 
         $journey->vehical_id = $request->vehical_id;
         if ($vehicle = Vehical::whereId($request->vehical_id)->first()){
@@ -125,8 +128,7 @@ class JourneyController extends Controller
             $journey->expected_end_date_time = $expected_end_date_time;
         }
 
-        // for check availability of requested vehicle
-         
+        // for check availability of requested vehicle    
 
         $journey->purpose = $request->purpose;
         $journey->places_to_be_visited = $request->places_to_be_visited;
@@ -135,8 +137,7 @@ class JourneyController extends Controller
         $journey->funds_allocated_from_id = $request->funds_allocated_from_id;
         $journey->divisional_head_id = $request->divisional_head_id;
 
-        $journey->save(); //commented
-        
+        $journey->save(); //commented       
 
         try{
 
@@ -201,7 +202,7 @@ class JourneyController extends Controller
      */
     public function show($id)
     {
-        //
+       //
     }
 
     /**

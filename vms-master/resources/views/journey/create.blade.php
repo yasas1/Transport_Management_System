@@ -250,14 +250,9 @@
                 }
             );             
          }
-        // var json =JSON.stringify(qEvent);
-         console.log(qEvent);
-        //  journeys.forEach(qEvent => { id: journeys.id,
-        //    start: journeys[],
-        //    end: 	journeys.expected_end_date_time
-            
-        //   });
-        //var journey = @json($journeys);
+        
+        console.log(qEvent);
+        
         $(function () {
             var aaa;
            $.ajax({
@@ -308,7 +303,6 @@
                        eventSources: aaa,
                        eventClick: function(event, element) {
                            console.log(event);
-
                            var moment = $('#calendar').fullCalendar('getDate');
 
                            $.confirm({
@@ -358,17 +352,8 @@
         });
     </script>
 
-    <script>
-        
-        function(){
-
-        }
-
-    </script>
-
     <script type="text/javascript">
         // var journeys = {!! json_encode($journeys->toArray()) !!};
-
         $(function () {
 
             $('#dtp').daterangepicker({
@@ -378,10 +363,29 @@
                 "timePicker24Hour": true,
                 "minDate": moment(),
                 locale: {
-                    format: 'MM/DD/YYYY HH:MM'
+                    format: 'MM/DD/YYYY HH:mm'
                 }
             }, function(start, end, label) {
-                console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:MM') + ' to ' + end.format('YYYY-MM-DD HH:MM') + ' (predefined range: ' + label + ')');                 
+                
+                console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:mm') + ' to ' + end.format('YYYY-MM-DD HH:mm') + ' (predefined range: ' + label + ')');                 
+                
+                var vehicle_id = $('#vid').val();
+                if (vehicle_id=="") {
+                    console.log(" vehicle id should be inputed");
+                }
+                else{
+                    $.get("{{ URL::to('journey/read') }}",function(data){
+
+                        console.log(start.format('YYYY-MM-DD HH:mm'));
+                        console.log(end.format('YYYY-MM-DD HH:mm'));
+                        console.log(vehicle_id);
+
+                        $.each(data,function(i,value){
+                            //alert(value.expected_distance);
+                            console.log(value.expected_distance);
+                        });
+                    });
+                }
                 
             });
         });

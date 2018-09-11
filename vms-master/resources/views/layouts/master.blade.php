@@ -170,6 +170,7 @@ desired effect
                         @endif
                     </ul>
                 </li>
+                @if(Auth::user()->canReadDriver() || Auth::user()->canCreateDriver() ||Auth::user()->canUpdateDriver() )
                 <li class="treeview">
                     <a href="#"><i class="fa fa-user"></i> <span>DRIVER</span>
                         <span class="pull-right-container">
@@ -191,6 +192,7 @@ desired effect
 
                     </ul>
                 </li>
+                @endif
                 <li class="treeview">
                     <a href="#"><i class="fa fa-road"></i> <span>JOURNEY</span>
                         <span class="pull-right-container">
