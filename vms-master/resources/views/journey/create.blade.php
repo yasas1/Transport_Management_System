@@ -83,7 +83,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','placeholder'=>'Select a Vehicle'])}}
+                                            {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Select a Vehicle'])}}
                                         </div>
                                     </div>
                                 </div>
@@ -106,6 +106,9 @@
                                 </div>
 
                             </div>
+                            {{-- <div class="col-md-12">
+                                    <span class="text-orange" id="available"></span>
+                            </div> --}}
 
                             <h4><i class="fa fa-newspaper-o"></i> Details</h4>
                             <div class="col-md-offset-1">
@@ -290,7 +293,8 @@
                            right: 'month,agendaWeek,agendaDay'
                        },
                        googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',
-                       /*events: 
+                       /* events structurer
+                       events: 
                          [
                             { id: '1', resourceId: 'b', start: '2018-09-07T02:10:00', end: '2018-09-08T07:11:00' },
                             { id: '2', resourceId: 'c', start: '2018-09-07T05:00:00', end: '2018-09-07T22:00:00', title: 'event 2' },
@@ -309,9 +313,10 @@
 
                            $.confirm({
                                title: 'Journey!', //Confirm
-                               content:"<h4>ID - "+ event.id+"</h4>" +
+                               content:"<h4>ID - "+ event.id+"</h4>" + 
                                "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:MM:SS') + "</h4>" +
-                               "<h4>End - "+ event.ends +"</h4>",
+                               "<h4>End - "+ event.ends +"</h4>"+
+                               "<h4>Vehicle Id - "+ event.vehical_id +"</h4>",
                                buttons: {
                                    somethingElse: {
                                        text: 'OK',
@@ -339,7 +344,6 @@
            })
         });
 
-        //
         // var calendar = $('#calendar').fullCalendar('getCalendar');
         //
         // calendar.on('dayClick', function(date, jsEvent, view) {
@@ -354,7 +358,17 @@
         });
     </script>
 
+    <script>
+        
+        function(){
+
+        }
+
+    </script>
+
     <script type="text/javascript">
+        // var journeys = {!! json_encode($journeys->toArray()) !!};
+
         $(function () {
 
             $('#dtp').daterangepicker({
@@ -367,7 +381,8 @@
                     format: 'MM/DD/YYYY HH:MM'
                 }
             }, function(start, end, label) {
-                console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:MM') + ' to ' + end.format('YYYY-MM-DD HH:MM') + ' (predefined range: ' + label + ')');
+                console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:MM') + ' to ' + end.format('YYYY-MM-DD HH:MM') + ' (predefined range: ' + label + ')');                 
+                
             });
         });
 

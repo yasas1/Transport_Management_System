@@ -68,8 +68,7 @@ class JourneyController extends Controller
     {
         $this->validate($request , [
              'vehical_id' => 'required',
-             'expected_start_date_time' => 'required',
-             'expected_end_date_time' => 'required',
+             'time_range' => 'required',
              'number_of_persons' => 'required',
              'expected_distance' => 'required',
              'divisional_head_id' => 'required',
@@ -78,36 +77,66 @@ class JourneyController extends Controller
             
         ]);
 
-            $journey = new Journey;
-            $journey->applicant_id = '000004';
+        $ForCheckjourneys = Journey::all();
+
+        $string=$request->time_range;
+        $pos = strrpos($string, ' - ');
+        $first = substr($string, 0, $pos);
+        $second = substr($string, $pos + 3);
+        
+        $start_date_time = Carbon::parse($first);
+        $end_date_time = Carbon::parse($second);
+        
+
+        foreach ($ForCheckjourneys as $journey){
+            if($journey->expected_start_date_time->format('Y-m-d') == $start_date_time->format('Y-m-d') ){
+                return redirect()->back()->withErrors(['Cannot create !']);
+
+            }
+            /*
+            elseif($journey->expected_start_date_time < $expected_start_date_time && $journey->expected_end_date_time < $expected_start_date_time ){
+                return "get 2";
+            }
+            elseif($journey->expected_start_date_time > $expected_start_date_time && $journey->expected_start_date_time < $expected_end_date_time ){
+                return "get 3";
+            }
+            */
+        }
+
+        $journey = new Journey;
+        $journey->applicant_id = '000004';
 //            $journey->applicant_id = Auth::user()->emp_id;
 
-            $journey->vehical_id = $request->vehical_id;
-            if ($vehicle = Vehical::whereId($request->vehical_id)->first()){
-                $journey->driver_id = $vehicle->driver->id;
-            }
+        $journey->vehical_id = $request->vehical_id;
+        if ($vehicle = Vehical::whereId($request->vehical_id)->first()){
+            $journey->driver_id = $vehicle->driver->id;
+        }
 
-            $string=$request->time_range;
-            $pos = strrpos($string, ' - ');
-            $first = substr($string, 0, $pos);
-            $second = substr($string, $pos + 3);
+        /*$string=$request->time_range;
+        $pos = strrpos($string, ' - ');
+        $first = substr($string, 0, $pos);
+        $second = substr($string, $pos + 3); */
 
-            if($expected_start_date_time = Carbon::parse($first)){
-                    $journey->expected_start_date_time = $expected_start_date_time;
-            }
+        if($expected_start_date_time = Carbon::parse($first)){
+                $journey->expected_start_date_time = $expected_start_date_time;
+        }
 
-            if($expected_end_date_time = Carbon::parse($second)){
-                $journey->expected_end_date_time = $expected_end_date_time;
-            }
+        if($expected_end_date_time = Carbon::parse($second)){
+            $journey->expected_end_date_time = $expected_end_date_time;
+        }
 
-            $journey->purpose = $request->purpose;
-            $journey->places_to_be_visited = $request->places_to_be_visited;
-            $journey->number_of_persons = $request->number_of_persons;
-            $journey->expected_distance = $request->expected_distance;
-            $journey->funds_allocated_from_id = $request->funds_allocated_from_id;
-            $journey->divisional_head_id = $request->divisional_head_id;
+        // for check availability of requested vehicle
+         
 
-           $journey->save(); //commented
+        $journey->purpose = $request->purpose;
+        $journey->places_to_be_visited = $request->places_to_be_visited;
+        $journey->number_of_persons = $request->number_of_persons;
+        $journey->expected_distance = $request->expected_distance;
+        $journey->funds_allocated_from_id = $request->funds_allocated_from_id;
+        $journey->divisional_head_id = $request->divisional_head_id;
+
+        $journey->save(); //commented
+        
 
         try{
 
