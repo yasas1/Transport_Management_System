@@ -15,7 +15,9 @@
     @include('layouts.errors')
     @include('layouts.success')
     <div class="box box-primary">
-        <div class="box-header with-border">
+
+        
+        <div class="box-header with-border" >
             <h3 class="box-title">Completed Journey List</h3>
         </div>
         <!-- /.box-header -->
@@ -23,8 +25,10 @@
 
         <div class="box-body">
                 @if($journeys)
-    
-                <table class="table" id="table">
+                        <!-- for hide and view table content -->
+                <button onclick="myFunction()" class="btn btn-info">View Table</button> <br>
+
+                <table class="table" id="table" style="display: none;">
                     <thead>
                     <tr>
                         <th>Applicant Name</th>
@@ -221,26 +225,26 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
-                     <!-- For Calender View -->
-                <div class="col-md-12">
-                        <div class="box box-primary">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Completed Journey Calender</h3>
-                            </div>
-                
-                            <div class="box-body">
-                                <!-- THE CALENDAR -->
-                                    <div id='calendar'></div>
-                                </div>
-                            <!-- /.box-body -->
-                        </div>
-                        <!-- /. box -->
-                </div>
+                @endforeach                  
 
             @endif
 
-        </div>
+    </div>
+    <!-- For Calender View -->
+    <div class="col-md-12">
+            <div class="box box-primary">
+                {{-- <div class="box-header with-border">
+                    <h3 class="box-title">Completed Journey Calender</h3>
+                </div> --}}
+    
+                <div class="box-body">
+                    <!-- THE CALENDAR -->
+                        <div id='calendar'></div>
+                    </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /. box -->
+    </div>
 
         <!-- For Calender Event Click-->
         @foreach($journeys as $journey)
@@ -540,7 +544,7 @@
                        var moment = $('#calendar').fullCalendar('getDate');
 
                        $.confirm({
-                           title: 'Complted!', //Confirm
+                           title: 'Complted!', 
                            content:"<h4>ID - "+ event.id+"</h4>" +
                            "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:MM:SS') + "</h4>" +
                            "<h4>End - "+ event.ends +"</h4>",
@@ -577,5 +581,18 @@
     // calendar.on('dayClick', function(date, jsEvent, view) {
     //     console.log('clicked on ' + date.format());
     // });
-</script>
+</script> 
+
+<script>
+    //for hide and view table content 
+    function myFunction() {
+        var x = document.getElementById("table");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    </script>
+
 @endsection
