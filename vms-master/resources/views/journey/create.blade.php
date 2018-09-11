@@ -233,6 +233,7 @@
 @endsection
 
 @section('scripts')
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js')}}"></script>
     <script src='{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/gcal.min.js')}}'></script>
@@ -347,6 +348,15 @@
         // calendar.on('dayClick', function(date, jsEvent, view) {
         //     console.log('clicked on ' + date.format());
         // });
+    </script>
+
+    <script>
+       // for after select the vehicle, set available  field null string
+            $('#vid').on('change',function () {
+                $('#available').html('');
+                console.log("check");
+            });
+    
     </script>
 
     <script>
