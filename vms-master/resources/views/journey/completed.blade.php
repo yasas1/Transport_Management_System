@@ -14,6 +14,7 @@
 @section('content')
     @include('layouts.errors')
     @include('layouts.success')
+
     <div class="box box-primary">
 
         
@@ -28,7 +29,7 @@
                         <!-- for hide and view table content -->
                 <button onclick="myFunction()" class="btn btn-info">View Table</button> <br>
 
-                <table class="table" id="table" style="display: none;">
+                <table class="table" id="table" style="display: none; height:150px; overflow: auto;">
                     <thead>
                     <tr>
                         <th>Applicant Name</th>
@@ -228,8 +229,8 @@
                 @endforeach                  
 
             @endif
-
-    </div>
+        </div>
+    </div> 
     <!-- For Calender View -->
     <div class="col-md-12">
             <div class="box box-primary">
@@ -470,6 +471,7 @@
             </script>
  
 @section('scripts')
+
 {{-- Script for calender view --}}
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -543,7 +545,7 @@
 
                        var moment = $('#calendar').fullCalendar('getDate');
 
-                       $.confirm({
+                       /*$.confirm({
                            title: 'Complted!', 
                            content:"<h4>ID - "+ event.id+"</h4>" +
                            "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:MM:SS') + "</h4>" +
@@ -558,9 +560,9 @@
                                    }
                                }
                            }
-                       });
+                       }); */
 
-                   },
+                   }, 
                    dayClick: function(date) {
                        //alert('clicked ' + date.format());
                    },
@@ -593,6 +595,6 @@
             x.style.display = "none";
         }
     }
-    </script>
+</script>
 
 @endsection
