@@ -16,19 +16,16 @@
 @section('content')
     @include('layouts.errors')
     @include('layouts.success')
-    <div class="box" >
+    <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title">Confirmation Pending Journey Requests List</h3>
         </div>
-        <button onclick="myFunction()" class="btn btn-info">View Table</button> <br><br>
-    </div> 
+        <!-- /.box-header -->
+        <!-- form start -->
 
-    <div class="box box-primary" id="tabl" style="display: none;" >
-        <div class="box-body" >
+        <div class="box-body">
             @if($journeys)
-            
-
-                <table class="table table-hover" id="table" style="height: 150px; overflow: auto;" >
+                <table class="table" id="table">
                     <thead>
                     <tr>
                         <th>Applicant Name</th>
@@ -439,7 +436,7 @@
 
      var journeys = {!! json_encode($journeys->toArray()) !!};
 
-     console.log(journeys[0]);
+    // console.log(journeys[0].vehical.name);
      var qEvent=[];
      for (let i = 0; i < journeys.length; i++) {
         // $journey->vehical->fullname  vehicle_name :
@@ -545,17 +542,5 @@
     //     console.log('clicked on ' + date.format());
     // });
 </script> 
-
-<script>
-        //for hide and view table content 
-        function myFunction() {
-            var x = document.getElementById("tabl");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
-</script>
 
 @endsection
