@@ -29,7 +29,7 @@
                         <!-- for hide and view table content -->
                 <button onclick="myFunction()" class="btn btn-info">View Table</button> <br>
 
-                <table class="table" id="table" style="display: none; height:150px; overflow: auto;">
+                <table class="table" id="table" style="display: none; height:150px; overflow: auto;" >
                     <thead>
                     <tr>
                         <th>Applicant Name</th>

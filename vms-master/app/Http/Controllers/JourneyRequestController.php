@@ -17,7 +17,7 @@ class JourneyRequestController extends Controller
 
             $journey->approved_at = Carbon::now();
             $journey->approved_by = '000046';
-            $journey->approval_remarks = $request->remarks;
+            $journey->approval_remarks = $request->remarks; 
 
             if($request->is_approved == '1'){
                 $journey->journey_status_id = '2';

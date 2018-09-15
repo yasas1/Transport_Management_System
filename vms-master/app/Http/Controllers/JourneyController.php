@@ -76,18 +76,9 @@ class JourneyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(CreateJourneyRequest $request)
-    {
-        /* $this->validate($request , [
-            'vehical_id' => 'required',
-            'time_range' => 'required',
-            'number_of_persons' => 'required',
-            'expected_distance' => 'required',
-            'divisional_head_id' => 'required',
-            'purpose' => 'required', 
-            'funds_allocated_from_id' => 'required'          
-        ]); */
+    {     
 
-        /* // if check vehicle availability in backend
+        /*     // check vehicle availability in backend
         $ForCheckjourneys = Journey::all();
         $start_date_time = Carbon::parse($first);
         $end_date_time = Carbon::parse($second);
@@ -127,18 +118,23 @@ class JourneyController extends Controller
 
         if($expected_end_date_time = Carbon::parse($second)){
             $journey->expected_end_date_time = $expected_end_date_time;
-        }
-
-        // for check availability of requested vehicle    
+        }  
 
         $journey->purpose = $request->purpose;
         $journey->places_to_be_visited = $request->places_to_be_visited;
         $journey->number_of_persons = $request->number_of_persons;
+
         $journey->expected_distance = $request->expected_distance;
+
+        //check long distance
+        if($request->expected_distance>=150){
+            $journey->is_long_distance = 1;
+        }
+
         $journey->funds_allocated_from_id = $request->funds_allocated_from_id;
         $journey->divisional_head_id = $request->divisional_head_id;
 
-        $journey->save(); //commented       
+        //$journey->save();      
 
         try{
 
@@ -240,26 +236,35 @@ class JourneyController extends Controller
         //
     }
 
-
     public function requests(){
+
         $journeys = Journey::notApproved();
-        return view('journey.requests',compact('journeys'));
+        $longDisJourneys = Journey::notApprovedLongDistance();
+
+        return view('journey.requests',compact('journeys','longDisJourneys'));
     }
 
+
     public function notConfirmedJourneys(){
+
         $drivers = Driver::all()->pluck('fullName','id');
         $vehicles = Vehical::all()->pluck('fullName','id');
         $journeys = Journey::notConfirmed();
+
         return view('journey.confirms',compact('journeys','drivers','vehicles'));
     }
 
     public function confirmedJourneys(){
+
         $journeys = Journey::confirmed();
+
         return view('journey.confirmed',compact('journeys'));
     }
 
     public function completed(){
+        
         $journeys = Journey::completed();
+
         return view('journey.completed',compact('journeys'));
     }
 

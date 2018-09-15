@@ -141,17 +141,27 @@ class Journey extends Eloquent
     }
 
     public static function notApproved(){
-        return Journey::where('journey_status_id','=','1')->get();
-    }
+		//return only not approved journeys
+        return Journey::where('journey_status_id','=','1')->where('is_long_distance', '=', '0')->get();
+	}
+
+	public static function notApprovedLongDistance(){
+		       //return not approved long distance journeys
+        return Journey::where('journey_status_id','=','1')->where('is_long_distance', '=', '1')->get();
+	}
+	
     public static function approved(){
         return Journey::where('journey_status_id','=','2')->get();
-    }
+	}
+	
     public static function notConfirmed(){
         return Journey::where('journey_status_id','=','2')->get();
-    }
+	}
+	
     public static function confirmed(){
         return Journey::where('journey_status_id','=','4')->get();
-    }
+	}
+	
     public static function completed(){
         return Journey::where('journey_status_id','=','6')->get();
     }
