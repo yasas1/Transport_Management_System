@@ -16,7 +16,7 @@ use function GuzzleHttp\Psr7\parse_header;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
-use App\Http\Requests\TestRequest;
+use App\Http\Requests\CreateJourneyRequest;
 
 class JourneyController extends Controller
 {
@@ -40,7 +40,12 @@ class JourneyController extends Controller
      */
     public function index()
     {
-        //
+        /*id : journeys[i].id,
+                  start :journeys[i].expected_start_date_time,
+                  ends :journeys[i].expected_end_date_time,
+                  applicant_id :journeys[i].applicant_id,
+                  vehical_id : journeys[i].vehical_id,
+                  driver_id : journeys[i].driver_id, */
     }
 
     /**
@@ -70,9 +75,9 @@ class JourneyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateJourneyRequest $request)
     {
-        $this->validate($request , [
+        /* $this->validate($request , [
             'vehical_id' => 'required',
             'time_range' => 'required',
             'number_of_persons' => 'required',
@@ -80,14 +85,10 @@ class JourneyController extends Controller
             'divisional_head_id' => 'required',
             'purpose' => 'required', 
             'funds_allocated_from_id' => 'required'          
-        ]);
+        ]); */
 
-        $string=$request->time_range;
-        $pos = strrpos($string, ' - ');
-        $first = substr($string, 0, $pos);
-        $second = substr($string, $pos + 3);
-
-        /* $ForCheckjourneys = Journey::all();
+        /* // if check vehicle availability in backend
+        $ForCheckjourneys = Journey::all();
         $start_date_time = Carbon::parse($first);
         $end_date_time = Carbon::parse($second);
         
@@ -115,10 +116,10 @@ class JourneyController extends Controller
             $journey->driver_id = $vehicle->driver->id;
         }
 
-        /*$string=$request->time_range;
+        $string=$request->time_range;
         $pos = strrpos($string, ' - ');
         $first = substr($string, 0, $pos);
-        $second = substr($string, $pos + 3); */
+        $second = substr($string, $pos + 3); 
 
         if($expected_start_date_time = Carbon::parse($first)){
                 $journey->expected_start_date_time = $expected_start_date_time;

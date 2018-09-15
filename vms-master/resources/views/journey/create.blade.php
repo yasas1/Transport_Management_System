@@ -233,30 +233,25 @@
 @endsection
 
 @section('scripts')
-
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js')}}"></script>
     <script src='{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/gcal.min.js')}}'></script>
     <script src="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
     <script>
         var journeys = {!! json_encode($journeys->toArray()) !!};
-        console.log(journeys[0].expected_end_date_time);
+        console.log(journeys[0]);
          var qEvent=[];
          for (let i = 0; i < journeys.length; i++) {
             
             qEvent.push(
                 { id : journeys[i].id,
                   start :journeys[i].expected_start_date_time,
-                  ends :journeys[i].expected_end_date_time,
-                  applicant_id :journeys[i].applicant_id,
-                  vehical_id : journeys[i].vehical_id,
-                  driver_id : journeys[i].driver_id,
-                  
+                  ends :journeys[i].expected_end_date_time,                  
+                  vehical_id : journeys[i].vehical_id,               
                 }
             );             
-         }
-        
-        console.log(qEvent);
+         }    
+        //console.log(qEvent);
         
         $(function () {
             var aaa;
@@ -293,15 +288,7 @@
                            right: 'month,agendaWeek,agendaDay'
                        },
                        googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',
-                       /* events structurer
-                       events: 
-                         [
-                            { id: '1', resourceId: 'b', start: '2018-09-07T02:10:00', end: '2018-09-08T07:11:00' },
-                            { id: '2', resourceId: 'c', start: '2018-09-07T05:00:00', end: '2018-09-07T22:00:00', title: 'event 2' },
-                            { id: '3', resourceId: 'd', start: '2018-09-06', end: '2018-09-08', title: 'event 3' },
-                            { id: '4', resourceId: 'e', start: '2018-09-07T03:00:00', end: '2018-09-09T08:00:00', title: 'event 4' },
-                            { id: '5', resourceId: 'f', start: '2018-09-07T00:30:00', end: '2018-09-10T02:30:00', title: 'event 5' }
-                          ],  */
+                       
                         //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
 
                        events:qEvent,
@@ -351,19 +338,19 @@
     </script>
 
     <script>
-       // for after select the vehicle, set available  field null string
-            $('#vid').on('change',function () {
-                $('#available').html('');
-                console.log("check");
-            });
-    
-    </script>
-
-    <script>
         $('.cmbDivHead').on('click',function () {
             $('#txtDivisionalHead').val($(this).attr('data-value'));
             $('#divDiviHead').html($(this).html());
         });
+    </script>
+
+    <script>
+
+        $('#vid').on('change',function () {
+            $('#available').html('');
+            console.log("check");
+        });
+
     </script>
 
     <script type="text/javascript">
@@ -387,6 +374,7 @@
                 if (vehicle_id=="") {
                     console.log(" vehicle should be selected!..");
                     $('#available').html('vehicle should be selected!..');
+                    $('#dtp').html('');
                 }
                 else{
                     $.get("{{ URL::to('journey/read') }}",function(data){ 
