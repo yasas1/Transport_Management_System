@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class CreateDriverRequest extends FormRequest
+class TestRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class CreateDriverRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::user()->canRequestJourney();
     }
 
     /**
@@ -25,7 +25,13 @@ class CreateDriverRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'vehical_id' => 'required',
+            'time_range' => 'required',
+            'number_of_persons' => 'required',
+            'expected_distance' => 'required',
+            'divisional_head_id' => 'required',
+            'purpose' => 'required', 
+            'funds_allocated_from_id' => 'required'
         ];
     }
 }

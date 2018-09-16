@@ -12,6 +12,11 @@ class JourneyRequestController extends Controller
 
     public function approval(Request $request, $id){
 
+        $this->validate($request , [
+            'remarks' => 'required'
+            
+        ]);
+
 
         if($journey = Journey::whereId($id)->first()){
 
@@ -21,12 +26,14 @@ class JourneyRequestController extends Controller
 
             if($request->is_approved == '1'){
                 $journey->journey_status_id = '2';
-                $journey->update();
-                return redirect()->back()->with(['success'=>'Journey request approved successfully !']);
+                //$journey->update();
+                return $journey;
+                //return redirect()->back()->with(['success'=>'Journey request approved successfully !']);
             }else{
                 $journey->journey_status_id = '3';
-                $journey->update();
-                return redirect()->back()->with(['success'=>'Journey request denied successfully !']);
+                return $journey;
+                //$journey->update();
+                //return redirect()->back()->with(['success'=>'Journey request denied successfully !']);
             }
 
         }

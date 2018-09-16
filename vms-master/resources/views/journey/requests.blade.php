@@ -14,6 +14,17 @@
     @include('layouts.errors')
     @include('layouts.success')
 
+    {{-- <div class="container">        
+        
+        <button type="button" class="btn btn-info">
+            <span class="glyphicon glyphicon-bell"></span>
+        </button>
+        <div class="dropdown-menu" role="menu">
+            <strong>Need Attention for Long Distance Journeys Request List...</strong>
+        </div>
+        
+    </div> --}}
+
             {{-- should view only for director --}} 
     @if(Auth::user()->name =="Director Name" )    
         @if($longDisJourneys)
@@ -51,7 +62,7 @@
                                 <td>{{$journey->vehical->fullname}}</td>
                                 <td>{{$journey->expected_start_date_time->toDayDateTimeString()}}</td>
                                 <td>{{$journey->expected_end_date_time->toDayDateTimeString()}}</td>
-                                <th> {{ $journey->expected_distance }} </th> 
+                                <th>{{$journey->expected_distance }} </th> 
                                 <td>{{$journey->applicant->emp_surname}}</td>
 
                                 <td width="200px">
@@ -130,20 +141,18 @@
                             <div class="row">
                                 <hr>
                                 <div class="col-md-12"> 
+
                                     {!! Form::open(['method' => 'post','id'=>'formApprovalLong','action'=>['JourneyRequestController@approval',$journey->id]]) !!}
                                     <div class="form-group">
                                         <label for="remarks">Remarks</label>
-                                        {{ Form::textarea('remarks', null, ['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2' ]) }}
+                                        {!! Form::textarea('remarks', null, ['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2' ] ) !!}
                                     </div>
                                     <div class="form-group">
                                         <label for="is_approved">Approve</label> 
                                         {!! Form::checkbox('is_approved', 1, true) !!}
                                     </div>
-                                    <div> 
-                                        {{Form::submit('SUBMIT', ['class'=>'btn btn-info pull-left'])}}
-                                    </div>
-
                                     {!! Form::close() !!}
+
                                 </div>
                             </div>
                         </div>
@@ -263,7 +272,7 @@
                                 {!! Form::open(['method' => 'post','id'=>'formApproval','action'=>['JourneyRequestController@approval',$journey->id]]) !!}
                                 <div class="form-group">
                                     <label for="remarks">Remarks</label>
-                                    {!!Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2' ]) !!}
+                                    {!! Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2' ]) !!}
                                 </div>
                                 <div class="form-group">
                                     <label for="is_approved">Approve</label> &nbsp
@@ -365,12 +374,12 @@
                     },
                     onContentReady: function () {
                         // bind to events
-                        var jc = this;
+                        /* var jc = this;
                         this.$content.find('form').on('submit', function (e) {
                             // if the user submits the form by pressing enter in the field.
                             e.preventDefault();
                             jc.$$formSubmit.trigger('click'); // reference the button and click it
-                        });
+                        }); */
                     }
                 });
             })
@@ -402,12 +411,12 @@
                     },
                     onContentReady: function () {
                         // bind to events
-                        var jc = this;
+                        /*var jc = this;
                         this.$content.find('form').on('submit', function (e) {
                             // if the user submits the form by pressing enter in the field.
                             e.preventDefault();
                             jc.$$formSubmit.trigger('click'); // reference the button and click it
-                        });
+                        }); */
                     }
                 });
             })
