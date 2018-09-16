@@ -134,7 +134,7 @@ class JourneyController extends Controller
         $journey->funds_allocated_from_id = $request->funds_allocated_from_id;
         $journey->divisional_head_id = $request->divisional_head_id;
 
-        //$journey->save();      
+        $journey->save();      
 
         try{
 
