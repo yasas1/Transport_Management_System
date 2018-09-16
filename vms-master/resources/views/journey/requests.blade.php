@@ -14,25 +14,22 @@
     @include('layouts.errors')
     @include('layouts.success')
 
-    @if(Auth::user()->name =="Director Name" ) 
-    {{-- <p>{{Auth::user()?Auth::user()->name:''}}</p> --}}
+            {{-- should view only for director --}} 
+    @if(Auth::user()->name =="Director Name" )    
         @if($longDisJourneys)
             <div class="alert alert-info alert-dismissible fade in">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 <strong>Need Attention for Long Distance Journeys Request List...</strong> 
-            </div>
-        @endif
-
+            </div>       
             {{-- for long distance journeys --}}
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h2 class="box-title"> <strong> Long Distance Journey Request List </strong> </h2>
-            </div>
-            <!-- /.box-header -->
-            <!-- form start -->
-    
-            <div class="box-body">
-                @if($longDisJourneys)
+            <div class="box box-primary">
+
+                <div class="box-header with-border">
+                    <h2 class="box-title"> <strong> Long Distance Journey Request List </strong> </h2>
+                </div>
+        
+                <div class="box-body">
+                    
                     <table class="table" id="longDistable" style="height:150px; overflow: auto;">
                         <thead>
                         <tr>
@@ -56,7 +53,7 @@
                                 <td>{{$journey->expected_end_date_time->toDayDateTimeString()}}</td>
                                 <th> {{ $journey->expected_distance }} </th> 
                                 <td>{{$journey->applicant->emp_surname}}</td>
-    
+
                                 <td width="200px">
                                     <button id="{{$journey->id}}" class="btn btn-success btnVie"><i class="fa fa-eye"></i></button>
                                 </td>
@@ -127,7 +124,7 @@
                                         <dt>End Date/ Time</dt>
                                         <dd>{{$journey->expected_end_date_time->toDayDateTimeString()}}</dd>
                                     </dl>
-    
+
                                 </div>
                             </div>
                             <div class="row">
@@ -145,15 +142,15 @@
                                     <div> 
                                         {{Form::submit('SUBMIT', ['class'=>'btn btn-info pull-left'])}}
                                     </div>
-    
+
                                     {!! Form::close() !!}
                                 </div>
                             </div>
                         </div>
-                    @endforeach
-                @endif   
+                    @endforeach                
+                </div>
             </div>
-        </div>
+        @endif 
     @endif
 
         {{-- for journeys that did not request long distance --}}
