@@ -51,8 +51,8 @@
                     {{--{!! Form::label('photo', 'Vehicle Photo',['class' => 'control-label']) !!}--}}
                     {{--{{Form::file('photo',['id'=>'imgVehicleInput'])}}--}}
                     {{--<p class="help-block">Select a driver photo (max 500kb)</p>--}}
-                    {{--</div>--}}
-                    {{--</div>--}}
+                    {{--</div>    --}}
+                    {{--</div>--}} 
                     {{--</div>--}}
                     {{--</div>--}}
 

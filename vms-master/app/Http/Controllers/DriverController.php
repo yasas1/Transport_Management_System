@@ -6,7 +6,7 @@ use App\Models\Driver;
 use App\Models\Title;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\CreateDriverRequest;
 
 class DriverController extends Controller
 {
@@ -20,9 +20,9 @@ class DriverController extends Controller
         return view('driver.create',compact('titles'));
     }
 
-    public function store(Request $request){
+    public function store(CreateDriverRequest $request){
 
-         $this->validate($request,[
+        /* $this->validate($request,[
             'title_id'=>'required',
             'firstname'=>'required',
             'surname'=>'required',
@@ -31,7 +31,7 @@ class DriverController extends Controller
             'mobile'=>'required',
         ],[
             'title_id.required'=>'Driver title is required.'
-        ]); 
+        ]); */
 
         $driver = new Driver;
         $driver->title_id = $request->title_id;

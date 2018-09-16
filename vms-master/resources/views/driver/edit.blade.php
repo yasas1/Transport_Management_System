@@ -122,7 +122,13 @@
                         </div>
                     </div>
                     {!! Form::close() !!}
+                    <div>
+                        {!! Form::open(['method'=> 'DELETE','action'=>['DriverController@destroy',$driver->id]]) !!}                   
 
+                        {{Form::submit('DELETE', ['class'=>'btn btn-danger'])}}
+
+                        {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
         </div>

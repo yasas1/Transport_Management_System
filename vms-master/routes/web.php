@@ -58,6 +58,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::post('/driver/store','DriverController@store');
     Route::get('/driver/{id}/edit','DriverController@edit');
     Route::patch('/driver/update/{id}','DriverController@update');
+    Route::delete('/driver/delete/{id}','DriverController@destroy');
 
     /*
      * Journey CRUD
