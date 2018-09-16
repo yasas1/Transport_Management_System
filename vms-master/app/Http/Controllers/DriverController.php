@@ -7,6 +7,7 @@ use App\Models\Title;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+
 class DriverController extends Controller
 {
     public function index(){
@@ -21,7 +22,7 @@ class DriverController extends Controller
 
     public function store(Request $request){
 
-        $this->validate($request,[
+         $this->validate($request,[
             'title_id'=>'required',
             'firstname'=>'required',
             'surname'=>'required',
@@ -30,7 +31,7 @@ class DriverController extends Controller
             'mobile'=>'required',
         ],[
             'title_id.required'=>'Driver title is required.'
-        ]);
+        ]); 
 
         $driver = new Driver;
         $driver->title_id = $request->title_id;
@@ -90,6 +91,20 @@ class DriverController extends Controller
 
         return redirect('driver')->withErrors(['Driver not found.']);
 
+    }
+
+    public function destroy($id){
+
+         if($driver = Driver::whereId($id)->first()){
+
+            $driver->delete();
+            return redirect('driver')->with(['success'=>'Driver Deleted successfully !']);
+         }
+
+        // return redirect('driver')->withErrors(['Driver not found.']);
+
+        // $driver = Driver::whereId($id)->delete();
+        // return redirect()->back()->with(['success'=>'Driver Deleted successfully !']);
     }
 
 }
