@@ -27,6 +27,10 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Vehicle Calender</h3>
+
+                {{-- @foreach($journeys as $journey)
+                    <p> {{ $journey->vehical->name }}</p>
+                @endforeach --}}
             </div>
 
             <div class="box-body">
@@ -239,7 +243,8 @@
     <script src="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
     <script>
         var journeys = {!! json_encode($journeys->toArray()) !!};
-        console.log(journeys[0]);
+        
+        //console.log(journeys);
          var qEvent=[];
          for (let i = 0; i < journeys.length; i++) {
             
@@ -348,6 +353,7 @@
 
         $('#vid').on('change',function () {
             $('#available').html('');
+            $('#dtp').val('');
             console.log("check");
         });
 
@@ -366,51 +372,41 @@
                 locale: {
                     format: 'MM/DD/YYYY HH:mm'
                 }
-            }, function(start, end, label) {
+            },function(start, end, label) {
                 
                 console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:mm') + ' to ' + end.format('YYYY-MM-DD HH:mm') + ' (predefined range: ' + label + ')');                 
-                
+               
                 var vehicle_id = $('#vid').val();
                 if (vehicle_id=="") {
                     console.log(" vehicle should be selected!..");
                     $('#available').html('vehicle should be selected!..');
-                    $('#dtp').html('');
+                    $('#dtp').val('');                                  
                 }
                 else{
                     $.get("{{ URL::to('journey/read') }}",function(data){ 
-
-                         console.log( start.format('mm') );
-                        // console.log( start.format('MM') );
-                        // console.log( start.format('DD') );    
-
+                        //console.log( start.format('mm') );    
                         $.each(data,function(i,value){
                             
                             var jStartDate = new Date( Date.parse(value.expected_start_date_time,"Y-m-d") );                           
                             var jEndDate = new Date( Date.parse(value.expected_end_date_time,"Y-m-d") );   
-                            //console.log( jDate.getDate() );
-
-                            // console.log( jDate.getFullYear() );
-                            // console.log( jDate.getMonth()+1 );
-                            // console.log( jDate.getDate()  );
-                            
-
+                            //console.log( jDate.getDate() );                                                      
                             if(jStartDate.getFullYear() == start.format('YYYY') && jStartDate.getMonth()+1 == start.format('MM') && jStartDate.getDate() == start.format('DD') ){
-                                // console.log( start.format('YYYY') );
-                                // console.log( start.format('MM')  ); available
-                                // console.log( start.format('DD') );
-                                
+                                // console.log( start.format('YYYY') );;                             
                                 if(jStartDate.getHours() == start.format('HH') && jStartDate.getMinutes() == start.format('mm') ){
                                     console.log( 'check 1' );
                                     $('#available').html('Selected Vehicle is not available at time range');
+                                    $('#vid').val('');
                                     
                                 }
                                 else if(jStartDate.getHours() <= start.format('HH') && jEndDate.getHours() >= start.format('HH') ){
                                     console.log( 'check 2' );
                                     $('#available').html('Selected Vehicle is not available at time range');
+                                    $('#vid').val('');
                                 }
                                 else if(jStartDate.getHours() >= start.format('HH') && jStartDate.getHours() <= end.format('HH') ){
                                     console.log( 'check 3' );
                                     $('#available').html('Selected Vehicle is not available at time range');
+                                    $('#vid').val('');
                                 }
                                 else{
                                     console.log( 'available' );
@@ -421,7 +417,7 @@
 
                         });
                     });
-                }
+                } 
                 
             });
         });
@@ -436,6 +432,12 @@
            }
 
         });
+
+        // $('#dtp').on('keyup change',function () {
+           
+        //     console.log( 'check change' );  
+
+        // });
 
     </script>
 
