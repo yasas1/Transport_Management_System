@@ -225,15 +225,12 @@
         <!-- /. box -->
     </div>
 
-    <!-- For Calender Event Click  modal-dialog modal-lg -->
+    <!-- For Calender Event Click-->
  @if($journeys)
-    @foreach($journeys as $journey) 
-
-    <div id="myModal" class="modal fade" role="dialog"> 
+ @foreach($journeys as $journey)
         
-        <div id="modalBody" class="modal-body"> </div>
-        {{-- @if($journey->id==)   {{$journey->id}} --}}
-        <div class="modal-dialog" id="{{$journey->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">       
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg" id="{{$journey->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">       
                
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -241,7 +238,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <div class="row">
                             <div class="col-md-12">
-                                <h3>Journey Request Confirmations
+                                <h3>Journey Request Confirmation
                                     @if($journey->journey_status_id == 1)
                                         <span class="label label-danger pull-right">Not Approved</span>
                                         <span class="label label-danger pull-right">Not Confirmed</span>
@@ -369,9 +366,9 @@
                 </div>
             </div>
         </div>
-        
     </div>
-    @endforeach
+    
+@endforeach
 @endif
 
 @endsection
@@ -434,14 +431,6 @@
 
     {{-- Script for calender view --}}
 
-    <script>
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-    </script>
-
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js')}}"></script>
 <script src='{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/gcal.min.js')}}'></script>
@@ -460,7 +449,7 @@
               ends :journeys[i].expected_end_date_time,
               applicant_id :journeys[i].applicant_id,
               vehical_id : journeys[i].vehical_id,
-              purpose : journeys[i].purpose,
+              
               driver_id : journeys[i].driver_id,
               
             }
@@ -511,47 +500,47 @@
                    events:qEvent,                  
 
                    eventSources: aaa,
-                   
                    eventClick: function(event, element) {
-                        console.log(event);
-                                              
-                        // $('#myModal').modal('show');  {{url('/user/role/module/0/permissions')}}
 
-                        var id = event.id ;
+                       //console.log(event);
+                       //$('#myModal').modal('toggle');
 
-                        var url = "{{ url('journey/read') }}";
-                        $.get("{{ URL::to('journey/'.$module->id.'read') }}",function(data){ 
-                           
-                            console.log(data);
-                            
-                        }); 
-                                      
-                        
-                        var moment = $('#calendar').fullCalendar('getDate');
+                       var moment = $('#calendar').fullCalendar('getDate');
 
-                        /*$.confirm({
+                       $.ajax({
+                            url: '/journey/read/{id}',
+                            type: 'GET',
+                            data: { id: 4 },
+                            success: function(response)
+                            {
+                                console.log(response);
+                                //$('#something').html(response);
+                            }
+                        });
+
+                       /*$.confirm({
                            title: 'Complted!', 
                            content:"<h4>ID - "+ event.id+"</h4>" +
                            "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:MM:SS') + "</h4>" +
                            "<h4>End - "+ event.ends +"</h4>",
-                            buttons: {
+                           buttons: {
                                somethingElse: {
                                    text: 'OK',
                                    btnClass: 'btn-blue',
                                    keys: ['enter', 'shift'],
                                    action: function(){
 
-                                    }
-                                }
-                            }
-                        }); */
+                                   }
+                               }
+                           }
+                       }); */
 
                    }, 
                    dayClick: function(date) {
                        //alert('clicked ' + date.format());
                    },
                    select: function(startDate, endDate) {
-                       
+                       $('#myModal').modal('toggle');
                        //alert('selected ' + startDate.format() + ' to ' + endDate.format());
                        // $('#dtp').val(startDate.format('MM/DD/YYYY HH:mm')+' - '+endDate.format('MM/DD/YYYY HH:mm'));
                        $('#dtp').val(startDate.format()+' - '+endDate.format())

@@ -69,6 +69,14 @@ class JourneyController extends Controller
         return response($journeys);
     }
 
+    public function readJourneyForConfirmAjax(){
+
+        $id = $_GET['id'];
+
+        $journeys = Journey::whereId($id)->first();
+        return response($journeys);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
