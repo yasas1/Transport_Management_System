@@ -12,10 +12,10 @@ class JourneyRequestController extends Controller
 
     public function approval(Request $request, $id){
 
-        $this->validate($request , [
-            'remarks' => 'required'
+        // $this->validate($request , [
+        //     'remarks' => 'required'
             
-        ]);
+        // ]);
 
 
         if($journey = Journey::whereId($id)->first()){
