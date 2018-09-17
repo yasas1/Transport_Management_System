@@ -510,7 +510,7 @@
                        $.ajax({
                             url: '/journey/read/{id}',
                             type: 'GET',
-                            data: { id: 4 },
+                            data: { id: event.id },
                             success: function(response)
                             {
                                 console.log(response);
@@ -518,7 +518,7 @@
                             }
                         });
 
-                       /*$.confirm({
+                       $.confirm({
                            title: 'Complted!', 
                            content:"<h4>ID - "+ event.id+"</h4>" +
                            "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:MM:SS') + "</h4>" +
@@ -533,7 +533,7 @@
                                    }
                                }
                            }
-                       }); */
+                       }); 
 
                    }, 
                    dayClick: function(date) {

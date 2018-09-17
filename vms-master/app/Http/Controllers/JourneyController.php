@@ -74,7 +74,7 @@ class JourneyController extends Controller
         $id = $_GET['id'];
 
         $journeys = Journey::whereId($id)->first();
-        return response($journeys);
+        return response($journeys->vehical);
     }
 
     /**
