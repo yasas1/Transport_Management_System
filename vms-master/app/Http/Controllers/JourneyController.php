@@ -71,8 +71,21 @@ class JourneyController extends Controller
 
     public function readJourneyForConfirmAjax(){
         $id = $_GET['id'];
-        $journeys = Journey::whereId($id)->first();
-        return response($journeys);
+
+        $journey = Journey::whereId($id)->first();
+        $vehicle = $journey->vehical;
+        $driver = $journey->vehical->driver->getFullNameAttribute();
+        $applicant = $journey->applicant;
+        $applicant_dept = $journey->applicant->division->dept_name;
+        $devisional_head = $journey->divisional_head->getFullNameAttribute();
+        $approved_by = $journey->approvedBy->getFullNameAttribute();
+
+        $data = json_encode(array(
+             $journey , $vehicle ,$driver ,$applicant , $applicant_dept , $devisional_head, $approved_by
+            
+        ));
+        return response($data);
+        //return $journeys;
     }
 
     /**

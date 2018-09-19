@@ -105,5 +105,9 @@ class Employee extends Eloquent
 
         return $this->belongsTo(\App\Models\Designation::class,'emp_designation','desig_id');
 
+	}
+	
+	public function getFullNameAttribute(){
+        return $this->emp_title.' '.$this->emp_initials.' '.$this->emp_surname;
     }
 }

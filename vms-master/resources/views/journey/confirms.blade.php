@@ -493,19 +493,22 @@
                             data: { id: event.id },
                             success: function(data)
                             {
-                                console.log(data);
+                                var details = JSON.parse(data);
+                                // console.log(details[0].expected_distance);
 
-                                $('#purpose').html(data.purpose);
-                                $('#places_to_be_visited').html(data.places_to_be_visited);
-                                $('#number_of_persons').html(data.number_of_persons);
-                                $('#expected_distance').html(data.expected_distance); 
-                                $('#expected_start_date_time').html(data.expected_start_date_time);  
-                                $('#expected_end_date_time').html(data.expected_end_date_time);
+                                console.log(details[0]);
+
+                                $('#purpose').html(details[0].purpose);
+                                $('#places_to_be_visited').html(details[0].places_to_be_visited);
+                                $('#number_of_persons').html(details[0].number_of_persons);
+                                $('#expected_distance').html(details[0].expected_distance); 
+                                $('#expected_start_date_time').html(details[0].expected_start_date_time);  
+                                $('#expected_end_date_time').html(details[0].expected_end_date_time);
                                // $('#approved_at').val(data.approved_at); 
-                                $('#approved_at').html(data.approved_at);
-                                $('#approval_remarks').html(data.approval_remarks);
+                                $('#approved_at').html(details[0].approved_at);
+                                $('#approval_remarks').html(details[0].approval_remarks);
 
-                                $('#journeyid').val(data.id);
+                                $('#journeyid').val(details[0].id); 
 
                             }
                         });
