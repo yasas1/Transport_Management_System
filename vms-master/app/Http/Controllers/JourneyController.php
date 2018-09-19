@@ -70,11 +70,16 @@ class JourneyController extends Controller
     }
 
     public function readJourneyForConfirmAjax(){
-
         $id = $_GET['id'];
+        $journey = Journey::whereId($id)->first();
+        $vehicle = $journey->vehical;
 
-        $journeys = Journey::whereId($id)->first();
-        return response($journeys->vehical);
+        $data = json_encode(array(
+             $journey , $vehicle
+            
+        ));
+        return response($data);
+        //return $journeys;
     }
 
     /**

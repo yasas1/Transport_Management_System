@@ -492,10 +492,11 @@
                             data: { id: event.id },
                             success: function(data)
                             {
-                                console.log(data);
-                                $('#purpose').html(data.purpose);
+                                var details = JSON.parse(data);
+	                            console.log(details);
+                                //$('#purpose').html(data.purpose);
                                 //$('#journeyid').val(data.id);
-                                $('#journeyid').val(data.id);
+                                //$('#journeyid').val(data.id);
 
                             }
                         });
