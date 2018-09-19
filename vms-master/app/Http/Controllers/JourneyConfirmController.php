@@ -57,7 +57,15 @@ class JourneyConfirmController extends Controller
 
     }
 
-    public function test(Request $request){
-        return $request;
+    public function confirmAjax(Request $request){
+
+        if($request->ajax()){ 
+
+            $journey = Journey::find($request->id);
+            //$journey = Journey::all();
+            
+            return response($journey);
+
+        }
     }
 }
