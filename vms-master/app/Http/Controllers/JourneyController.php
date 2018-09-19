@@ -75,17 +75,17 @@ class JourneyController extends Controller
         $journey = Journey::whereId($id)->first();
         $vehicle = $journey->vehical;
         $driver = $journey->vehical->driver->getFullNameAttribute();
-        $applicant = $journey->applicant;
+        $applicant_name = $journey->applicant->getFullNameAttribute();
         $applicant_dept = $journey->applicant->division->dept_name;
+        $applicant_email = $journey->applicant->emp_email;
         $devisional_head = $journey->divisional_head->getFullNameAttribute();
         $approved_by = $journey->approvedBy->getFullNameAttribute();
 
         $data = json_encode(array(
-             $journey , $vehicle ,$driver ,$applicant , $applicant_dept , $devisional_head, $approved_by
+             $journey , $vehicle ,$driver ,$applicant_name , $applicant_dept, $applicant_email, $devisional_head, $approved_by
             
         ));
         return response($data);
-        //return $journeys;
     }
 
     /**

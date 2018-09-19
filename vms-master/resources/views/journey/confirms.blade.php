@@ -503,12 +503,16 @@
                                 $('#number_of_persons').html(details[0].number_of_persons);
                                 $('#expected_distance').html(details[0].expected_distance); 
                                 $('#expected_start_date_time').html(details[0].expected_start_date_time);  
-                                $('#expected_end_date_time').html(details[0].expected_end_date_time);
-                               // $('#approved_at').val(data.approved_at); 
-                                $('#approved_at').html(details[0].approved_at);
+                                $('#expected_end_date_time').html(details[0].expected_end_date_time);                            
+                                $('#approved_at').html(details[0].approved_at); 
+                                $('#approved_by').html(details[7]);
                                 $('#approval_remarks').html(details[0].approval_remarks);
 
                                 $('#journeyid').val(details[0].id); 
+
+                                $('#appl_name').html(details[3]);
+                                $('#appl_dept').html(details[4]);
+                                $('#appl_email').html(details[5]); 
 
                             }
                         });
