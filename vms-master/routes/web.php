@@ -83,6 +83,10 @@ Route::group(['middleware'=>['authenticate','active']],function (){
      * Journey Request Confirmation
      * */
     Route::post('/journey/request/{id}/confirm','JourneyConfirmController@confirm');
+
+    Route::post('/journey/request/confirmAjax','JourneyConfirmController@confirmAjax');
+
+
     /*Show Confirmed Requests*/
     Route::get('/journey/requests/confirmed','JourneyController@confirmedJourneys');
     /*Show Confirmed Requests to complete*/
@@ -100,6 +104,8 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::post('/user/store','UserController@store');
     Route::get('/user/{id}/edit','UserController@edit');
     Route::patch('/user/update','UserController@update');
+
+    
 
     /*Role Crud*/
     Route::get('/user/roles','RoleController@index');

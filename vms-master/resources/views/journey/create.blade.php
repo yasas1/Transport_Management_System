@@ -251,7 +251,8 @@
             qEvent.push(
                 { id : journeys[i].id,
                   start :journeys[i].expected_start_date_time,
-                  ends :journeys[i].expected_end_date_time,                  
+                  end :journeys[i].expected_end_date_time,
+                  purpose : journeys[i].purpose,                  
                   vehical_id : journeys[i].vehical_id,               
                 }
             );             
@@ -283,7 +284,7 @@
                },
                complete:function () {             
 
-                   console.log(aaa);
+                   //console.log(aaa);
                    $('#calendar').fullCalendar({
                        selectable: true,
                        defaultView:'agendaWeek',
@@ -305,8 +306,9 @@
                            $.confirm({
                                title: 'Journey!', //Confirm
                                content:"<h4>ID - "+ event.id+"</h4>" + 
+                               "<h4>Purpose - "+ event.purpose+"</h4>" + 
                                "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:mm:SS') + "</h4>" +
-                               "<h4>End - "+ event.ends +"</h4>"+
+                               "<h4>End - "+ event.end.format('YYYY-MM-DD HH:mm:SS') +"</h4>"+
                                "<h4>Vehicle Id - "+ event.vehical_id +"</h4>",
                                buttons: {
                                    somethingElse: {

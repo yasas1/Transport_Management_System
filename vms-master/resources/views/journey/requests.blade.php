@@ -25,7 +25,7 @@
         
     </div> --}}
 
-            {{-- should view only for director --}} 
+            {{-- check with director's employee id from employee db --}} 
     @if(Auth::user()->name =="Director Name" )    
         @if($longDisJourneys)
             <div class="alert alert-info alert-dismissible fade in">
@@ -66,7 +66,7 @@
                                 <td>{{$journey->applicant->emp_surname}}</td>
 
                                 <td width="200px">
-                                    <button id="{{$journey->id}}" class="btn btn-success btnVie"><i class="fa fa-eye"></i></button>
+                                    <button id="{{$journey->id}}" class="btn btn-success btnViewLong"><i class="fa fa-eye"></i></button>
                                 </td>
                             </tr>
                         @endforeach
@@ -156,7 +156,7 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach                
+                    @endforeach                 
                 </div>
             </div>
         @endif 
@@ -275,7 +275,7 @@
                                     {!! Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2' ]) !!}
                                 </div>
                                 <div class="form-group">
-                                    <label for="is_approved">Approve</label> &nbsp
+                                    <label for="is_approved">Approve</label> 
                                     {!! Form::checkbox('is_approved', 1, true) !!}
                                 </div>
                                 {!! Form::close() !!}
@@ -333,7 +333,7 @@
     
     <script>
         $(function () {
-            $('.btnVie').on('click',function () {
+            $('.btnViewLong').on('click',function () {
 
                 // var longDisJourneys = {!! json_encode($longDisJourneys->toArray()) !!};
                 // console.log(longDisJourneys);
