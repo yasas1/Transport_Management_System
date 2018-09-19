@@ -240,6 +240,75 @@
             </div>
             <div class="modal-body">
 
+                <div class="row">
+                        <div class="col-md-6">
+                            <dl class="dl-horizontal">
+                                <h4>Applicant</h4>
+                                <dt>Name</dt>
+                                <dd> </dd>
+                                <dt>Division</dt>
+                                <dd></dd>
+                                <dt>Email</dt>
+                                <dd></dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <h4>Resources</h4>
+                                <dt>Vehicle Number</dt>
+                                {{-- {{$journey->vehical->registration_no}} --}}
+                                <dd> </dd>
+                                <dt>Vehicle Name</dt>
+                                <dd></dd>
+                                <dt>Driver</dt>
+                                <dd></dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt>Divisional Head</dt>
+                                {{-- {{$journey->divisional_head->emp_title.' '.$journey->divisional_head->emp_initials.'. '.$journey->divisional_head->emp_surname}} --}}
+                                <dd> </dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <dl class="dl-horizontal">
+                                <h4>Details</h4>
+                                <dt>Purpose</dt>
+                                <dd id="purpose"></dd>
+                                <dt>Places To Be Visited</dt>
+                                <dd id="places_to_be_visited"></dd>
+                                <dt>Number of Persons</dt>
+                                <dd id="number_of_persons"></dd>
+                                <dt>Approximate Distance</dt>
+                                <dd id="expected_distance"> ' km'</dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <h4>Expected Date and Time Range</h4>
+                                <dt>Start Date/ Time</dt>
+                                {{-- {{$journey->expected_start_date_time->toDayDateTimeString()}} --}}
+                                <dd id="expected_start_date_time "> </dd>
+                                <dt>End Date/ Time</dt>
+                                <dd id="expected_end_date_time "> </dd>
+                                <dt>Journey Duration</dt>
+                                {{-- {{$journey->expected_end_date_time->diffInHours($journey->expected_start_date_time)}} hours --}}
+                                <dd> </dd>
+                            </dl>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dl class="dl-horizontal">
+                                <h4>Approval</h4>
+                                <dt>Approved By</dt>
+                                {{-- {{$journey->approvedBy->emp_title.' '.$journey->approvedBy->emp_initials.'. '.$journey->approvedBy->emp_surname}} --}}
+                                <dd> </dd>
+                                <dt>Approved At</dt>
+                                {{-- {{$journey->approved_at->toDayDateTimeString()}} --}}
+                                <dd id="approved_at"></dd>
+                                <dt>Remarks</dt>
+                                <dd id="approval_remarks"></dd>
+                            </dl>
+                        </div>
+                    </div>
+
                 <div class="row">                
                     <div class="col-md-12">
                         <h4>Change Journey details</h4>
@@ -290,7 +359,7 @@
             </div>
             <div class="modal-footer">
                     <input type="submit" class="btn btn-success" name="submit" value="SUBMIT">
-                    
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </form>
                     {{-- {!! Form::close() !!} --}}
             </div>
@@ -329,28 +398,28 @@
         } );
     </script>
 
-    <script type="text/javascript">
-        $(function () {
-            $('#dtp,#dtp1').daterangepicker({
-                "singleDatePicker": true,
-                "timePicker": true,
-                "linkedCalendars": false,
-                "showCustomRangeLabel": false,
-                "timePicker24Hour": true,
-                "minDate": moment(),
-                drops:"up",
-                locale: {
-                    format: 'MM/DD/YYYY HH:mm'
-                }
-            }, function(start, end, label) {
-                console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:mm') + ' to ' + end.format('YYYY-MM-DD HH:mm') + ' (predefined range: ' + label + ')');
-            });
-            $('#dtp').on('show.daterangepicker', function(e){
-                var modalZindex = $(e.target).closest('.modal').css('z-index');
-                $('.daterangepicker').css('z-index', modalZindex+100);
-            });
+<script type="text/javascript">
+    $(function () {
+        $('#dtp,#dtp1').daterangepicker({
+            "singleDatePicker": true,
+            "timePicker": true,
+            "linkedCalendars": false,
+            "showCustomRangeLabel": false,
+            "timePicker24Hour": true,
+            "minDate": moment(),
+            drops:"up",
+            locale: {
+                format: 'MM/DD/YYYY HH:mm'
+            }
+        }, function(start, end, label) {
+            console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:mm') + ' to ' + end.format('YYYY-MM-DD HH:mm') + ' (predefined range: ' + label + ')');
         });
-    </script>
+        $('#dtp').on('show.daterangepicker', function(e){
+            var modalZindex = $(e.target).closest('.modal').css('z-index');
+            $('.daterangepicker').css('z-index', modalZindex+100);
+        });
+    });
+</script>
 
     {{-- Script for calender view --}}
 
@@ -377,8 +446,6 @@
             }
         );             
     } 
-    
-    //console.log(qEvent);
    
     $(function () {
         var aaa;
@@ -416,44 +483,45 @@
                    events:qEvent,                  
                    eventSources: aaa,
                    eventClick: function(event, element) {
-                       //console.log(event);
-                       //$('#myModal').modal('toggle');
-                       var moment = $('#calendar').fullCalendar('getDate');
-                       $.ajax({
+                        //console.log(event);
+                        
+                        var moment = $('#calendar').fullCalendar('getDate');
+                        $.ajax({
                             url: '/journey/read/{id}',
                             type: 'GET',
                             data: { id: event.id },
                             success: function(data)
                             {
                                 console.log(data);
-                                //.find('#journeyid')
+                                $('#purpose').html(data.purpose);
+                                //$('#journeyid').val(data.id);
                                 $('#journeyid').val(data.id);
 
                             }
                         });
                         $('#modal').modal('toggle');
-                       $.confirm({
-                           title: 'Complted!', 
-                           content:"<h4>ID - "+ event.id+"</h4>" + 
-                           "<h4>ID - "+ event.purpose+"</h4>" +
-                           "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:MM:SS') + "</h4>" +
-                           "<h4>End - "+ event.end.format('YYYY-MM-DD HH:MM:SS') +"</h4>",
-                           buttons: {
-                               somethingElse: {
-                                   text: 'OK',
-                                   btnClass: 'btn-blue',
-                                   keys: ['enter', 'shift'],
-                                   action: function(){
-                                   }
-                               }
-                           }
-                       }); 
+                        /*$.confirm({
+                            title: 'Complted!', 
+                            content:"<h4>ID - "+ event.id+"</h4>" + 
+                            "<h4>ID - "+ event.purpose+"</h4>" +
+                            "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:MM:SS') + "</h4>" +
+                            "<h4>End - "+ event.end.format('YYYY-MM-DD HH:MM:SS') +"</h4>",
+                            buttons: {
+                                somethingElse: {
+                                    text: 'OK',
+                                    btnClass: 'btn-blue',
+                                    keys: ['enter', 'shift'],
+                                    action: function(){
+                                    }
+                                }
+                            }
+                        }); */
                    }, 
                    dayClick: function(date) {
                        //alert('clicked ' + date.format());
                    },
                    select: function(startDate, endDate) {
-                       $('#myModal').modal('toggle');
+                       //$('#myModal').modal('toggle');
                        //alert('selected ' + startDate.format() + ' to ' + endDate.format());
                        // $('#dtp').val(startDate.format('MM/DD/YYYY HH:mm')+' - '+endDate.format('MM/DD/YYYY HH:mm'));
                        $('#dtp').val(startDate.format()+' - '+endDate.format())
@@ -462,8 +530,6 @@
            }
        })
     });
-   
-   
 </script> 
 
 <script>
@@ -473,17 +539,12 @@
         var data = $(this).serialize();
         var url = $(this).attr('action');
         $.post(url,data,function(data){
-            //console.log(data);           
-            //window.location.reload(true);
-
-            
-            window.setTimeout(function(){ 
-                location.reload();
-            } ,1000);
-           
-            
-        });
-        
+            console.log(data);           
+            window.location.reload(true);
+            // window.setTimeout(function(){ 
+            //     location.reload();
+            // } ,1000);                     
+        });       
     });
     
 </script>
