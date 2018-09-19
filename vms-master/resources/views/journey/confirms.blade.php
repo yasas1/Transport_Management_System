@@ -216,156 +216,12 @@
                 <h3 class="box-title">Comfirm Journey Calender</h3>
             </div> --}}
             <div class="box-body">
-
                 <div id='calendar'></div>
-
             </div>          
         </div>      
     </div>
 
     <!-- For Calender Event Click-->
- @if($journeys)
-       
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-lg" id="{{$journey->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">       
-               
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3>Journey Request Confirmation
-                                    @if($journey->journey_status_id == 1)
-                                        <span class="label label-danger pull-right">Not Approved</span>
-                                        <span class="label label-danger pull-right">Not Confirmed</span>
-                                    @endif
-                                    @if($journey->journey_status_id == 2)
-                                        <span class="label label-success pull-right">Approved</span>
-                                        <span class="label label-danger pull-right">Not Confirmed</span>
-                                    @endif
-                                    @if($journey->journey_status_id == 3)
-                                        <span class="label label-success pull-right">Approved</span>
-                                        <span class="label label-danger pull-right">Confirmed</span>
-                                    @endif
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <dl class="dl-horizontal">
-                                    <h4>Applicant</h4>
-                                    <dt>Name</dt>
-                                    <dd>{{$journey->applicant->emp_surname}}</dd>
-                                    <dt>Division</dt>
-                                    <dd>{{$journey->applicant->division->dept_name}}</dd>
-                                    <dt>Email</dt>
-                                    <dd>{{$journey->applicant->emp_email}}</dd>
-                                </dl>
-                                <dl class="dl-horizontal">
-                                    <h4>Resources</h4>
-                                    <dt>Vehicle Number</dt>
-                                    <dd>{{$journey->vehical->registration_no}}</dd>
-                                    <dt>Vehicle Name</dt>
-                                    <dd>{{$journey->vehical->name}}</dd>
-                                    <dt>Driver</dt>
-                                    <dd>{{$journey->vehical->driver->fullname}}</dd>
-                                </dl>
-                                <dl class="dl-horizontal">
-                                    <dt>Divisional Head</dt>
-                                    <dd>{{$journey->divisional_head->emp_title.' '.$journey->divisional_head->emp_initials.'. '.$journey->divisional_head->emp_surname}}</dd>
-                                </dl>
-                            </div>
-                            <div class="col-md-6">
-                                <dl class="dl-horizontal">
-                                    <h4>Details</h4>
-                                    <dt>Purpose</dt>
-                                    <dd>{{$journey->purpose}}</dd>
-                                    <dt>Places To Be Visited</dt>
-                                    <dd>{{$journey->places_to_be_visited}}</dd>
-                                    <dt>Number of Persons</dt>
-                                    <dd>{{$journey->number_of_persons}}</dd>
-                                    <dt>Approximate Distance</dt>
-                                    <dd>{{$journey->expected_distance.' km'}}</dd>
-                                </dl>
-                                <dl class="dl-horizontal">
-                                    <h4>Expected Date and Time Range</h4>
-                                    <dt>Start Date/ Time</dt>
-                                    <dd>{{$journey->expected_start_date_time->toDayDateTimeString()}}</dd>
-                                    <dt>End Date/ Time</dt>
-                                    <dd>{{$journey->expected_end_date_time->toDayDateTimeString()}}</dd>
-                                    <dt>Journey Duration</dt>
-                                    <dd>{{$journey->expected_end_date_time->diffInHours($journey->expected_start_date_time)}} hours</dd>
-                                </dl>
-
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <dl class="dl-horizontal">
-                                    <h4>Approval</h4>
-                                    <dt>Approved By</dt>
-                                    <dd>{{$journey->approvedBy->emp_title.' '.$journey->approvedBy->emp_initials.'. '.$journey->approvedBy->emp_surname}}</dd>
-                                    <dt>Approved At</dt>
-                                    <dd>{{$journey->approved_at->toDayDateTimeString()}}</dd>
-                                    <dt>Remarks</dt>
-                                    <dd>{{$journey->approval_remarks}}</dd>
-                                </dl>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <hr>
-                            <div class="col-md-12">
-                                <h4>Change Journey details</h4>
-                                {!! Form::model($journey,['method' => 'post','id'=>'formConfirmation'.$journey->id ,'action'=>['JourneyConfirmController@confirm',$journey->id]]) !!}
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="vehical_id">Change Vehicle</label>
-                                            {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control','placeholder'=>'Select a Vehicle'])}}
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="driver_id">Change Driver</label>
-                                            {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','placeholder'=>'Select a Vehicle'])}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="confirmed_start_date_time">Start Date/ Time</label>
-                                            {{Form::text('confirmed_start_date_time',null,['class'=>'form-control','id'=>'dtp'])}}
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="confirmed_end_date_time">End Date/ Time</label>
-                                            {{Form::text('confirmed_end_date_time',null,['class'=>'form-control','id'=>'dtp1'])}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="confirmation_remarks">Remarks</label>
-                                    {{Form::textarea('confirmation_remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2' ])}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <input type="submit" class="btn btn-success" name="submitType" value="CONFIRM">
-                        <input type="submit" class="btn btn-danger" name="submitType" value="DENY">
-                        {!! Form::close() !!}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-@endif
 
 <div id="modal" class="modal fade" role="dialog">
 
@@ -391,7 +247,8 @@
                         {{-- {{ URL::to('journey/request/confirmAjax')}} --}}
                         {{-- <div id="journeyid"> </div> --}}
                         <form action="{{ URL::to('/journey/request/confirmAjax')}}" method="POST" id="formConfirmationAjax">
-                        <input type="text" name="id" id="journeyid">
+                            {{csrf_field()}}
+                        <input type="hidden" name="id" id="journeyid">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -424,23 +281,22 @@
                             <label for="confirmation_remarks">Remarks</label>
                             {{Form::textarea('confirmation_remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2' ])}}
                         </div>
+                        <div class="form-group">
+                            <label for="is_approved">CONFIRM</label> 
+                            {!! Form::checkbox('is_confirm', 1, true) !!}
+                        </div>
                     </div>
                 </div>
-
             </div>
-
             <div class="modal-footer">
-                    <input type="submit" class="btn btn-success" name="submitType" value="update">
-                    <input type="submit" class="btn btn-danger" name="submitType" value="DENY">
-                        </form>
-                    {!! Form::close() !!}
+                    <input type="submit" class="btn btn-success" name="submit" value="SUBMIT">
+                    
+                    </form>
+                    {{-- {!! Form::close() !!} --}}
             </div>
-
         </div>
     </div>
-
 </div>
-
 
 @endsection
 
@@ -484,10 +340,10 @@
                 "minDate": moment(),
                 drops:"up",
                 locale: {
-                    format: 'MM/DD/YYYY HH:MM'
+                    format: 'MM/DD/YYYY HH:mm'
                 }
             }, function(start, end, label) {
-                console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:MM') + ' to ' + end.format('YYYY-MM-DD HH:MM') + ' (predefined range: ' + label + ')');
+                console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:mm') + ' to ' + end.format('YYYY-MM-DD HH:mm') + ' (predefined range: ' + label + ')');
             });
             $('#dtp').on('show.daterangepicker', function(e){
                 var modalZindex = $(e.target).closest('.modal').css('z-index');
@@ -569,17 +425,9 @@
                             data: { id: event.id },
                             success: function(data)
                             {
-                                console.log(data); 
-
-                                var html = '';
-                                
-                                html+= "<h3>"+data.id+"</h3>\n" +
-
-                                $('#journeyid').html(data.id); 
-
-                                $('#formConfirmationAjax').find('#journeyid').val(data.id);
-
-                                
+                                console.log(data);
+                                //.find('#journeyid')
+                                $('#journeyid').val(data.id);
 
                             }
                         });
@@ -614,7 +462,8 @@
            }
        })
     });
-    
+   
+   
 </script> 
 
 <script>
@@ -624,9 +473,17 @@
         var data = $(this).serialize();
         var url = $(this).attr('action');
         $.post(url,data,function(data){
-            console.log(data);
+            //console.log(data);           
+            //window.location.reload(true);
+
+            
+            window.setTimeout(function(){ 
+                location.reload();
+            } ,1000);
+           
+            
         });
-        console.log('data');
+        
     });
     
 </script>
