@@ -367,7 +367,6 @@
     
 @endif
 
-@if($journeys)
 <div id="modal" class="modal fade" role="dialog">
 
     <div class="modal-dialog modal-lg" role="document">
@@ -385,11 +384,14 @@
             </div>
             <div class="modal-body">
 
-                <div class="row">
-                    
+                <div class="row">                
                     <div class="col-md-12">
                         <h4>Change Journey details</h4>
-                        {!! Form::model($journey,['method' => 'post','id'=>'formConfirmation'.$journey->id ,'action'=>['JourneyConfirmController@confirm',$journey->id]]) !!}
+                        {{-- {!! Form::open(['method' => 'post','id'=>'formConfirmationAjax','action'=>"JourneyConfirmController@confirmAjax" ]) !!}  --}}
+                        {{-- {{ URL::to('journey/request/confirmAjax')}} --}}
+                        {{-- <div id="journeyid"> </div> --}}
+                        <form action="{{ URL::to('/journey/request/confirmAjax')}}" method="POST" id="formConfirmationAjax">
+                        <input type="text" name="id" id="journeyid">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -428,8 +430,9 @@
             </div>
 
             <div class="modal-footer">
-                    <input type="submit" class="btn btn-success" name="submitType" value="CONFIRM">
+                    <input type="submit" class="btn btn-success" name="submitType" value="update">
                     <input type="submit" class="btn btn-danger" name="submitType" value="DENY">
+                        </form>
                     {!! Form::close() !!}
             </div>
 
@@ -437,7 +440,7 @@
     </div>
 
 </div>
-@endif
+
 
 @endsection
 
@@ -554,7 +557,6 @@
                    googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',
                   
                     //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
-                    
                    events:qEvent,                  
                    eventSources: aaa,
                    eventClick: function(event, element) {
@@ -565,20 +567,23 @@
                             url: '/journey/read/{id}',
                             type: 'GET',
                             data: { id: event.id },
-                            success: function(response)
+                            success: function(data)
                             {
-                                console.log(response);
-                                /*var html = '';
-                                $(data).each(function (index,a) {
-                                    html+=  "<tr>\n" +
-                                            "<th style=\"width:50%\">"+a.name+"</th>\n" +
-                                            "<td>"+"<input type='checkbox' name='permission_ids[]' value='"+a.id+"'>"+"</td>\n" +
-                                            "</tr>";
-                                });
-                                $('#tblPermissions').html(html); */
-                                $('#modal').modal('toggle');
+                                console.log(data); 
+
+                                var html = '';
+                                
+                                html+= "<h3>"+data.id+"</h3>\n" +
+
+                                $('#journeyid').html(data.id); 
+
+                                $('#formConfirmationAjax').find('#journeyid').val(data.id);
+
+                                
+
                             }
                         });
+                        $('#modal').modal('toggle');
                        $.confirm({
                            title: 'Complted!', 
                            content:"<h4>ID - "+ event.id+"</h4>" + 
@@ -609,13 +614,22 @@
            }
        })
     });
-    //
-    // var calendar = $('#calendar').fullCalendar('getCalendar');
-    //
-    // calendar.on('dayClick', function(date, jsEvent, view) {
-    //     console.log('clicked on ' + date.format());
-    // });
+    
 </script> 
+
+<script>
+
+    $('#formConfirmationAjax').on('submit',function(e){
+        e.preventDefault();
+        var data = $(this).serialize();
+        var url = $(this).attr('action');
+        $.post(url,data,function(data){
+            console.log(data);
+        });
+        console.log('data');
+    });
+    
+</script>
 
 <script>
         //for hide and view table content 
