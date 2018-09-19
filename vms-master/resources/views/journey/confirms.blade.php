@@ -215,20 +215,17 @@
             {{-- <div class="box-header with-border">
                 <h3 class="box-title">Comfirm Journey Calender</h3>
             </div> --}}
-
             <div class="box-body">
-                <!-- THE CALENDAR -->
-                    <div id='calendar'></div>
-                </div>
-            <!-- /.box-body -->
-        </div>
-        <!-- /. box -->
+
+                <div id='calendar'></div>
+
+            </div>          
+        </div>      
     </div>
 
     <!-- For Calender Event Click-->
  @if($journeys)
- @foreach($journeys as $journey)
-        
+       
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg" id="{{$journey->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">       
                
@@ -368,7 +365,78 @@
         </div>
     </div>
     
-@endforeach
+@endif
+
+@if($journeys)
+<div id="modal" class="modal fade" role="dialog">
+
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Journey Request Confirmation                                   
+                            <span class="label label-success pull-right">Approved</span>
+                            <span class="label label-danger pull-right">Not Confirmed</span>                                
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    
+                    <div class="col-md-12">
+                        <h4>Change Journey details</h4>
+                        {!! Form::model($journey,['method' => 'post','id'=>'formConfirmation'.$journey->id ,'action'=>['JourneyConfirmController@confirm',$journey->id]]) !!}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="vehical_id">Change Vehicle</label>
+                                    {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control','placeholder'=>'Select a Vehicle'])}}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="driver_id">Change Driver</label>
+                                    {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','placeholder'=>'Select a Vehicle'])}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="confirmed_start_date_time">Start Date/ Time</label>
+                                    {{Form::text('confirmed_start_date_time',null,['class'=>'form-control','id'=>'dtp'])}}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="confirmed_end_date_time">End Date/ Time</label>
+                                    {{Form::text('confirmed_end_date_time',null,['class'=>'form-control','id'=>'dtp1'])}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmation_remarks">Remarks</label>
+                            {{Form::textarea('confirmation_remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2' ])}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                    <input type="submit" class="btn btn-success" name="submitType" value="CONFIRM">
+                    <input type="submit" class="btn btn-danger" name="submitType" value="DENY">
+                    {!! Form::close() !!}
+            </div>
+
+        </div>
+    </div>
+
+</div>
 @endif
 
 @endsection
@@ -389,12 +457,10 @@
                                 var val = $.fn.dataTable.util.escapeRegex(
                                     $(this).val()
                                 );
-
                                 column
                                     .search( val ? '^'+val+'$' : '', true, false )
                                     .draw();
                             } );
-
                         column.data().unique().sort().each( function ( d, j ) {
                             select.append( '<option value="'+d+'">'+d+'</option>' )
                         } );
@@ -402,7 +468,6 @@
                 }
             } );
         } );
-
     </script>
 
     <script type="text/javascript">
@@ -421,7 +486,6 @@
             }, function(start, end, label) {
                 console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:MM') + ' to ' + end.format('YYYY-MM-DD HH:MM') + ' (predefined range: ' + label + ')');
             });
-
             $('#dtp').on('show.daterangepicker', function(e){
                 var modalZindex = $(e.target).closest('.modal').css('z-index');
                 $('.daterangepicker').css('z-index', modalZindex+100);
@@ -436,9 +500,7 @@
 <script src='{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/gcal.min.js')}}'></script>
 <script src="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 <script>
-
      var journeys = {!! json_encode($journeys->toArray()) !!};
-
      console.log(journeys[0]);
      var qEvent=[];
      for (let i = 0; i < journeys.length; i++) {
@@ -446,7 +508,8 @@
         qEvent.push(
             { id : journeys[i].id,
               start :journeys[i].expected_start_date_time,
-              ends :journeys[i].expected_end_date_time,
+              end :journeys[i].expected_end_date_time,
+              purpose : journeys[i].purpose,
               applicant_id :journeys[i].applicant_id,
               vehical_id : journeys[i].vehical_id,
               
@@ -465,7 +528,6 @@
            url:'{{url('/google/calenders')}}',
            success:function (data) {
                var eventSources = [];
-
                $.each(data,function (i,item) {
                    var event = {};
                    event.id = i;
@@ -474,15 +536,12 @@
                    eventSources.push(event)
                     $('#aaa').append(item.id);
                });
-
                aaa = eventSources;
-
            },
            error:function (err) {
                // alert(err.toString());
            },
            complete:function () {             
-
                console.log(aaa);
                $('#calendar').fullCalendar({
                    selectable: true,
@@ -496,17 +555,12 @@
                   
                     //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
                     
-
                    events:qEvent,                  
-
                    eventSources: aaa,
                    eventClick: function(event, element) {
-
                        //console.log(event);
                        //$('#myModal').modal('toggle');
-
                        var moment = $('#calendar').fullCalendar('getDate');
-
                        $.ajax({
                             url: '/journey/read/{id}',
                             type: 'GET',
@@ -514,27 +568,33 @@
                             success: function(response)
                             {
                                 console.log(response);
-                                //$('#something').html(response);
+                                /*var html = '';
+                                $(data).each(function (index,a) {
+                                    html+=  "<tr>\n" +
+                                            "<th style=\"width:50%\">"+a.name+"</th>\n" +
+                                            "<td>"+"<input type='checkbox' name='permission_ids[]' value='"+a.id+"'>"+"</td>\n" +
+                                            "</tr>";
+                                });
+                                $('#tblPermissions').html(html); */
+                                $('#modal').modal('toggle');
                             }
                         });
-
                        $.confirm({
                            title: 'Complted!', 
-                           content:"<h4>ID - "+ event.id+"</h4>" +
+                           content:"<h4>ID - "+ event.id+"</h4>" + 
+                           "<h4>ID - "+ event.purpose+"</h4>" +
                            "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:MM:SS') + "</h4>" +
-                           "<h4>End - "+ event.ends +"</h4>",
+                           "<h4>End - "+ event.end.format('YYYY-MM-DD HH:MM:SS') +"</h4>",
                            buttons: {
                                somethingElse: {
                                    text: 'OK',
                                    btnClass: 'btn-blue',
                                    keys: ['enter', 'shift'],
                                    action: function(){
-
                                    }
                                }
                            }
                        }); 
-
                    }, 
                    dayClick: function(date) {
                        //alert('clicked ' + date.format());
@@ -549,7 +609,6 @@
            }
        })
     });
-
     //
     // var calendar = $('#calendar').fullCalendar('getCalendar');
     //
