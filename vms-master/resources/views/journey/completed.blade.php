@@ -273,7 +273,6 @@
                             <dl class="dl-horizontal">
                                 <h4>Resources</h4>
                                 <dt>Vehicle Number</dt>
-                                {{-- {{$journey->vehical->registration_no}} --}}
                                 <dd id="vehicle_number"> </dd>
                                 <dt>Vehicle Name</dt>
                                 <dd id="vehicle_name"></dd>
@@ -282,7 +281,6 @@
                             </dl>
                             <dl class="dl-horizontal">
                                 <dt>Divisional Head</dt>
-                                {{-- {{$journey->divisional_head->emp_title.' '.$journey->divisional_head->emp_initials.'. '.$journey->divisional_head->emp_surname}} --}}
                                 <dd id="devisional_head"> </dd>
                             </dl>
                         </div>
@@ -301,13 +299,10 @@
                             <dl class="dl-horizontal">
                                 <h4>Expected Date and Time Range</h4>
                                 <dt>Start Date/ Time</dt>
-                                {{-- {{$journey->expected_start_date_time->toDayDateTimeString()}} --}}
                                 <dd id="expected_start_date_time"></dd>
                                 <dt>End Date/ Time</dt>
                                 <dd id="expected_end_date_time"></dd>
-                                {{-- <dt>Journey Duration</dt>
-                                    {{$journey->expected_end_date_time->diffInHours($journey->expected_start_date_time)}} hours 
-                                <dd></dd> --}}
+                                
                             </dl>
                         </div>
                     </div>
@@ -325,9 +320,55 @@
                                 <dd id="approval_remarks"></dd>
                             </dl>
                         </div>
+                        <div class="col-md-6">
+                            <dl class="dl-horizontal">
+                                <h4>Confirmaion</h4>
+                                <dt>Confirmed By</dt>
+                                {{-- {{$journey->confirmedBy->emp_title.' '.$journey->confirmedBy->emp_initials.'. '.$journey->confirmedBy->emp_surname}} --}}
+                                <dd id="confirm_by"></dd>
+                                <dt>Confirmed At</dt>
+                                {{-- {{$journey->confirmed_at->toDayDateTimeString()}} --}}
+                                <dd id="confirm_at"></dd>
+                                <dt>Remarks</dt>
+                                {{-- {{$journey->confirmation_remarks}} --}}
+                                <dd id="confirm_remarks"></dd>
+                                <dt>Confirmed Start Time</dt>
+                                {{-- {{$journey->confirmed_start_date_time->toDayDateTimeString()}}
+                                    @if($journey->expected_start_date_time->diffInSeconds($journey->confirmed_start_date_time))
+                                        <span class="label label-warning">Changed</span>
+                                    @else
+                                        <span class="label label-success">Not Changed</span>
+                                    @endif --}}
+                                <dd id="confirmed_start_date_time-"> </dd>
+                                <dt>Confirmed End Time</dt>
+                                <dd id="confirmed_end_date_time-"> </dd>
+                            </dl>
+                        </div>
                     </div>
-    
-                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dl class="dl-horizontal">
+                                <h4>Final Details</h4>
+                                <dt>Driver Filled At</dt>
+                                {{-- {{$journey->driver_completed_at->toDayDateTimeString()}} --}}
+                                <dd id="driver_completed_at"></dd>
+                                <dt>Driver Remarks</dt>
+                                {{-- {{$journey->driver_remarks}} --}}
+                                <dd id="driver_remarks"></dd>
+                                <dt>Approximate Distance</dt>
+                                {{-- {{$journey->real_distance}} --}}
+                                <dd id="real_distance"></dd>
+                                <dt>Start Time</dt>
+                                {{-- {{$journey->real_start_date_time}} --}}
+                                <dd id="real_start_date_time"></dd>
+                                <dt>End Time</dt>
+                                {{-- {{$journey->real_end_date_time}} --}}
+                                <dd id="real_end_date_time"></dd>
+                                {{-- <dt>Total Hours</dt>
+                                <dd>{{$journey->real_start_date_time->diffInHours($journey->real_end_date_time)}} hours</dd> --}}
+                            </dl>
+                        </div>
+                    </div>                   
                 </div>
                 <div class="modal-footer">                       
                     <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>                        
