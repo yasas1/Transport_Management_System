@@ -496,23 +496,27 @@
                                 var details = JSON.parse(data);
                                 // console.log(details[0].expected_distance);
 
-                                console.log(details[0]);
+                                console.log(details[7]);
 
                                 $('#purpose').html(details[0].purpose);
                                 $('#places_to_be_visited').html(details[0].places_to_be_visited);
                                 $('#number_of_persons').html(details[0].number_of_persons);
                                 $('#expected_distance').html(details[0].expected_distance); 
-                                $('#expected_start_date_time').html(details[0].expected_start_date_time);  
-                                $('#expected_end_date_time').html(details[0].expected_end_date_time);                            
-                                $('#approved_at').html(details[0].approved_at); 
-                                $('#approved_by').html(details[7]);
+                                $('#expected_start_date_time').html(details[10]);  
+                                $('#expected_end_date_time').html(details[11]);                            
+                                $('#approved_at').html(details[9]);     
                                 $('#approval_remarks').html(details[0].approval_remarks);
+                                $('#journeyid').val(event.id); 
 
-                                $('#journeyid').val(details[0].id); 
+                                $('#approved_by').html(details[8]);
 
-                                $('#appl_name').html(details[3]);
-                                $('#appl_dept').html(details[4]);
-                                $('#appl_email').html(details[5]); 
+                                $('#appl_name').html(details[4]);
+                                $('#appl_dept').html(details[5]);
+                                $('#appl_email').html(details[6]); 
+                                $('#driver').html(details[3]);
+                                $('#vehicle_number').html(details[1]);
+                                $('#vehicle_name').html(details[2]);  
+                                $('#devisional_head').html(details[7]);
 
                             }
                         });
