@@ -251,7 +251,6 @@
                         <dl class="dl-horizontal">
                             <h4>Resources</h4>
                             <dt>Vehicle Number</dt>
-                            {{-- {{$journey->vehical->registration_no}} --}}
                             <dd id="vehicle_number"> </dd>
                             <dt>Vehicle Name</dt>
                             <dd id="vehicle_name"></dd>
@@ -259,8 +258,7 @@
                             <dd id="driver"></dd>
                         </dl>
                         <dl class="dl-horizontal">
-                            <dt>Divisional Head</dt>
-                            {{-- {{$journey->divisional_head->emp_title.' '.$journey->divisional_head->emp_initials.'. '.$journey->divisional_head->emp_surname}} --}}
+                            <dt>Divisional Head</dt>                           
                             <dd id="devisional_head"> </dd>
                         </dl>
                     </div>
@@ -481,6 +479,7 @@
                    eventClick: function(event, element) {
                         //console.log(event);                      
                         var moment = $('#calendar').fullCalendar('getDate');
+
                         $.ajax({
                             url: '/journey/read/{id}',
                             type: 'GET',

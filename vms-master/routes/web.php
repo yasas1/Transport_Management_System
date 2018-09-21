@@ -97,6 +97,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/journey/read','JourneyController@readJourney');
 
     Route::get('/journey/read/{id}','JourneyController@readJourneyForConfirmAjax');
+    Route::get('/journey/readCompleted/{id}','JourneyController@readJourneyForCompletedAjax'); 
 
     /*User Crud*/
     Route::get('/users','UserController@index');

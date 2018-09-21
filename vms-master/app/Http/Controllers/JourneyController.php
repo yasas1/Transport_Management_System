@@ -41,12 +41,7 @@ class JourneyController extends Controller
      */
     public function index()
     {
-        /*id : journeys[i].id,
-                  start :journeys[i].expected_start_date_time,
-                  ends :journeys[i].expected_end_date_time,
-                  applicant_id :journeys[i].applicant_id,
-                  vehical_id : journeys[i].vehical_id,
-                  driver_id : journeys[i].driver_id, */
+     //
     }
 
     /**
@@ -90,6 +85,34 @@ class JourneyController extends Controller
         ));
         return response($data);
         //return $journeys;
+    }
+
+            /*  For Completed journey form details  */
+    public function readJourneyForCompletedAjax(){
+        $id = $_GET['id'];
+
+        $journey = Journey::whereId($id)->first();
+        $vehicle_num = $journey->vehical->registration_no;
+        $vehicle_name = $journey->vehical->name;
+        $driver = $journey->vehical->driver->getFullNameAttribute();
+        $applicant_name = $journey->applicant->getFullNameAttribute();
+        $applicant_dept = $journey->applicant->division->dept_name;
+        $applicant_email = $journey->applicant->emp_email;
+        $devisional_head = $journey->divisional_head->getFullNameAttribute();
+        $approved_by = $journey->approvedBy->getFullNameAttribute();
+
+        $confirmed_by = $journey->confirmedBy->getFullNameAttribute();
+
+        $confirmed_at = $journey->confirmed_at->toDayDateTimeString();
+       
+
+        $data = json_encode(array(
+             $journey , $vehicle_num ,$vehicle_name ,$driver ,$applicant_name , $applicant_dept, $applicant_email, $devisional_head, $approved_by,
+             $confirmed_by, $confirmed_at
+            
+        ));
+        return response($data);
+        
     }
 
     /**
