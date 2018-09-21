@@ -149,10 +149,26 @@
                                     <h4>Confirmaion</h4>
                                     <dt>Confirmed By</dt>
                                     <dd>{{$journey->confirmedBy->emp_title.' '.$journey->confirmedBy->emp_initials.'. '.$journey->confirmedBy->emp_surname}}</dd>
-                                    <dt>Approved At</dt>
+                                    <dt>Confirmed At</dt>
                                     <dd>{{$journey->confirmed_at->toDayDateTimeString()}}</dd>
                                     <dt>Remarks</dt>
                                     <dd>{{$journey->confirmation_remarks}}</dd>
+                                    <dt>Confirmed Start Time</dt>
+                                    <dd>{{$journey->confirmed_start_date_time->toDayDateTimeString()}}
+                                        @if($journey->expected_start_date_time->diffInSeconds($journey->confirmed_start_date_time))
+                                            <span class="label label-warning">Changed</span>
+                                        @else
+                                            <span class="label label-success">Not Changed</span>
+                                        @endif
+                                    </dd>
+                                    <dt>Confirmed End Time</dt>
+                                    <dd>{{$journey->confirmed_end_date_time->toDayDateTimeString()}}
+                                        @if($journey->expected_end_date_time->diffInSeconds($journey->confirmed_end_date_time))
+                                            <span class="label label-warning">Changed</span>
+                                        @else
+                                            <span class="label label-success">Not Changed</span>
+                                        @endif
+                                    </dd>
                                 </dl>
                             </div>
                         </div>

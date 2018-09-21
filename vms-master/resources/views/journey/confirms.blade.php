@@ -433,8 +433,7 @@
               end :journeys[i].expected_end_date_time,
               purpose : journeys[i].purpose,
               applicant_id :journeys[i].applicant_id,
-              vehical_id : journeys[i].vehical_id,
-              
+              vehical_id : journeys[i].vehical_id,   
               driver_id : journeys[i].driver_id,
               
             }
@@ -495,11 +494,11 @@
                                 $('#places_to_be_visited').html(details[0].places_to_be_visited);
                                 $('#number_of_persons').html(details[0].number_of_persons);
                                 $('#expected_distance').html(details[0].expected_distance); 
-                                $('#expected_start_date_time').html(details[0].expected_start_date_time);  
-                                $('#expected_end_date_time').html(details[0].expected_end_date_time);                            
-                                $('#approved_at').html(details[0].approved_at);     
+                                $('#expected_start_date_time').html(details[10]);  
+                                $('#expected_end_date_time').html(details[11]);                            
+                                $('#approved_at').html(details[9]);     
                                 $('#approval_remarks').html(details[0].approval_remarks);
-                                $('#journeyid').val(details[0].id); 
+                                $('#journeyid').val(event.id); 
 
                                 $('#approved_by').html(details[8]);
 

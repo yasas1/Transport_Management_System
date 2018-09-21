@@ -68,8 +68,9 @@ class JourneyController extends Controller
           /*  For journey confirmation form details  */
     public function readJourneyForConfirmAjax(){
         $id = $_GET['id'];
+        $journey = Journey::whereId($id)->first(); // $journey->confirmed_at->toDayDateTimeString();
 
-        $journey = Journey::whereId($id)->first();
+        $purpose = $journey->purpose ;
         $vehicle_num = $journey->vehical->registration_no;
         $vehicle_name = $journey->vehical->name;
         $driver = $journey->vehical->driver->getFullNameAttribute();
@@ -78,9 +79,13 @@ class JourneyController extends Controller
         $applicant_email = $journey->applicant->emp_email;
         $devisional_head = $journey->divisional_head->getFullNameAttribute();
         $approved_by = $journey->approvedBy->getFullNameAttribute();
+        $approved_at = $journey->approved_at->toDayDateTimeString();
+        $exp_start = $journey->expected_start_date_time->toDayDateTimeString();
+        $exp_end = $journey->expected_end_date_time->toDayDateTimeString();
 
         $data = json_encode(array(
-             $journey , $vehicle_num ,$vehicle_name ,$driver ,$applicant_name , $applicant_dept, $applicant_email, $devisional_head, $approved_by
+            $journey , $vehicle_num ,$vehicle_name ,$driver ,$applicant_name , $applicant_dept, $applicant_email, $devisional_head,
+            $approved_by,$approved_at,$exp_start,$exp_end
             
         ));
         return response($data);
@@ -101,14 +106,25 @@ class JourneyController extends Controller
         $devisional_head = $journey->divisional_head->getFullNameAttribute();
         $approved_by = $journey->approvedBy->getFullNameAttribute();
 
+        $approved_at = $journey->approved_at->toDayDateTimeString();
+        $exp_start = $journey->expected_start_date_time->toDayDateTimeString();
+        $exp_end = $journey->expected_end_date_time->toDayDateTimeString();
+
         $confirmed_by = $journey->confirmedBy->getFullNameAttribute();
 
         $confirmed_at = $journey->confirmed_at->toDayDateTimeString();
+        $confirmed_start = $journey->confirmed_start_date_time->toDayDateTimeString();
+        $confirmed_end = $journey->confirmed_end_date_time->toDayDateTimeString();
+
+        $real_start = $journey->real_start_date_time->toDayDateTimeString(); 
+        $real_end = $journey->real_end_date_time->toDayDateTimeString(); 
+        $driver_completed = $journey->driver_completed_at->toDayDateTimeString(); 
        
 
         $data = json_encode(array(
-             $journey , $vehicle_num ,$vehicle_name ,$driver ,$applicant_name , $applicant_dept, $applicant_email, $devisional_head, $approved_by,
-             $confirmed_by, $confirmed_at
+            $journey , $vehicle_num ,$vehicle_name ,$driver ,$applicant_name , $applicant_dept, $applicant_email, $devisional_head, 
+            $approved_by, $approved_at, $exp_start,$exp_end, $confirmed_by, $confirmed_at ,$confirmed_start,$confirmed_end,
+            $real_start,$real_end ,$driver_completed
             
         ));
         return response($data);

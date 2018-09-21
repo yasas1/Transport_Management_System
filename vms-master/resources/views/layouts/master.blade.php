@@ -201,7 +201,7 @@ desired effect
                         </span>
                     </a>
                     <ul class="treeview-menu">
-{{--                        <li><a href="{{url('/journey/')}}"><i class="fa fa-eye"></i> <span>VIEW CURRENT JOURNEYS</span></a></li>--}}
+                    {{-- <li><a href="{{url('/journey/')}}"><i class="fa fa-eye"></i> <span>VIEW CURRENT JOURNEYS</span></a></li>--}}
                         @if(Auth::user()->canRequestJourney())
                             <li><a href="{{url('/journey/create')}}"><i class="fa fa-plus"></i> <span>NEW JOURNEY REQUEST</span></a></li>
                         @endif
@@ -215,10 +215,10 @@ desired effect
                             <li><a href="{{url('/journey/requests/confirmed')}}"><i class="fa fa-edit"></i> <span>ONGOING JOURNEYS</span></a></li>
                         @endif
                         @if(Auth::user()->canCompleteJourney())
-                            <li><a href="{{url('/journey/requests/complete')}}"><i class="fa fa-edit"></i> <span>COMPLETE JOURNEYS</span></a></li>
+                            <li><a href="{{url('/journey/requests/complete')}}"><i class="fa fa-edit"></i> <span>LOG OF JOURNEYS</span></a></li>
                         @endif
                         @if(Auth::user()->canViewCompletedJourneys())
-                            <li><a href="{{url('/journey/requests/completed')}}"><i class="fa fa-edit"></i> <span>COMPLETED JOURNEYS</span></a></li>
+                            <li><a href="{{url('/journey/requests/completed')}}"><i class="fa fa-edit"></i> <span>JOURNEY HISTORY</span></a></li>
                         @endif
 
                     </ul>
