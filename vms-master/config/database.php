@@ -42,8 +42,8 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'host' => 'localhost',
-            'port' => '3306',
-            'database' => 'vms',
+            'port' => '3307',
+            'database' => 'db',
             'username' => 'root',
             'password' => '',
             'unix_socket' => env('DB_SOCKET', ''),
@@ -57,7 +57,7 @@ return [
         'con_employee' => [
             'driver' => 'mysql',
             'host' => 'localhost',
-            'port' => '3306',
+            'port' => '3307',
             'database' => 'employee',
             'username' => 'root',
             'password' => '',
