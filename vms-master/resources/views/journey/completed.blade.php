@@ -485,29 +485,39 @@
                             {
                                 var details = JSON.parse(data);
                                 // console.log(details[0].expected_distance);
-
-                                console.log(details[7]);
-
+                                $('#journeyid').val(details[0].id);
                                 $('#purpose').html(details[0].purpose);
                                 $('#places_to_be_visited').html(details[0].places_to_be_visited);
                                 $('#number_of_persons').html(details[0].number_of_persons);
-                                $('#expected_distance').html(details[0].expected_distance); 
-                                $('#expected_start_date_time').html(details[0].expected_start_date_time);  
-                                $('#expected_end_date_time').html(details[0].expected_end_date_time);                            
-                                $('#approved_at').html(details[0].approved_at);     
+                                $('#expected_distance').html(details[0].expected_distance);
                                 $('#approval_remarks').html(details[0].approval_remarks);
-                                $('#journeyid').val(details[0].id); 
 
-                                $('#approved_by').html(details[8]);
-
+                                $('#vehicle_number').html(details[1]);
+                                $('#vehicle_name').html(details[2]); 
+                                $('#driver').html(details[3]);
                                 $('#appl_name').html(details[4]);
                                 $('#appl_dept').html(details[5]);
-                                $('#appl_email').html(details[6]); 
-                                $('#driver').html(details[3]);
-                                $('#vehicle_number').html(details[1]);
-                                $('#vehicle_name').html(details[2]);  
+                                $('#appl_email').html(details[6]);
                                 $('#devisional_head').html(details[7]);
+                                $('#approved_by').html(details[8]);
+                                $('#approved_at').html(details[9]); 
+                                $('#expected_start_date_time').html(details[10]);  
+                                $('#expected_end_date_time').html(details[11]);                            
+                                   
+                                $('#confirm_by').html(details[12]);
+                                $('#confirm_at').html(details[13]);
 
+                                $('#confirm_remarks').html(details[0].confirmation_remarks);
+                                
+                                $('#confirmed_start_date_time').html(details[14] );
+                                $('#confirmed_end_date_time').html(details[15] ); 
+                                //new Date(Date.parse(details[0].confirmed_end_date_time))
+                                $('#real_start_date_time').html(details[16]);
+                                $('#real_end_date_time').html(details[17]);
+                                $('#driver_completed_at').html(details[18]);
+
+                                $('#driver_remarks').html(details[0].driver_remarks);
+                                $('#real_distance').html(details[0].real_distance);
                             }
                         });
                         $('#modal').modal('toggle');
