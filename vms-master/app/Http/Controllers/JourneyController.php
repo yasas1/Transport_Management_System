@@ -14,6 +14,7 @@ use Google_Service_Calendar;
 use Google_Service_Calendar_Event;
 use function GuzzleHttp\Psr7\parse_header;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Requests\CreateJourneyRequest;
@@ -69,34 +70,8 @@ class JourneyController extends Controller
         return response($journeys);
     }
 
+          /*  For journey confirmation form details  */
     public function readJourneyForConfirmAjax(){
-        $id = $_GET['id'];
-        $journey = Journey::whereId($id)->first(); // $journey->confirmed_at->toDayDateTimeString();
-
-        $purpose = $journey->purpose ;
-        $vehicle_num = $journey->vehical->registration_no;
-        $vehicle_name = $journey->vehical->name;
-        $driver = $journey->vehical->driver->getFullNameAttribute();
-        $applicant_name = $journey->applicant->getFullNameAttribute();
-        $applicant_dept = $journey->applicant->division->dept_name;
-        $applicant_email = $journey->applicant->emp_email;
-        $devisional_head = $journey->divisional_head->getFullNameAttribute();
-        $approved_by = $journey->approvedBy->getFullNameAttribute();
-        $approved_at = $journey->approved_at->toDayDateTimeString();
-        $exp_start = $journey->expected_start_date_time->toDayDateTimeString();
-        $exp_end = $journey->expected_end_date_time->toDayDateTimeString();
-
-        $data = json_encode(array(
-            $journey , $vehicle_num ,$vehicle_name ,$driver ,$applicant_name , $applicant_dept, $applicant_email, $devisional_head,
-            $approved_by,$approved_at,$exp_start,$exp_end
-            
-        ));
-        return response($data);
-        //return $journeys;
-    }
-
-            /*  For Completed journey form details  */
-    public function readJourneyForCompletedAjax(){
         $id = $_GET['id'];
 
         $journey = Journey::whereId($id)->first();
@@ -109,29 +84,12 @@ class JourneyController extends Controller
         $devisional_head = $journey->divisional_head->getFullNameAttribute();
         $approved_by = $journey->approvedBy->getFullNameAttribute();
 
-        $approved_at = $journey->approved_at->toDayDateTimeString();
-        $exp_start = $journey->expected_start_date_time->toDayDateTimeString();
-        $exp_end = $journey->expected_end_date_time->toDayDateTimeString();
-
-        $confirmed_by = $journey->confirmedBy->getFullNameAttribute();
-
-        $confirmed_at = $journey->confirmed_at->toDayDateTimeString();
-        $confirmed_start = $journey->confirmed_start_date_time->toDayDateTimeString();
-        $confirmed_end = $journey->confirmed_end_date_time->toDayDateTimeString();
-
-        $real_start = $journey->real_start_date_time->toDayDateTimeString(); 
-        $real_end = $journey->real_end_date_time->toDayDateTimeString(); 
-        $driver_completed = $journey->driver_completed_at->toDayDateTimeString(); 
-       
-
         $data = json_encode(array(
-            $journey , $vehicle_num ,$vehicle_name ,$driver ,$applicant_name , $applicant_dept, $applicant_email, $devisional_head, 
-            $approved_by, $approved_at, $exp_start,$exp_end, $confirmed_by, $confirmed_at ,$confirmed_start,$confirmed_end,
-            $real_start,$real_end ,$driver_completed
+             $journey , $vehicle_num ,$vehicle_name ,$driver ,$applicant_name , $applicant_dept, $applicant_email, $devisional_head, $approved_by
             
         ));
         return response($data);
-        
+        //return $journeys;
     }
 
     /**
@@ -142,27 +100,6 @@ class JourneyController extends Controller
      */
     public function store(CreateJourneyRequest $request)
     {     
-
-        /*     // check vehicle availability in backend
-        $ForCheckjourneys = Journey::all();
-        $start_date_time = Carbon::parse($first);
-        $end_date_time = Carbon::parse($second);
-        
-        foreach ($ForCheckjourneys as $journey){
-            if($journey->expected_start_date_time->format('Y-m-d') == $start_date_time->format('Y-m-d') ){
-                //return redirect()->back()->withErrors(['Cannot create !']);
-                if($journey->expected_start_date_time->format('HH:MM') < $start_date_time->format('HH:MM') && $journey->expected_end_date_time->format('HH:MM') < $expected_start_date_time->format('HH:MM') ){
-                     return $journey->expected_start_date_time->format('HH:MM');
-                }
-            }         
-            elseif($journey->expected_start_date_time < $expected_start_date_time && $journey->expected_end_date_time < $expected_start_date_time ){
-                return "get 2";
-            }
-            elseif($journey->expected_start_date_time > $expected_start_date_time && $journey->expected_start_date_time < $expected_end_date_time ){
-                return "get 3";
-            }          
-        }*/
-
         $journey = new Journey;
         $journey->applicant_id = '000004';
        //$journey->applicant_id = Auth::user()->emp_id;
@@ -255,7 +192,6 @@ class JourneyController extends Controller
 
             return redirect()->back()->with(['success'=>'Journey added successfully !']);
     }
-
     /**
      * Display the specified resource.
      *
@@ -266,9 +202,6 @@ class JourneyController extends Controller
     {
        //
     }
-
-    
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -279,7 +212,6 @@ class JourneyController extends Controller
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      *

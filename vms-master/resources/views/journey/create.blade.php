@@ -242,12 +242,11 @@
     <script src='{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/gcal.min.js')}}'></script>
     <script src="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
     <script>
+
         var journeys = {!! json_encode($journeys->toArray()) !!};
-        
         //console.log(journeys);
          var qEvent=[];
-         for (let i = 0; i < journeys.length; i++) {
-            
+         for (let i = 0; i < journeys.length; i++) {            
             qEvent.push(
                 { id : journeys[i].id,
                   start :journeys[i].expected_start_date_time,

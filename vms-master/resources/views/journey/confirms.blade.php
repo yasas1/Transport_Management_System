@@ -206,10 +206,8 @@
                     </div>
                 @endforeach
             @endif
-
         </div>
     </div>
-
     <div class="col-md-12">
         <div class="box box-primary">
             {{-- <div class="box-header with-border">
@@ -221,8 +219,7 @@
         </div>      
     </div>
 
-    <!-- For Calender Event Click-->
-
+        <!-- For Calender Event Click-->
 <div id="modal" class="modal fade" role="dialog">
 
     <div class="modal-dialog modal-lg" role="document">
@@ -244,27 +241,27 @@
                     <div class="col-md-6">
                         <dl class="dl-horizontal">
                             <h4>Applicant</h4>
-                            <dt>Name</dt>
-                            <dd> </dd>
-                            <dt>Division</dt>
-                            <dd></dd>
+                            <dt >Name</dt>
+                            <dd id="appl_name"> </dd>
+                            <dt >Division</dt>
+                            <dd id="appl_dept"></dd>
                             <dt>Email</dt>
-                            <dd></dd>
+                            <dd id="appl_email"></dd>
                         </dl>
                         <dl class="dl-horizontal">
                             <h4>Resources</h4>
                             <dt>Vehicle Number</dt>
                             {{-- {{$journey->vehical->registration_no}} --}}
-                            <dd> </dd>
+                            <dd id="vehicle_number"> </dd>
                             <dt>Vehicle Name</dt>
-                            <dd></dd>
+                            <dd id="vehicle_name"></dd>
                             <dt>Driver</dt>
-                            <dd></dd>
+                            <dd id="driver"></dd>
                         </dl>
                         <dl class="dl-horizontal">
                             <dt>Divisional Head</dt>
                             {{-- {{$journey->divisional_head->emp_title.' '.$journey->divisional_head->emp_initials.'. '.$journey->divisional_head->emp_surname}} --}}
-                            <dd> </dd>
+                            <dd id="devisional_head"> </dd>
                         </dl>
                     </div>
                     <div class="col-md-6">
@@ -290,7 +287,6 @@
                              {{$journey->expected_end_date_time->diffInHours($journey->expected_start_date_time)}} hours 
                             <dd></dd> --}}
                         </dl>
-
                     </div>
                 </div>
                 <div class="row">
@@ -299,7 +295,7 @@
                             <h4>Approval</h4>
                             <dt>Approved By</dt>
                             {{-- {{$journey->approvedBy->emp_title.' '.$journey->approvedBy->emp_initials.'. '.$journey->approvedBy->emp_surname}} --}}
-                            <dd> </dd>
+                            <dd id="approved_by"></dd>
                             <dt>Approved At</dt>
                             {{-- {{$journey->approved_at->toDayDateTimeString()}} --}}
                             <dd id="approved_at"></dd>
@@ -314,8 +310,6 @@
                         <hr>
                         <h4>Change Journey details</h4>
                         {{-- {!! Form::open(['method' => 'post','id'=>'formConfirmationAjax','action'=>"JourneyConfirmController@confirmAjax" ]) !!}  --}}
-                        {{-- {{ URL::to('journey/request/confirmAjax')}} --}}
-                        {{-- <div id="journeyid"> </div> --}}
                         <form action="{{ URL::to('/journey/request/confirmAjax')}}" method="POST" id="formConfirmationAjax">
                             {{csrf_field()}}
                         <input type="hidden" name="id" id="journeyid">
@@ -337,19 +331,19 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="confirmed_start_date_time">Start Date/ Time</label>
-                                    {{Form::text('confirmed_start_date_time',null,['class'=>'form-control','id'=>'dtp'])}}
+                                    {{Form::text('confirmed_start_date_time',null,['class'=>'form-control','id'=>'dtp' ,'required'])}}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="confirmed_end_date_time">End Date/ Time</label>
-                                    {{Form::text('confirmed_end_date_time',null,['class'=>'form-control','id'=>'dtp1'])}}
+                                    {{Form::text('confirmed_end_date_time',null,['class'=>'form-control','id'=>'dtp1','required'])}}
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="confirmation_remarks">Remarks</label>
-                            {{Form::textarea('confirmation_remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2' ])}}
+                            {{Form::textarea('confirmation_remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2' , 'required' ])}}
                         </div>
                         <div class="form-group">
                             <label for="is_approved">CONFIRM</label> 
@@ -412,6 +406,7 @@
             locale: {
                 format: 'MM/DD/YYYY HH:mm'
             }
+            
         }, function(start, end, label) {
             console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:mm') + ' to ' + end.format('YYYY-MM-DD HH:mm') + ' (predefined range: ' + label + ')');
         });
@@ -430,10 +425,10 @@
 <script src="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 <script>
      var journeys = {!! json_encode($journeys->toArray()) !!};
-     console.log(journeys[0]);
+     //console.log(journeys[0]);
      var qEvent=[];
      for (let i = 0; i < journeys.length; i++) {
-        // $journey->vehical->fullname  vehicle_name :
+        
         qEvent.push(
             { id : journeys[i].id,
               start :journeys[i].expected_start_date_time,
@@ -484,8 +479,7 @@
                    events:qEvent,                  
                    eventSources: aaa,
                    eventClick: function(event, element) {
-                        //console.log(event);
-                        
+                        //console.log(event);                      
                         var moment = $('#calendar').fullCalendar('getDate');
                         $.ajax({
                             url: '/journey/read/{id}',
@@ -502,11 +496,11 @@
                                 $('#places_to_be_visited').html(details[0].places_to_be_visited);
                                 $('#number_of_persons').html(details[0].number_of_persons);
                                 $('#expected_distance').html(details[0].expected_distance); 
-                                $('#expected_start_date_time').html(details[10]);  
-                                $('#expected_end_date_time').html(details[11]);                            
-                                $('#approved_at').html(details[9]);     
+                                $('#expected_start_date_time').html(details[0].expected_start_date_time);  
+                                $('#expected_end_date_time').html(details[0].expected_end_date_time);                            
+                                $('#approved_at').html(details[0].approved_at);     
                                 $('#approval_remarks').html(details[0].approval_remarks);
-                                $('#journeyid').val(event.id); 
+                                $('#journeyid').val(details[0].id); 
 
                                 $('#approved_by').html(details[8]);
 
@@ -560,11 +554,11 @@
         var data = $(this).serialize();
         var url = $(this).attr('action');
         $.post(url,data,function(data){
-            //console.log(data);           
-            window.location.reload(true);
-            // window.setTimeout(function(){ 
-            //     location.reload();
-            // } ,1000);                     
+            console.log(data);           
+            //window.location.reload(true);
+            window.setTimeout(function(){ 
+                location.reload();
+            } ,1000);                     
         });       
     });
     
