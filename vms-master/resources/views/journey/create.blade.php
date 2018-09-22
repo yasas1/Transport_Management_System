@@ -243,20 +243,36 @@
     <script src="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
     <script>
 
-        var journeys = {!! json_encode($journeys->toArray()) !!};
+        //var journeys = {!! json_encode($journeys->toArray()) !!};
         //console.log(journeys);
-         var qEvent=[];
-         for (let i = 0; i < journeys.length; i++) {            
-            qEvent.push(
-                { id : journeys[i].id,
-                  start :journeys[i].expected_start_date_time,
-                  end :journeys[i].expected_end_date_time,
-                  purpose : journeys[i].purpose,                  
-                  vehical_id : journeys[i].vehical_id,               
-                }
-            );             
-         }    
-        //console.log(qEvent);
+        var qEvent=[];
+        $.get("{{ URL::to('journey/read') }}",function(data){ 
+            $.each(data,function(i,value){
+                //console.log(value.expected_end_date_time);
+                qEvent.push(
+                    { 
+                    title : value.purpose,
+                    start : value.expected_start_date_time,
+                    end : value.expected_end_date_time,
+                    id :  value.id,                                                     
+                    vehical_id : value.vehical_id, 
+                    color : "black" ,              
+                    }
+                );
+            });
+        });
+        console.log(qEvent);
+        // for (let i = 0; i < journeys.length; i++) {            
+        //     qEvent.push(
+        //         { 
+        //             title : journeys[i].purpose,
+        //             id : journeys[i].id,
+        //             start :journeys[i].expected_start_date_time,
+        //             end :journeys[i].expected_end_date_time,                  
+        //             vehical_id : journeys[i].vehical_id,               
+        //         }
+        //     );             
+        // }          
         
         $(function () {
             var aaa;
@@ -264,76 +280,76 @@
                method:'GET',
                url:'{{url('/google/calenders')}}',
                success:function (data) {
-                   var eventSources = [];
+                    var eventSources = [];
 
-                   $.each(data,function (i,item) {
+                    $.each(data,function (i,item) {
                        var event = {};
                        event.id = i;
                        event.googleCalendarId = item.id;
                        event.color = item.backgroundColor;
                        eventSources.push(event)
                         $('#aaa').append(item.id);
-                   });
+                    });
 
                    aaa = eventSources;
 
-               },
-               error:function (err) {
+                },
+                error:function (err) {
                    // alert(err.toString());
-               },
-               complete:function () {             
+                },
+                complete:function () {             
 
                    //console.log(aaa);
                    $('#calendar').fullCalendar({
-                       selectable: true,
-                       defaultView:'agendaWeek',
-                       header: {
-                           left: 'prev,next today myCustomButton',
-                           center: 'title',
-                           right: 'month,agendaWeek,agendaDay'
-                       },
-                       googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',
-                       
-                        //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
+                        selectable: true,
+                        defaultView:'agendaWeek',
+                        header: {
+                            left: 'prev,next today myCustomButton',
+                            center: 'title',
+                            right: 'month,agendaWeek,agendaDay'
+                        },
+                        googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',
+                        
+                            //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
 
-                       events:qEvent,
-                       eventSources: aaa,
-                       eventClick: function(event, element) {
-                           console.log(event);
-                           var moment = $('#calendar').fullCalendar('getDate');
+                        events:qEvent,
+                        eventSources: aaa,
+                        eventClick: function(event, element) {
+                            console.log(event);
+                            var moment = $('#calendar').fullCalendar('getDate');
 
-                           $.confirm({
-                               title: 'Journey!', //Confirm
-                               content:"<h4>ID - "+ event.id+"</h4>" + 
-                               "<h4>Purpose - "+ event.purpose+"</h4>" + 
-                               "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:mm:SS') + "</h4>" +
-                               "<h4>End - "+ event.end.format('YYYY-MM-DD HH:mm:SS') +"</h4>"+
-                               "<h4>Vehicle Id - "+ event.vehical_id +"</h4>",
-                               buttons: {
-                                   somethingElse: {
-                                       text: 'OK',
-                                       btnClass: 'btn-blue',
-                                       keys: ['enter', 'shift'],
-                                       action: function(){
+                            $.confirm({
+                                title: 'Journey!', //Confirm
+                                content:"<h4>ID - "+ event.id+"</h4>" + 
+                                "<h4>Purpose - "+ event.title+"</h4>" + 
+                                "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:mm:SS') + "</h4>" +
+                                "<h4>End - "+ event.end.format('YYYY-MM-DD HH:mm:SS') +"</h4>"+
+                                "<h4>Vehicle Id - "+ event.vehical_id +"</h4>",
+                                buttons: {
+                                    somethingElse: {
+                                        text: 'OK',
+                                        btnClass: 'btn-blue',
+                                        keys: ['enter', 'shift'],
+                                        action: function(){
 
-                                       }
-                                   }
-                               }
-                           });
+                                        }
+                                    }
+                                }
+                            });
 
-                       },
-                       dayClick: function(date) {
-                           //alert('clicked ' + date.format());
-                       },
-                       select: function(startDate, endDate) {
-                           $('#myModal').modal('toggle');
-                           //alert('selected ' + startDate.format() + ' to ' + endDate.format());
-                           // $('#dtp').val(startDate.format('MM/DD/YYYY HH:mm')+' - '+endDate.format('MM/DD/YYYY HH:mm'));
-                           $('#dtp').val(startDate.format()+' - '+endDate.format())
-                       }
-                   });
-               }
-           })
+                        },
+                        dayClick: function(date) {
+                            //alert('clicked ' + date.format());
+                        },
+                        select: function(startDate, endDate) {
+                            $('#myModal').modal('toggle');
+                            //alert('selected ' + startDate.format() + ' to ' + endDate.format());
+                            // $('#dtp').val(startDate.format('MM/DD/YYYY HH:mm')+' - '+endDate.format('MM/DD/YYYY HH:mm'));
+                            $('#dtp').val(startDate.format()+' - '+endDate.format())
+                        }
+                    });
+                }
+            })
         });
 
         // var calendar = $('#calendar').fullCalendar('getCalendar');
@@ -376,7 +392,7 @@
             },function(start, end, label) {
                 
                 console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:mm') + ' to ' + end.format('YYYY-MM-DD HH:mm') + ' (predefined range: ' + label + ')');                 
-               
+               /*
                 var vehicle_id = $('#vid').val();
                 if (vehicle_id=="") {
                     console.log(" vehicle should be selected!..");
@@ -418,7 +434,7 @@
 
                         });
                     });
-                } 
+                } */
                 
             });
         });

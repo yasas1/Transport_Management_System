@@ -59,9 +59,22 @@ class JourneyController extends Controller
         return view('journey.create',compact('fundAlFroms','drivers','vehicles','divHeads','journeys'));
     }
 
-    public function readJourney(){
-
+    public function readJourney(){ 
+            // for create journey calender view
         $journeys = Journey::all();
+        return response($journeys);
+    }
+
+    public function forConfirmationJourneys(){
+            // for Confirmation journey calender view
+        $journeys = Journey::notConfirmed();
+        return response($journeys);
+        
+    }
+
+    public function readcompletedJourney(){
+            // for Completed journey calender view
+        $journeys = Journey::completed();
         return response($journeys);
     }
 

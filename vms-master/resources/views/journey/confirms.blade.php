@@ -422,23 +422,22 @@
 <script src='{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/gcal.min.js')}}'></script>
 <script src="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 <script>
-     var journeys = {!! json_encode($journeys->toArray()) !!};
-     //console.log(journeys[0]);
-     var qEvent=[];
-     for (let i = 0; i < journeys.length; i++) {
-        
-        qEvent.push(
-            { id : journeys[i].id,
-              start :journeys[i].expected_start_date_time,
-              end :journeys[i].expected_end_date_time,
-              purpose : journeys[i].purpose,
-              applicant_id :journeys[i].applicant_id,
-              vehical_id : journeys[i].vehical_id,   
-              driver_id : journeys[i].driver_id,
-              
-            }
-        );             
-    } 
+     
+    var qEvent=[];
+    $.get("{{ URL::to('journey/readForConfirmation') }}",function(data){ 
+        $.each(data,function(i,value){
+            qEvent.push(
+                { 
+                title : value.purpose,
+                id : value.id,                  
+                start :value.expected_start_date_time,
+                end :value.expected_end_date_time,                  
+                vehical_id : value.vehical_id, 
+                color : "black" ,              
+                }
+            );
+        });
+    });
    
     $(function () {
         var aaa;

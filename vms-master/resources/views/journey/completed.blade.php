@@ -417,22 +417,24 @@
 <script src='{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/gcal.min.js')}}'></script>
 <script src="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 <script>
-    var journeys = {!! json_encode($journeys->toArray()) !!};
-    console.log(journeys[0].expected_end_date_time);
-     var qEvent=[];
-     for (let i = 0; i < journeys.length; i++) {     
-        qEvent.push(
-            {   id : journeys[i].id,
-                start :journeys[i].expected_start_date_time,
-                end :journeys[i].expected_end_date_time,
-                applicant_id :journeys[i].applicant_id,
-                vehical_id : journeys[i].vehical_id,
-                driver_id : journeys[i].driver_id,
-           
-            }
-        );             
-    }  
-    //console.log(qEvent); 
+
+    var qEvent=[];
+    $.get("{{ URL::to('journey/readCompleted') }}",function(data){ 
+        $.each(data,function(i,value){
+            qEvent.push(
+                { 
+                title : value.purpose,
+                id : value.id,                  
+                start :value.expected_start_date_time,
+                end :value.expected_end_date_time,                  
+                vehical_id : value.vehical_id, 
+                color : "black" ,              
+                }
+            );
+        });
+    });
+
+    console.log(qEvent); 
     $(function () {
         var aaa;
         $.ajax({
@@ -483,7 +485,7 @@
                             success: function(data)
                             {
                                 var details = JSON.parse(data);
-                                // console.log(details[0].expected_distance);
+                                console.log(event.end);
                                 $('#journeyid').val(details[0].id);
                                 $('#purpose').html(details[0].purpose);
                                 $('#places_to_be_visited').html(details[0].places_to_be_visited);
