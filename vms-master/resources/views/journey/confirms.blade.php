@@ -20,7 +20,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">Confirmation Pending Journey Requests List</h3>
         </div>
-        <button onclick="myFunction()" class="btn btn-info">View Table</button> <br><br>
+        <button onclick="myFunction()" class="btn btn-info">Table View</button> <br><br>
     </div> 
 
     <div class="box box-primary" id="tabl" style="display: none;" >
@@ -277,7 +277,6 @@
                         <dl class="dl-horizontal">
                             <h4>Expected Date and Time Range</h4>
                             <dt>Start Date/ Time</dt>
-                            {{-- {{$journey->expected_start_date_time->toDayDateTimeString()}} --}}
                             <dd id="expected_start_date_time"></dd>
                             <dt>End Date/ Time</dt>
                             <dd id="expected_end_date_time"></dd>
@@ -292,10 +291,8 @@
                         <dl class="dl-horizontal">
                             <h4>Approval</h4>
                             <dt>Approved By</dt>
-                            {{-- {{$journey->approvedBy->emp_title.' '.$journey->approvedBy->emp_initials.'. '.$journey->approvedBy->emp_surname}} --}}
                             <dd id="approved_by"></dd>
                             <dt>Approved At</dt>
-                            {{-- {{$journey->approved_at->toDayDateTimeString()}} --}}
                             <dd id="approved_at"></dd>
                             <dt>Remarks</dt>
                             <dd id="approval_remarks"></dd>
@@ -329,13 +326,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="confirmed_start_date_time">Start Date/ Time</label>
-                                    {{Form::text('confirmed_start_date_time',null,['class'=>'form-control','id'=>'dtp' ,'required'])}}
+                                    {{Form::text('confirmed_start_date_time',null,['class'=>'form-control','id'=>'dtpStart' ,'required'])}}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="confirmed_end_date_time">End Date/ Time</label>
-                                    {{Form::text('confirmed_end_date_time',null,['class'=>'form-control','id'=>'dtp1','required'])}}
+                                    {{Form::text('confirmed_end_date_time',null,['class'=>'form-control','id'=>'dtpEnd','required'])}}
                                 </div>
                             </div>
                         </div>
@@ -415,7 +412,31 @@
     });
 </script>
 
-    {{-- Script for calender view --}}
+<script type="text/javascript">
+    $(function () {
+        $('#dtpStart,#dtpEnd').daterangepicker({
+            "singleDatePicker": true,
+            "timePicker": true,
+            "linkedCalendars": false,
+            "showCustomRangeLabel": false,
+            "timePicker24Hour": true,
+            "minDate": moment(),
+            drops:"up",
+            locale: {
+                format: 'MM/DD/YYYY HH:mm'
+            }
+            
+        }, function(start, end, label) {
+            console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:mm') + ' to ' + end.format('YYYY-MM-DD HH:mm') + ' (predefined range: ' + label + ')');
+        });
+        // $('#dtpStart').on('show.daterangepicker', function(e){
+        //     var modalZindex = $(e.target).closest('.modal').css('z-index');
+        //     $('.daterangepicker').css('z-index', modalZindex+100);
+        // });
+    });
+</script>
+
+    {{-- Script for calender view  --}}
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js')}}"></script>
@@ -462,19 +483,21 @@
            complete:function () {             
                console.log(aaa);
                $('#calendar').fullCalendar({
-                   selectable: true,
-                   defaultView:'month', //agendaWeek
-                   header: {
-                       left: 'prev,next today myCustomButton',
-                       center: 'title',
-                       right: 'month,agendaWeek,agendaDay'
-                   },
-                   googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',
-                  
-                    //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
-                   events:qEvent,                  
-                   eventSources: aaa,
-                   eventClick: function(event, element) {
+                    selectable: true,
+                    editable:true,
+                    //selectHelper:true,
+                    defaultView:'month', //agendaWeek
+                    header: {
+                        left: 'prev,next today myCustomButton',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                    },
+                    googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',
+                    
+                        //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
+                    events:qEvent,                  
+                    eventSources: aaa,
+                    eventClick: function(event, element) {
                         //console.log(event);                      
                         var moment = $('#calendar').fullCalendar('getDate');
 
@@ -528,16 +551,96 @@
                                 }
                             }
                         }); */
-                   }, 
-                   dayClick: function(date) {
-                       //alert('clicked ' + date.format());
-                   },
-                   select: function(startDate, endDate) {
-                       //$('#myModal').modal('toggle');
-                       //alert('selected ' + startDate.format() + ' to ' + endDate.format());
-                       // $('#dtp').val(startDate.format('MM/DD/YYYY HH:mm')+' - '+endDate.format('MM/DD/YYYY HH:mm'));
-                       $('#dtp').val(startDate.format()+' - '+endDate.format())
-                   }
+                    }, 
+                    dayClick: function(date) {
+                        //alert('clicked ' + date.format());
+                    },
+                    select: function(startDate, endDate) {                          
+                        // $('#dtp').val(startDate.format());                      
+                    },
+                    eventDrop: function (event, delta) {
+
+                        $('#dtpStart').val(event.start.format('MM/DD/YYYY HH:mm'));
+                        $('#dtpEnd').val(event.end.format('MM/DD/YYYY HH:mm'));
+
+                        $.ajax({
+                            url: '/journey/read/{id}',
+                            type: 'GET',
+                            data: { id: event.id },
+                            success: function(data)
+                            {
+                                var details = JSON.parse(data);
+                                // console.log(details[0].expected_distance);
+
+                                console.log(details[7]);
+
+                                $('#purpose').html(details[0].purpose);
+                                $('#places_to_be_visited').html(details[0].places_to_be_visited);
+                                $('#number_of_persons').html(details[0].number_of_persons);
+                                $('#expected_distance').html(details[0].expected_distance); 
+                                $('#expected_start_date_time').html(details[10]);  
+                                $('#expected_end_date_time').html(details[11]);                            
+                                $('#approved_at').html(details[9]);     
+                                $('#approval_remarks').html(details[0].approval_remarks);
+                                $('#journeyid').val(event.id); 
+
+                                $('#approved_by').html(details[8]);
+
+                                $('#appl_name').html(details[4]);
+                                $('#appl_dept').html(details[5]);
+                                $('#appl_email').html(details[6]); 
+                                $('#driver').html(details[3]);
+                                $('#vehicle_number').html(details[1]);
+                                $('#vehicle_name').html(details[2]);  
+                                $('#devisional_head').html(details[7]);
+
+                            }
+                        });
+
+                        $('#modal').modal('toggle');
+                    },
+                    eventResize: function(event, delta, revertFunc) {
+
+                        $('#dtpStart').val(event.start.format('MM/DD/YYYY HH:mm'));
+                        $('#dtpEnd').val(event.end.format('MM/DD/YYYY HH:mm'));
+                        console.log(event.start.format('MM/DD/YYYY HH:mm'));
+                    
+                        $.ajax({
+                            url: '/journey/read/{id}',
+                            type: 'GET',
+                            data: { id: event.id },
+                            success: function(data)
+                            {
+                                var details = JSON.parse(data);
+                                // console.log(details[0].expected_distance);
+
+                                console.log(details[7]);
+
+                                $('#purpose').html(details[0].purpose);
+                                $('#places_to_be_visited').html(details[0].places_to_be_visited);
+                                $('#number_of_persons').html(details[0].number_of_persons);
+                                $('#expected_distance').html(details[0].expected_distance); 
+                                $('#expected_start_date_time').html(details[10]);  
+                                $('#expected_end_date_time').html(details[11]);                            
+                                $('#approved_at').html(details[9]);     
+                                $('#approval_remarks').html(details[0].approval_remarks);
+                                $('#journeyid').val(event.id); 
+
+                                $('#approved_by').html(details[8]);
+
+                                $('#appl_name').html(details[4]);
+                                $('#appl_dept').html(details[5]);
+                                $('#appl_email').html(details[6]); 
+                                $('#driver').html(details[3]);
+                                $('#vehicle_number').html(details[1]);
+                                $('#vehicle_name').html(details[2]);  
+                                $('#devisional_head').html(details[7]);
+
+                            }
+                        });
+                        $('#modal').modal('toggle');
+                        
+                    }
                });
            }
        })
@@ -553,9 +656,9 @@
         $.post(url,data,function(data){
             console.log(data);           
             //window.location.reload(true);
-            window.setTimeout(function(){ 
-                location.reload();
-            } ,1000);                     
+           // window.setTimeout(function(){ 
+                //location.reload();
+            //} ,1000);                     
         });       
     });
     
