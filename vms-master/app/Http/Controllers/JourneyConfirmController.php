@@ -30,9 +30,7 @@ class JourneyConfirmController extends Controller
                 if($journey->vehical_id!=$request->vehical_id){
                     $journey->vehical_id = $request->vehical_id;
                 }
-                // if($journey->vehical_id!=$request->vehical_id){
-                //     $journey->vehical_id = $request->vehical_id;
-                // }
+                
                 if($journey->expected_start_date_time != Carbon::parse($request->confirmed_start_date_time)){
                     $journey->confirmed_start_date_time = Carbon::parse($request->confirmed_start_date_time);
                 }
@@ -79,7 +77,6 @@ class JourneyConfirmController extends Controller
                     if($request->vehical_id != NULL &&  $journey->vehical_id != $request->vehical_id){
                         $journey->vehical_id = $request->vehical_id;
                     }
-
                     // if($journey->expected_start_date_time != Carbon::parse($request->confirmed_start_date_time)){
                     //     $journey->confirmed_start_date_time = Carbon::parse($request->confirmed_start_date_time);
                     // }
@@ -92,7 +89,6 @@ class JourneyConfirmController extends Controller
                    
                     return response($journey);
                     //return redirect()->back()->with(['success'=>'Journey request confirmed successfully !' , 'url'=> route('/journey/requests/notconfirmed')]);
-
                 } 
                 else{
 

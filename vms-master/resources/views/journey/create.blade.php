@@ -249,19 +249,34 @@
         $.get("{{ URL::to('journey/read') }}",function(data){ 
             $.each(data,function(i,value){
                 //console.log(value.expected_end_date_time);
-                qEvent.push(
-                    { 
-                    title : value.purpose,
-                    start : value.expected_start_date_time,
-                    end : value.expected_end_date_time,
-                    id :  value.id,                                                     
-                    vehical_id : value.vehical_id, 
-                    color : "black" ,              
-                    }
-                );
+                
+                if(value.vehical_id==2){
+                    qEvent.push(
+                        { 
+                            title : value.purpose,
+                            start : value.expected_start_date_time,
+                            end : value.expected_end_date_time,
+                            id :  value.id,                                                     
+                            vehical_id : value.vehical_id, 
+                            color : 'black'       
+                        }
+                    );
+                }
+                else{
+                    qEvent.push(
+                        { 
+                            title : value.purpose,
+                            start : value.expected_start_date_time,
+                            end : value.expected_end_date_time,
+                            id :  value.id,                                                     
+                            vehical_id : value.vehical_id, 
+                            color : 'green'       
+                        }
+                    );
+                }
             });
         });
-        console.log(qEvent);
+        console.log(qEvent.color);
         // for (let i = 0; i < journeys.length; i++) {            
         //     qEvent.push(
         //         { 
@@ -290,9 +305,7 @@
                        eventSources.push(event)
                         $('#aaa').append(item.id);
                     });
-
                    aaa = eventSources;
-
                 },
                 error:function (err) {
                    // alert(err.toString());
@@ -336,7 +349,6 @@
                                     }
                                 }
                             });
-
                         },
                         dayClick: function(date) {
                             //alert('clicked ' + date.format());

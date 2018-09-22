@@ -22,7 +22,7 @@
         </div>
         @if($journeys)
                 <!-- for hide and view table content -->
-        <button onclick="myFunction()" class="btn btn-info">View Table</button> <br>
+        <button onclick="myFunction()" class="btn btn-info">Table View </button> <br>
 
         <div id="hidetable" class="box-body" style="display: none;">
                    
