@@ -447,14 +447,16 @@
     var qEvent=[];
     $.get("{{ URL::to('journey/readForConfirmation') }}",function(data){ 
         $.each(data,function(i,value){
+            journey_color = ['#000000','#EF5B5B','#2697F9','#14C5EF','#05DCB2'];
+                
             qEvent.push(
                 { 
-                title : value.purpose,
-                id : value.id,                  
-                start :value.expected_start_date_time,
-                end :value.expected_end_date_time,                  
-                vehical_id : value.vehical_id, 
-                color : "black" ,              
+                    title : value.purpose,
+                    start : value.expected_start_date_time,
+                    end : value.expected_end_date_time,
+                    id :  value.id,                                                     
+                    vehical_id : value.vehical_id, 
+                    color :  journey_color[value.vehical_id]      
                 }
             );
         });
