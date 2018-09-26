@@ -242,38 +242,25 @@
     <script src='{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/gcal.min.js')}}'></script>
     <script src="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
     <script>
-
         //var journeys = {!! json_encode($journeys->toArray()) !!};
-        //console.log(journeys);
+        
         var qEvent=[];
         $.get("{{ URL::to('journey/read') }}",function(data){ 
+            //console.log(data);
             $.each(data,function(i,value){
-                //console.log(value.expected_end_date_time);
-                
-                if(value.vehical_id==2){
-                    qEvent.push(
-                        { 
-                            title : value.purpose,
-                            start : value.expected_start_date_time,
-                            end : value.expected_end_date_time,
-                            id :  value.id,                                                     
-                            vehical_id : value.vehical_id, 
-                            color : 'black'       
-                        }
-                    );
-                }
-                else{
-                    qEvent.push(
-                        { 
-                            title : value.purpose,
-                            start : value.expected_start_date_time,
-                            end : value.expected_end_date_time,
-                            id :  value.id,                                                     
-                            vehical_id : value.vehical_id, 
-                            color : 'green'       
-                        }
-                    );
-                }
+                //console.log(value);
+                journey_color = ['#000000','#EF5B5B','#2697F9','#14C5EF','#05DCB2'];               
+                qEvent.push(
+                    { 
+                        title : value.purpose,
+                        start : value.expected_start_date_time,
+                        end : value.expected_end_date_time,
+                        id :  value.id,                                                     
+                        vehical_id : value.vehical_id, 
+                        color :  journey_color[value.vehical_id]      
+                    }
+                );
+                         
             });
         });
         console.log(qEvent.color);
@@ -323,32 +310,63 @@
                         },
                         googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',
                         
-                            //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
+                        //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
 
                         events:qEvent,
                         eventSources: aaa,
                         eventClick: function(event, element) {
                             console.log(event);
                             var moment = $('#calendar').fullCalendar('getDate');
+                            
+                            $.ajax({
+                                url: '/journey/read/{id}',
+                                type: 'GET',
+                                data: { id: event.id },
+                                success: function(data)
+                                {
+                                    var details = JSON.parse(data);
+                                    //console.log(details[7]);
+                                    $.confirm({
+                                        title: 'Journey!', //Confirm
+                                        content:"<h4>ID - "+ details[0].id+"</h4>" + 
+                                        "<h4> Purpose- "+ details[0].purpose+"</h4>" + 
+                                        "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:mm:SS') + "</h4>" +
+                                        "<h4>End - "+ event.end.format('YYYY-MM-DD HH:mm:SS') +"</h4>"+
+                                        "<h4>Vehicle Number - "+ details[1] +"</h4>"+
+                                        "<h4>Driver - "+ details[3] +"</h4>",
+                                        buttons: {
+                                            somethingElse: {
+                                                text: 'OK',
+                                                btnClass: 'btn-blue',
+                                                keys: ['enter', 'shift'],
+                                                action: function(){
 
-                            $.confirm({
-                                title: 'Journey!', //Confirm
-                                content:"<h4>ID - "+ event.id+"</h4>" + 
-                                "<h4>Purpose - "+ event.title+"</h4>" + 
-                                "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:mm:SS') + "</h4>" +
-                                "<h4>End - "+ event.end.format('YYYY-MM-DD HH:mm:SS') +"</h4>"+
-                                "<h4>Vehicle Id - "+ event.vehical_id +"</h4>",
-                                buttons: {
-                                    somethingElse: {
-                                        text: 'OK',
-                                        btnClass: 'btn-blue',
-                                        keys: ['enter', 'shift'],
-                                        action: function(){
-
+                                                }
+                                            }
                                         }
-                                    }
+                                    });
+
                                 }
                             });
+
+                            // $.confirm({
+                            //     title: 'Journey!', //Confirm
+                            //     content:"<h4>ID - "+ event.id+"</h4>" + 
+                            //     "<h4>Purpose - "+ event.title+"</h4>" + 
+                            //     "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:mm:SS') + "</h4>" +
+                            //     "<h4>End - "+ event.end.format('YYYY-MM-DD HH:mm:SS') +"</h4>"+
+                            //     "<h4>Vehicle Id - "+ event.vehical_id +"</h4>",
+                            //     buttons: {
+                            //         somethingElse: {
+                            //             text: 'OK',
+                            //             btnClass: 'btn-blue',
+                            //             keys: ['enter', 'shift'],
+                            //             action: function(){
+
+                            //             }
+                            //         }
+                            //     }
+                            // });
                         },
                         dayClick: function(date) {
                             //alert('clicked ' + date.format());
