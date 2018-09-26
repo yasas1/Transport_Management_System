@@ -208,6 +208,11 @@
             @endif
         </div>
     </div>
+    
+    <div>
+        <button id="vehicle1">Vehicle 1 </button>
+    </div>
+
     <div class="col-md-12">
         <div class="box box-primary">
             {{-- <div class="box-header with-border">
@@ -445,10 +450,10 @@
 <script>
      
     var qEvent=[];
+    journey_color = ['#000000','#EF5B5B','#2697F9','#14C5EF','#05DCB2'];
+
     $.get("{{ URL::to('journey/readForConfirmation') }}",function(data){ 
-        $.each(data,function(i,value){
-            journey_color = ['#000000','#EF5B5B','#2697F9','#14C5EF','#05DCB2'];
-                
+        $.each(data,function(i,value){       
             qEvent.push(
                 { 
                     title : value.purpose,
@@ -461,30 +466,70 @@
             );
         });
     });
+
+    $('#vehicle1').on('click',function(){
+        qEvent=[];                
+        
+        console.log("check V1");
+        //console.log(qEvent);
+        $('#calendar').fullCalendar('removeEvents');
+        $.ajax({
+            url: '/journey/readForVehicle/{id}',
+            type: 'GET',
+            data: { id: 2 },
+            success: function(data)
+            {
+                //var details = JSON.parse(data);
+                console.log(data); 
+                $(data).each(function (index,a) {
+                           
+                });
+                // $(data).each(function (i,value) {
+                //     qEvent.push(
+                //         { 
+                //             title : value.purpose,
+                //             start : value.expected_start_date_time,
+                //             end : value.expected_end_date_time,
+                //             id :  value.id,                                                     
+                //             vehical_id : value.vehical_id, 
+                //             color :  journey_color[value.vehical_id]                                
+                //         }
+                //     );
+                            
+                // }); 
+
+            }
+        });
+        
+        $('#calendar').fullCalendar('addEventSource', qEvent);
+        $('#calendar').fullCalendar('refetchEvents');
+        
+  
+    });
    
     $(function () {
         var aaa;
-       $.ajax({
-           method:'GET',
-           url:'{{url('/google/calenders')}}',
-           success:function (data) {
-               var eventSources = [];
-               $.each(data,function (i,item) {
-                   var event = {};
-                   event.id = i;
-                   event.googleCalendarId = item.id;
-                   event.color = item.backgroundColor;
-                   eventSources.push(event)
-                    $('#aaa').append(item.id);
-               });
-               aaa = eventSources;
-           },
-           error:function (err) {
+        $.ajax({
+            method:'GET',
+            url:'{{url('/google/calenders')}}',
+            success:function (data) {
+                var eventSources = [];
+                $.each(data,function (i,item) {
+                    var event = {};
+                    event.id = i;
+                    event.googleCalendarId = item.id;
+                    event.color = item.backgroundColor;
+                    eventSources.push(event)
+                        $('#aaa').append(item.id);
+                });
+                aaa = eventSources;
+            },
+            error:function (err) {
                // alert(err.toString());
-           },
-           complete:function () {             
-               console.log(aaa);
-               $('#calendar').fullCalendar({
+            },
+            complete:function () {             
+                console.log(aaa);
+                $('#calendar').fullCalendar({
                     selectable: true,
                     editable:true,
                     //selectHelper:true,
@@ -496,7 +541,7 @@
                     },
                     googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',
                     
-                        //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
+                    //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
                     events:qEvent,                  
                     eventSources: aaa,
                     eventClick: function(event, element) {
@@ -511,7 +556,6 @@
                             {
                                 var details = JSON.parse(data);
                                 // console.log(details[0].expected_distance);
-
                                 console.log(details[7]);
 
                                 $('#purpose').html(details[0].purpose);
@@ -522,7 +566,7 @@
                                 $('#expected_end_date_time').html(details[11]);                            
                                 $('#approved_at').html(details[9]);     
                                 $('#approval_remarks').html(details[0].approval_remarks);
-                                $('#journeyid').val(event.id); 
+                                $('#journeyid').val(details[0].id); 
 
                                 $('#approved_by').html(details[8]);
 
