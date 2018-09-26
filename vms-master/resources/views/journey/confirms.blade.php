@@ -476,33 +476,31 @@
         $.ajax({
             url: '/journey/readForVehicle/{id}',
             type: 'GET',
-            data: { id: 2 },
+            data: { id: 3 },
             success: function(data)
             {
                 //var details = JSON.parse(data);
-                console.log(data); 
-                $(data).each(function (index,a) {
-                           
-                });
-                // $(data).each(function (i,value) {
-                //     qEvent.push(
-                //         { 
-                //             title : value.purpose,
-                //             start : value.expected_start_date_time,
-                //             end : value.expected_end_date_time,
-                //             id :  value.id,                                                     
-                //             vehical_id : value.vehical_id, 
-                //             color :  journey_color[value.vehical_id]                                
-                //         }
-                //     );
+                console.log(data);              
+                $(data).each(function (i,value) {
+                    
+                    qEvent.push(
+                        { 
+                            title : value.purpose,
+                            start : value.expected_start_date_time,
+                            end : value.expected_end_date_time,
+                            id :  value.id,                                                     
+                            vehical_id : value.vehical_id, 
+                            color :  journey_color[value.vehical_id]                                
+                        }
+                    );
                             
-                // }); 
-
+                }); 
+                console.log(qEvent);
+                $('#calendar').fullCalendar('addEventSource', qEvent);
+                $('#calendar').fullCalendar('refetchEvents');  
             }
         });
         
-        $('#calendar').fullCalendar('addEventSource', qEvent);
-        $('#calendar').fullCalendar('refetchEvents');
         
   
     });
