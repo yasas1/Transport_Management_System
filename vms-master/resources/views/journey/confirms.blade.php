@@ -210,7 +210,7 @@
     </div>
     @foreach ($vehiclesForColor as $vehicle)
     <div>
-        <button id="{{$vehicle->id}}"> {{$vehicle->registration_no}} </button>
+        <button class="test" id="{{$vehicle->id}}"> {{$vehicle->registration_no}} </button>
     </div>
     @endforeach
 
@@ -452,9 +452,10 @@
      
     var qEvent=[];
     //journey_color = ['#000000','#EF5B5B','#2697F9','#14C5EF','#05DCB2'];
+            /*Get Journey color from db */
     var journey_colors = [];///journey/readVehicle/
     $.get("{{ URL::to('journey/readVehicle/') }}",function(data){ 
-        //console.log(data);
+        
         $.each(data,function(i,value){       
             journey_colors[i]=value.journey_color;
         });
@@ -476,9 +477,43 @@
         });
     });
 
+    $(document).ready(function(){
+	    $(".test").click(function(evt){
+	        //alert($(this).attr("id"));
+            var vid = $(this).attr("id");
+            qEvent=[];                       
+            $('#calendar').fullCalendar('removeEvents');
+            
+            $.ajax({
+                url: '/journey/readForVehicle/{id}',
+                type: 'GET',
+                data: { id: vid },
+                success: function(data)
+                {
+                    console.log(data);              
+                    $(data).each(function (i,value) {                
+                        qEvent.push(
+                            { 
+                                title : value.purpose,
+                                start : value.expected_start_date_time,
+                                end : value.expected_end_date_time,
+                                id :  value.id,                                                     
+                                vehical_id : value.vehical_id, 
+                                color :  journey_colors[value.vehical_id-2]                                
+                            }
+                        );
+                            
+                    }); 
+                    console.log(qEvent);
+                    $('#calendar').fullCalendar('addEventSource', qEvent);
+                    $('#calendar').fullCalendar('refetchEvents');  
+                }
+            });
+	    });
+     });
+    /*
     $('#3').on('click',function(){
-        qEvent=[];                
-        
+        qEvent=[];                      
         console.log("check V1");
         //console.log(qEvent);
         $('#calendar').fullCalendar('removeEvents');
@@ -488,10 +523,8 @@
             data: { id: 3 },
             success: function(data)
             {
-                //var details = JSON.parse(data);
                 console.log(data);              
-                $(data).each(function (i,value) {
-                    
+                $(data).each(function (i,value) {                
                     qEvent.push(
                         { 
                             title : value.purpose,
@@ -499,20 +532,17 @@
                             end : value.expected_end_date_time,
                             id :  value.id,                                                     
                             vehical_id : value.vehical_id, 
-                            color :  journey_color[value.vehical_id]                                
+                            color :  journey_colors[value.vehical_id-2]                                
                         }
                     );
-                            
+                           
                 }); 
                 console.log(qEvent);
                 $('#calendar').fullCalendar('addEventSource', qEvent);
                 $('#calendar').fullCalendar('refetchEvents');  
             }
         });
-        
-        
-  
-    });
+    }); */
    
     $(function () {
         var aaa;
@@ -588,22 +618,6 @@
                             }
                         });
                         $('#modal').modal('toggle');
-                        /*$.confirm({
-                            title: 'Complted!', 
-                            content:"<h4>ID - "+ event.id+"</h4>" + 
-                            "<h4>ID - "+ event.purpose+"</h4>" +
-                            "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:MM:SS') + "</h4>" +
-                            "<h4>End - "+ event.end.format('YYYY-MM-DD HH:MM:SS') +"</h4>",
-                            buttons: {
-                                somethingElse: {
-                                    text: 'OK',
-                                    btnClass: 'btn-blue',
-                                    keys: ['enter', 'shift'],
-                                    action: function(){
-                                    }
-                                }
-                            }
-                        }); */
                     }, 
                     dayClick: function(date) {
                         //alert('clicked ' + date.format());
