@@ -15,6 +15,7 @@ use Google_Service_Calendar_Event;
 use function GuzzleHttp\Psr7\parse_header;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Requests\CreateJourneyRequest;
@@ -62,6 +63,22 @@ class JourneyController extends Controller
     public function readJourney(){ 
             // for create journey calender view
         $journeys = Journey::all();
+
+        return response($journeys);
+    }
+
+    public function readVehicleColor(){
+        
+        //$vehicles = Vehical::all()->select('journey_color')->get();
+        $vehicles = DB::table('vehical')->select('journey_color')->get();
+            
+        return response($vehicles);
+    }
+
+    public function readForVehicle(){
+        $vid = $_GET['id'];
+        $journeys = Journey::journeyByVehicle($vid); 
+
         return response($journeys);
     }
 
@@ -81,8 +98,8 @@ class JourneyController extends Controller
           /*  For journey confirmation form details  */
     public function readJourneyForConfirmAjax(){
         $id = $_GET['id'];
-        $journey = Journey::whereId($id)->first(); // $journey->confirmed_at->toDayDateTimeString();
-
+        $journey = Journey::whereId($id)->first(); 
+        // $journey->confirmed_at->toDayDateTimeString();
         $purpose = $journey->purpose ;
         $vehicle_num = $journey->vehical->registration_no;
         $vehicle_name = $journey->vehical->name;
@@ -101,8 +118,9 @@ class JourneyController extends Controller
             $approved_by,$approved_at,$exp_start,$exp_end
             
         ));
+
         return response($data);
-        //return $journeys;
+        
     }
 
             /*  For Completed journey form details  */
@@ -300,9 +318,10 @@ class JourneyController extends Controller
 
         $drivers = Driver::all()->pluck('fullName','id');
         $vehicles = Vehical::all()->pluck('fullName','id');
+        $vehiclesForColor = Vehical::all(); // for color button {delete}
         $journeys = Journey::notConfirmed();
 
-        return view('journey.confirms',compact('journeys','drivers','vehicles'));
+        return view('journey.confirms',compact('journeys','drivers','vehicles','vehiclesForColor'));
     }
 
     public function confirmedJourneys(){
