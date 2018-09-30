@@ -208,10 +208,11 @@
             @endif
         </div>
     </div>
-    
+    @foreach ($vehiclesForColor as $vehicle)
     <div>
-        <button id="vehicle1">Vehicle 1 </button>
+        <button id="{{$vehicle->id}}"> {{$vehicle->registration_no}} </button>
     </div>
+    @endforeach
 
     <div class="col-md-12">
         <div class="box box-primary">
@@ -450,7 +451,15 @@
 <script>
      
     var qEvent=[];
-    journey_color = ['#000000','#EF5B5B','#2697F9','#14C5EF','#05DCB2'];
+    //journey_color = ['#000000','#EF5B5B','#2697F9','#14C5EF','#05DCB2'];
+    var journey_colors = [];///journey/readVehicle/
+    $.get("{{ URL::to('journey/readVehicle/') }}",function(data){ 
+        //console.log(data);
+        $.each(data,function(i,value){       
+            journey_colors[i]=value.journey_color;
+        });
+        console.log(journey_colors);
+    });
 
     $.get("{{ URL::to('journey/readForConfirmation') }}",function(data){ 
         $.each(data,function(i,value){       
@@ -461,13 +470,13 @@
                     end : value.expected_end_date_time,
                     id :  value.id,                                                     
                     vehical_id : value.vehical_id, 
-                    color :  journey_color[value.vehical_id]      
+                    color :  journey_colors[value.vehical_id-2]      
                 }
             );
         });
     });
 
-    $('#vehicle1').on('click',function(){
+    $('#3').on('click',function(){
         qEvent=[];                
         
         console.log("check V1");
