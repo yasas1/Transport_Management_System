@@ -245,11 +245,20 @@
         //var journeys = {!! json_encode($journeys->toArray()) !!};
         
         var qEvent=[];
+        journey_color = ['#000000','#EF5B5B','#2697F9','#14C5EF','#05DCB2'];   
+        var journey_colors = [];///journey/readVehicle/
+        $.get("{{ URL::to('journey/readVehicle/') }}",function(data){ 
+            //console.log(data);
+            $.each(data,function(i,value){       
+                journey_colors[i]=value.journey_color;
+            });
+            console.log(journey_colors);
+        });
+
         $.get("{{ URL::to('journey/read') }}",function(data){ 
             //console.log(data);
             $.each(data,function(i,value){
-                //console.log(value);
-                journey_color = ['#000000','#EF5B5B','#2697F9','#14C5EF','#05DCB2'];               
+                //console.log(value);                    
                 qEvent.push(
                     { 
                         title : value.purpose,
@@ -257,7 +266,7 @@
                         end : value.expected_end_date_time,
                         id :  value.id,                                                     
                         vehical_id : value.vehical_id, 
-                        color :  journey_color[value.vehical_id]      
+                        color :  journey_colors[value.vehical_id-2]      
                     }
                 );
                          
@@ -274,8 +283,7 @@
         //             vehical_id : journeys[i].vehical_id,               
         //         }
         //     );             
-        // }          
-        
+        // }                
         $(function () {
             var aaa;
            $.ajax({
@@ -308,8 +316,7 @@
                             center: 'title',
                             right: 'month,agendaWeek,agendaDay'
                         },
-                        googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',
-                        
+                        googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',                   
                         //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
 
                         events:qEvent,
@@ -340,15 +347,12 @@
                                                 btnClass: 'btn-blue',
                                                 keys: ['enter', 'shift'],
                                                 action: function(){
-
                                                 }
                                             }
                                         }
                                     });
-
                                 }
                             });
-
                             // $.confirm({
                             //     title: 'Journey!', //Confirm
                             //     content:"<h4>ID - "+ event.id+"</h4>" + 
@@ -381,7 +385,6 @@
                 }
             })
         });
-
         // var calendar = $('#calendar').fullCalendar('getCalendar');
         //
         // calendar.on('dayClick', function(date, jsEvent, view) {
@@ -395,8 +398,7 @@
             $('#divDiviHead').html($(this).html());
         });
     </script>
-
-    <script>
+    {{-- <script>
 
         $('#vid').on('change',function () {
             $('#available').html('');
@@ -404,8 +406,7 @@
             console.log("check");
         });
 
-    </script>
-
+    </script> --}}
     <script type="text/javascript">
         // var journeys = {!! json_encode($journeys->toArray()) !!};
         $(function () {
