@@ -419,16 +419,27 @@
 <script>
 
     var qEvent=[];
+    journey_color = ['#000000','#EF5B5B','#2697F9','#14C5EF','#05DCB2'];
+
+    var journey_colors = [];///journey/readVehicle/
+    $.get("{{ URL::to('journey/readVehicle/') }}",function(data){ 
+        //console.log(data);
+        $.each(data,function(i,value){       
+            journey_colors[i]=value.journey_color;
+        });
+        console.log(journey_colors);
+    });
+
     $.get("{{ URL::to('journey/readCompleted') }}",function(data){ 
-        $.each(data,function(i,value){
+        $.each(data,function(i,value){                       
             qEvent.push(
                 { 
-                title : value.purpose,
-                id : value.id,                  
-                start :value.expected_start_date_time,
-                end :value.expected_end_date_time,                  
-                vehical_id : value.vehical_id, 
-                color : "black" ,              
+                    title : value.purpose,
+                    start : value.expected_start_date_time,
+                    end : value.expected_end_date_time,
+                    id :  value.id,                                                     
+                    vehical_id : value.vehical_id, 
+                    color :  journey_colors[value.vehical_id-2]      
                 }
             );
         });
