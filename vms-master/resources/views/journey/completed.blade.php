@@ -422,10 +422,10 @@
     journey_color = ['#000000','#EF5B5B','#2697F9','#14C5EF','#05DCB2'];
 
     var journey_colors = [];///journey/readVehicle/
-    $.get("{{ URL::to('journey/readVehicle/') }}",function(data){ 
+    $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
         //console.log(data);
         $.each(data,function(i,value){       
-            journey_colors[i]=value.journey_color;
+            journey_colors[value.id]=value.journey_color;
         });
         console.log(journey_colors);
     });
@@ -439,7 +439,7 @@
                     end : value.expected_end_date_time,
                     id :  value.id,                                                     
                     vehical_id : value.vehical_id, 
-                    color :  journey_colors[value.vehical_id-2]      
+                    color :  journey_colors[value.vehical_id]      
                 }
             );
         });

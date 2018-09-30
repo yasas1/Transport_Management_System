@@ -84,7 +84,7 @@
                         </tfoot>
                     </table>
                     @foreach($longDisJourneys as $journey)
-                        <div id="d{{$journey->id}}" hidden="hidden">
+                        <div id="ld{{$journey->id}}" hidden="hidden">
                             <div class="row">
                                 <div class="col-md-12">
                                     <h3>Journey Request Approval <span class="label label-danger pull-right">Not Approved</span></h3>
@@ -334,14 +334,10 @@
     <script>
         $(function () {
             $('.btnViewLong').on('click',function () {
-
-                // var longDisJourneys = {!! json_encode($longDisJourneys->toArray()) !!};
-                // console.log(longDisJourneys);
-
                 $.confirm({
                     title:'',
                     columnClass: 'col-lg-8 col-lg-offset-2',
-                    content:$('div#d'+$(this).attr('id')).html(),
+                    content:$('div#ld'+$(this).attr('id')).html(),
                     buttons: {
                         formSubmit: {
                             text: 'Submit',

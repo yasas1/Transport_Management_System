@@ -168,7 +168,8 @@ class Vehical extends Eloquent
 		'update_approved_by',
 		'id_card_id',
 		'reg_book_id',
-		'driver_id'
+		'driver_id',
+		'journey_color'
 	];
 
 	public function driver()

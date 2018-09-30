@@ -164,6 +164,9 @@ class Journey extends Eloquent
 	
     public static function completed(){
         return Journey::where('journey_status_id','=','6')->get();
+	}
+	public static function journeyByVehicle($vid){
+        return Journey::where('vehical_id','=',$vid)->get();
     }
 
 }

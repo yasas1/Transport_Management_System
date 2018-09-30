@@ -70,7 +70,7 @@ class JourneyController extends Controller
     public function readVehicleColor(){
         
         //$vehicles = Vehical::all()->select('journey_color')->get();
-        $vehicles = DB::table('vehical')->select('journey_color')->get();
+        $vehicles = DB::table('vehical')->select('id','journey_color')->get();
             
         return response($vehicles);
     }

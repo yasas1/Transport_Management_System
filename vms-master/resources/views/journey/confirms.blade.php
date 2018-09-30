@@ -208,12 +208,12 @@
             @endif
         </div>
     </div>
+
     @foreach ($vehiclesForColor as $vehicle)
-    <div>
-        <button class="test" id="{{$vehicle->id}}"> {{$vehicle->registration_no}} </button>
-    </div>
+        <button class="colorbutton" id="{{$vehicle->id}}"> {{$vehicle->registration_no}} </button>   
     @endforeach
 
+    <br><br>
     <div class="col-md-12">
         <div class="box box-primary">
             {{-- <div class="box-header with-border">
@@ -451,15 +451,15 @@
 <script>
      
     var qEvent=[];
-    //journey_color = ['#000000','#EF5B5B','#2697F9','#14C5EF','#05DCB2'];
+    
             /*Get Journey color from db */
-    var journey_colors = [];///journey/readVehicle/
-    $.get("{{ URL::to('journey/readVehicle/') }}",function(data){ 
+    var journey_colors = [];
+    $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
         
-        $.each(data,function(i,value){       
-            journey_colors[i]=value.journey_color;
-        });
-        console.log(journey_colors);
+         $.each(data,function(i,value){       
+             journey_colors[value.id]=value.journey_color;
+         });
+        //console.log(journey_colors);
     });
 
     $.get("{{ URL::to('journey/readForConfirmation') }}",function(data){ 
@@ -471,26 +471,26 @@
                     end : value.expected_end_date_time,
                     id :  value.id,                                                     
                     vehical_id : value.vehical_id, 
-                    color :  journey_colors[value.vehical_id-2]      
+                    color :  journey_colors[value.vehical_id]    
                 }
             );
         });
     });
 
     $(document).ready(function(){
-	    $(".test").click(function(evt){
+	    $(".colorbutton").click(function(evt){
 	        //alert($(this).attr("id"));
             var vid = $(this).attr("id");
             qEvent=[];                       
             $('#calendar').fullCalendar('removeEvents');
-            
+
             $.ajax({
                 url: '/journey/readForVehicle/{id}',
                 type: 'GET',
                 data: { id: vid },
                 success: function(data)
                 {
-                    console.log(data);              
+                    //console.log(data);              
                     $(data).each(function (i,value) {                
                         qEvent.push(
                             { 
@@ -499,50 +499,17 @@
                                 end : value.expected_end_date_time,
                                 id :  value.id,                                                     
                                 vehical_id : value.vehical_id, 
-                                color :  journey_colors[value.vehical_id-2]                                
+                                color :  journey_colors[value.vehical_id]                                
                             }
-                        );
-                            
+                        );                       
                     }); 
-                    console.log(qEvent);
+                    //console.log(qEvent);
                     $('#calendar').fullCalendar('addEventSource', qEvent);
                     $('#calendar').fullCalendar('refetchEvents');  
                 }
             });
 	    });
      });
-    /*
-    $('#3').on('click',function(){
-        qEvent=[];                      
-        console.log("check V1");
-        //console.log(qEvent);
-        $('#calendar').fullCalendar('removeEvents');
-        $.ajax({
-            url: '/journey/readForVehicle/{id}',
-            type: 'GET',
-            data: { id: 3 },
-            success: function(data)
-            {
-                console.log(data);              
-                $(data).each(function (i,value) {                
-                    qEvent.push(
-                        { 
-                            title : value.purpose,
-                            start : value.expected_start_date_time,
-                            end : value.expected_end_date_time,
-                            id :  value.id,                                                     
-                            vehical_id : value.vehical_id, 
-                            color :  journey_colors[value.vehical_id-2]                                
-                        }
-                    );
-                           
-                }); 
-                console.log(qEvent);
-                $('#calendar').fullCalendar('addEventSource', qEvent);
-                $('#calendar').fullCalendar('refetchEvents');  
-            }
-        });
-    }); */
    
     $(function () {
         var aaa;
