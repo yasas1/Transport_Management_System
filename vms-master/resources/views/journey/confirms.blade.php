@@ -211,8 +211,10 @@
     @foreach ($vehiclesForColor as $vehicle)
         <button class="colorbutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}"> {{$vehicle->registration_no}} </button>   
     @endforeach
-
     <br><br>
+
+    <button class="test1" id="test1" style="background-color:#03A6FD">Test1 </button> 
+
     <div class="col-md-12">
         <div class="box box-primary">
             {{-- <div class="box-header with-border">
@@ -478,15 +480,38 @@
     });
 
     $(document).ready(function(){
-        console.log(journey_colors); 
-        //$('.colorbutton').css('background','#05DCB2');
+
+        $('.test1').click(function(evt){
+            
+            $('#test1').css('background-color',ColorLuminance("03A6FD", 0.3)); 
+        });
+                /* Function for change color light */
+        function ColorLuminance(hex, lum) {
+
+            // validate hex string ColorLuminance("03A6FD", 0.2) lighten( $base-color, 10% )
+            hex = String(hex).replace(/[^0-9a-f]/gi, '');
+            if (hex.length < 6) {
+                hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+            }
+            lum = lum || 0;
+
+            // convert to decimal and change luminosity
+            var rgb = "#", c, i;
+            for (i = 0; i < 3; i++) {
+                c = parseInt(hex.substr(i*2,2), 16);
+                c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+                rgb += ("00"+c).substr(c.length);
+            }
+
+            return rgb;
+        }
+
+        //$('.colorbutton').css('background','#7CFD03');
 	    $(".colorbutton").click(function(evt){
 	        var vid = $(this).attr("value");   // Vehivle_id from Vehicle_Button
-            //alert($(this).attr("id"));
             //$(vid).css('background','#05DCB2');
             qEvent=[];                       
             $('#calendar').fullCalendar('removeEvents');
-
             $.ajax({
                 url: '/journey/ForConfirmationByVehicle/{id}',
                 type: 'GET',
