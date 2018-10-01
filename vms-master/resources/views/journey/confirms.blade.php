@@ -718,9 +718,9 @@
         $.post(url,data,function(data){
             console.log(data);           
             //window.location.reload(true);
-           // window.setTimeout(function(){ 
-                //location.reload();
-            //} ,1000);                     
+            window.setTimeout(function(){ 
+                location.reload();
+            } ,1000);                     
         });       
     });
     
