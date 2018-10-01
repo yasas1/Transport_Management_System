@@ -450,16 +450,15 @@
 <script src="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 <script>
      
-    var qEvent=[];
-    
+    var qEvent=[];  
             /*Get Journey color from db */
     var journey_colors = [];
     $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
         
-        $.each(data,function(i,value){ 
-            $('#'+value.id).css('background-color',value.journey_color);
-            journey_colors[value.id]=value.journey_color;
-        });
+         $.each(data,function(i,value){  
+            $('#'+value.id).css('background',value.journey_color); // For button color    
+            journey_colors[value.id]=value.journey_color; // Journey colors for event
+         });
         //console.log(journey_colors);
     });
 
@@ -479,14 +478,16 @@
     });
 
     $(document).ready(function(){
+        console.log(journey_colors); 
+        //$('.colorbutton').css('background','#05DCB2');
 	    $(".colorbutton").click(function(evt){
-	        //alert($(this).attr("id"));
-            var vid = $(this).attr("id");
+	        var vid = $(this).attr("id");  //alert($(this).attr("id"));
+            //$(vid).css('background','#05DCB2');
             qEvent=[];                       
             $('#calendar').fullCalendar('removeEvents');
 
             $.ajax({
-                url: '/journey/readForVehicle/{id}',
+                url: '/journey/ForConfirmationByVehicle/{id}',
                 type: 'GET',
                 data: { id: vid },
                 success: function(data)
