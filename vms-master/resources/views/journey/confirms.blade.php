@@ -456,9 +456,10 @@
     var journey_colors = [];
     $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
         
-         $.each(data,function(i,value){       
-             journey_colors[value.id]=value.journey_color;
-         });
+        $.each(data,function(i,value){ 
+            $('#'+value.id).css('background-color',value.journey_color);
+            journey_colors[value.id]=value.journey_color;
+        });
         //console.log(journey_colors);
     });
 
