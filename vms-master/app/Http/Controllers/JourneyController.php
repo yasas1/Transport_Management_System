@@ -75,9 +75,9 @@ class JourneyController extends Controller
         return response($vehicles);
     }
 
-    public function readForVehicle(){
+    public function ForConfirmationByVehicle(){ 
         $vid = $_GET['id'];
-        $journeys = Journey::journeyByVehicle($vid); 
+        $journeys = Journey::journeyByVehicleNotConfirmed($vid); 
 
         return response($journeys);
     }

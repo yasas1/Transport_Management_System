@@ -166,6 +166,10 @@ class Journey extends Eloquent
         return Journey::where('journey_status_id','=','6')->get();
 	}
 	public static function journeyByVehicle($vid){
+        return Journey::where('vehical_id','=',$vid)->get();
+	}
+	
+	public static function journeyByVehicleNotConfirmed($vid){
         return Journey::where('vehical_id','=',$vid)->where('journey_status_id','=','2')->get();
     }
 
