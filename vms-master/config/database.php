@@ -42,7 +42,7 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'host' => 'localhost',
-            'port' => '3307',
+            'port' => '3306',
             'database' => 'vms',
             'username' => 'root',
             'password' => '',
@@ -57,7 +57,7 @@ return [
         'con_employee' => [
             'driver' => 'mysql',
             'host' => 'localhost',
-            'port' => '3307',
+            'port' => '3306',
             'database' => 'employee',
             'username' => 'root',
             'password' => '',

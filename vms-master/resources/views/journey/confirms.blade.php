@@ -23,12 +23,11 @@
         <button onclick="myFunction()" class="btn btn-info">Table View</button> <br><br>
     </div> 
 
-    <div class="box box-primary" id="tabl" style="display: none;" >
+    <div class="box box-primary" id="tabl" style="display: none; height: 400px; overflow: auto;" >
         <div class="box-body" >
             @if($journeys)
-            
 
-                <table class="table table-hover" id="table" style="height: 150px; overflow: auto;" >
+                <table class="table table-hover" id="table"  >
                     <thead>
                     <tr>
                         <th>Applicant Name</th>
@@ -210,7 +209,7 @@
     </div>
 
     @foreach ($vehiclesForColor as $vehicle)
-        <button class="colorbutton" id="{{$vehicle->id}}"> {{$vehicle->registration_no}} </button>   
+        <button class="colorbutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}"> {{$vehicle->registration_no}} </button>   
     @endforeach
 
     <br><br>
@@ -441,9 +440,7 @@
         // });
     });
 </script>
-
-    {{-- Script for calender view  --}}
-
+            {{-- Script for calender view  --}}
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js')}}"></script>
 <script src='{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/gcal.min.js')}}'></script>
@@ -451,15 +448,18 @@
 <script>
      
     var qEvent=[];  
-            /*Get Journey color from db */
+                
     var journey_colors = [];
+                /*Get Journey color from db */
     $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
         
-         $.each(data,function(i,value){  
-            $('#'+value.id).css('background',value.journey_color); // For button color    
+        $.each(data,function(i,value){  
+            console.log(value.id);
+            $('#v'+value.id).css('background-color',value.journey_color); // For button color
+
             journey_colors[value.id]=value.journey_color; // Journey colors for event
-         });
-        //console.log(journey_colors);
+        });
+        
     });
 
     $.get("{{ URL::to('journey/readForConfirmation') }}",function(data){ 
@@ -481,7 +481,8 @@
         console.log(journey_colors); 
         //$('.colorbutton').css('background','#05DCB2');
 	    $(".colorbutton").click(function(evt){
-	        var vid = $(this).attr("id");  //alert($(this).attr("id"));
+	        var vid = $(this).attr("value");   // Vehivle_id from Vehicle_Button
+            //alert($(this).attr("id"));
             //$(vid).css('background','#05DCB2');
             qEvent=[];                       
             $('#calendar').fullCalendar('removeEvents');
