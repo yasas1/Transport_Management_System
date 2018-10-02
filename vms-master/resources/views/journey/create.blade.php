@@ -16,21 +16,22 @@
 @section('content')
 
     <div class="col-md-12">
-
         <div class="hidden">
             @include('layouts.errors')
             @include('layouts.success')
         </div>
         <!-- Modal -->
     </div>
-    <div class="col-md-12">
+    <div class="col-sm-12 col-md-12">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Vehicle Calender</h3>
-
-                {{-- @foreach($journeys as $journey)
-                    <p> {{ $journey->vehical->name }}</p>
-                @endforeach --}}
+            </div>
+            <div>   
+                <button  class="all"  style="height:25px;width:35px;border: 1px solid #555555;border-radius: 5px;" >ALL</button> 
+                @foreach ($vehiclesButton as $vehicle)
+                    <button class="vehiclebutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}" style="border: 1px solid #555555;border-radius: 5px;"> {{$vehicle->registration_no}} </button>   
+                @endforeach
             </div>
 
             <div class="box-body">
@@ -248,15 +249,13 @@
         journey_color = ['#000000','#EF5B5B','#2697F9','#14C5EF','#05DCB2'];   
         var journey_colors = [];///journey/readVehicle/
         $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
-            //console.log(data);
-            $.each(data,function(i,value){       
+            $.each(data,function(i,value){   
+                $('#v'+value.id).css('background-color',value.journey_color); // For button color    
                 journey_colors[value.id]=value.journey_color;
             });
-            console.log(journey_colors);
         });
 
         $.get("{{ URL::to('journey/read') }}",function(data){ 
-            //console.log(data);
             $.each(data,function(i,value){
                 //console.log(value);                    
                 qEvent.push(
@@ -272,18 +271,62 @@
                          
             });
         });
-        console.log(qEvent.color);
-        // for (let i = 0; i < journeys.length; i++) {            
-        //     qEvent.push(
-        //         { 
-        //             title : journeys[i].purpose,
-        //             id : journeys[i].id,
-        //             start :journeys[i].expected_start_date_time,
-        //             end :journeys[i].expected_end_date_time,                  
-        //             vehical_id : journeys[i].vehical_id,               
-        //         }
-        //     );             
-        // }                
+
+        $(document).ready(function(){
+
+            //$('.colorbutton').css('background','#7CFD03');
+            $(".vehiclebutton").click(function(evt){
+                var vid = $(this).attr("value");   // Vehivle_id from Vehicle_Button
+                //$(vid).css('background','#05DCB2');
+                qEvent=[];                       
+                $('#calendar').fullCalendar('removeEvents');
+                $.ajax({
+                    url: '/journey/ForCreateByVehicle/{id}',
+                    type: 'GET',
+                    data: { id: vid },
+                    success: function(data)
+                    {
+                        //console.log(data);              
+                        $(data).each(function (i,value) {                
+                            qEvent.push(
+                            { 
+                                title : value.purpose,
+                                start : value.expected_start_date_time,
+                                end : value.expected_end_date_time,
+                                id :  value.id,                                                     
+                                vehical_id : value.vehical_id, 
+                                color :  journey_colors[value.vehical_id]                                                        
+                            });                       
+                        }); 
+                        //console.log(qEvent);
+                        $('#calendar').fullCalendar('addEventSource', qEvent);
+                        $('#calendar').fullCalendar('refetchEvents');  
+                    }
+                });
+            });
+
+            $(".all").click(function(evt){
+                qEvent=[]; 
+                $('#calendar').fullCalendar('removeEvents');
+                $.get("{{ URL::to('journey/read') }}",function(data){ 
+                    $.each(data,function(i,value){       
+                        qEvent.push(
+                        { 
+                            title : value.purpose,
+                            start : value.expected_start_date_time,
+                            end : value.expected_end_date_time,
+                            id :  value.id,                                                     
+                            vehical_id : value.vehical_id, 
+                            color :  journey_colors[value.vehical_id]    
+                        });                  
+                    });
+                    $('#calendar').fullCalendar('addEventSource', qEvent);
+                    $('#calendar').fullCalendar('refetchEvents');
+                });                      
+                
+            });
+        });
+                        
         $(function () {
             var aaa;
            $.ajax({

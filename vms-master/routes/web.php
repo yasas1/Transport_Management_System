@@ -104,6 +104,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/journey/read/{id}','JourneyController@readJourneyForConfirmAjax');
     Route::get('/journey/readCompleted/{id}','JourneyController@readJourneyForCompletedAjax'); 
     Route::get('/journey/readVehicleColor/','JourneyController@readVehicleColor'); 
+    Route::get('/journey/ForCreateByVehicle/{id}','JourneyController@ForCreateByVehicle');
 
     /*User Crud*/
     Route::get('/users','UserController@index');
