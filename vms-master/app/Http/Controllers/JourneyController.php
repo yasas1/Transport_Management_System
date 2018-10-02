@@ -82,6 +82,13 @@ class JourneyController extends Controller
         return response($journeys);
     }
 
+    public function ForCompletedByVehicle(){ 
+        $vid = $_GET['id'];
+        $journeys = Journey::journeyByVehicleCompleted($vid); 
+
+        return response($journeys);
+    }
+
     public function forConfirmationJourneys(){
             // for Confirmation journey calender view
         $journeys = Journey::notConfirmed();
@@ -318,7 +325,7 @@ class JourneyController extends Controller
 
         $drivers = Driver::all()->pluck('fullName','id');
         $vehicles = Vehical::all()->pluck('fullName','id');
-        $vehiclesForColor = Vehical::all(); // for color button {delete}
+        $vehiclesForColor = Vehical::all(); // for vehicle color button {delete}
         $journeys = Journey::notConfirmed();
 
         return view('journey.confirms',compact('journeys','drivers','vehicles','vehiclesForColor'));
@@ -334,8 +341,8 @@ class JourneyController extends Controller
     public function completed(){
         
         $journeys = Journey::completed();
-
-        return view('journey.completed',compact('journeys'));
+        $vehicles = Vehical::all(); // for vehicle color button {delete}
+        return view('journey.completed',compact('journeys','vehicles'));
     }
 
 }
