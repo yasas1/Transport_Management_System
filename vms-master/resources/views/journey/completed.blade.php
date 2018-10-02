@@ -26,7 +26,7 @@
 
         <div id="hidetable" class="box-body" style="display: none;">
                    
-            <table class="table" id="table" style="display: none; height:150px; overflow: auto;" >
+            <table class="table" id="table" style="display: none; height:300px; overflow: auto;" >
                 <thead>
                 <tr>
                     <th>Applicant Name</th>
@@ -235,7 +235,6 @@
     @endforeach
     </div>
     <br><br>
-
     <!-- For Calender View -->
     <div class="col-md-12">
         <div class="box box-primary">
@@ -508,8 +507,7 @@
             
 	    });
     });
-
-    console.log(qEvent); 
+    //console.log(qEvent); 
     $(function () {
         var aaa;
         $.ajax({

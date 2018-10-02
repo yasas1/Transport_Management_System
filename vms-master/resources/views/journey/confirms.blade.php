@@ -208,18 +208,17 @@
         </div>
     </div>
     <div class="col-md-12">
-        <button  class="all"  style="height:26px;width:35px;border: 1px solid #555555;border-radius: 5px;" >ALL</button> 
-    @foreach ($vehiclesForColor as $vehicle)
-        <button class="colorbutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}" style="border: 1px solid #555555;border-radius: 5px;"> {{$vehicle->registration_no}} </button>   
-    @endforeach
+        <button onclick="resetFunction()" class="btn btn-primary btn-xs" id="reset" style="height:23px;">RELOAD</button> 
+        <button  class="all"  style="height:25px;width:35px;border: 1px solid #555555;border-radius: 5px;" >ALL</button> 
+        @foreach ($vehiclesForColor as $vehicle)
+        <button class="vehiclebutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}" style="border: 1px solid #555555;border-radius: 5px;"> {{$vehicle->registration_no}} </button>   
+        @endforeach
     </div>
     <br><br>
-
     {{-- <button class="test1" id="test1" style="background-color:#03A6FD">Test1 </button>  --}}
-
-    <div class="col-md-12">
-        <button onclick="resetFunction()" class="btn btn-primary btn-xs" id="reset" >RELOAD</button> 
-    </div>
+    {{-- <div class="col-md-12">
+        <button onclick="resetFunction()" class="btn btn-primary btn-xs" id="reset">RELOAD</button>
+    </div> --}}
     <br><br>
 
     <div class="col-md-12">
@@ -515,7 +514,7 @@
         }
 
         //$('.colorbutton').css('background','#7CFD03');
-	    $(".colorbutton").click(function(evt){
+	    $(".vehiclebutton").click(function(evt){
 	        var vid = $(this).attr("value");   // Vehivle_id from Vehicle_Button
             //$(vid).css('background','#05DCB2');
             qEvent=[];                       
@@ -746,9 +745,9 @@
         $.post(url,data,function(data){
             console.log(data);           
             //window.location.reload(true);
-           // window.setTimeout(function(){ 
-                //location.reload();
-            //} ,1000);                     
+            window.setTimeout(function(){ 
+                location.reload();
+            } ,1000);                     
         });       
     });
     

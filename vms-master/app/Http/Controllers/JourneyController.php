@@ -57,8 +57,7 @@ class JourneyController extends Controller
         $fundAlFroms = FundsAllocatedFrom::all();
         $drivers = Driver::all()->pluck('fullName','id');
         $vehicles = Vehical::all()->pluck('fullName','id');
-        $vehiclesButton = Vehical::all();
-        return view('journey.create',compact('fundAlFroms','drivers','vehicles','divHeads','journeys','vehiclesButton'));
+        return view('journey.create',compact('fundAlFroms','drivers','vehicles','divHeads','journeys'));
     }
 
     public function readJourney(){ 
@@ -86,13 +85,6 @@ class JourneyController extends Controller
     public function ForCompletedByVehicle(){ 
         $vid = $_GET['id'];
         $journeys = Journey::journeyByVehicleCompleted($vid); 
-
-        return response($journeys);
-    }
-
-    public function ForCreateByVehicle(){ 
-        $vid = $_GET['id'];
-        $journeys = Journey::journeyByVehicle($vid); 
 
         return response($journeys);
     }
