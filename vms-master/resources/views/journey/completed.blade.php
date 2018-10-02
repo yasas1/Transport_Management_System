@@ -22,7 +22,7 @@
         </div>
         @if($journeys)
                 <!-- for hide and view table content -->
-        <button onclick="myFunction()" class="btn btn-info">Table View </button> <br>
+        <button onclick="tableViewFunction()" class="btn btn-info">Table View </button> <br>
 
         <div id="hidetable" class="box-body" style="display: none;">
                    
@@ -227,11 +227,13 @@
             @endforeach                     
         </div>
         @endif
-    </div> 
-
+    </div>
+    <div class="col-md-12"> 
+        <button  class="all"  style="height:25px;width:35px;border: 1px solid #555555;border-radius: 5px;" >ALL</button>
     @foreach ($vehicles as $vehicle)
-        <button class="colorbutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}"> {{$vehicle->registration_no}} </button>   
+        <button class="colorbutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}" style="border: 1px solid #555555;border-radius: 5px;"> {{$vehicle->registration_no}} </button>   
     @endforeach
+    </div>
     <br><br>
 
     <!-- For Calender View -->
@@ -484,6 +486,27 @@
                 }
             });
         });
+
+        $(".all").click(function(evt){
+            qEvent=[]; 
+            $('#calendar').fullCalendar('removeEvents');
+            $.get("{{ URL::to('journey/readCompleted') }}",function(data){ 
+                $.each(data,function(i,value){       
+                    qEvent.push(
+                    { 
+                        title : value.purpose,
+                        start : value.expected_start_date_time,
+                        end : value.expected_end_date_time,
+                        id :  value.id,                                                     
+                        vehical_id : value.vehical_id, 
+                        color :  journey_colors[value.vehical_id]    
+                    });                  
+                });
+                $('#calendar').fullCalendar('addEventSource', qEvent);
+                $('#calendar').fullCalendar('refetchEvents');
+            });                      
+            
+	    });
     });
 
     console.log(qEvent); 
@@ -613,7 +636,7 @@
 
 <script>
     //for hide and view table content 
-    function myFunction() {
+    function tableViewFunction() {
         var x = document.getElementById("table");
         var y = document.getElementById("hidetable");
         if (x.style.display === "none") {
