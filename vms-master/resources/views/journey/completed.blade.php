@@ -228,6 +228,12 @@
         </div>
         @endif
     </div> 
+
+    @foreach ($vehicles as $vehicle)
+        <button class="colorbutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}"> {{$vehicle->registration_no}} </button>   
+    @endforeach
+    <br><br>
+
     <!-- For Calender View -->
     <div class="col-md-12">
         <div class="box box-primary">
@@ -423,11 +429,12 @@
 
     var journey_colors = [];///journey/readVehicle/
     $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
-        //console.log(data);
-        $.each(data,function(i,value){       
+        
+        $.each(data,function(i,value){
+            $('#v'+value.id).css('background-color',value.journey_color); // For button color       
             journey_colors[value.id]=value.journey_color;
         });
-        console.log(journey_colors);
+        //console.log(journey_colors);
     });
 
     $.get("{{ URL::to('journey/readCompleted') }}",function(data){ 
@@ -442,6 +449,40 @@
                     color :  journey_colors[value.vehical_id]      
                 }
             );
+        });
+    });
+
+    $(document).ready(function(){
+        //$('.colorbutton').css('background','#7CFD03');
+        $(".colorbutton").click(function(evt){
+            var vid = $(this).attr("value");   // Vehivle_id from Vehicle_Button
+            //$(vid).css('background','#05DCB2');
+            qEvent=[];                       
+            $('#calendar').fullCalendar('removeEvents');
+            $.ajax({
+                url: '/journey/ForConfirmationByVehicle/{id}',
+                type: 'GET',
+                data: { id: vid },
+                success: function(data)
+                {
+                    //console.log(data);              
+                    $(data).each(function (i,value) {                
+                        qEvent.push(
+                            { 
+                                title : value.purpose,
+                                start : value.expected_start_date_time,
+                                end : value.expected_end_date_time,
+                                id :  value.id,                                                     
+                                vehical_id : value.vehical_id, 
+                                color :  journey_colors[value.vehical_id]                                
+                            }
+                        );                       
+                    }); 
+                    //console.log(qEvent);
+                    $('#calendar').fullCalendar('addEventSource', qEvent);
+                    $('#calendar').fullCalendar('refetchEvents');  
+                }
+            });
         });
     });
 
