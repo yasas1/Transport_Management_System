@@ -20,7 +20,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">Confirmation Pending Journey Requests List</h3>
         </div>
-        <button onclick="myFunction()" class="btn btn-info">Table View</button> <br><br>
+        <button onclick="tableViewFunction()" class="btn btn-info btn-sm">Table View</button> <br><br>
     </div> 
 
     <div class="box box-primary" id="tabl" style="display: none; height: 400px; overflow: auto;" >
@@ -207,13 +207,19 @@
             @endif
         </div>
     </div>
-
+    <div class="col-md-12">
     @foreach ($vehiclesForColor as $vehicle)
-        <button class="colorbutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}"> {{$vehicle->registration_no}} </button>   
+        <button class="colorbutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}" style="border: 1px solid #555555;border-radius: 5px;"> {{$vehicle->registration_no}} </button>   
     @endforeach
+    </div>
     <br><br>
 
-    <button class="test1" id="test1" style="background-color:#03A6FD">Test1 </button> 
+    {{-- <button class="test1" id="test1" style="background-color:#03A6FD">Test1 </button>  --}}
+
+    <div class="col-md-12">
+        <button onclick="resetFunction()" class="btn btn-primary btn-xs" id="reset" >RESET</button> 
+    </div>
+    <br><br>
 
     <div class="col-md-12">
         <div class="box box-primary">
@@ -456,9 +462,8 @@
     $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
         
         $.each(data,function(i,value){  
-            console.log(value.id);
+            //console.log(value.id);
             $('#v'+value.id).css('background-color',value.journey_color); // For button color
-
             journey_colors[value.id]=value.journey_color; // Journey colors for event
         });
         
@@ -483,11 +488,13 @@
 
         $('.test1').click(function(evt){
             
-            $('#test1').css('background-color',ColorLuminance("03A6FD", 0.3)); 
+            $('#test1').css('background-color',ColorLuminance("03A6FD", 0.3));
+            //console.log(ColorLuminance("03A6FD", 0.3)); 
         });
                 /* Function for change color light */
+        /* lum — the luminosity factor, i.e. -0.1 is 10% darker, 0.2 is 20% lighter */
         function ColorLuminance(hex, lum) {
-
+           
             // validate hex string ColorLuminance("03A6FD", 0.2) lighten( $base-color, 10% )
             hex = String(hex).replace(/[^0-9a-f]/gi, '');
             if (hex.length < 6) {
@@ -718,9 +725,9 @@
         $.post(url,data,function(data){
             console.log(data);           
             //window.location.reload(true);
-            window.setTimeout(function(){ 
-                location.reload();
-            } ,1000);                     
+           // window.setTimeout(function(){ 
+                //location.reload();
+            //} ,1000);                     
         });       
     });
     
@@ -728,13 +735,17 @@
 
 <script>
         //for hide and view table content 
-        function myFunction() {
+        function tableViewFunction() {
             var x = document.getElementById("tabl");
             if (x.style.display === "none") {
                 x.style.display = "block";
             } else {
                 x.style.display = "none";
             }
+        }
+
+        function resetFunction() {
+            location.reload();
         }
 </script>
 
