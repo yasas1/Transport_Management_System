@@ -460,7 +460,7 @@
             qEvent=[];                       
             $('#calendar').fullCalendar('removeEvents');
             $.ajax({
-                url: '/journey/ForConfirmationByVehicle/{id}',
+                url: '/journey/ForCompletedByVehicle/{id}',
                 type: 'GET',
                 data: { id: vid },
                 success: function(data)

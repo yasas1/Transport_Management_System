@@ -99,7 +99,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/journey/readForConfirmation','JourneyController@forConfirmationJourneys');
     Route::get('/journey/readCompleted','JourneyController@readcompletedJourney');
 
-    
+    Route::get('/journey/ForCompletedByVehicle/{id}','JourneyController@ForCompletedByVehicle');
     Route::get('/journey/ForConfirmationByVehicle/{id}','JourneyController@ForConfirmationByVehicle');
     Route::get('/journey/read/{id}','JourneyController@readJourneyForConfirmAjax');
     Route::get('/journey/readCompleted/{id}','JourneyController@readJourneyForCompletedAjax'); 
