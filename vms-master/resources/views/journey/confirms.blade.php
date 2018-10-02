@@ -208,6 +208,7 @@
         </div>
     </div>
     <div class="col-md-12">
+        <button  class="all"  style="height:26px;width:35px;border: 1px solid #555555;border-radius: 5px;" >ALL</button> 
     @foreach ($vehiclesForColor as $vehicle)
         <button class="colorbutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}" style="border: 1px solid #555555;border-radius: 5px;"> {{$vehicle->registration_no}} </button>   
     @endforeach
@@ -217,7 +218,7 @@
     {{-- <button class="test1" id="test1" style="background-color:#03A6FD">Test1 </button>  --}}
 
     <div class="col-md-12">
-        <button onclick="resetFunction()" class="btn btn-primary btn-xs" id="reset" >RESET</button> 
+        <button onclick="resetFunction()" class="btn btn-primary btn-xs" id="reset" >RELOAD</button> 
     </div>
     <br><br>
 
@@ -528,15 +529,14 @@
                     //console.log(data);              
                     $(data).each(function (i,value) {                
                         qEvent.push(
-                            { 
-                                title : value.purpose,
-                                start : value.expected_start_date_time,
-                                end : value.expected_end_date_time,
-                                id :  value.id,                                                     
-                                vehical_id : value.vehical_id, 
-                                color :  journey_colors[value.vehical_id]                                
-                            }
-                        );                       
+                        { 
+                            title : value.purpose,
+                            start : value.expected_start_date_time,
+                            end : value.expected_end_date_time,
+                            id :  value.id,                                                     
+                            vehical_id : value.vehical_id, 
+                            color :  journey_colors[value.vehical_id]                                                        
+                        });                       
                     }); 
                     //console.log(qEvent);
                     $('#calendar').fullCalendar('addEventSource', qEvent);
@@ -544,7 +544,28 @@
                 }
             });
 	    });
-     });
+
+        $(".all").click(function(evt){
+            qEvent=[]; 
+            $('#calendar').fullCalendar('removeEvents');
+            $.get("{{ URL::to('journey/readForConfirmation') }}",function(data){ 
+                $.each(data,function(i,value){       
+                    qEvent.push(
+                    { 
+                        title : value.purpose,
+                        start : value.expected_start_date_time,
+                        end : value.expected_end_date_time,
+                        id :  value.id,                                                     
+                        vehical_id : value.vehical_id, 
+                        color :  journey_colors[value.vehical_id]    
+                    });                  
+                });
+                $('#calendar').fullCalendar('addEventSource', qEvent);
+                $('#calendar').fullCalendar('refetchEvents');
+            });                      
+            
+	    });
+    });
    
     $(function () {
         var aaa;
