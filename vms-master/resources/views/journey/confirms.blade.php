@@ -207,20 +207,24 @@
             @endif
         </div>
     </div>
-    <div class="col-md-12">
-        {{-- <button onclick="resetFunction()" class="btn btn-primary btn-xs" id="reset" style="height:23px;">RELOAD</button>  --}}
+
+    <div class="col-sm-12 col-md-12">   
         <button  class="all"  style="height:25px;width:35px;border: 1px solid #555555;border-radius: 5px;" >ALL</button> 
         @foreach ($vehiclesForColor as $vehicle)
-        <button class="vehiclebutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}" style="border: 1px solid #555555;border-radius: 5px;"> {{$vehicle->registration_no}} </button>   
+            <button class="vehiclebutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}" style="border: 1px solid #555555;border-radius: 5px;"> {{$vehicle->registration_no}} </button>   
         @endforeach
     </div>
-    <br><br>
+    <br>   
+    
     {{-- <button class="test1" id="test1" style="background-color:#03A6FD">Test1 </button>  --}}
-    {{-- <div class="col-md-12">
-        <button onclick="resetFunction()" class="btn btn-primary btn-xs" id="reset">RELOAD</button>
-    </div> --}}
-    <br><br>
 
+    <div class="col-sm-12 col-md-12">
+        <div class="col-sm-11 col-md-11"> </div>
+        <div class="col-sm-1 col-md-1">
+            <button onclick="resetFunction()" class="btn btn-primary btn-xs" id="reset" style="height:23px;">RELOAD</button>
+        </div>
+    </div>
+    <br><br>
     <div class="col-md-12">
         <div class="box box-primary">
             {{-- <div class="box-header with-border">
@@ -362,7 +366,7 @@
             </div>
             <div class="modal-footer">
                     <input type="submit" class="btn btn-success" name="submit" value="SUBMIT">
-                    <button type="button" class="btn btn-danger" id="close" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </form>
                     {{-- {!! Form::close() !!} --}}
             </div>
@@ -564,12 +568,6 @@
             });                      
             
 	    });
-    });
-
-    $('#close').click(function(evt){
-        $('#calendar').fullCalendar('removeEvents');
-        $('#calendar').fullCalendar('addEventSource', qEvent);
-        $('#calendar').fullCalendar('refetchEvents');
     });
    
     $(function () {

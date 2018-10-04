@@ -13,13 +13,10 @@
 @section('content')
     @include('layouts.errors')
     @include('layouts.success')
-    <div class="box box-primary">
+    <div class="box box-primary" style="height: 800px; overflow: auto;" >
         <div class="box-header with-border">
             <h3 class="box-title">Ongoing Journey Requests List</h3>
         </div>
-        <!-- /.box-header -->
-        <!-- form start -->
-
         <div class="box-body">
             @if($journeys)
                 <table class="table" id="table">

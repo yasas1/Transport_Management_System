@@ -79,7 +79,7 @@ class VehicleController extends Controller
             $vehicle->reg_book()->associate($regBook);
 
         }
-
+        $vehicle->journey_color = $request->journey_color;
         $vehicle->registration_no = $request->registration_no;
         $vehicle->dept_no = $request->dept_no;
         $vehicle->date_of_registration = $request->date_of_registration;
@@ -193,7 +193,7 @@ class VehicleController extends Controller
                 }
                 $vehicle->photo()->associate($photo);
             }
-
+            $vehicle->journey_color = $request->journey_color;
             $vehicle->name = $request->name;
             $vehicle->registration_no = $request->registration_no;
             $vehicle->dept_no = $request->dept_no;

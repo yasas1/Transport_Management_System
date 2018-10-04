@@ -13,13 +13,11 @@
 @section('content')
     @include('layouts.errors')
     @include('layouts.success')
-    <div class="box box-primary">
+    
+    <div class="box box-primary" style="height: 800px; overflow: auto;" >
         <div class="box-header with-border">
             <h3 class="box-title">Ongoing Journey List</h3>
         </div>
-        <!-- /.box-header -->
-        <!-- form start -->
-
         <div class="box-body">
             @if($journeys)
                 <table class="table" id="table">
@@ -221,63 +219,63 @@
                     </div>
                 @endforeach
             @endif
-
         </div>
-        @endsection
+    </div>
+@endsection
 
-        @section('scripts')
+@section('scripts')
 
-            <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-            <script src="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
-            <script>
-                $(document).ready(function() {
-                    $('#table').DataTable( {
-                        initComplete: function () {
-                            this.api().columns().every( function () {
-                                var column = this;
-                                var select = $('<select><option value=""></option></select>')
-                                    .appendTo( $(column.footer()).empty() )
-                                    .on( 'change', function () {
-                                        var val = $.fn.dataTable.util.escapeRegex(
-                                            $(this).val()
-                                        );
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script src="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable( {
+                initComplete: function () {
+                    this.api().columns().every( function () {
+                        var column = this;
+                        var select = $('<select><option value=""></option></select>')
+                            .appendTo( $(column.footer()).empty() )
+                            .on( 'change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
 
-                                        column
-                                            .search( val ? '^'+val+'$' : '', true, false )
-                                            .draw();
-                                    } );
-
-                                column.data().unique().sort().each( function ( d, j ) {
-                                    select.append( '<option value="'+d+'">'+d+'</option>' )
-                                } );
+                                column
+                                    .search( val ? '^'+val+'$' : '', true, false )
+                                    .draw();
                             } );
-                        }
+
+                        column.data().unique().sort().each( function ( d, j ) {
+                            select.append( '<option value="'+d+'">'+d+'</option>' )
+                        } );
                     } );
-                } );
+                }
+            } );
+        } );
 
-            </script>
+    </script>
 
-            <script type="text/javascript">
-                $(function () {
-                    $('#dtp,#dtp1').daterangepicker({
-                        "singleDatePicker": true,
-                        "timePicker": true,
-                        "linkedCalendars": false,
-                        "showCustomRangeLabel": false,
-                        "timePicker24Hour": true,
-                        "minDate": moment(),
-                        drops:"up",
-                        locale: {
-                            format: 'MM/DD/YYYY HH:MM'
-                        }
-                    }, function(start, end, label) {
-                        console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:MM') + ' to ' + end.format('YYYY-MM-DD HH:MM') + ' (predefined range: ' + label + ')');
-                    });
+    <script type="text/javascript">
+        $(function () {
+            $('#dtp,#dtp1').daterangepicker({
+                "singleDatePicker": true,
+                "timePicker": true,
+                "linkedCalendars": false,
+                "showCustomRangeLabel": false,
+                "timePicker24Hour": true,
+                "minDate": moment(),
+                drops:"up",
+                locale: {
+                    format: 'MM/DD/YYYY HH:MM'
+                }
+            }, function(start, end, label) {
+                console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:MM') + ' to ' + end.format('YYYY-MM-DD HH:MM') + ' (predefined range: ' + label + ')');
+            });
 
-                    $('#dtp').on('show.daterangepicker', function(e){
-                        var modalZindex = $(e.target).closest('.modal').css('z-index');
-                        $('.daterangepicker').css('z-index', modalZindex+100);
-                    });
-                });
-            </script>
+            $('#dtp').on('show.daterangepicker', function(e){
+                var modalZindex = $(e.target).closest('.modal').css('z-index');
+                $('.daterangepicker').css('z-index', modalZindex+100);
+            });
+        });
+    </script>
 @endsection

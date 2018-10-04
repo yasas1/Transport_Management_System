@@ -50,7 +50,11 @@
                     </div>
                 </div>
             </div>
-
+            <div class="form-group">
+                <label for="journey_color">Journey Color</label>
+                <input name="journey_color" class="jscolor" value="2A6AD7"> 
+                
+            </div>
             <div class="form-group">
                 <label for="number">Registration No <span class="text text-danger">*</span></label>
                 {{Form::text('registration_no',null,['class'=>'form-control','placeholder'=>'Registration Number Of The Vehicle','required'])}}
@@ -403,6 +407,7 @@
 @endsection
 
 @section('scripts')
+    <script src="{{asset('js/jscolor.js')}}"></script>
     <script>
         //  Vehicle image loading when user select a image
         function readURL(input) {

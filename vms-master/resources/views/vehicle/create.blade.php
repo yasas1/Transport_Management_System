@@ -3,7 +3,7 @@
 @section('title', 'VEHICLE MANAGEMENT SYSTEM | VEHICLE')
 
 @section('styles')
-
+{{-- <script src="{{asset('js/jscolor.js')}}"></script> --}}
 @endsection
 
 @section('header', 'Vehicle Details')
@@ -16,8 +16,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Vehicle Photo</h3>
             </div>
-            <!-- /.box-header -->
-            <!-- form start -->
+
             {!! Form::open(['method' => 'post','action'=>'VehicleController@store','files'=>true]) !!}
             <div class="box-body">
                 <div class="form-group">
@@ -29,7 +28,14 @@
                     {{Form::file('photo',['id'=>'imgVehicleInput'])}}
                     <p class="help-block">Select a vehicle photo (max 500kb)</p>
                 </div>
-
+            </div>
+            <div class="box-header with-border">
+                <h3 class="box-title">Journey Color For Vehicle</h3>
+            </div>
+            <div class="box-body">
+                <div class="form-group">
+                    <input name="journey_color" autocomplete="off" class="jscolor" value="2A6AD7">       
+                </div>
             </div>
         </div>
     </div>
@@ -521,6 +527,7 @@
 @endsection
 
 @section('scripts')
+    <script src="{{asset('js/jscolor.js')}}"></script>
     <script>
         //  Vehicle image loading when user select a image
         function readURL(input) {
