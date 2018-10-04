@@ -467,8 +467,8 @@
         
         $.each(data,function(i,value){  
             //console.log(value.id);
-            $('#v'+value.id).css('background-color',value.journey_color); // For button color
-            journey_colors[value.id]=value.journey_color; // Journey colors for event
+            $('#v'+value.id).css('background-color','#'+value.journey_color); // For button color
+            journey_colors[value.id]='#'+value.journey_color; // Journey colors for event
         });
         
     });

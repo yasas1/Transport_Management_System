@@ -250,8 +250,8 @@
         var journey_colors = [];///journey/readVehicle/
         $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
             $.each(data,function(i,value){   
-                $('#v'+value.id).css('background-color',value.journey_color); // For button color    
-                journey_colors[value.id]=value.journey_color;
+                $('#v'+value.id).css('background-color','#'+value.journey_color); // For button color    
+                journey_colors[value.id]='#'+value.journey_color;
             });
         });
 

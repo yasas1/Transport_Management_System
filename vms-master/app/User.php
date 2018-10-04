@@ -138,6 +138,10 @@ class User extends Authenticatable
 
         return $this->checkPrivilege('Journey','Approve');
     }
+    public function canApproveLongDistanceJourney(){
+
+        return $this->checkPrivilege('Journey','Approve Long Distance Journey');
+    }
 
     public function canConfirmJourney(){
 
@@ -158,9 +162,7 @@ class User extends Authenticatable
 
         return $this->checkPrivilege('Journey','View Completed Journeys');
     }
-
-
-
+    
     /**
      * @return bool
      */

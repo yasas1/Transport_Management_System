@@ -27,7 +27,7 @@
                     <div class="social-auth-links text-center">
                         <a href="{{url('/log/director')}}" class="btn btn-block btn-success btn-flat"><i class="fa fa-user"></i> Director </a>
                         <a href="{{url('/log/dhead')}}" class="btn btn-block btn-info btn-flat"><i class="fa fa-user"></i> Divisional Head </a>
-                        <a href="{{url('/log/admin')}}" class="btn btn-block btn-danger btn-flat"><i class="fa fa-user"></i> Admin </a>
+                        <a href="{{url('/log/admin')}}" class="btn btn-block btn-danger btn-flat"><i class="fa fa-user"></i> System Admin </a>
                         <a href="{{url('/log/driver')}}" class="btn btn-block btn-warning btn-flat"><i class="fa fa-user"></i> Driver </a>
                         <a href="{{url('/log/user')}}" class="btn btn-block btn-default btn-flat"><i class="fa fa-user"></i> User </a>
                     </div>

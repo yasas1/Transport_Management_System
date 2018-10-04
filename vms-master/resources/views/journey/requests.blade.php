@@ -26,7 +26,7 @@
     </div> --}}
 
             {{-- check with director's employee id from employee db --}} 
-    @if(Auth::user()->name =="Director Name" )    
+    @if(Auth::user()->canApproveLongDistanceJourney())    
         @if($longDisJourneys)
             <div class="alert alert-info alert-dismissible fade in">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
