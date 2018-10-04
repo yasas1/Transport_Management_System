@@ -85,17 +85,20 @@ class JourneyConfirmController extends Controller
                     //     $journey->confirmed_end_date_time = Carbon::parse($request->confirmed_end_date_time);
                     // } 
                     $journey->confirmed_end_date_time = Carbon::parse($request->confirmed_end_date_time);
+
                     $journey->update(); 
                    
                     return response($journey);
-                    //return redirect()->back()->with(['success'=>'Journey request confirmed successfully !' , 'url'=> route('/journey/requests/notconfirmed')]);
+                    
+                    //return redirect()->back()->with(['success'=>'Journey request confirmed successfully !']);
+                   // return redirect()->back()->with(['success'=>'Journey request confirmed successfully !' , 'url'=> route('/journey/requests/notconfirmed')]);
                 } 
                 else{
 
                     $journey->journey_status_id = '5';
                     $journey->update();
-                    //return response($journey);
-                    return redirect()->back()->with(['success'=>'Journey request confirmation denied successfully !']);
+                    return response($journey);
+                    //return redirect()->back()->with(['success'=>'Journey request confirmation denied successfully !']);
 
                 }
 

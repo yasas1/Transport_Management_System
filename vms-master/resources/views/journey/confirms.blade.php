@@ -573,11 +573,11 @@
 	    });
     });
         /* For, After confirmation modal is closed, refetch the events  */
-    // $("#close").click(function(evt){
-    //         $('#calendar').fullCalendar('removeEvents');
-    //         $('#calendar').fullCalendar('addEventSource', qEvent);
-	//         $('#calendar').fullCalendar('refetchEvents');
-	// });
+    $("#close").click(function(evt){
+            $('#calendar').fullCalendar('removeEvents');
+            $('#calendar').fullCalendar('addEventSource', qEvent);
+	        $('#calendar').fullCalendar('refetchEvents');
+	});
    
     $(function () {
         var aaa;
@@ -753,15 +753,28 @@
 <script>
 
     $('#formConfirmationAjax').on('submit',function(e){
-        e.preventDefault();
+        //e.preventDefault();
         var data = $(this).serialize();
         var url = $(this).attr('action');
-        $.post(url,data,function(data){
-            console.log(data);           
-            //window.location.reload(true);
-            window.setTimeout(function(){ 
+        // $.post(url,data,function(data){
+        //     console.log(data);           
+        //     //window.location.reload(true);
+        //     window.setTimeout(function(){ 
+        //         location.reload();
+        //     } ,1000);                     
+        // });
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: data,
+            success: function(data)
+            {
+                console.log(data);
                 location.reload();
-            } ,1000);                     
+            },
+            error:function (err) {
+                console.log(err);
+            }
         });       
     });
     
