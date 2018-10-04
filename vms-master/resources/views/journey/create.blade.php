@@ -369,13 +369,13 @@
                             var moment = $('#calendar').fullCalendar('getDate');
                             
                             $.ajax({
-                                url: '/journey/read/{id}',
+                                url: '/journey/readJourneyForCreate/{id}',
                                 type: 'GET',
                                 data: { id: event.id },
                                 success: function(data)
                                 {
                                     var details = JSON.parse(data);
-                                    //console.log(details[7]);
+                                    //console.log(data);
                                     $.confirm({
                                         title: 'Journey!', //Confirm
                                         content:"<h4>ID - "+ details[0].id+"</h4>" + 
@@ -396,24 +396,7 @@
                                     });
                                 }
                             });
-                            // $.confirm({
-                            //     title: 'Journey!', //Confirm
-                            //     content:"<h4>ID - "+ event.id+"</h4>" + 
-                            //     "<h4>Purpose - "+ event.title+"</h4>" + 
-                            //     "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:mm:SS') + "</h4>" +
-                            //     "<h4>End - "+ event.end.format('YYYY-MM-DD HH:mm:SS') +"</h4>"+
-                            //     "<h4>Vehicle Id - "+ event.vehical_id +"</h4>",
-                            //     buttons: {
-                            //         somethingElse: {
-                            //             text: 'OK',
-                            //             btnClass: 'btn-blue',
-                            //             keys: ['enter', 'shift'],
-                            //             action: function(){
-
-                            //             }
-                            //         }
-                            //     }
-                            // });
+                            
                         },
                         dayClick: function(date) {
                             //alert('clicked ' + date.format());

@@ -76,6 +76,7 @@ class JourneyController extends Controller
         return response($vehicles);
     }
 
+
     public function ForConfirmationByVehicle(){ 
         $vid = $_GET['id'];
         $journeys = Journey::journeyByVehicleNotConfirmed($vid); 
@@ -110,10 +111,37 @@ class JourneyController extends Controller
         return response($journeys);
     }
 
+    public function readJourneyForCreate(){
+        $id = $_GET['id'];
+        $journey = Journey::whereId($id)->first(); 
+        
+        // $journey->confirmed_at->toDayDateTimeString();
+        $purpose = $journey->purpose ;
+        $vehicle_num = $journey->vehical->registration_no;
+        $vehicle_name = $journey->vehical->name;
+        $driver = $journey->vehical->driver->getFullNameAttribute();
+        $applicant_name = $journey->applicant->getFullNameAttribute();
+        $applicant_dept = $journey->applicant->division->dept_name;
+        $applicant_email = $journey->applicant->emp_email;
+        $devisional_head = $journey->divisional_head->getFullNameAttribute();
+        $exp_start = $journey->expected_start_date_time->toDayDateTimeString();
+        $exp_end = $journey->expected_end_date_time->toDayDateTimeString();
+
+        $data = json_encode(array(
+            $journey , $vehicle_num ,$vehicle_name ,$driver ,$applicant_name , $applicant_dept, $applicant_email, $devisional_head,
+            $exp_start,$exp_end
+            
+        ));
+
+        return response($data);
+        
+    }
+
           /*  For journey confirmation form details  */
     public function readJourneyForConfirmAjax(){
         $id = $_GET['id'];
         $journey = Journey::whereId($id)->first(); 
+        
         // $journey->confirmed_at->toDayDateTimeString();
         $purpose = $journey->purpose ;
         $vehicle_num = $journey->vehical->registration_no;

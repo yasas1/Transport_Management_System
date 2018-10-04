@@ -41,7 +41,7 @@
         
                 <div class="box-body" style="height: 400px; overflow: auto;" >
                     
-                    <table class="table" id="longDistable" style="height:150px; overflow: auto;">
+                    <table class="table" id="longDistable" >
                         <thead>
                         <tr>
                             <th>Applicant Name</th>
@@ -66,7 +66,8 @@
                                 <td>{{$journey->applicant->emp_surname}}</td>
 
                                 <td width="200px">
-                                    <button id="{{$journey->id}}" class="btn btn-success btnViewLong"><i class="fa fa-eye"></i></button>
+                                    <button class="btn btn-success btnView" data-toggle="modal" data-target="#{{$journey->id}}"><i class="fa fa-eye"></i></button>
+                                    {{-- <button id="{{$journey->id}}" class="btn btn-success btnViewLong"><i class="fa fa-eye"></i></button> --}}
                                 </td>
                             </tr>
                         @endforeach
@@ -84,80 +85,103 @@
                         </tfoot>
                     </table>
                     @foreach($longDisJourneys as $journey)
-                        <div id="ld{{$journey->id}}" hidden="hidden">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h3>Journey Request Approval <span class="label label-danger pull-right">Not Approved</span></h3>
-                                    <hr>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <dl class="dl-horizontal">
-                                        <h4>Applicant</h4>
-                                        <dt>Name</dt>
-                                        <dd>{{$journey->applicant->emp_surname}}</dd>
-                                        <dt>Division</dt>
-                                        <dd>{{$journey->applicant->division->dept_name}}</dd>
-                                        <dt>Email</dt>
-                                        <dd>{{$journey->applicant->emp_email}}</dd>
-                                    </dl>
-                                    <dl class="dl-horizontal">
-                                        <h4>Resources</h4>
-                                        <dt>Vehicle Number</dt>
-                                        <dd>{{$journey->vehical->registration_no}}</dd>
-                                        <dt>Vehicle Name</dt>
-                                        <dd>{{$journey->vehical->name}}</dd>
-                                        <dt>Driver</dt>
-                                        <dd>{{$journey->vehical->driver->fullname}}</dd>
-                                    </dl>
-                                    <dl class="dl-horizontal">
-                                        <dt>Divisional Head</dt>
-                                        <dd>{{$journey->divisional_head->emp_title.' '.$journey->divisional_head->emp_initials.'. '.$journey->divisional_head->emp_surname}}</dd>
-                                    </dl>
-                                </div>
-                                <div class="col-md-6">
-                                    <dl class="dl-horizontal">
-                                        <h4>Details</h4>
-                                        <dt>Purpose</dt>
-                                        <dd>{{$journey->purpose}}</dd>
-                                        <dt>Places To Be Visited</dt>
-                                        <dd>{{$journey->places_to_be_visited}}</dd>
-                                        <dt>Number of Persons</dt>
-                                        <dd>{{$journey->number_of_persons}}</dd>
-                                        <dt>Approximate Distance</dt>
-                                        <dd>{{$journey->expected_distance.' km'}}</dd>
-                                    </dl>
-                                    <dl class="dl-horizontal">
-                                        <h4>Expected Date and Time Range</h4>
-                                        <dt>Start Date/ Time</dt>
-                                        <dd>{{$journey->expected_start_date_time->toDayDateTimeString()}}</dd>
-                                        <dt>End Date/ Time</dt>
-                                        <dd>{{$journey->expected_end_date_time->toDayDateTimeString()}}</dd>
-                                    </dl>
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <hr>
-                                <div class="col-md-12"> 
-
-                                    {!! Form::open(['method' => 'post','id'=>'formApprovalLong','action'=>['JourneyRequestController@approval',$journey->id]]) !!}
-                                    <div class="form-group">
-                                        <label for="remarks">Remarks</label>
-                                        {!! Form::textarea('remarks', null, ['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2' ] ) !!}
+                    <div class="modal fade bs-example-modal-lg" id="{{$journey->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h3>Journey Request Approval
+                                                    @if($journey->journey_status_id == 1)
+                                                        <span class="label label-danger pull-right">Not Approved</span>
+                                                        <span class="label label-danger pull-right">Not Confirmed</span>
+                                                    @endif
+                                                    @if($journey->journey_status_id == 2)
+                                                        <span class="label label-success pull-right">Approved</span>
+                                                        <span class="label label-danger pull-right">Not Confirmed</span>
+                                                    @endif
+                                                    @if($journey->journey_status_id == 3)
+                                                        <span class="label label-success pull-right">Approved</span>
+                                                        <span class="label label-danger pull-right">Confirmed</span>
+                                                    @endif
+                                                </h3>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="is_approved">Approve</label> 
-                                        {!! Form::checkbox('is_approved', 1, true) !!}
+                                    <div class="modal-body">
+                                        
+                                <div class="row">
+                                        <div class="col-md-6">
+                                            <dl class="dl-horizontal">
+                                                <h4>Applicant</h4>
+                                                <dt>Name</dt>
+                                                <dd>{{$journey->applicant->emp_surname}}</dd>
+                                                <dt>Division</dt>
+                                                <dd>{{$journey->applicant->division->dept_name}}</dd>
+                                                <dt>Email</dt>
+                                                <dd>{{$journey->applicant->emp_email}}</dd>
+                                            </dl>
+                                            <dl class="dl-horizontal">
+                                                <h4>Resources</h4>
+                                                <dt>Vehicle Number</dt>
+                                                <dd>{{$journey->vehical->registration_no}}</dd>
+                                                <dt>Vehicle Name</dt>
+                                                <dd>{{$journey->vehical->name}}</dd>
+                                                <dt>Driver</dt>
+                                                <dd>{{$journey->vehical->driver->fullname}}</dd>
+                                            </dl>
+                                            <dl class="dl-horizontal">
+                                                <dt>Divisional Head</dt>
+                                                <dd>{{$journey->divisional_head->emp_title.' '.$journey->divisional_head->emp_initials.'. '.$journey->divisional_head->emp_surname}}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <dl class="dl-horizontal">
+                                                <h4>Details</h4>
+                                                <dt>Purpose</dt>
+                                                <dd>{{$journey->purpose}}</dd>
+                                                <dt>Places To Be Visited</dt>
+                                                <dd>{{$journey->places_to_be_visited}}</dd>
+                                                <dt>Number of Persons</dt>
+                                                <dd>{{$journey->number_of_persons}}</dd>
+                                                <dt>Approximate Distance</dt>
+                                                <dd>{{$journey->expected_distance.' km'}}</dd>
+                                            </dl>
+                                            <dl class="dl-horizontal">
+                                                <h4>Expected Date and Time Range</h4>
+                                                <dt>Start Date/ Time</dt>
+                                                <dd>{{$journey->expected_start_date_time->toDayDateTimeString()}}</dd>
+                                                <dt>End Date/ Time</dt>
+                                                <dd>{{$journey->expected_end_date_time->toDayDateTimeString()}}</dd>
+                                            </dl>
+                
+                                        </div>
                                     </div>
-                                    {!! Form::close() !!}
-
+                                    <div class="row">
+                                            <div class="col-md-12">
+                                                {!! Form::open(['method' => 'post','id'=>'formApproval{{$journey->id}}','action'=>['JourneyRequestController@approval',$journey->id]]) !!}
+                                                <div class="form-group">
+                                                    <label for="remarks">Remarks</label>
+                                                    {!! Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2' ]) !!}
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="is_approved">Approve</label> 
+                                                    {!! Form::checkbox('is_approved', 1, true) !!}
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <input type="submit" class="btn btn-success" name="submitType" value="Submit">
+                                    <button type="button" class="btn btn-danger" id="close" data-dismiss="modal">Close</button>
+                                        {!! Form::close() !!}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>                      
                     @endforeach                 
                 </div>
+            </div>
             </div>
         @endif 
     @endif
@@ -172,7 +196,7 @@
         @if($journeys)
         <div class="box-body" style="height: 400px; overflow: auto;">
            
-            <table class="table" id="table" style="height:300px; overflow: auto;">
+            <table class="table" id="table" >
                 <thead>
                 <tr>
                     <th>Applicant Name</th>
@@ -195,12 +219,106 @@
                         <td>{{$journey->applicant->emp_surname}}</td>
 
                         <td width="200px">
-                            <button id="{{$journey->id}}" class="btn btn-success btnView"><i class="fa fa-eye"></i></button>
+                            <button class="btn btn-success btnView" data-toggle="modal" data-target="#{{$journey->id}}"><i class="fa fa-eye"></i></button>
                         </td>
                     </tr>
+                    <div class="modal fade bs-example-modal-lg" id="{{$journey->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h3>Journey Request Approval
+                                                @if($journey->journey_status_id == 1)
+                                                    <span class="label label-danger pull-right">Not Approved</span>
+                                                    <span class="label label-danger pull-right">Not Confirmed</span>
+                                                @endif
+                                                @if($journey->journey_status_id == 2)
+                                                    <span class="label label-success pull-right">Approved</span>
+                                                    <span class="label label-danger pull-right">Not Confirmed</span>
+                                                @endif
+                                                @if($journey->journey_status_id == 3)
+                                                    <span class="label label-success pull-right">Approved</span>
+                                                    <span class="label label-danger pull-right">Confirmed</span>
+                                                @endif
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-body">
+                                    
+                            <div class="row">
+                                    <div class="col-md-6">
+                                        <dl class="dl-horizontal">
+                                            <h4>Applicant</h4>
+                                            <dt>Name</dt>
+                                            <dd>{{$journey->applicant->emp_surname}}</dd>
+                                            <dt>Division</dt>
+                                            <dd>{{$journey->applicant->division->dept_name}}</dd>
+                                            <dt>Email</dt>
+                                            <dd>{{$journey->applicant->emp_email}}</dd>
+                                        </dl>
+                                        <dl class="dl-horizontal">
+                                            <h4>Resources</h4>
+                                            <dt>Vehicle Number</dt>
+                                            <dd>{{$journey->vehical->registration_no}}</dd>
+                                            <dt>Vehicle Name</dt>
+                                            <dd>{{$journey->vehical->name}}</dd>
+                                            <dt>Driver</dt>
+                                            <dd>{{$journey->vehical->driver->fullname}}</dd>
+                                        </dl>
+                                        <dl class="dl-horizontal">
+                                            <dt>Divisional Head</dt>
+                                            <dd>{{$journey->divisional_head->emp_title.' '.$journey->divisional_head->emp_initials.'. '.$journey->divisional_head->emp_surname}}</dd>
+                                        </dl>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <dl class="dl-horizontal">
+                                            <h4>Details</h4>
+                                            <dt>Purpose</dt>
+                                            <dd>{{$journey->purpose}}</dd>
+                                            <dt>Places To Be Visited</dt>
+                                            <dd>{{$journey->places_to_be_visited}}</dd>
+                                            <dt>Number of Persons</dt>
+                                            <dd>{{$journey->number_of_persons}}</dd>
+                                            <dt>Approximate Distance</dt>
+                                            <dd>{{$journey->expected_distance.' km'}}</dd>
+                                        </dl>
+                                        <dl class="dl-horizontal">
+                                            <h4>Expected Date and Time Range</h4>
+                                            <dt>Start Date/ Time</dt>
+                                            <dd>{{$journey->expected_start_date_time->toDayDateTimeString()}}</dd>
+                                            <dt>End Date/ Time</dt>
+                                            <dd>{{$journey->expected_end_date_time->toDayDateTimeString()}}</dd>
+                                        </dl>
+            
+                                    </div>
+                                </div>
+                                <div class="row">
+                                        <div class="col-md-12">
+                                                {!! Form::open(['method' => 'post','id'=>'formApproval{{$journey->id}}','action'=>['JourneyRequestController@approval',$journey->id]]) !!}
+                                                <div class="form-group">
+                                                    <label for="remarks">Remarks</label>
+                                                    {!! Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2' ]) !!}
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="is_approved">Approve</label> 
+                                                    {!! Form::checkbox('is_approved', 1, true) !!}
+                                                </div>
+                                            </div>
+                                </div>
+                                <div class="modal-footer">
+                                <input type="submit" class="btn btn-success" name="submitType" value="Submit">
+                                <button type="button" class="btn btn-danger" id="close" data-dismiss="modal">Close</button>
+                                    {!! Form::close() !!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 @endforeach
                 </tbody>
-                {{-- <tfoot>
+                <tfoot>
                 <tr>
                     <th>Applicant Name</th>
                     <th>Applicant Division</th>
@@ -210,80 +328,11 @@
                     <th>Updated at</th>
                     <th width="200px">Actions</th>
                 </tr>
-                </tfoot> --}}
+                </tfoot>
             </table>
-            @foreach($journeys as $journey)
-                <div id="d{{$journey->id}}" hidden="hidden">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3>Journey Request Approval <span class="label label-danger pull-right">Not Approved</span></h3>
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <dl class="dl-horizontal">
-                                <h4>Applicant</h4>
-                                <dt>Name</dt>
-                                <dd>{{$journey->applicant->emp_surname}}</dd>
-                                <dt>Division</dt>
-                                <dd>{{$journey->applicant->division->dept_name}}</dd>
-                                <dt>Email</dt>
-                                <dd>{{$journey->applicant->emp_email}}</dd>
-                            </dl>
-                            <dl class="dl-horizontal">
-                                <h4>Resources</h4>
-                                <dt>Vehicle Number</dt>
-                                <dd>{{$journey->vehical->registration_no}}</dd>
-                                <dt>Vehicle Name</dt>
-                                <dd>{{$journey->vehical->name}}</dd>
-                                <dt>Driver</dt>
-                                <dd>{{$journey->vehical->driver->fullname}}</dd>
-                            </dl>
-                            <dl class="dl-horizontal">
-                                <dt>Divisional Head</dt>
-                                <dd>{{$journey->divisional_head->emp_title.' '.$journey->divisional_head->emp_initials.'. '.$journey->divisional_head->emp_surname}}</dd>
-                            </dl>
-                        </div>
-                        <div class="col-md-6">
-                            <dl class="dl-horizontal">
-                                <h4>Details</h4>
-                                <dt>Purpose</dt>
-                                <dd>{{$journey->purpose}}</dd>
-                                <dt>Places To Be Visited</dt>
-                                <dd>{{$journey->places_to_be_visited}}</dd>
-                                <dt>Number of Persons</dt>
-                                <dd>{{$journey->number_of_persons}}</dd>
-                                <dt>Approximate Distance</dt>
-                                <dd>{{$journey->expected_distance.' km'}}</dd>
-                            </dl>
-                            <dl class="dl-horizontal">
-                                <h4>Expected Date and Time Range</h4>
-                                <dt>Start Date/ Time</dt>
-                                <dd>{{$journey->expected_start_date_time->toDayDateTimeString()}}</dd>
-                                <dt>End Date/ Time</dt>
-                                <dd>{{$journey->expected_end_date_time->toDayDateTimeString()}}</dd>
-                            </dl>
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <hr>
-                        <div class="col-md-12">
-                            {!! Form::open(['method' => 'post','id'=>'formApproval','action'=>['JourneyRequestController@approval',$journey->id]]) !!}
-                            <div class="form-group">
-                                <label for="remarks">Remarks</label>
-                                {!! Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2' ]) !!}
-                            </div>
-                            <div class="form-group">
-                                <label for="is_approved">Approve</label> 
-                                {!! Form::checkbox('is_approved', 1, true) !!}
-                            </div>
-                            {!! Form::close() !!}
-                        </div>
-                    </div>
-                </div>
-            @endforeach  
+            {{-- @foreach($journeys as $journey)
+          
+            @endforeach   --}}
         </div>
         @endif
     </div>
@@ -301,69 +350,36 @@
                 // var longDisJourneys = {!! json_encode($longDisJourneys->toArray()) !!};
                 // console.log(longDisJourneys);
 
-                $.confirm({
-                    title:'',
-                    columnClass: 'col-lg-8 col-lg-offset-2',
-                    content:$('div#d'+$(this).attr('id')).html(),
-                    buttons: {
-                        formSubmit: {
-                            text: 'Submit',
-                            btnClass: 'btn-green',
-                            action: function () {
-                                $('#formApproval').submit();
-                            }
-                        },
-                        cancel: function () {
-                            //close
-                        },
-                    },
-                    onContentReady: function () {
-                        // bind to events
-                        var jc = this;
-                        this.$content.find('form').on('submit', function (e) {
-                            // if the user submits the form by pressing enter in the field.
-                            e.preventDefault();
-                            jc.$$formSubmit.trigger('click'); // reference the button and click it
-                        }); 
-                    }
-                });
+                // $.confirm({
+                //     title:'',
+                //     columnClass: 'col-lg-8 col-lg-offset-2',
+                //     content:$('div#d'+$(this).attr('id')).html(),
+                //     buttons: {
+                //         formSubmit: {
+                //             text: 'Submit',
+                //             btnClass: 'btn-green',
+                //             action: function () {
+                //                 $('#formApproval').submit();
+                //             }
+                //         },
+                //         cancel: function () {
+                //             //close
+                //         },
+                //     },
+                //     onContentReady: function () {
+                //         // bind to events
+                //         var jc = this;
+                //         this.$content.find('form').on('submit', function (e) {
+                //             // if the user submits the form by pressing enter in the field.
+                //             e.preventDefault();
+                //             jc.$$formSubmit.trigger('click'); // reference the button and click it
+                //         }); 
+                //     }
+                // });
             })
         });
     </script>
     
-    <script>
-        $(function () {
-            $('.btnViewLong').on('click',function () {
-                $.confirm({
-                    title:'',
-                    columnClass: 'col-lg-8 col-lg-offset-2',
-                    content:$('div#ld'+$(this).attr('id')).html(),
-                    buttons: {
-                        formSubmit: {
-                            text: 'Submit',
-                            btnClass: 'btn-green',
-                            action: function () {
-                                $('#formApprovalLong').submit();
-                            }
-                        },
-                        cancel: function () {
-                            //close
-                        },
-                    },
-                    onContentReady: function () {
-                        // bind to events
-                        var jc = this;
-                        this.$content.find('form').on('submit', function (e) {
-                            // if the user submits the form by pressing enter in the field.
-                            e.preventDefault();
-                            jc.$$formSubmit.trigger('click'); // reference the button and click it
-                        }); 
-                    }
-                });
-            })
-        });
-    </script>
-
     <script>
         $(document).ready(function() {
             $('#table').DataTable( {

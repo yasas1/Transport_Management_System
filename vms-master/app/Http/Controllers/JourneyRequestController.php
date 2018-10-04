@@ -15,8 +15,7 @@ class JourneyRequestController extends Controller
         // $this->validate($request , [
         //     'remarks' => 'required'
             
-        // ]);
-
+        // ]);     
 
         if($journey = Journey::whereId($id)->first()){
 
@@ -39,6 +38,5 @@ class JourneyRequestController extends Controller
         }
 
     }
-
 
 }

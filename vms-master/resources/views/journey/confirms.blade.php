@@ -366,7 +366,7 @@
             </div>
             <div class="modal-footer">
                     <input type="submit" class="btn btn-success" name="submit" value="SUBMIT">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" id="close" data-dismiss="modal">Close</button>
                     </form>
                     {{-- {!! Form::close() !!} --}}
             </div>
@@ -482,6 +482,7 @@
                     end : value.expected_end_date_time,
                     id :  value.id,                                                     
                     vehical_id : value.vehical_id, 
+                    borderColor: 'black',                   
                     color :  journey_colors[value.vehical_id]    
                 }
             );
@@ -537,7 +538,8 @@
                             start : value.expected_start_date_time,
                             end : value.expected_end_date_time,
                             id :  value.id,                                                     
-                            vehical_id : value.vehical_id, 
+                            vehical_id : value.vehical_id,
+                            borderColor: 'black', 
                             color :  journey_colors[value.vehical_id]                                                        
                         });                       
                     }); 
@@ -560,6 +562,7 @@
                         end : value.expected_end_date_time,
                         id :  value.id,                                                     
                         vehical_id : value.vehical_id, 
+                        borderColor: 'black',
                         color :  journey_colors[value.vehical_id]    
                     });                  
                 });
@@ -569,6 +572,12 @@
             
 	    });
     });
+        /* For, After confirmation modal is closed, refetch the events  */
+    // $("#close").click(function(evt){
+    //         $('#calendar').fullCalendar('removeEvents');
+    //         $('#calendar').fullCalendar('addEventSource', qEvent);
+	//         $('#calendar').fullCalendar('refetchEvents');
+	// });
    
     $(function () {
         var aaa;
@@ -602,11 +611,12 @@
                         center: 'title',
                         right: 'month,agendaWeek,agendaDay'
                     },
-                    googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',
-                    
+                    googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',                 
                     //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
-                    events:qEvent,                  
+                    events:qEvent,
+                                      
                     eventSources: aaa,
+
                     eventClick: function(event, element) {
                         //console.log(event);                      
                         var moment = $('#calendar').fullCalendar('getDate');
@@ -771,6 +781,7 @@
         function resetFunction() {
             location.reload();
         }
+
 </script>
 
 @endsection
