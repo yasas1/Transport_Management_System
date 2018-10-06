@@ -288,6 +288,7 @@
                             end : value.expected_end_date_time,
                             id :  value.id,                                                     
                             vehical_id : value.vehical_id,
+                            status: 'Confirmed',
                             color : ColorLuminance(journey_colors[value.vehical_id], 0.1)    
                         }
                     );
@@ -300,6 +301,7 @@
                             end : value.expected_end_date_time,
                             id :  value.id,                                                     
                             vehical_id : value.vehical_id,
+                            status: 'Approved',
                             color : ColorLuminance(journey_colors[value.vehical_id], -0.3)      
                         }
                     );
@@ -312,7 +314,7 @@
                             end : value.expected_end_date_time,
                             id :  value.id,                                                     
                             vehical_id : value.vehical_id,
-                                                       
+                            status: 'Status',                          
                             color : journey_colors[value.vehical_id]     
                         }
                     );
@@ -446,7 +448,9 @@
                             });
                             
                         },
-                        
+                        eventRender: function(event, element) {
+                            element.find('.fc-title').append("<br/>" + event.status); 
+                        },
                         dayClick: function(date) {
                             //alert('clicked ' + date.format());
                         },
