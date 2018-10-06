@@ -255,19 +255,68 @@
             });
         });
 
+                /* Function for change color light */              
+            /* lum — the luminosity factor, i.e. -0.1 is 10% darker, 0.2 is 20% lighter */
+        function ColorLuminance(hex, lum) {       
+           // validate hex string ColorLuminance("03A6FD", 0.2) lighten( $base-color, 10% )
+           hex = String(hex).replace(/[^0-9a-f]/gi, '');
+           if (hex.length < 6) {
+               hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+           }
+           lum = lum || 0;
+
+           // convert to decimal and change luminosity
+           var rgb = "#", c, i;
+           for (i = 0; i < 3; i++) {
+               c = parseInt(hex.substr(i*2,2), 16);
+               c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+               rgb += ("00"+c).substr(c.length);
+           }
+
+           return rgb;
+       }
+
         $.get("{{ URL::to('journey/read') }}",function(data){ 
             $.each(data,function(i,value){
-                //console.log(value);                    
-                qEvent.push(
-                    { 
-                        title : value.purpose,
-                        start : value.expected_start_date_time,
-                        end : value.expected_end_date_time,
-                        id :  value.id,                                                     
-                        vehical_id : value.vehical_id, 
-                        color :  journey_colors[value.vehical_id]      
-                    }
-                );
+                //console.log(value); 
+                if(value.journey_status_id==4){
+                    console.log(value.id); 
+                    qEvent.push(
+                        { 
+                            title : value.purpose,
+                            start : value.expected_start_date_time,
+                            end : value.expected_end_date_time,
+                            id :  value.id,                                                     
+                            vehical_id : value.vehical_id,
+                            color : ColorLuminance(journey_colors[value.vehical_id], 0.1)    
+                        }
+                    );
+                } 
+                else if(value.journey_status_id==2){
+                    qEvent.push(
+                        { 
+                            title : value.purpose,
+                            start : value.expected_start_date_time,
+                            end : value.expected_end_date_time,
+                            id :  value.id,                                                     
+                            vehical_id : value.vehical_id,
+                            color : ColorLuminance(journey_colors[value.vehical_id], -0.3)      
+                        }
+                    );
+                }
+                else {
+                    qEvent.push(
+                        { 
+                            title : value.purpose,
+                            start : value.expected_start_date_time,
+                            end : value.expected_end_date_time,
+                            id :  value.id,                                                     
+                            vehical_id : value.vehical_id,
+                                                       
+                            color : journey_colors[value.vehical_id]     
+                        }
+                    );
+                }                                
                          
             });
         });
@@ -330,26 +379,25 @@
         $(function () {
             var aaa;
            $.ajax({
-               method:'GET',
-               url:'{{url('/google/calenders')}}',
-               success:function (data) {
+                method:'GET',
+                url:'{{url('/google/calenders')}}',
+                success:function (data) {
                     var eventSources = [];
 
                     $.each(data,function (i,item) {
-                       var event = {};
-                       event.id = i;
-                       event.googleCalendarId = item.id;
-                       event.color = item.backgroundColor;
-                       eventSources.push(event)
+                        var event = {};
+                        event.id = i;
+                        event.googleCalendarId = item.id;
+                        event.color = item.backgroundColor;
+                        eventSources.push(event)
                         $('#aaa').append(item.id);
                     });
-                   aaa = eventSources;
+                    aaa = eventSources;
                 },
                 error:function (err) {
                    // alert(err.toString());
                 },
                 complete:function () {             
-
                    //console.log(aaa);
                    $('#calendar').fullCalendar({
                         selectable: true,
@@ -398,6 +446,7 @@
                             });
                             
                         },
+                        
                         dayClick: function(date) {
                             //alert('clicked ' + date.format());
                         },
