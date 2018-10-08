@@ -6,6 +6,7 @@ use App\Models\Division;
 use App\Models\Driver;
 use App\Models\FundsAllocatedFrom;
 use App\Models\Journey;
+use App\Models\JourneyStatus;
 use App\Models\Vehical;
 use Carbon\Carbon;
 use Exception;
@@ -29,7 +30,7 @@ class JourneyController extends Controller
         $client = new Google_Client();
         $client->setAuthConfig('client_secret.json');
         $client->addScope(Google_Service_Calendar::CALENDAR);
-//        Local Server
+            //Local Server
         $guzzleClient = new \GuzzleHttp\Client(array('curl' => array(CURLOPT_SSL_VERIFYPEER => false)));
         $client->setHttpClient($guzzleClient);
         $this->client = $client;
@@ -50,6 +51,7 @@ class JourneyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function create()
     {
         $journeys = Journey::all();
@@ -68,12 +70,20 @@ class JourneyController extends Controller
         return response($journeys);
     }
 
+    public function journeyStatus(){ 
+        // for create journey calender view
+        $journeys = JourneyStatus::all();
+
+        return response($journeys);
+    }
+
     public function readVehicleColor(){
         
         //$vehicles = Vehical::all()->select('journey_color')->get();
         $vehicles = DB::table('vehical')->select('id','journey_color')->get();
             
         return response($vehicles);
+
     }
 
 
