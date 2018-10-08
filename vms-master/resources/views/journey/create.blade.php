@@ -243,89 +243,45 @@
     <script src='{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/gcal.min.js')}}'></script>
     <script src="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
     <script>
-        //var journeys = {!! json_encode($journeys->toArray()) !!};
-        
-        var qEvent=[];
-        journey_color = ['#000000','#EF5B5B','#2697F9','#14C5EF','#05DCB2'];   
+        //var journeys = {!! json_encode($journeys->toArray()) !!};       
+        var qEvent=[]; 
         var journey_colors = [];///journey/readVehicle/
+        var journey_status = [];
+                // get Journet Color
         $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
             $.each(data,function(i,value){   
                 $('#v'+value.id).css('background-color','#'+value.journey_color); // For button color    
                 journey_colors[value.id]='#'+value.journey_color;
             });
         });
-
-                /* Function for change color light */              
-            /* lum — the luminosity factor, i.e. -0.1 is 10% darker, 0.2 is 20% lighter */
-        function ColorLuminance(hex, lum) {       
-           // validate hex string ColorLuminance("03A6FD", 0.2) lighten( $base-color, 10% )
-           hex = String(hex).replace(/[^0-9a-f]/gi, '');
-           if (hex.length < 6) {
-               hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
-           }
-           lum = lum || 0;
-
-           // convert to decimal and change luminosity
-           var rgb = "#", c, i;
-           for (i = 0; i < 3; i++) {
-               c = parseInt(hex.substr(i*2,2), 16);
-               c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
-               rgb += ("00"+c).substr(c.length);
-           }
-
-           return rgb;
-       }
+                // get status name
+        $.get("{{ URL::to('journey/journeyStatus/') }}",function(data){ 
+            $.each(data,function(i,value){                 
+                journey_status[value.id]=value.name;
+            });
+        });
+        console.log(journey_status);
 
         $.get("{{ URL::to('journey/read') }}",function(data){ 
-            $.each(data,function(i,value){
-                //console.log(value); 
-                if(value.journey_status_id==4){
-                    console.log(value.id); 
-                    qEvent.push(
-                        { 
-                            title : value.purpose,
-                            start : value.expected_start_date_time,
-                            end : value.expected_end_date_time,
-                            id :  value.id,                                                     
-                            vehical_id : value.vehical_id,
-                            status: 'Confirmed',
-                            color : ColorLuminance(journey_colors[value.vehical_id], 0.1)    
-                        }
-                    );
-                } 
-                else if(value.journey_status_id==2){
-                    qEvent.push(
-                        { 
-                            title : value.purpose,
-                            start : value.expected_start_date_time,
-                            end : value.expected_end_date_time,
-                            id :  value.id,                                                     
-                            vehical_id : value.vehical_id,
-                            status: 'Approved',
-                            color : ColorLuminance(journey_colors[value.vehical_id], -0.3)      
-                        }
-                    );
-                }
-                else {
-                    qEvent.push(
-                        { 
-                            title : value.purpose,
-                            start : value.expected_start_date_time,
-                            end : value.expected_end_date_time,
-                            id :  value.id,                                                     
-                            vehical_id : value.vehical_id,
-                            status: 'Status',                          
-                            color : journey_colors[value.vehical_id]     
-                        }
-                    );
-                }                                
-                         
+            $.each(data,function(i,value){  
+                qEvent.push(
+                    { 
+                        title : value.places_to_be_visited, // need place as the title
+                        start : value.expected_start_date_time,
+                        end : value.expected_end_date_time,
+                        id :  value.id,                                                     
+                        vehical_id : value.vehical_id,
+                        status: journey_status[value.journey_status_id],
+                        color : journey_colors[value.vehical_id]
+                    }
+                );
+            
             });
         });
 
         $(document).ready(function(){
 
-            //$('.colorbutton').css('background','#7CFD03');
+                //$('.colorbutton').css('background','#7CFD03');
             $(".vehiclebutton").click(function(evt){
                 var vid = $(this).attr("value");   // Vehivle_id from Vehicle_Button
                 //$(vid).css('background','#05DCB2');
@@ -341,11 +297,12 @@
                         $(data).each(function (i,value) {                
                             qEvent.push(
                             { 
-                                title : value.purpose,
+                                title : value.places_to_be_visited,
                                 start : value.expected_start_date_time,
                                 end : value.expected_end_date_time,
                                 id :  value.id,                                                     
-                                vehical_id : value.vehical_id, 
+                                vehical_id : value.vehical_id,
+                                status: journey_status[value.journey_status_id], 
                                 color :  journey_colors[value.vehical_id]                                                        
                             });                       
                         }); 
@@ -363,11 +320,12 @@
                     $.each(data,function(i,value){       
                         qEvent.push(
                         { 
-                            title : value.purpose,
+                            title : value.places_to_be_visited,
                             start : value.expected_start_date_time,
                             end : value.expected_end_date_time,
                             id :  value.id,                                                     
-                            vehical_id : value.vehical_id, 
+                            vehical_id : value.vehical_id,
+                            status: journey_status[value.journey_status_id], 
                             color :  journey_colors[value.vehical_id]    
                         });                  
                     });
@@ -425,11 +383,11 @@
                                 success: function(data)
                                 {
                                     var details = JSON.parse(data);
-                                    //console.log(data);
+                                    //console.log(data); 	places_to_be_visited
                                     $.confirm({
                                         title: 'Journey!', //Confirm
-                                        content:"<h4>ID - "+ details[0].id+"</h4>" + 
-                                        "<h4> Purpose- "+ details[0].purpose+"</h4>" + 
+                                        content:"<h3>Place - "+ details[0].places_to_be_visited+"</h3>" + 
+                                        "<h4>Status - "+ event.status +"</h4>"+
                                         "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:mm:SS') + "</h4>" +
                                         "<h4>End - "+ event.end.format('YYYY-MM-DD HH:mm:SS') +"</h4>"+
                                         "<h4>Vehicle Number - "+ details[1] +"</h4>"+
@@ -448,6 +406,7 @@
                             });
                             
                         },
+                        eventLimit: 2,
                         eventRender: function(event, element) {
                             element.find('.fc-title').append("<br/>" + event.status); 
                         },
