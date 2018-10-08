@@ -8,6 +8,7 @@ use App\Models\FundsAllocatedFrom;
 use App\Models\Journey;
 use App\Models\JourneyStatus;
 use App\Models\Vehical;
+use App\Models\Employee;
 use Carbon\Carbon;
 use Exception;
 use Google_Client;
@@ -64,9 +65,13 @@ class JourneyController extends Controller
     }
 
     public function readJourney(){ 
-            // for create journey calender view
-        $journeys = Journey::all();
-
+            // for create journey calender view database2.table2 as db2'
+        $journeys = DB::table('journey')
+        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
+        ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
+        ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
+        ->get();
+        
         return response($journeys);
     }
 
@@ -77,13 +82,17 @@ class JourneyController extends Controller
         return response($journeys);
     }
 
-    public function readVehicleColor(){
-        
+    public function journeyApplicant(){ 
+            // for create journey calender view
+        $employees = DB::table('employee')->select('emp_id','emp_title','emp_firstname','emp_surname')->get();
+        return response($employees);
+    }
+
+    public function readVehicleColor(){   
         //$vehicles = Vehical::all()->select('journey_color')->get();
         $vehicles = DB::table('vehical')->select('id','journey_color')->get();
             
         return response($vehicles);
-
     }
 
 
@@ -103,7 +112,13 @@ class JourneyController extends Controller
 
     public function ForCreateByVehicle(){ 
         $vid = $_GET['id'];
-        $journeys = Journey::journeyByVehicle($vid); 
+        //$journeys = Journey::journeyByVehicle($vid); 
+        $journeys = DB::table('journey')
+        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
+        ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
+        ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
+        ->where('vehical_id','=',$vid)
+        ->get();
 
         return response($journeys);
     }

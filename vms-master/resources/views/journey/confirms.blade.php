@@ -217,13 +217,7 @@
     <br>   
     
     {{-- <button class="test1" id="test1" style="background-color:#03A6FD">Test1 </button>  --}}
-
-    <div class="col-sm-12 col-md-12">
-        <div class="col-sm-11 col-md-11"> </div>
-        <div class="col-sm-1 col-md-1">
-            <button onclick="resetFunction()" class="btn btn-primary btn-xs" id="reset" style="height:23px;">RELOAD</button>
-        </div>
-    </div>
+    
     <br><br>
     <div class="col-md-12">
         <div class="box box-primary">
@@ -497,6 +491,7 @@
             //console.log(ColorLuminance("03A6FD", 0.3)); 
         });
                 /* Function for change color light */
+                
         /* lum — the luminosity factor, i.e. -0.1 is 10% darker, 0.2 is 20% lighter */
         function ColorLuminance(hex, lum) {
            
@@ -753,28 +748,15 @@
 <script>
 
     $('#formConfirmationAjax').on('submit',function(e){
-        //e.preventDefault();
+        e.preventDefault();
         var data = $(this).serialize();
         var url = $(this).attr('action');
-        // $.post(url,data,function(data){
-        //     console.log(data);           
-        //     //window.location.reload(true);
-        //     window.setTimeout(function(){ 
-        //         location.reload();
-        //     } ,1000);                     
-        // });
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: data,
-            success: function(data)
-            {
-                console.log(data);
+        $.post(url,data,function(data){
+            console.log(data);           
+            //window.location.reload(true);
+            window.setTimeout(function(){ 
                 location.reload();
-            },
-            error:function (err) {
-                console.log(err);
-            }
+            } ,1000);                     
         });       
     });
     
@@ -791,9 +773,6 @@
             }
         }
 
-        function resetFunction() {
-            location.reload();
-        }
 
 </script>
 

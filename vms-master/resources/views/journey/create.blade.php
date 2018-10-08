@@ -245,22 +245,15 @@
     <script>
         //var journeys = {!! json_encode($journeys->toArray()) !!};       
         var qEvent=[]; 
-        var journey_colors = [];///journey/readVehicle/
-        var journey_status = [];
-        var applicant = [];
+        var journey_colors = [];///journey/readVehicle/        
+        
                 // get Journet Color
         $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
             $.each(data,function(i,value){   
                 $('#v'+value.id).css('background-color','#'+value.journey_color); // For button color    
                 journey_colors[value.id]='#'+value.journey_color;
             });
-        });
-                // get status name
-        $.get("{{ URL::to('journey/journeyStatus/') }}",function(data){ 
-            $.each(data,function(i,value){                 
-                journey_status[value.id]=value.name;
-            });
-        });
+        });      
 
         $.get("{{ URL::to('journey/read') }}",function(data){ 
             console.log(data);
@@ -273,7 +266,7 @@
                     id :  value.id, 
                     applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
                     vehical_id : value.vehical_id,
-                    status: journey_status[value.journey_status_id],
+                    status: value.status,
                     color : journey_colors[value.vehical_id]
                 });   
             
@@ -301,9 +294,10 @@
                                 title : value.places_to_be_visited,
                                 start : value.expected_start_date_time,
                                 end : value.expected_end_date_time,
-                                id :  value.id,                                                     
+                                id :  value.id,         
+                                applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                             
                                 vehical_id : value.vehical_id,
-                                status: journey_status[value.journey_status_id], 
+                                status: value.status, 
                                 color :  journey_colors[value.vehical_id]                                                        
                             });                       
                         }); 
@@ -327,7 +321,7 @@
                             id :  value.id,
                             applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                      
                             vehical_id : value.vehical_id,
-                            status: journey_status[value.journey_status_id], 
+                            status: value.status, 
                             color :  journey_colors[value.vehical_id]    
                         });                  
                     });
@@ -411,7 +405,7 @@
                         },
                         eventLimit: 2,
                         eventRender: function(event, element) {
-                            element.find('.fc-title').append("<br/>" + event.status); 
+                            element.find('.fc-title').append("<br/>" +event.applicant +"<br/>"+ event.status); 
                         },
                         dayClick: function(date) {
                             //alert('clicked ' + date.format());
