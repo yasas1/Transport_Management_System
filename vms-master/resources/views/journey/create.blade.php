@@ -247,6 +247,7 @@
         var qEvent=[]; 
         var journey_colors = [];///journey/readVehicle/
         var journey_status = [];
+        var applicant = [];
                 // get Journet Color
         $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
             $.each(data,function(i,value){   
@@ -260,21 +261,21 @@
                 journey_status[value.id]=value.name;
             });
         });
-        console.log(journey_status);
 
         $.get("{{ URL::to('journey/read') }}",function(data){ 
-            $.each(data,function(i,value){  
+            console.log(data);
+            $.each(data,function(i,value){                 
                 qEvent.push(
-                    { 
-                        title : value.places_to_be_visited, // need place as the title
-                        start : value.expected_start_date_time,
-                        end : value.expected_end_date_time,
-                        id :  value.id,                                                     
-                        vehical_id : value.vehical_id,
-                        status: journey_status[value.journey_status_id],
-                        color : journey_colors[value.vehical_id]
-                    }
-                );
+                { 
+                    title : value.places_to_be_visited, // need place as the title
+                    start : value.expected_start_date_time,
+                    end : value.expected_end_date_time,
+                    id :  value.id, 
+                    applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                    vehical_id : value.vehical_id,
+                    status: journey_status[value.journey_status_id],
+                    color : journey_colors[value.vehical_id]
+                });   
             
             });
         });
@@ -323,7 +324,8 @@
                             title : value.places_to_be_visited,
                             start : value.expected_start_date_time,
                             end : value.expected_end_date_time,
-                            id :  value.id,                                                     
+                            id :  value.id,
+                            applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                      
                             vehical_id : value.vehical_id,
                             status: journey_status[value.journey_status_id], 
                             color :  journey_colors[value.vehical_id]    
@@ -387,6 +389,7 @@
                                     $.confirm({
                                         title: 'Journey!', //Confirm
                                         content:"<h3>Place - "+ details[0].places_to_be_visited+"</h3>" + 
+                                        "<h4>Applicant - "+ event.applicant +"</h4>"+
                                         "<h4>Status - "+ event.status +"</h4>"+
                                         "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:mm:SS') + "</h4>" +
                                         "<h4>End - "+ event.end.format('YYYY-MM-DD HH:mm:SS') +"</h4>"+
