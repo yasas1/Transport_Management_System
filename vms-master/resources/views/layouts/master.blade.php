@@ -206,16 +206,16 @@ desired effect
                             <li><a href="{{url('/journey/create')}}"><i class="fa fa-plus"></i> <span>NEW JOURNEY REQUEST</span></a></li>
                         @endif
                         @if(Auth::user()->canApproveJourney())
-                            <li><a href="{{url('/journey/requests')}}"><i class="fa fa-edit"></i> <span>APPROVE REQUESTS</span></a></li>
+                            <li><a href="{{url('/journey/requests')}}"><i class="fa fa-edit"></i> <span>APPROVE REQUESTS (HEAD)</span></a></li>
                         @endif
                         @if(Auth::user()->canConfirmJourney())
-                            <li><a href="{{url('/journey/requests/notconfirmed')}}"><i class="fa fa-edit"></i> <span>CONFIRM REQUESTS</span></a></li>
+                            <li><a href="{{url('/journey/requests/notconfirmed')}}"><i class="fa fa-edit"></i> <span>CONFIRM REQUESTS (CLARK)</span></a></li>
                         @endif
                         @if(Auth::user()->canViewOngoingJourneys())
                             <li><a href="{{url('/journey/requests/confirmed')}}"><i class="fa fa-edit"></i> <span>ONGOING JOURNEYS</span></a></li>
                         @endif
                         @if(Auth::user()->canCompleteJourney())
-                            <li><a href="{{url('/journey/requests/complete')}}"><i class="fa fa-edit"></i> <span>LOG OF JOURNEYS</span></a></li>
+                            <li><a href="{{url('/journey/requests/complete')}}"><i class="fa fa-edit"></i> <span>RUNNING CHART (LOG)</span></a></li>
                         @endif
                         @if(Auth::user()->canViewCompletedJourneys())
                             <li><a href="{{url('/journey/requests/completed')}}"><i class="fa fa-edit"></i> <span>JOURNEY HISTORY</span></a></li>

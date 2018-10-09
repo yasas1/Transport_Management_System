@@ -214,11 +214,7 @@
             <button class="vehiclebutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}" style="border: 1px solid #555555;border-radius: 5px;"> {{$vehicle->registration_no}} </button>   
         @endforeach
     </div>
-    <br>   
-    
-    {{-- <button class="test1" id="test1" style="background-color:#03A6FD">Test1 </button>  --}}
-    
-    <br><br>
+    <br><br>  
     <div class="col-md-12">
         <div class="box box-primary">
             {{-- <div class="box-header with-border">
@@ -486,8 +482,6 @@
     });
 
     $(document).ready(function(){
-
-
         //$('.colorbutton').css('background','#7CFD03');
 	    $(".vehiclebutton").click(function(evt){
 	        var vid = $(this).attr("value");   // Vehivle_id from Vehicle_Button
@@ -574,7 +568,7 @@
                // alert(err.toString());
             },
             complete:function () {             
-                console.log(aaa);
+                //console.log(aaa);
                 $('#calendar').fullCalendar({
                     selectable: true,
                     editable:true,
@@ -594,6 +588,8 @@
                     eventClick: function(event, element) {
                         //console.log(event);                      
                         var moment = $('#calendar').fullCalendar('getDate');
+                        $('#dtpStart').val(event.start.format('MM/DD/YYYY HH:mm'));
+                        $('#dtpEnd').val(event.end.format('MM/DD/YYYY HH:mm'));
 
                         $.ajax({
                             url: '/journey/read/{id}',
@@ -602,7 +598,7 @@
                             success: function(data)
                             {
                                 var details = JSON.parse(data);
-                                // console.log(details[0].expected_distance);
+
                                 console.log(details[7]);
 
                                 $('#purpose').html(details[0].purpose);
@@ -684,18 +680,14 @@
 
                         $('#dtpStart').val(event.start.format('MM/DD/YYYY HH:mm'));
                         $('#dtpEnd').val(event.end.format('MM/DD/YYYY HH:mm'));
-                        console.log(event.start.format('MM/DD/YYYY HH:mm'));
-                    
+                                          
                         $.ajax({
                             url: '/journey/read/{id}',
                             type: 'GET',
                             data: { id: event.id },
                             success: function(data)
                             {
-                                var details = JSON.parse(data);
-                                // console.log(details[0].expected_distance);
-
-                                console.log(details[7]);
+                                var details = JSON.parse(data);          
 
                                 $('#purpose').html(details[0].purpose);
                                 $('#places_to_be_visited').html(details[0].places_to_be_visited);

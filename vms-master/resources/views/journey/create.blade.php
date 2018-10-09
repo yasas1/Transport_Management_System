@@ -3,10 +3,8 @@
 @section('title', 'JOURNEY | VEHICLE MANAGEMENT SYSTEM')
 
 @section('styles')
-
     <link rel="stylesheet" href="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.css')}}">
     <link rel="stylesheet" href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css')}}">
-
 @endsection
 
 @section('header', 'Journey Request')
@@ -244,9 +242,8 @@
     <script src="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
     <script>
         //var journeys = {!! json_encode($journeys->toArray()) !!};       
-        var qEvent=[]; 
-        var journey_colors = [];///journey/readVehicle/        
-        
+        var qEvent=[]; // for calender events
+        var journey_colors = [];///journey/readVehicle/             
                 // get Journet Color
         $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
             $.each(data,function(i,value){   
@@ -256,7 +253,7 @@
         });      
 
         $.get("{{ URL::to('journey/read') }}",function(data){ 
-            console.log(data);
+            //console.log(data);
             $.each(data,function(i,value){                 
                 qEvent.push(
                 { 
@@ -361,6 +358,7 @@
                    $('#calendar').fullCalendar({
                         selectable: true,
                         defaultView:'agendaWeek',
+                        defaultDate: $('#calendar').fullCalendar('today'),                        
                         header: {
                             left: 'prev,next today myCustomButton',
                             center: 'title',
@@ -372,7 +370,7 @@
                         events:qEvent,
                         eventSources: aaa,
                         eventClick: function(event, element) {
-                            console.log(event);
+                            //console.log(event);
                             var moment = $('#calendar').fullCalendar('getDate');
                             
                             $.ajax({
@@ -403,8 +401,7 @@
                                         }
                                     });
                                 }
-                            });
-                            
+                            });                          
                         },
                         eventLimit: 2,
                         eventRender: function(event, element) {
@@ -414,10 +411,22 @@
                             //alert('clicked ' + date.format());
                         },
                         select: function(startDate, endDate) {
-                            $('#myModal').modal('toggle');
-                            //alert('selected ' + startDate.format() + ' to ' + endDate.format());
-                            // $('#dtp').val(startDate.format('MM/DD/YYYY HH:mm')+' - '+endDate.format('MM/DD/YYYY HH:mm'));
-                            $('#dtp').val(startDate.format()+' - '+endDate.format())
+                            // var currentdate = new Date();
+                            // if(startDate > currentdate){
+                            //     console.log("jhdfc");
+                            // }
+                           
+                            if(startDate.isBefore(moment())) {
+                                $('#calendar').fullCalendar('unselect');
+                                console.log("jhdfc");
+                                //return false;
+                            }else{
+                                $('#myModal').modal('toggle');
+                                //alert('selected ' + startDate.format() + ' to ' + endDate.format());
+                                // $('#dtp').val(startDate.format('MM/DD/YYYY HH:mm')+' - '+endDate.format('MM/DD/YYYY HH:mm'));
+                                $('#dtp').val(startDate.format()+' - '+endDate.format())
+                            }
+                         
                         }
                     });
                 }

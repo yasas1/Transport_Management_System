@@ -553,7 +553,6 @@
 
                     eventSources: aaa,
                     eventClick: function(event, element) {
-                        console.log(event);
                         //$('#myModal').modal('toggle');
                         var moment = $('#calendar').fullCalendar('getDate');
 
@@ -564,7 +563,7 @@
                             success: function(data)
                             {
                                 var details = JSON.parse(data);
-                                console.log(event.end);
+                                
                                 $('#journeyid').val(details[0].id);
                                 $('#purpose').html(details[0].purpose);
                                 $('#places_to_be_visited').html(details[0].places_to_be_visited);
@@ -603,24 +602,6 @@
                             }
                         });
                         $('#modal').modal('toggle');
-
-                        $.confirm({
-                            title: 'Complted!', 
-                            content:"<h4>ID - "+ event.id+"</h4>" +
-                            "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:mm:SS') + "</h4>" +
-                            "<h4>End - "+ event.end.format('YYYY-MM-DD HH:mm:SS') +"</h4>",
-                            buttons: {
-                                somethingElse: {
-                                    text: 'OK',
-                                    btnClass: 'btn-blue',
-                                    keys: ['enter', 'shift'],
-                                    action: function(){
-
-                                    }
-                                }
-                            }
-                        }); 
-
                     },
                     eventLimit: 2,
                     eventRender: function(event, element) {
