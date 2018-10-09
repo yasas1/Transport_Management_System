@@ -441,12 +441,15 @@
         $.each(data,function(i,value){                       
             qEvent.push(
                 { 
-                    title : value.purpose,
+                    title : value.places_to_be_visited,
                     start : value.expected_start_date_time,
                     end : value.expected_end_date_time,
                     id :  value.id,                                                     
-                    vehical_id : value.vehical_id, 
-                    color :  journey_colors[value.vehical_id]      
+                    applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                             
+                    vehical_id : value.vehical_id,
+                    status: value.status, 
+                    borderColor: 'black',                   
+                    color :  journey_colors[value.vehical_id]        
                 }
             );
         });
@@ -467,16 +470,17 @@
                 {
                     //console.log(data);              
                     $(data).each(function (i,value) {                
-                        qEvent.push(
-                            { 
-                                title : value.purpose,
-                                start : value.expected_start_date_time,
-                                end : value.expected_end_date_time,
-                                id :  value.id,                                                     
-                                vehical_id : value.vehical_id, 
-                                color :  journey_colors[value.vehical_id]                                
-                            }
-                        );                       
+                        qEvent.push(                           { 
+                            title : value.places_to_be_visited,
+                            start : value.expected_start_date_time,
+                            end : value.expected_end_date_time,
+                            id :  value.id,                                                     
+                            applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                             
+                            vehical_id : value.vehical_id,
+                            status: value.status, 
+                            borderColor: 'black',                   
+                            color :  journey_colors[value.vehical_id]                                
+                        });                       
                     }); 
                     //console.log(qEvent);
                     $('#calendar').fullCalendar('addEventSource', qEvent);
@@ -492,11 +496,14 @@
                 $.each(data,function(i,value){       
                     qEvent.push(
                     { 
-                        title : value.purpose,
+                        title : value.places_to_be_visited,
                         start : value.expected_start_date_time,
                         end : value.expected_end_date_time,
                         id :  value.id,                                                     
-                        vehical_id : value.vehical_id, 
+                        applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                             
+                        vehical_id : value.vehical_id,
+                        status: value.status, 
+                        borderColor: 'black',                   
                         color :  journey_colors[value.vehical_id]    
                     });                  
                 });
@@ -614,6 +621,10 @@
                             }
                         }); 
 
+                    },
+                    eventLimit: 2,
+                    eventRender: function(event, element) {
+                        element.find('.fc-title').append("<br/>" +event.applicant +"<br/>"+ event.status); 
                     }, 
                     dayClick: function(date) {
                         //alert('clicked ' + date.format());

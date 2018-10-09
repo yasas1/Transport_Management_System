@@ -467,15 +467,17 @@
         
     });
 
-    $.get("{{ URL::to('journey/readForConfirmation') }}",function(data){ 
+    $.get("{{ URL::to('journey/confirmationJourneys') }}",function(data){ 
         $.each(data,function(i,value){       
             qEvent.push(
                 { 
-                    title : value.purpose,
+                    title : value.places_to_be_visited,
                     start : value.expected_start_date_time,
                     end : value.expected_end_date_time,
                     id :  value.id,                                                     
-                    vehical_id : value.vehical_id, 
+                    applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                             
+                    vehical_id : value.vehical_id,
+                    status: value.status, 
                     borderColor: 'black',                   
                     color :  journey_colors[value.vehical_id]    
                 }
@@ -485,33 +487,6 @@
 
     $(document).ready(function(){
 
-        $('.test1').click(function(evt){
-            
-            $('#test1').css('background-color',ColorLuminance("03A6FD", 0.3));
-            //console.log(ColorLuminance("03A6FD", 0.3)); 
-        });
-                /* Function for change color light */
-                
-        /* lum — the luminosity factor, i.e. -0.1 is 10% darker, 0.2 is 20% lighter */
-        function ColorLuminance(hex, lum) {
-           
-            // validate hex string ColorLuminance("03A6FD", 0.2) lighten( $base-color, 10% )
-            hex = String(hex).replace(/[^0-9a-f]/gi, '');
-            if (hex.length < 6) {
-                hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
-            }
-            lum = lum || 0;
-
-            // convert to decimal and change luminosity
-            var rgb = "#", c, i;
-            for (i = 0; i < 3; i++) {
-                c = parseInt(hex.substr(i*2,2), 16);
-                c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
-                rgb += ("00"+c).substr(c.length);
-            }
-
-            return rgb;
-        }
 
         //$('.colorbutton').css('background','#7CFD03');
 	    $(".vehiclebutton").click(function(evt){
@@ -525,15 +500,17 @@
                 data: { id: vid },
                 success: function(data)
                 {
-                    //console.log(data);              
+                    console.log(data);              
                     $(data).each(function (i,value) {                
                         qEvent.push(
                         { 
-                            title : value.purpose,
+                            title : value.places_to_be_visited,
                             start : value.expected_start_date_time,
                             end : value.expected_end_date_time,
                             id :  value.id,                                                     
+                            applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                             
                             vehical_id : value.vehical_id,
+                            status: value.status, 
                             borderColor: 'black', 
                             color :  journey_colors[value.vehical_id]                                                        
                         });                       
@@ -548,15 +525,17 @@
         $(".all").click(function(evt){
             qEvent=[]; 
             $('#calendar').fullCalendar('removeEvents');
-            $.get("{{ URL::to('journey/readForConfirmation') }}",function(data){ 
+            $.get("{{ URL::to('journey/confirmationJourneys') }}",function(data){ 
                 $.each(data,function(i,value){       
                     qEvent.push(
                     { 
-                        title : value.purpose,
+                        title : value.places_to_be_visited,
                         start : value.expected_start_date_time,
                         end : value.expected_end_date_time,
                         id :  value.id,                                                     
-                        vehical_id : value.vehical_id, 
+                        applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                             
+                        vehical_id : value.vehical_id,
+                        status: value.status, 
                         borderColor: 'black',
                         color :  journey_colors[value.vehical_id]    
                     });                  
@@ -649,6 +628,10 @@
                             }
                         });
                         $('#modal').modal('toggle');
+                    },
+                    eventLimit: 2,
+                    eventRender: function(event, element) {
+                        element.find('.fc-title').append("<br/>" +event.applicant +"<br/>"+ event.status); 
                     }, 
                     dayClick: function(date) {
                         //alert('clicked ' + date.format());

@@ -266,6 +266,7 @@
                     id :  value.id, 
                     applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
                     vehical_id : value.vehical_id,
+                    borderColor: 'black',
                     status: value.status,
                     color : journey_colors[value.vehical_id]
                 });   
@@ -297,6 +298,7 @@
                                 id :  value.id,         
                                 applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                             
                                 vehical_id : value.vehical_id,
+                                borderColor: 'black',
                                 status: value.status, 
                                 color :  journey_colors[value.vehical_id]                                                        
                             });                       
@@ -321,6 +323,7 @@
                             id :  value.id,
                             applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                      
                             vehical_id : value.vehical_id,
+                            borderColor: 'black',
                             status: value.status, 
                             color :  journey_colors[value.vehical_id]    
                         });                  
