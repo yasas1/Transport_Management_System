@@ -319,13 +319,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="vehical_id">Change Vehicle</label>
-                                    {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control','placeholder'=>'Select a Vehicle'])}}
+                                    {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control','id'=>'vehicle','placeholder'=>'Select a Vehicle'])}}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="driver_id">Change Driver</label>
-                                    {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','placeholder'=>'Select a Vehicle'])}}
+                                    {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','id'=>'driverid','placeholder'=>'Select a Vehicle'])}}
                                 </div>
                             </div>
                         </div>
@@ -442,7 +442,7 @@
         // });
     });
 </script>
-            {{-- Script for calender view  --}}
+                        {{-- Script for calender view  --}}
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js')}}"></script>
 <script src='{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/gcal.min.js')}}'></script>
@@ -621,6 +621,8 @@
                                 $('#vehicle_name').html(details[2]);  
                                 $('#devisional_head').html(details[7]);
 
+                                document.getElementById('vehicle').value=details[0].vehical_id ; 
+                                document.getElementById('driverid').value=details[0].driver_id ;                           
                             }
                         });
                         $('#modal').modal('toggle');
@@ -671,6 +673,8 @@
                                 $('#vehicle_name').html(details[2]);  
                                 $('#devisional_head').html(details[7]);
 
+                                document.getElementById('vehicle').value=details[0].vehical_id ; 
+                                document.getElementById('driverid').value=details[0].driver_id ;  
                             }
                         });
 
@@ -709,6 +713,8 @@
                                 $('#vehicle_name').html(details[2]);  
                                 $('#devisional_head').html(details[7]);
 
+                                document.getElementById('vehicle').value=details[0].vehical_id ; 
+                                document.getElementById('driverid').value=details[0].driver_id ;  
                             }
                         });
                         $('#modal').modal('toggle');
@@ -729,9 +735,10 @@
         $.post(url,data,function(data){
             console.log(data);           
             //window.location.reload(true);
-            window.setTimeout(function(){ 
-                location.reload();
-            } ,1000);                     
+            location.reload();
+            // window.setTimeout(function(){ 
+            //     location.reload();
+            // } ,1000);                     
         });       
     });
     
