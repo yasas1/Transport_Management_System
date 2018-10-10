@@ -15,7 +15,7 @@
     @include('layouts.success')
     <div class="box box-primary" style="height: 750px; overflow: auto;" >
         <div class="box-header with-border">
-            <h3 class="box-title">Ongoing Journey Requests List</h3>
+            <h3 class="box-title">Ongoing Journey Requests List </h3>
         </div>
         <div class="box-body">
             @if($journeys)
@@ -42,9 +42,137 @@
                             <td>{{$journey->applicant->emp_surname}}</td>
 
                             <td width="200px">
-                                <button id="{{$journey->id}}" class="btn btn-success btnView"><i class="fa fa-eye"></i></button>
+                                <button class="btn btn-success btnView" data-toggle="modal" data-target="#{{$journey->id}}"><i class="fa fa-eye"> x</i></button>
+                                {{-- <button id="{{$journey->id}}" class="btn btn-success btnView"><i class="fa fa-eye"></i></button> --}}
                             </td>
                         </tr>
+
+                        <div class="modal fade bs-example-modal-lg" id="{{$journey->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <div class="row">
+                                            <div class="col-md-12">
+        
+                                                <h3>Journey Details
+                                                    @if($journey->journey_status_id == 1)
+                                                        <span class="label label-danger pull-right">Not Approved</span>
+                                                        <span class="label label-danger pull-right">Not Confirmed</span>
+                                                    @endif
+                                                    @if($journey->journey_status_id == 2)
+                                                        <span class="label label-success pull-right">Approved</span>
+                                                        <span class="label label-danger pull-right">Not Confirmed</span>
+                                                    @endif
+                                                    @if($journey->journey_status_id == 4)
+                                                        <span class="label label-success pull-right">Approved</span>
+                                                        <span class="label label-success pull-right">Confirmed</span>
+                                                        <span class="label label-info pull-right">Ongoing</span>
+                                                    @endif
+                                                </h3>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <dl class="dl-horizontal">
+                                                    <h4>Applicant</h4>
+                                                    <dt>Name</dt>
+                                                    <dd>{{$journey->applicant->emp_surname}}</dd>
+                                                    <dt>Division</dt>
+                                                    <dd>{{$journey->applicant->division->dept_name}}</dd>
+                                                    <dt>Email</dt>
+                                                    <dd>{{$journey->applicant->emp_email}}</dd>
+                                                </dl>
+                                                <dl class="dl-horizontal">
+                                                    <h4>Resources</h4>
+                                                    <dt>Vehicle Number</dt>
+                                                    <dd>{{$journey->vehical->registration_no}}</dd>
+                                                    <dt>Vehicle Name</dt>
+                                                    <dd>{{$journey->vehical->name}}</dd>
+                                                    <dt>Driver</dt>
+                                                    <dd>{{$journey->vehical->driver->fullname}}</dd>
+                                                </dl>
+                                                <dl class="dl-horizontal">
+                                                    <dt>Divisional Head</dt>
+                                                    <dd>{{$journey->divisional_head->emp_title.' '.$journey->divisional_head->emp_initials.'. '.$journey->divisional_head->emp_surname}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <dl class="dl-horizontal">
+                                                    <h4>Details</h4>
+                                                    <dt>Purpose</dt>
+                                                    <dd>{{$journey->purpose}}</dd>
+                                                    <dt>Places To Be Visited</dt>
+                                                    <dd>{{$journey->places_to_be_visited}}</dd>
+                                                    <dt>Number of Persons</dt>
+                                                    <dd>{{$journey->number_of_persons}}</dd>
+                                                    <dt>Approximate Distance</dt>
+                                                    <dd>{{$journey->expected_distance.' km'}}</dd>
+                                                </dl>
+                                                <dl class="dl-horizontal">
+                                                    <h4>Expected Date and Time Range</h4>
+                                                    <dt>Start Date/ Time</dt>
+                                                    <dd>{{$journey->expected_start_date_time->toDayDateTimeString()}}</dd>
+                                                    <dt>End Date/ Time</dt>
+                                                    <dd>{{$journey->expected_end_date_time->toDayDateTimeString()}}</dd>
+                                                </dl>
+        
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <dl class="dl-horizontal">
+                                                    <h4>Approval</h4>
+                                                    <dt>Approved By</dt>
+                                                    <dd>{{$journey->approvedBy->emp_title.' '.$journey->approvedBy->emp_initials.'. '.$journey->approvedBy->emp_surname}}</dd>
+                                                    <dt>Approved At</dt>
+                                                    <dd>{{$journey->approved_at->toDayDateTimeString()}}</dd>
+                                                    <dt>Remarks</dt>
+                                                    <dd>{{$journey->approval_remarks}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <dl class="dl-horizontal">
+                                                    <h4>Confirmaion</h4>
+                                                    <dt>Confirmed By</dt>
+                                                    <dd>{{$journey->confirmedBy->emp_title.' '.$journey->confirmedBy->emp_initials.'. '.$journey->confirmedBy->emp_surname}}</dd>
+                                                    <dt>Confirmed At</dt>
+                                                    <dd>{{$journey->confirmed_at->toDayDateTimeString()}}</dd>
+                                                    <dt>Remarks</dt>
+                                                    <dd>{{$journey->confirmation_remarks}}</dd>
+                                                    <dt>Confirmed Start Time</dt>
+                                                    <dd>{{$journey->confirmed_start_date_time->toDayDateTimeString()}}
+                                                        @if($journey->expected_start_date_time->diffInSeconds($journey->confirmed_start_date_time))
+                                                            <span class="label label-warning">Changed</span>
+                                                        @else
+                                                            <span class="label label-success">Not Changed</span>
+                                                        @endif
+                                                    </dd>
+                                                    <dt>Confirmed End Time</dt>
+                                                    <dd>{{$journey->confirmed_end_date_time->toDayDateTimeString()}}
+                                                        @if($journey->expected_end_date_time->diffInSeconds($journey->confirmed_end_date_time))
+                                                            <span class="label label-warning">Changed</span>
+                                                        @else
+                                                            <span class="label label-success">Not Changed</span>
+                                                        @endif
+                                                    </dd>
+                                                </dl>
+                                                
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="modal-footer">                                        
+                                        <button type="button" class="btn btn-danger" id="close" data-dismiss="modal">Close</button>                                              
+                                    </div>
+                                </div>
+                            </div>
+                        <div>
+
                     @endforeach
                     </tbody>
                     <tfoot>
@@ -60,116 +188,7 @@
                     </tfoot>
                 </table>
                 @foreach($journeys as $journey)
-                    <div id="d{{$journey->id}}" hidden="hidden">
-                        <div class="row">
-                            <div class="col-md-12">
-
-                                <h3>Journey Details
-                                    @if($journey->journey_status_id == 1)
-                                        <span class="label label-danger pull-right">Not Approved</span>
-                                        <span class="label label-danger pull-right">Not Confirmed</span>
-                                    @endif
-                                    @if($journey->journey_status_id == 2)
-                                        <span class="label label-success pull-right">Approved</span>
-                                        <span class="label label-danger pull-right">Not Confirmed</span>
-                                    @endif
-                                    @if($journey->journey_status_id == 4)
-                                        <span class="label label-success pull-right">Approved</span>
-                                        <span class="label label-success pull-right">Confirmed</span>
-                                        <span class="label label-info pull-right">Ongoing</span>
-                                    @endif
-                                </h3>
-                                <hr>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <dl class="dl-horizontal">
-                                    <h4>Applicant</h4>
-                                    <dt>Name</dt>
-                                    <dd>{{$journey->applicant->emp_surname}}</dd>
-                                    <dt>Division</dt>
-                                    <dd>{{$journey->applicant->division->dept_name}}</dd>
-                                    <dt>Email</dt>
-                                    <dd>{{$journey->applicant->emp_email}}</dd>
-                                </dl>
-                                <dl class="dl-horizontal">
-                                    <h4>Resources</h4>
-                                    <dt>Vehicle Number</dt>
-                                    <dd>{{$journey->vehical->registration_no}}</dd>
-                                    <dt>Vehicle Name</dt>
-                                    <dd>{{$journey->vehical->name}}</dd>
-                                    <dt>Driver</dt>
-                                    <dd>{{$journey->vehical->driver->fullname}}</dd>
-                                </dl>
-                                <dl class="dl-horizontal">
-                                    <dt>Divisional Head</dt>
-                                    <dd>{{$journey->divisional_head->emp_title.' '.$journey->divisional_head->emp_initials.'. '.$journey->divisional_head->emp_surname}}</dd>
-                                </dl>
-                            </div>
-                            <div class="col-md-6">
-                                <dl class="dl-horizontal">
-                                    <h4>Details</h4>
-                                    <dt>Purpose</dt>
-                                    <dd>{{$journey->purpose}}</dd>
-                                    <dt>Places To Be Visited</dt>
-                                    <dd>{{$journey->places_to_be_visited}}</dd>
-                                    <dt>Number of Persons</dt>
-                                    <dd>{{$journey->number_of_persons}}</dd>
-                                    <dt>Approximate Distance</dt>
-                                    <dd>{{$journey->expected_distance.' km'}}</dd>
-                                </dl>
-                                <dl class="dl-horizontal">
-                                    <h4>Expected Date and Time Range</h4>
-                                    <dt>Start Date/ Time</dt>
-                                    <dd>{{$journey->expected_start_date_time->toDayDateTimeString()}}</dd>
-                                    <dt>End Date/ Time</dt>
-                                    <dd>{{$journey->expected_end_date_time->toDayDateTimeString()}}</dd>
-                                </dl>
-
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <dl class="dl-horizontal">
-                                    <h4>Approval</h4>
-                                    <dt>Approved By</dt>
-                                    <dd>{{$journey->approvedBy->emp_title.' '.$journey->approvedBy->emp_initials.'. '.$journey->approvedBy->emp_surname}}</dd>
-                                    <dt>Approved At</dt>
-                                    <dd>{{$journey->approved_at->toDayDateTimeString()}}</dd>
-                                    <dt>Remarks</dt>
-                                    <dd>{{$journey->approval_remarks}}</dd>
-                                </dl>
-                            </div>
-                            <div class="col-md-6">
-                                <dl class="dl-horizontal">
-                                    <h4>Confirmaion</h4>
-                                    <dt>Confirmed By</dt>
-                                    <dd>{{$journey->confirmedBy->emp_title.' '.$journey->confirmedBy->emp_initials.'. '.$journey->confirmedBy->emp_surname}}</dd>
-                                    <dt>Confirmed At</dt>
-                                    <dd>{{$journey->confirmed_at->toDayDateTimeString()}}</dd>
-                                    <dt>Remarks</dt>
-                                    <dd>{{$journey->confirmation_remarks}}</dd>
-                                    <dt>Confirmed Start Time</dt>
-                                    <dd>{{$journey->confirmed_start_date_time->toDayDateTimeString()}}
-                                        @if($journey->expected_start_date_time->diffInSeconds($journey->confirmed_start_date_time))
-                                            <span class="label label-warning">Changed</span>
-                                        @else
-                                            <span class="label label-success">Not Changed</span>
-                                        @endif
-                                    </dd>
-                                    <dt>Confirmed End Time</dt>
-                                    <dd>{{$journey->confirmed_end_date_time->toDayDateTimeString()}}
-                                        @if($journey->expected_end_date_time->diffInSeconds($journey->confirmed_end_date_time))
-                                            <span class="label label-warning">Changed</span>
-                                        @else
-                                            <span class="label label-success">Not Changed</span>
-                                        @endif
-                                    </dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
+                
                 @endforeach
             @endif
 
@@ -178,7 +197,6 @@
 @endsection
 
 @section('scripts')
-
     <script src="{{asset('js/bootstrap-toggle.min.js')}}"></script>
     <script>
         $(document).ready(function() {
@@ -204,10 +222,10 @@
                     } );
                 }
             } );
-        } );
+        });
 
     </script>
-    <script>
+    {{-- <script>
         $(function () {
             $('.btnView').on('click',function () {
                 $.confirm({
@@ -238,5 +256,5 @@
                 });
             })
         });
-    </script>
+    </script> --}}
 @endsection
