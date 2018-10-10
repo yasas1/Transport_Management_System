@@ -14,7 +14,7 @@
     @include('layouts.errors')
     @include('layouts.success')
     
-    <div class="box box-primary" style="height: 800px; overflow: auto;" >
+    <div class="box box-primary" style="height: 750px; overflow: auto;" >
         <div class="box-header with-border">
             <h3 class="box-title">Ongoing Journey List</h3>
         </div>
@@ -212,6 +212,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <input type="submit" class="btn btn-success"  value="Submit">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                     {!! Form::close() !!}
                                 </div>
                             </div>

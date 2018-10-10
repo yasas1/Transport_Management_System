@@ -96,14 +96,11 @@ class JourneyConfirmController extends Controller
                     $journey->update();
                     //return response($journey);
                     return redirect()->back()->with(['success'=>'Journey request confirmation denied successfully !']);
-
                 }
 
-            }
-            
+            }           
             //return response($journey);
         }
-
     }
 
     public function test(Request $request){

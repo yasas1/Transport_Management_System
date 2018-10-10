@@ -13,7 +13,7 @@
 @section('content')
     @include('layouts.errors')
     @include('layouts.success')
-    <div class="box box-primary" style="height: 800px; overflow: auto;" >
+    <div class="box box-primary" style="height: 750px; overflow: auto;" >
         <div class="box-header with-border">
             <h3 class="box-title">Ongoing Journey Requests List</h3>
         </div>
@@ -216,7 +216,7 @@
                     content:$('div#d'+$(this).attr('id')).html(),
                     buttons: {
                         formSubmit: {
-                            text: 'OK',
+                            text: 'Close',
                             btnClass: 'btn-green',
                             action: function () {
                                 //close

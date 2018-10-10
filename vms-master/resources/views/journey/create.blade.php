@@ -410,23 +410,15 @@
                         dayClick: function(date) {
                             //alert('clicked ' + date.format());
                         },
-                        select: function(startDate, endDate) {
-                            // var currentdate = new Date();
-                            // if(startDate > currentdate){
-                            //     console.log("jhdfc");
-                            // }
-                           
-                            if(startDate.isBefore(moment())) {
-                                $('#calendar').fullCalendar('unselect');
-                                console.log("jhdfc");
-                                //return false;
-                            }else{
-                                $('#myModal').modal('toggle');
-                                //alert('selected ' + startDate.format() + ' to ' + endDate.format());
-                                // $('#dtp').val(startDate.format('MM/DD/YYYY HH:mm')+' - '+endDate.format('MM/DD/YYYY HH:mm'));
-                                $('#dtp').val(startDate.format()+' - '+endDate.format())
-                            }
-                         
+                        selectConstraint: {
+                            start: $.fullCalendar.moment().add(10, 'minutes'), //subtract
+                            end: $.fullCalendar.moment().startOf('year').add(1, 'year')
+                        },
+                        select: function(startDate, endDate) {                 
+                            $('#myModal').modal('toggle');
+                            //alert('selected ' + startDate.format() + ' to ' + endDate.format());
+                            // $('#dtp').val(startDate.format('MM/DD/YYYY HH:mm')+' - '+endDate.format('MM/DD/YYYY HH:mm'));
+                            $('#dtp').val(startDate.format()+' - '+endDate.format())
                         }
                     });
                 }
