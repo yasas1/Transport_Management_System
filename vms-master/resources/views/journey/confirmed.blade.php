@@ -164,12 +164,41 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                {!! Form::open(['method' => 'post','id'=>'formCancel{{$journey->id}}','action'=>['JourneyController@cancel',$journey->id]]) !!}
+                                                {{-- {!! Form::open(['method' => 'post','id'=>'formChange{{$journey->id}}','action'=>['JourneyController@cancel',$journey->id]]) !!} --}}
+                                                <h4>Change Journey details</h4>
+                                                {!! Form::model($journey,['method' => 'post','id'=>'formChange'.$journey->id ,'action'=>['JourneyController@changeOngoing',$journey->id]]) !!}
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="vehical_id">Change Vehicle</label>
+                                                            {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control','id'=>'vehicle','placeholder'=>'Select a Vehicle'])}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="driver_id">Change Driver</label>
+                                                            {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','id'=>'driverid','placeholder'=>'Select a Vehicle'])}}
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 
                                             </div>
                                         </div>
+                                        {{-- <div class="modal-footer"> --}}
+                                        <div>
+                                            <input type="submit" class="btn btn-success" name="submitType" value="Change">
+                                            
+                                                {!! Form::close() !!}
+                                        </div> 
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                {!! Form::open(['method' => 'post','id'=>'formCancel{{$journey->id}}','action'=>['JourneyController@cancel',$journey->id]]) !!}            
+                                            </div>
+                                        </div>
+                                        
                                         <div class="modal-footer">
-                                            <input type="submit" class="btn btn-warning" name="cancel" value="Journey Cancel"> 
+                                            <input type="submit" class="btn btn-warning" name="cancel" value="Cancel Journey "> 
                                             <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button>                          
                                                 {!! Form::close() !!}
                                         </div>                                      

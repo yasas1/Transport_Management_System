@@ -353,6 +353,23 @@ class JourneyController extends Controller
         }
     }
 
+    public function changeOngoing(Request $request, $id)
+    {
+        if($journey = Journey::whereId($id)->first()){
+
+            if($request->driver_id != NULL && $journey->driver_id != $request->driver_id){
+                $journey->driver_id = $request->driver_id;
+            }
+
+            if($request->vehical_id != NULL &&  $journey->vehical_id != $request->vehical_id){
+                $journey->vehical_id = $request->vehical_id;
+            }
+            //$journey->update();
+            return $journey;
+            //return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);     
+        }
+    }
+
 
     /**
      * Display the specified resource.
@@ -418,9 +435,11 @@ class JourneyController extends Controller
 
     public function confirmedJourneys(){
 
+        $drivers = Driver::all()->pluck('fullName','id');
+        $vehicles = Vehical::all()->pluck('fullName','id');
         $journeys = Journey::confirmed();
 
-        return view('journey.confirmed',compact('journeys'));
+        return view('journey.confirmed',compact('journeys','drivers','vehicles'));
     }
 
     public function completed(){
