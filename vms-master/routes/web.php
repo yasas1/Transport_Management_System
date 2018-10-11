@@ -86,6 +86,8 @@ Route::group(['middleware'=>['authenticate','active']],function (){
 
     Route::post('/journey/request/confirmAjax','JourneyConfirmController@confirmAjax');
 
+                /* Journey Cancel */
+    Route::post('/journey/request/{id}/cancel','JourneyController@cancel');
 
     /*Show Confirmed Requests*/
     Route::get('/journey/requests/confirmed','JourneyController@confirmedJourneys');

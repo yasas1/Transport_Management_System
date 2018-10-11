@@ -250,8 +250,8 @@ class JourneyController extends Controller
     public function store(CreateJourneyRequest $request)
     {     
         $journey = new Journey;
-        $journey->applicant_id = '000004';
-       //$journey->applicant_id = Auth::user()->emp_id;
+        //$journey->applicant_id = '000004';
+       $journey->applicant_id = Auth::user()->emp_id;
 
         $journey->vehical_id = $request->vehical_id;
         if ($vehicle = Vehical::whereId($request->vehical_id)->first()){
@@ -341,6 +341,19 @@ class JourneyController extends Controller
 
             return redirect()->back()->with(['success'=>'Journey added successfully !']);
     }
+
+    public function cancel(Request $request, $id)
+    {
+        if($journey = Journey::whereId($id)->first()){
+
+            $journey->journey_status_id = "7";
+            $journey->update();
+            //return $journey;
+            return redirect()->back()->with(['success'=>'Journey request Canceled successfully !']);     
+        }
+    }
+
+
     /**
      * Display the specified resource.
      *

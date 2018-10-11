@@ -3,7 +3,7 @@
 @section('title', 'VEHICLE MANAGEMENT SYSTEM | VEHICLE')
 
 @section('styles')
-    <link href="{{asset('css/bootstrap-toggle.min.css')}}" rel="stylesheet">
+    {{-- <link href="{{asset('css/bootstrap-toggle.min.css')}}" rel="stylesheet"> --}}
 @endsection
 
 @section('header', 'View Ongoing Journeys')
@@ -42,7 +42,7 @@
                             <td>{{$journey->applicant->emp_surname}}</td>
 
                             <td width="200px">
-                                <button class="btn btn-success btnView" data-toggle="modal" data-target="#{{$journey->id}}"><i class="fa fa-eye"> x</i></button>
+                                <button class="btn btn-success btnView" data-toggle="modal" data-target="#{{$journey->id}}"><i class="fa fa-eye"></i></button>
                                 {{-- <button id="{{$journey->id}}" class="btn btn-success btnView"><i class="fa fa-eye"></i></button> --}}
                             </td>
                         </tr>
@@ -146,7 +146,7 @@
                                                     <dt>Confirmed Start Time</dt>
                                                     <dd>{{$journey->confirmed_start_date_time->toDayDateTimeString()}}
                                                         @if($journey->expected_start_date_time->diffInSeconds($journey->confirmed_start_date_time))
-                                                            <span class="label label-warning">Changed</span>
+                                                            <span class="label label-info">Changed</span>
                                                         @else
                                                             <span class="label label-success">Not Changed</span>
                                                         @endif
@@ -154,21 +154,26 @@
                                                     <dt>Confirmed End Time</dt>
                                                     <dd>{{$journey->confirmed_end_date_time->toDayDateTimeString()}}
                                                         @if($journey->expected_end_date_time->diffInSeconds($journey->confirmed_end_date_time))
-                                                            <span class="label label-warning">Changed</span>
+                                                            <span class="label label-info">Changed</span>
                                                         @else
                                                             <span class="label label-success">Not Changed</span>
                                                         @endif
                                                     </dd>
-                                                </dl>
+                                                </dl>                                              
+                                            </div>                                       
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                {!! Form::open(['method' => 'post','id'=>'formCancel{{$journey->id}}','action'=>['JourneyController@cancel',$journey->id]]) !!}
                                                 
                                             </div>
-                                            
                                         </div>
-                                        
-                                    </div>
-                                    <div class="modal-footer">                                        
-                                        <button type="button" class="btn btn-danger" id="close" data-dismiss="modal">Close</button>                                              
-                                    </div>
+                                        <div class="modal-footer">
+                                            <input type="submit" class="btn btn-warning" name="cancel" value="Journey Cancel"> 
+                                            <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button>                          
+                                                {!! Form::close() !!}
+                                        </div>                                      
+                                    </div>              
                                 </div>
                             </div>
                         <div>
@@ -197,7 +202,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{asset('js/bootstrap-toggle.min.js')}}"></script>
+    {{-- <script src="{{asset('js/bootstrap-toggle.min.js')}}"></script> --}}
     <script>
         $(document).ready(function() {
             $('#table').DataTable( {

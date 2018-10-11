@@ -34,8 +34,8 @@
 
             <div class="box-body">
                 <!-- THE CALENDAR -->
-                    <div id='calendar'></div>
-                </div>
+                <div id='calendar'></div>
+            </div>
             <!-- /.box-body -->
         </div>
         <!-- /. box -->
@@ -266,8 +266,7 @@
                     borderColor: 'black',
                     status: value.status,
                     color : journey_colors[value.vehical_id]
-                });   
-            
+                });           
             });
         });
 
@@ -438,13 +437,11 @@
         });
     </script>
     {{-- <script>
-
         $('#vid').on('change',function () {
             $('#available').html('');
             $('#dtp').val('');
             console.log("check");
         });
-
     </script> --}}
     <script type="text/javascript">
         // var journeys = {!! json_encode($journeys->toArray()) !!};
