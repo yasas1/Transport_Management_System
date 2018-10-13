@@ -428,6 +428,7 @@ class JourneyController extends Controller
 
         $drivers = Driver::all()->pluck('fullName','id');
         $vehicles = Vehical::all()->pluck('fullName','id');
+        
         $vehiclesForColor = Vehical::all(); // for vehicle color button {delete}
         $journeys = Journey::notConfirmed();
 
@@ -437,7 +438,7 @@ class JourneyController extends Controller
     public function confirmedJourneys(){
 
         $drivers = Driver::all()->pluck('fullName','id');
-        // $vehicles = Vehical::all()->pluck('fullName','id');
+        //$vehicles = Vehical::all()->pluck('fullName','id');
         $vehicles = Vehical::all();
         $journeys = Journey::confirmed();
 

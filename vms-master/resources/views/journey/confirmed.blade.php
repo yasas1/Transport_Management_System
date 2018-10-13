@@ -3,7 +3,7 @@
 @section('title', 'VEHICLE MANAGEMENT SYSTEM | VEHICLE')
 
 @section('styles')
-    {{-- <link href="{{asset('css/bootstrap-toggle.min.css')}}" rel="stylesheet"> --}}
+    {{-- <link href="{{asset('css/bootstrap-toggle.min.css')}}" rel="stylesheet"> --}}  
 @endsection
 
 @section('header', 'View Ongoing Journeys')
@@ -42,7 +42,7 @@
                             <td>{{$journey->applicant->emp_surname}}</td>
 
                             <td width="200px">
-                                <button class="btn btn-success btnView" data-toggle="modal" data-target="#{{$journey->id}}"><i class="fa fa-eye"></i></button>
+                                <button class="btn btn-success btnView" id="view" data-toggle="modal" data-target="#{{$journey->id}}"><i class="fa fa-eye"></i></button>
                                 {{-- <button id="{{$journey->id}}" class="btn btn-success btnView"><i class="fa fa-eye"></i></button> --}}
                             </td>
                         </tr>
@@ -118,8 +118,7 @@
                                                     <dd>{{$journey->expected_start_date_time->toDayDateTimeString()}}</dd>
                                                     <dt>End Date/ Time</dt>
                                                     <dd>{{$journey->expected_end_date_time->toDayDateTimeString()}}</dd>
-                                                </dl>
-        
+                                                </dl>       
                                             </div>
                                         </div>
                                         <div class="row">
@@ -162,16 +161,22 @@
                                                 </dl>                                              
                                             </div>                                       
                                         </div>
+                                        {{-- array_merge(['7' => 'test'] + $vehicles->toArray()) --}}
                                         <div class="row">
                                             <div class="col-md-12">
-                                                {{-- {!! Form::open(['method' => 'post','id'=>'formChange{{$journey->id}}','action'=>['JourneyController@cancel',$journey->id]]) !!} --}}
                                                 <h4>Change Journey details</h4>
                                                 {!! Form::model($journey,['method' => 'post','id'=>'formChange'.$journey->id ,'action'=>['JourneyController@changeOngoing',$journey->id]]) !!}
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="vehical_id">Change Vehicle</label>
-                                                            {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control','id'=>'vehicle','placeholder'=>'Select a Vehicle'])}}
+                                                            {{-- {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control','id'=>'vehicle'])}} --}}
+                                                            <select name="vehical_id" id="vehicle" class="form-control">                                                                                                       
+                                                                @foreach ($vehicles as $vehicle)
+                                                                  <option value="{{ $vehicle->id }}" >{{ $vehicle->registration_no }} ( {{ $vehicle->name }} )  </option>
+                                                                @endforeach  
+                                                                <option value="0">External Vehicle</option>   
+                                                            </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -186,7 +191,7 @@
                                         </div>
                                         {{-- <div class="modal-footer"> --}}
                                         <div>
-                                            <input type="submit" class="btn btn-success" name="submitType" value="Change">
+                                            <input type="submit" class="btn btn-success" id="change" name="change" value="Change">
                                             
                                                 {!! Form::close() !!}
                                         </div> 
@@ -195,8 +200,7 @@
                                             <div class="col-md-12">
                                                 {!! Form::open(['method' => 'post','id'=>'formCancel{{$journey->id}}','action'=>['JourneyController@cancel',$journey->id]]) !!}            
                                             </div>
-                                        </div>
-                                        
+                                        </div>                                       
                                         <div class="modal-footer">
                                             <input type="submit" class="btn btn-warning" name="cancel" value="Cancel Journey "> 
                                             <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button>                          
@@ -206,7 +210,6 @@
                                 </div>
                             </div>
                         <div>
-
                     @endforeach
                     </tbody>
                     <tfoot>
@@ -255,10 +258,26 @@
                         } );
                     } );
                 }
-            } );
-        });
+            });  
+        });    
 
     </script>
+    <script>
+        $(document).ready(function() {
+                  
+            $("button[id=view]").on('click', function(){                      
+                $("input[id=change]").attr("disabled", "disabled");
+            });
+            $("select[id=vehicle]").on('change', function(){              
+                $("input[id=change]").removeAttr("disabled", "disabled");
+            });
+            $("select[id=driverid]").on('change', function(){              
+                $("input[id=change]").removeAttr("disabled", "disabled");
+            });
+            
+        });
+    </script>
+
     {{-- <script>
         $(function () {
             $('.btnView').on('click',function () {
