@@ -364,8 +364,9 @@ class JourneyController extends Controller
             if($request->vehical_id != NULL &&  $journey->vehical_id != $request->vehical_id){
                 $journey->vehical_id = $request->vehical_id;
             }
+
             //$journey->update();
-            return $journey;
+            return $request->vehical_id;
             //return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);     
         }
     }
@@ -436,7 +437,8 @@ class JourneyController extends Controller
     public function confirmedJourneys(){
 
         $drivers = Driver::all()->pluck('fullName','id');
-        $vehicles = Vehical::all()->pluck('fullName','id');
+        // $vehicles = Vehical::all()->pluck('fullName','id');
+        $vehicles = Vehical::all();
         $journeys = Journey::confirmed();
 
         return view('journey.confirmed',compact('journeys','drivers','vehicles'));
