@@ -52,7 +52,7 @@
             </div>
             <div class="form-group">
                 <label for="journey_color">Journey Color</label>
-                <input name="journey_color" class="jscolor" value="2A6AD7"> 
+                <input name="journey_color" class="jscolor" value={{$vehicle->journey_color}}> 
                 
             </div>
             <div class="form-group">

@@ -13,25 +13,16 @@
 @section('content')
     @include('layouts.errors')
     @include('layouts.success')
-
-    {{-- <div class="container">        
-        
-        <button type="button" class="btn btn-info">
-            <span class="glyphicon glyphicon-bell"></span>
-        </button>
-        <div class="dropdown-menu" role="menu">
-            <strong>Need Attention for Long Distance Journeys Request List...</strong>
-        </div>
-        
-    </div> --}}
-
             {{-- check with director's employee id from employee db --}} 
-    @if(Auth::user()->canApproveLongDistanceJourney())    
-        @if($longDisJourneys)
-            <div class="alert alert-info alert-dismissible fade in">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>Need Attention for Long Distance Journeys Request List...</strong> 
-            </div>       
+    @if($longDisJourneys != null )
+    <div class="alert alert-info alert-dismissible fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Need Attention for Long Distance Journeys Request List...</strong> 
+    </div> 
+    @endif
+
+    @if($longDisJourneys)
+        @if(Auth::user()->canApproveLongDistanceJourney())    
             {{-- for long distance journeys --}}
             <div class="box box-primary">
 
@@ -181,7 +172,7 @@
                     </table>                                 
                 </div>         
             </div>
-        @endif 
+        @endif   
     @endif
 
         {{-- for journeys that did not request long distance --}}
