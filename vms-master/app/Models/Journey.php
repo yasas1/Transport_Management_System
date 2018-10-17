@@ -121,6 +121,11 @@ class Journey extends Eloquent
 		return $this->belongsTo(\App\Models\Vehical::class);
 	}
 
+	public function externalVehicle()
+	{
+		return $this->hasOne(\App\Models\ExternalVehicle::class);
+	}
+
     public function applicant()
     {
         return $this->belongsTo(\App\Models\Employee::class,'applicant_id','emp_id');
