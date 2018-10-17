@@ -371,7 +371,7 @@ class JourneyController extends Controller
                         $forUpdate = TRUE;
                     }   
                     if($forUpdate){
-                        //$externalExis->update(); 
+                        $externalExis->update(); 
                         return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);  
                     }
                     else {
@@ -386,14 +386,14 @@ class JourneyController extends Controller
                 else{
                     $journey->vehical_id = Null;
                     $journey->driver_id = NULL;
-                    //$journey->update();
+                    $journey->update();
                     
                     $externalNew = new ExternalVehicle;
                     $externalNew->company_name = $request->company_name ;
                     $externalNew->cost = $request->cost ;
                     $externalNew->journey_id = $id;
 
-                    //$externalNew->save();  
+                    $externalNew->save();  
 
                     return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']); 
                 }
@@ -402,7 +402,7 @@ class JourneyController extends Controller
             else{
                     /*delete if this journey has selected external vehicle */
                 if($journey->vehical_id == NULL && $externalOld = ExternalVehicle::where('journey_id','=',$id)->first()){
-                    //$externalOld->delete(); 
+                    $externalOld->delete(); 
                 }
 
                 if($request->vehical_id != NULL &&  $journey->vehical_id != $request->vehical_id){
