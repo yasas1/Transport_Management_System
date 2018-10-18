@@ -161,7 +161,7 @@ class JourneyController extends Controller
         else{
             $vehicle_num = $journey->vehical->registration_no;
             $vehicle_name = $journey->vehical->name;
-            $driver = $journey->vehical->driver->getFullNameAttribute();
+            $driver = $journey->driver->getFullNameAttribute();
             $external = NULL;
         }
 
@@ -198,7 +198,7 @@ class JourneyController extends Controller
         $purpose = $journey->purpose ;
         $vehicle_num = $journey->vehical->registration_no;
         $vehicle_name = $journey->vehical->name;
-        $driver = $journey->vehical->driver->getFullNameAttribute();
+        $driver = $journey->driver->getFullNameAttribute();
         $applicant_name = $journey->applicant->getFullNameAttribute();
         $applicant_dept = $journey->applicant->division->dept_name;
         $applicant_email = $journey->applicant->emp_email;
@@ -225,7 +225,7 @@ class JourneyController extends Controller
         $purpose = $journey->purpose ;
         $vehicle_num = $journey->vehical->registration_no;
         $vehicle_name = $journey->vehical->name;
-        $driver = $journey->vehical->driver->getFullNameAttribute();
+        $driver = $journey->driver->getFullNameAttribute();
         $applicant_name = $journey->applicant->getFullNameAttribute();
         $applicant_dept = $journey->applicant->division->dept_name;
         $applicant_email = $journey->applicant->emp_email;
@@ -252,7 +252,7 @@ class JourneyController extends Controller
         $journey = Journey::whereId($id)->first();
         $vehicle_num = $journey->vehical->registration_no;
         $vehicle_name = $journey->vehical->name;
-        $driver = $journey->vehical->driver->getFullNameAttribute();
+        $driver = $journey->driver->getFullNameAttribute();
         $applicant_name = $journey->applicant->getFullNameAttribute();
         $applicant_dept = $journey->applicant->division->dept_name;
         $applicant_email = $journey->applicant->emp_email;
@@ -397,73 +397,85 @@ class JourneyController extends Controller
     }
 
     public function changeOngoing(Request $request, $id)
-    {
-        
-        if($journey = Journey::whereId($id)->first()){
+    {  
+        //if($journey = Journey::whereId($id)->first()){
+        if($request->ajax()){ 
+            return $request->id;
+            if($journey = Journey::find($request->id)){
 
-            if($request->vehical_id != NULL &&  $request->vehical_id ==0 ){
-                    /*update details if this journey has already selected external vehicle */
-                if($journey->vehical_id == NULL && $externalExis = ExternalVehicle::where('journey_id','=',$id)->first()){
-                    $forUpdate = FALSE;
-                    if($request->company_name != Null){
-                        $externalExis->company_name = $request->company_name ;
-                        $forUpdate = TRUE;
+                if($request->vehical_id != NULL &&  $request->vehical_id ==0 ){
+                        /*update details if this journey has already selected external vehicle */
+                    if($journey->vehical_id == NULL && $externalExis = ExternalVehicle::where('journey_id','=',$id)->first()){
+                        $forUpdate = FALSE;
+                        if($request->company_name != Null){
+                            $externalExis->company_name = $request->company_name ;
+                            $forUpdate = TRUE;
+                        }
+                        if($request->cost != Null){
+                            $externalExis->cost = $request->cost ;
+                            $forUpdate = TRUE;
+                        }   
+                        if($forUpdate){
+                            //$externalExis->update();
+                            Session::flash('success', 'Journey request confirmed successfully !');
+                            // return View::make('layouts/success'); 
+                            return $externalExis;
+                            return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);  
+                        }
+                        else {
+                            Session::flash('success', 'Journey request confirmed successfully !');
+                            // return View::make('layouts/success');
+                            return "dsvfz";
+                            return redirect()->back()->with(['success'=>'There is nothing details to change Ongoing Journey !']); 
+                        }
+
+                        
+
+                        return $externalExis;
                     }
-                    if($request->cost != Null){
-                        $externalExis->cost = $request->cost ;
-                        $forUpdate = TRUE;
-                    }   
-                    if($forUpdate){
-                        //$externalExis->update(); 
-                        return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);  
-                    }
-                    else {
-                        return redirect()->back()->with(['success'=>'There is nothing details to change Ongoing Journey !']); 
+    
+                    else{
+                        $journey->vehical_id = Null;
+                        $journey->driver_id = NULL;
+                        //$journey->update();
+                        
+                        $externalNew = new ExternalVehicle;
+                        $externalNew->company_name = $request->company_name ;
+                        $externalNew->cost = $request->cost ;
+                        $externalNew->journey_id = $id;
+
+                        //$externalNew->save();  
+                        Session::flash('success', 'Journey request confirmed successfully !');
+                        // return View::make('layouts/success');
+                        return $externalNew;
+                        return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']); 
                     }
 
-                    
-
-                    return $externalExis;
                 }
- 
                 else{
-                    $journey->vehical_id = Null;
-                    $journey->driver_id = NULL;
-                    //$journey->update();
-                    
-                    $externalNew = new ExternalVehicle;
-                    $externalNew->company_name = $request->company_name ;
-                    $externalNew->cost = $request->cost ;
-                    $externalNew->journey_id = $id;
+                        /*delete if this journey has selected external vehicle */
+                    if($journey->vehical_id == NULL && $externalOld = ExternalVehicle::where('journey_id','=',$id)->first()){
+                        //$externalOld->delete(); 
+                    }
 
-                    //$externalNew->save();  
+                    if($request->vehical_id != NULL &&  $journey->vehical_id != $request->vehical_id){
+                        $journey->vehical_id = $request->vehical_id;
+                    }
 
-                    return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']); 
+                    if($request->driver_id != NULL && $journey->driver_id != $request->driver_id){
+                        $journey->driver_id = $request->driver_id;
+                    }
+
+                    if($request->driver_id == NULL && $vehicle = Vehical::whereId($request->vehical_id)->first()){
+                        $journey->driver_id = $vehicle->driver->id;  
+                    }
+                   // $journey->update();
+                    Session::flash('success', 'Journey request confirmed successfully !');
+                    // return View::make('layouts/success');
+                    return $journey;
+                    return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);  
                 }
-
             }
-            else{
-                    /*delete if this journey has selected external vehicle */
-                if($journey->vehical_id == NULL && $externalOld = ExternalVehicle::where('journey_id','=',$id)->first()){
-                    //$externalOld->delete(); 
-                }
-
-                if($request->vehical_id != NULL &&  $journey->vehical_id != $request->vehical_id){
-                    $journey->vehical_id = $request->vehical_id;
-                }
-
-                if($request->driver_id != NULL && $journey->driver_id != $request->driver_id){
-                    $journey->driver_id = $request->driver_id;
-                }
-
-                if($request->driver_id == NULL && $vehicle = Vehical::whereId($request->vehical_id)->first()){
-                    $journey->driver_id = $vehicle->driver->id;  
-                }
-                $journey->update();
-                
-                //return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);  
-            }
-   
         }
     }
 
