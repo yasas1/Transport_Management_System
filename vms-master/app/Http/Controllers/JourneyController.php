@@ -6,6 +6,7 @@ use App\Models\Division;
 use App\Models\Driver;
 use App\Models\FundsAllocatedFrom;
 use App\Models\Journey;
+use App\Models\ExternalVehicle;
 use App\Models\JourneyStatus;
 use App\Models\Vehical;
 use App\Models\Employee;
@@ -357,12 +358,30 @@ class JourneyController extends Controller
     {
         if($journey = Journey::whereId($id)->first()){
 
-            if($request->driver_id != NULL && $journey->driver_id != $request->driver_id){
-                $journey->driver_id = $request->driver_id;
-            }
+            if($request->vehical_id != NULL &&  $request->vehical_id ==0){
+                $journey->vehical_id = Null;
+                $journey->driver_id = NULL;
+                $journey->update();
+                
+                $external = new ExternalVehicle;
+                $external->company_name = $request->company_name ;
+                $external->cost = $request->cost ;
+                $external->journey_id = $id;
 
-            if($request->vehical_id != NULL &&  $journey->vehical_id != $request->vehical_id){
-                $journey->vehical_id = $request->vehical_id;
+                $external->save();  
+
+                return $external;
+
+            }
+            else{
+
+                if($request->driver_id != NULL && $journey->driver_id != $request->driver_id){
+                    $journey->driver_id = $request->driver_id;
+                }
+
+                if($request->vehical_id != NULL &&  $journey->vehical_id != $request->vehical_id){
+                    $journey->vehical_id = $request->vehical_id;
+                }    
             }
 
             //$journey->update();
