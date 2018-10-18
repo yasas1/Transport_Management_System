@@ -20,6 +20,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">Confirmation Pending Journey Requests List</h3>
         </div>
+        <div class="flash-message"></div>
         <button onclick="tableViewFunction()" class="btn btn-info btn-sm">Table View</button> <br><br>
     </div> 
 
@@ -776,7 +777,8 @@
                 $('#calendar').fullCalendar('refetchEvents');
             });                      
 
-            $('#modal').modal('hide');                 
+            $('#modal').modal('hide');  
+            $('div.flash-message').html(data);               
         });       
     });
 
