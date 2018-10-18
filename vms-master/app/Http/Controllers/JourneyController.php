@@ -393,10 +393,9 @@ class JourneyController extends Controller
                     $externalNew->cost = $request->cost ;
                     $externalNew->journey_id = $id;
 
-                    //$external->save();  
+                    //$externalNew->save();  
 
-                    return $externalNew;
-                    //return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']); 
+                    return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']); 
                 }
 
             }
@@ -418,8 +417,8 @@ class JourneyController extends Controller
                     $journey->driver_id = $vehicle->driver->id;  
                 }
                 //$journey->update();
-                return $journey;
-                //return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);  
+                
+                return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);  
             }
    
         }

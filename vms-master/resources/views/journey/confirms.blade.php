@@ -319,7 +319,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="vehical_id">Change Vehicle</label>
-                                    {{-- {{Form::select('vehical_id',$vehicles,'3',['class'=>'form-control','id'=>'vehicle','value'=>3])}} --}}
+                                    {{-- {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control','id'=>'vehicle'])}} --}}
                                     <select  name="vehical_id" id="vehicle_select" class="form-control vehicle">                                                                                                       
                                         @foreach ($vehicless as $vehicle)
                                             <option value="{{ $vehicle->id }}" >{{ $vehicle->registration_no }} ( {{ $vehicle->name }} )  </option>
@@ -327,19 +327,20 @@
                                             <option id="external" value="0">External Vehicle</option>   
                                     </select>
                                 </div>
-                                <div class="form-group" id="company">
-                                    <label for="company_name">External Vehicle's Company Name</label>
-                                    {!! Form::text('company_name',null,['class'=>'form-control','id'=>'companyName','placeholder'=>'Company Name' ]) !!}
-                                </div>
-                                <div class="form-group" id="companycost">
-                                    <label for="company_cost">Cost</label>
-                                    {!! Form::text('cost',null,['class'=>'form-control','id'=>'cost','placeholder'=>'Cost' ]) !!}
-                                </div>
+                                
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group" id="driverdiv">
                                     <label for="driver_id">Change Driver</label>
                                     {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','id'=>'driverid','placeholder'=>'Select a Vehicle'])}}
+                                </div>
+                                <div class="form-group" id="company">
+                                        <label for="company_name">External Vehicle's Company Name</label>
+                                        {!! Form::text('company_name',null,['class'=>'form-control','id'=>'companyName','placeholder'=>'Company Name' ]) !!}
+                                </div>
+                                <div class="form-group" id="companycost">
+                                    <label for="company_cost">Cost</label>
+                                    {!! Form::text('cost',null,['class'=>'form-control','id'=>'cost','placeholder'=>'Cost' ]) !!}
                                 </div>
                             </div>
                         </div>
@@ -613,7 +614,7 @@
                             {
                                 var details = JSON.parse(data);
 
-                                console.log(details[0].vehical_id); //vehicle_select
+                                //console.log(details[0].vehical_id); //vehicle_select
 
                                 $('#purpose').html(details[0].purpose);
                                 $('#places_to_be_visited').html(details[0].places_to_be_visited);
