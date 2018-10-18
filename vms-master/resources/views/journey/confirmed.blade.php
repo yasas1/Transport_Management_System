@@ -110,7 +110,7 @@
                                     <dt>Vehicle Name</dt>
                                     <dd id="vehicle_name"></dd>
                                     <dt>Driver</dt>
-                                    <dd id="driver"></dd>
+                                    <dd id="driver_name"></dd>
                                 </div>
                                 <div id="external_vehicle">
                                     <dt>Vehicle</dt>
@@ -187,13 +187,16 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h4>Change Journey details</h4>
-                            {!! Form::model($journey,['method' => 'post','id'=>'formChange'.$journey->id ,'action'=>['JourneyController@changeOngoing',$journey->id]]) !!}
+                            {{-- {!! Form::model($journey,['method' => 'post','id'=>'formChange'.$journey->id ,'action'=>['JourneyController@changeOngoing',$journey->id]]) !!} --}}
+                            <form action="{{ URL::to('/journey/request/changeOngoing')}}" method="POST" id="changeOngoingAjax">
+                                {{csrf_field()}}
+                            <input type="hidden" name="id" id="journeyid">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="vehical_id">Change Vehicle</label>
                                         {{-- {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control','id'=>'vehicle'])}} --}}
-                                        <select  name="vehical_id" id="vehicle" class="form-control vehicle">                                                                                                       
+                                        <select  name="vehical_id" id="vehicle_select" class="form-control vehicle">                                                                                                       
                                             @foreach ($vehicles as $vehicle)
                                                 <option value="{{ $vehicle->id }}" >{{ $vehicle->id }} {{ $vehicle->registration_no }} ( {{ $vehicle->name }} )  </option>
                                             @endforeach  
@@ -259,7 +262,7 @@
                 success: function(data)
                 {
                     var details = JSON.parse(data);
-                    console.log(details[16]);
+                    //console.log(details[16]);
                     
                     $('#journeyid').val(details[0].id);
                     $('#purpose').html(details[0].purpose);
@@ -269,8 +272,8 @@
                     $('#approval_remarks').html(details[0].approval_remarks);
 
                     $('#vehicle_number').html(details[1]);
-                    $('#vehicle_name').html(details[2]); 
-                    $('#driver').html(details[3]);
+                    $('#vehicle_name').html(details[2]);; 
+                    $('#driver_name').html(details[3]);
                     $('#appl_name').html(details[4]);
                     $('#appl_dept').html(details[5]);
                     $('#appl_email').html(details[6]);
@@ -289,7 +292,17 @@
                     $('#confirmed_end_date_time').html(details[15] ); 
 
                     if(details[16]==null){
-                        console.log("fuckkkkk");
+                        //console.log(details[0].driver_id);
+                        $('#external_vehicle').hide();
+                        $('#internal_vehicle').show();
+                        document.getElementById('vehicle_select').value=details[0].vehical_id ; 
+                        document.getElementById('driverid').value=details[0].driver_id ; 
+                    }
+                    else{
+                        $('#internal_vehicle').hide();
+                        $('#external_vehicle').show();
+                        document.getElementById('vehicle_select').value=0 ;
+                        $("#driver").hide();
                     }
  
                 }
@@ -297,13 +310,14 @@
             $('#modal').modal('toggle');
         });
         
-        $('#formConfirmationAjax').on('submit',function(e){
-        e.preventDefault();
-        var data = $(this).serialize();
-        var url = $(this).attr('action');
-        $.post(url,data,function(data){
-                       
-            //location.reload();       
+        $('#changeOngoingAjax').on('submit',function(e){
+            e.preventDefault();
+            var data = $(this).serialize();
+            var url = $(this).attr('action');
+            $.post(url,data,function(data){        
+                //location.reload();  
+                console.log(data); 
+            });
         });
 
     </script>
@@ -336,21 +350,21 @@
 
     </script>
     <script>
-        var journeys = {!! json_encode($journeys->toArray()) !!};
+        // var journeys = {!! json_encode($journeys->toArray()) !!};
 
-        for (let index = 0; index < journeys.length; index++){
+        // for (let index = 0; index < journeys.length; index++){
 
-            if(journeys[index].vehical_id==null){
-                $("#"+journeys[index].id).find("#vehicle").val('0').change();
-            }
-            else{
-                $("#"+journeys[index].id).find("#vehicle").val(journeys[index].vehical_id).change();
-            }
-            if(journeys[index].driver_id==null){
-                $("#"+journeys[index].id).find("#driver").hide();
-            }
+        //     if(journeys[index].vehical_id==null){
+        //         $("#"+journeys[index].id).find("#vehicle").val('0').change();
+        //     }
+        //     else{
+        //         $("#"+journeys[index].id).find("#vehicle").val(journeys[index].vehical_id).change();
+        //     }
+        //     if(journeys[index].driver_id==null){
+        //         $("#"+journeys[index].id).find("#driver").hide();
+        //     }
              
-        }
+        // }
 
         $(document).ready(function() {
                   //company
