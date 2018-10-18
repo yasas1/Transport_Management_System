@@ -83,7 +83,6 @@ class JourneyController extends Controller
         return response($vehicles);
     }
 
-
     public function ForConfirmationByVehicle(){ 
         $vid = $_GET['id'];
         //$journeys = Journey::journeyByVehicleNotConfirmed($vid); 
@@ -375,18 +374,27 @@ class JourneyController extends Controller
             }
             else{
 
+                if($request->vehical_id != NULL &&  $journey->vehical_id != $request->vehical_id){
+                    $journey->vehical_id = $request->vehical_id;
+                }
+
                 if($request->driver_id != NULL && $journey->driver_id != $request->driver_id){
                     $journey->driver_id = $request->driver_id;
                 }
 
-                if($request->vehical_id != NULL &&  $journey->vehical_id != $request->vehical_id){
-                    $journey->vehical_id = $request->vehical_id;
-                }    
+                if($request->driver_id == NULL ){
+                    if ($vehicle = Vehical::whereId($request->vehical_id)->first()){
+                        $journey->driver_id = $vehicle->driver->id;
+                        
+                    }
+                    
+                }
+                
+                //$journey->update();
+                return $request->vehical_id;
+                //return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);  
             }
-
-            //$journey->update();
-            return $request->vehical_id;
-            //return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);     
+   
         }
     }
 
