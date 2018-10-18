@@ -47,190 +47,12 @@
                             <td>{{$journey->applicant->emp_surname}}</td>
 
                             <td width="200px">
-                                <button class="btn btn-success btnView" id="view" data-toggle="modal" data-target="#{{$journey->id}}"><i class="fa fa-eye"></i></button>
+                                <button class="btn btn-success btnView" id="view" value={{$journey->id}} ><i class="fa fa-eye"></i></button>
                                 {{-- <button id="{{$journey->id}}" class="btn btn-success btnView"><i class="fa fa-eye"></i></button> --}}
                             </td>
                         </tr>
 
-                        <div class="modal fade bs-example-modal-lg" id="{{$journey->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <div class="row">
-                                            <div class="col-md-12">
-        
-                                                <h3>Journey Details
-                                                    @if($journey->journey_status_id == 1)
-                                                        <span class="label label-danger pull-right">Not Approved</span>
-                                                        <span class="label label-danger pull-right">Not Confirmed</span>
-                                                    @endif
-                                                    @if($journey->journey_status_id == 2)
-                                                        <span class="label label-success pull-right">Approved</span>
-                                                        <span class="label label-danger pull-right">Not Confirmed</span>
-                                                    @endif
-                                                    @if($journey->journey_status_id == 4)
-                                                        <span class="label label-success pull-right">Approved</span>
-                                                        <span class="label label-success pull-right">Confirmed</span>
-                                                        <span class="label label-info pull-right">Ongoing</span>
-                                                    @endif
-                                                </h3>
-                                                <hr>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <dl class="dl-horizontal">
-                                                    <h4>Applicant</h4>
-                                                    <dt>Name</dt>
-                                                    <dd>{{$journey->applicant->emp_surname}}</dd>
-                                                    <dt>Division</dt>
-                                                    <dd>{{$journey->applicant->division->dept_name}}</dd>
-                                                    <dt>Email</dt>
-                                                    <dd>{{$journey->applicant->emp_email}}</dd>
-                                                </dl>
-                                                <dl class="dl-horizontal">
-                                                    <h4>Resources</h4>
-                                                    @if($journey->vehical_id != null)
-                                                        <dt>Vehicle Number</dt>
-                                                        <dd>{{$journey->vehical->registration_no}}</dd>
-                                                        <dt>Vehicle Name</dt>
-                                                        <dd>{{$journey->vehical->name}}</dd>
-                                                        <dt>Driver</dt>
-                                                        <dd>{{$journey->vehical->driver->fullname}}</dd>
-                                                    @endif
-                                                    @if($journey->vehical_id ==null)
-                                                    <dt>Vehicle</dt>
-                                                    <dd>External Vehicle</dd>
-                                                    @endif
-                                                    
-                                                </dl>
-                                                <dl class="dl-horizontal">
-                                                    <dt>Divisional Head</dt>
-                                                    <dd>{{$journey->divisional_head->emp_title.' '.$journey->divisional_head->emp_initials.'. '.$journey->divisional_head->emp_surname}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <dl class="dl-horizontal">
-                                                    <h4>Details</h4>
-                                                    <dt>Purpose</dt>
-                                                    <dd>{{$journey->purpose}}</dd>
-                                                    <dt>Places To Be Visited</dt>
-                                                    <dd>{{$journey->places_to_be_visited}}</dd>
-                                                    <dt>Number of Persons</dt>
-                                                    <dd>{{$journey->number_of_persons}}</dd>
-                                                    <dt>Approximate Distance</dt>
-                                                    <dd>{{$journey->expected_distance.' km'}}</dd>
-                                                </dl>
-                                                <dl class="dl-horizontal">
-                                                    <h4>Expected Date and Time Range</h4>
-                                                    <dt>Start Date/ Time</dt>
-                                                    <dd>{{$journey->expected_start_date_time->toDayDateTimeString()}}</dd>
-                                                    <dt>End Date/ Time</dt>
-                                                    <dd>{{$journey->expected_end_date_time->toDayDateTimeString()}}</dd>
-                                                </dl>       
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <dl class="dl-horizontal">
-                                                    <h4>Approval</h4>
-                                                    <dt>Approved By</dt>
-                                                    <dd>{{$journey->approvedBy->emp_title.' '.$journey->approvedBy->emp_initials.'. '.$journey->approvedBy->emp_surname}}</dd>
-                                                    <dt>Approved At</dt>
-                                                    <dd>{{$journey->approved_at->toDayDateTimeString()}}</dd>
-                                                    <dt>Remarks</dt>
-                                                    <dd>{{$journey->approval_remarks}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <dl class="dl-horizontal">
-                                                    <h4>Confirmaion</h4>
-                                                    <dt>Confirmed By</dt>
-                                                    <dd>{{$journey->confirmedBy->emp_title.' '.$journey->confirmedBy->emp_initials.'. '.$journey->confirmedBy->emp_surname}}</dd>
-                                                    <dt>Confirmed At</dt>
-                                                    <dd>{{$journey->confirmed_at->toDayDateTimeString()}}</dd>
-                                                    <dt>Remarks</dt>
-                                                    <dd>{{$journey->confirmation_remarks}}</dd>
-                                                    <dt>Confirmed Start Time</dt>
-                                                    <dd>{{$journey->confirmed_start_date_time->toDayDateTimeString()}}
-                                                        @if($journey->expected_start_date_time->diffInSeconds($journey->confirmed_start_date_time))
-                                                            <span class="label label-info">Changed</span>
-                                                        @else
-                                                            <span class="label label-success">Not Changed</span>
-                                                        @endif
-                                                    </dd>
-                                                    <dt>Confirmed End Time</dt>
-                                                    <dd>{{$journey->confirmed_end_date_time->toDayDateTimeString()}}
-                                                        @if($journey->expected_end_date_time->diffInSeconds($journey->confirmed_end_date_time))
-                                                            <span class="label label-info">Changed</span>
-                                                        @else
-                                                            <span class="label label-success">Not Changed</span>
-                                                        @endif
-                                                    </dd>
-                                                </dl>                                              
-                                            </div>                                       
-                                        </div>
-                                        {{-- array_merge(['7' => 'test'] + $vehicles->toArray()) --}}
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <h4>Change Journey details</h4>
-                                                {!! Form::model($journey,['method' => 'post','id'=>'formChange'.$journey->id ,'action'=>['JourneyController@changeOngoing',$journey->id]]) !!}
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="vehical_id">Change Vehicle</label>
-                                                            {{-- {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control','id'=>'vehicle'])}} --}}
-                                                            <select  name="vehical_id" id="vehicle" class="form-control vehicle">                                                                                                       
-                                                                @foreach ($vehicles as $vehicle)
-                                                                    <option value="{{ $vehicle->id }}" >{{ $vehicle->id }} {{ $vehicle->registration_no }} ( {{ $vehicle->name }} )  </option>
-                                                                @endforeach  
-                                                                    <option id="external" value="0">External Vehicle</option>   
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group" id="company">
-                                                            <label for="company_name">External Vehicle's Company Name</label>
-                                                            {!! Form::text('company_name',null,['class'=>'form-control','id'=>'companyName','placeholder'=>'Company Name' ]) !!}
-                                                        </div>
-                                                        <div class="form-group" id="companycost">
-                                                            <label for="company_cost">Cost</label>
-                                                            {!! Form::text('cost',null,['class'=>'form-control','id'=>'cost','placeholder'=>'Cost' ]) !!}
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group" id="driver">
-                                                            <label for="driver_id">Change Driver</label>
-                                                            {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','id'=>'driverid','placeholder'=>'Select a Vehicle'])}}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                        {{-- <div class="modal-footer"> --}}
-                                        <div>
-                                            <input type="submit" class="btn btn-success" id="change" name="change" value="Change">
-                                            
-                                                {!! Form::close() !!}
-                                        </div> 
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                {!! Form::open(['method' => 'post','id'=>'formCancel{{$journey->id}}','action'=>['JourneyController@cancel',$journey->id]]) !!}            
-                                            </div>
-                                        </div>                                       
-                                        <div class="modal-footer">
-                                            <input type="submit" class="btn btn-warning" name="cancel" value="Cancel Journey "> 
-                                            <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button>                          
-                                                {!! Form::close() !!}
-                                        </div>                                      
-                                    </div>              
-                                </div>
-                            </div>
-                        <div>
-                    @endforeach
+                    @endforeach    
                     </tbody>
                     <tfoot>
                     <tr>
@@ -251,10 +73,241 @@
 
         </div>
     </div>
+
+    <div id="modal" class="modal fade" role="dialog">
+
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Journey Request Confirmation                                   
+                                <span class="label label-success pull-right">Approved</span>
+                                <span class="label label-danger pull-right">Not Confirmed</span>                                
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dl class="dl-horizontal">
+                                <h4>Applicant</h4>
+                                <dt >Name</dt>
+                                <dd id="appl_name"> </dd>
+                                <dt >Division</dt>
+                                <dd id="appl_dept"></dd>
+                                <dt>Email</dt>
+                                <dd id="appl_email"></dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <h4>Resources</h4>
+                                <div id="internal_vehicle">
+                                    <dt>Vehicle Number</dt>
+                                    <dd id="vehicle_number"> </dd>
+                                    <dt>Vehicle Name</dt>
+                                    <dd id="vehicle_name"></dd>
+                                    <dt>Driver</dt>
+                                    <dd id="driver"></dd>
+                                </div>
+                                <div id="external_vehicle">
+                                    <dt>Vehicle</dt>
+                                    <dd>External Vehicle</dd>
+                                </div>
+                                
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt>Divisional Head</dt>                           
+                                <dd id="devisional_head"> </dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <dl class="dl-horizontal">
+                                <h4>Details</h4>
+                                <dt>Purpose</dt>
+                                <dd id="purpose"></dd>
+                                <dt>Places To Be Visited</dt>
+                                <dd id="places_to_be_visited"></dd>
+                                <dt>Number of Persons</dt>
+                                <dd id="number_of_persons"></dd>
+                                <dt>Approximate Distance  km</dt>
+                                <dd id="expected_distance">  </dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <h4>Expected Date and Time Range</h4>
+                                <dt>Start Date/ Time</dt>
+                                <dd id="expected_start_date_time"></dd>
+                                <dt>End Date/ Time</dt>
+                                <dd id="expected_end_date_time"></dd>
+                                {{-- <dt>Journey Duration</dt>
+                                 {{$journey->expected_end_date_time->diffInHours($journey->expected_start_date_time)}} hours 
+                                <dd></dd> --}}
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dl class="dl-horizontal">
+                                <h4>Approval</h4>
+                                <dt>Approved By</dt>
+                                <dd id="approved_by"></dd>
+                                <dt>Approved At</dt>
+                                <dd id="approved_at"></dd>
+                                <dt>Remarks</dt>
+                                <dd id="approval_remarks"></dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <dl class="dl-horizontal">
+                                <h4>Confirmaion</h4>
+                                <dt>Confirmed By</dt>                              
+                                <dd id="confirm_by"></dd>
+                                <dt>Confirmed At</dt>
+                                {{-- {{$journey->confirmed_at->toDayDateTimeString()}} --}}
+                                <dd id="confirm_at"></dd>
+                                <dt>Remarks</dt>
+                                {{-- {{$journey->confirmation_remarks}} --}}
+                                <dd id="confirm_remarks"></dd>
+                                <dt>Confirmed Start Time</dt>
+                                {{-- {{$journey->confirmed_start_date_time->toDayDateTimeString()}}
+                                    @if($journey->expected_start_date_time->diffInSeconds($journey->confirmed_start_date_time))
+                                        <span class="label label-warning">Changed</span>
+                                    @else
+                                        <span class="label label-success">Not Changed</span>
+                                    @endif --}}
+                                <dd id="confirmed_start_date_time"> </dd>
+                                <dt>Confirmed End Time</dt>
+                                <dd id="confirmed_end_date_time"> </dd>
+                            </dl>                                              
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Change Journey details</h4>
+                            {!! Form::model($journey,['method' => 'post','id'=>'formChange'.$journey->id ,'action'=>['JourneyController@changeOngoing',$journey->id]]) !!}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="vehical_id">Change Vehicle</label>
+                                        {{-- {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control','id'=>'vehicle'])}} --}}
+                                        <select  name="vehical_id" id="vehicle" class="form-control vehicle">                                                                                                       
+                                            @foreach ($vehicles as $vehicle)
+                                                <option value="{{ $vehicle->id }}" >{{ $vehicle->id }} {{ $vehicle->registration_no }} ( {{ $vehicle->name }} )  </option>
+                                            @endforeach  
+                                                <option id="external" value="0">External Vehicle</option>   
+                                        </select>
+                                    </div>
+                                    <div class="form-group" id="company">
+                                        <label for="company_name">External Vehicle's Company Name</label>
+                                        {!! Form::text('company_name',null,['class'=>'form-control','id'=>'companyName','placeholder'=>'Company Name' ]) !!}
+                                    </div>
+                                    <div class="form-group" id="companycost">
+                                        <label for="company_cost">Cost</label>
+                                        {!! Form::text('cost',null,['class'=>'form-control','id'=>'cost','placeholder'=>'Cost' ]) !!}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" id="driver">
+                                        <label for="driver_id">Change Driver</label>
+                                        {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','id'=>'driverid','placeholder'=>'Select a Vehicle'])}}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    {{-- <div class="modal-footer"> --}}
+                    <div>
+                        <input type="submit" class="btn btn-success" id="change" name="change" value="Change">
+                        
+                            {!! Form::close() !!}
+                    </div> 
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {!! Form::open(['method' => 'post','id'=>'formCancel{{$journey->id}}','action'=>['JourneyController@cancel',$journey->id]]) !!}            
+                        </div>
+                    </div>                                       
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-warning" name="cancel" value="Cancel Journey "> 
+                        <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button>                          
+                            {!! Form::close() !!}
+                    </div> 
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('scripts')
     {{-- <script src="{{asset('js/bootstrap-toggle.min.js')}}"></script> --}}
+
+    <script>
+        $(".btnView").click(function(evt){
+	        var journeyid = $(this).val();
+            console.log(journeyid);;
+
+            $.ajax({
+                url: '/journey/readConfirmed/{id}',
+                type: 'GET',
+                data: { id: journeyid },
+                success: function(data)
+                {
+                    var details = JSON.parse(data);
+                    console.log(details[16]);
+                    
+                    $('#journeyid').val(details[0].id);
+                    $('#purpose').html(details[0].purpose);
+                    $('#places_to_be_visited').html(details[0].places_to_be_visited);
+                    $('#number_of_persons').html(details[0].number_of_persons);
+                    $('#expected_distance').html(details[0].expected_distance);
+                    $('#approval_remarks').html(details[0].approval_remarks);
+
+                    $('#vehicle_number').html(details[1]);
+                    $('#vehicle_name').html(details[2]); 
+                    $('#driver').html(details[3]);
+                    $('#appl_name').html(details[4]);
+                    $('#appl_dept').html(details[5]);
+                    $('#appl_email').html(details[6]);
+                    $('#devisional_head').html(details[7]);
+                    $('#approved_by').html(details[8]);
+                    $('#approved_at').html(details[9]); 
+                    $('#expected_start_date_time').html(details[10]);  
+                    $('#expected_end_date_time').html(details[11]);                            
+                        
+                    $('#confirm_by').html(details[12]);
+                    $('#confirm_at').html(details[13]);
+
+                    $('#confirm_remarks').html(details[0].confirmation_remarks);
+                    
+                    $('#confirmed_start_date_time').html(details[14] );
+                    $('#confirmed_end_date_time').html(details[15] ); 
+
+                    if(details[16]==null){
+                        console.log("fuckkkkk");
+                    }
+ 
+                }
+            });
+            $('#modal').modal('toggle');
+        });
+        
+        $('#formConfirmationAjax').on('submit',function(e){
+        e.preventDefault();
+        var data = $(this).serialize();
+        var url = $(this).attr('action');
+        $.post(url,data,function(data){
+                       
+            //location.reload();       
+        });
+
+    </script>
+
     <script>
         $(document).ready(function() {
             $('#table').DataTable( {
@@ -311,6 +364,7 @@
                 $("div[id=companycost]").hide();
 
                 
+                
             });
 
             $(".vehicle").on('change',function(evt){
@@ -326,7 +380,7 @@
                     $("div[id=companycost]").hide();
                     $("div[id=driver]").show();
                 }
-                console.log(vehicle);
+                
             });
 
             $("button[id=close]").on('click',function(evt){
