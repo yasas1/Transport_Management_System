@@ -745,9 +745,6 @@
            }
        })
     });
-</script> 
-
-<script>
 
     $('#formConfirmationAjax').on('submit',function(e){
         e.preventDefault();
@@ -757,11 +754,37 @@
             console.log(data);           
             //window.location.reload(true);
             //location.reload();
-            // window.setTimeout(function(){ 
-            //     location.reload();
-            // } ,1000);                     
+
+            qEvent=[]; 
+            $('#calendar').fullCalendar('removeEvents');
+            $.get("{{ URL::to('journey/confirmationJourneys') }}",function(data){ 
+                $.each(data,function(i,value){       
+                    qEvent.push(
+                    { 
+                        title : value.places_to_be_visited,
+                        start : value.expected_start_date_time,
+                        end : value.expected_end_date_time,
+                        id :  value.id,                                                     
+                        applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                             
+                        vehical_id : value.vehical_id,
+                        status: value.status, 
+                        borderColor: 'black',
+                        color :  journey_colors[value.vehical_id]    
+                    });                  
+                });
+                $('#calendar').fullCalendar('addEventSource', qEvent);
+                $('#calendar').fullCalendar('refetchEvents');
+            });                      
+
+            $('#modal').modal('hide');                 
         });       
     });
+
+</script> 
+
+<script>
+
+    
     
 </script>
 
