@@ -147,6 +147,49 @@ class JourneyController extends Controller
         return response($journeys);
     }
 
+    public function ForOngingView(){ 
+        $journeyid = $_GET['id'];
+        //$journeys = Journey::journeyByVehicle($vid); 
+        $journey = Journey::whereId($journeyid)->first();
+        if($journey->vehical_id==NULL){
+            $vehicle_num = NULL;
+            $vehicle_name = NULL;
+            $driver = NULL;
+
+            $external = $journey->externalVehicle;
+        }
+        else{
+            $vehicle_num = $journey->vehical->registration_no;
+            $vehicle_name = $journey->vehical->name;
+            $driver = $journey->vehical->driver->getFullNameAttribute();
+            $external = NULL;
+        }
+
+        $applicant_name = $journey->applicant->getFullNameAttribute();
+        $applicant_dept = $journey->applicant->division->dept_name;
+        $applicant_email = $journey->applicant->emp_email;
+        $devisional_head = $journey->divisional_head->getFullNameAttribute();
+        $approved_by = $journey->approvedBy->getFullNameAttribute();
+
+        $approved_at = $journey->approved_at->toDayDateTimeString();
+        $exp_start = $journey->expected_start_date_time->toDayDateTimeString();
+        $exp_end = $journey->expected_end_date_time->toDayDateTimeString();
+
+        $confirmed_by = $journey->confirmedBy->getFullNameAttribute();
+
+        $confirmed_at = $journey->confirmed_at->toDayDateTimeString();
+        $confirmed_start = $journey->confirmed_start_date_time->toDayDateTimeString();
+        $confirmed_end = $journey->confirmed_end_date_time->toDayDateTimeString();  
+
+        $data = json_encode(array(
+            $journey , $vehicle_num ,$vehicle_name,$driver, $applicant_name , $applicant_dept, $applicant_email, $devisional_head, 
+            $approved_by, $approved_at, $exp_start,$exp_end, $confirmed_by, $confirmed_at ,$confirmed_start,$confirmed_end,
+            $external
+            
+        ));
+        return response($data);
+    }
+
     public function readJourneyForCreate(){
         $id = $_GET['id'];
         $journey = Journey::whereId($id)->first(); 
@@ -416,9 +459,9 @@ class JourneyController extends Controller
                 if($request->driver_id == NULL && $vehicle = Vehical::whereId($request->vehical_id)->first()){
                     $journey->driver_id = $vehicle->driver->id;  
                 }
-                //$journey->update();
+                $journey->update();
                 
-                return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);  
+                //return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);  
             }
    
         }
