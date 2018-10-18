@@ -36,12 +36,7 @@
                         <tr>
                             <td>{{$journey->applicant->emp_surname}}</td>
                             <td>{{$journey->applicant->division->dept_name}}</td>
-                            @if($journey->vehical_id != null)
                             <td>{{$journey->vehical->fullname}}</td>
-                            @endif
-                            @if($journey->vehical_id == null)
-                            <td>External Vehicle</td>
-                            @endif
                             <td>{{$journey->expected_start_date_time->toDayDateTimeString()}}</td>
                             <td>{{$journey->expected_end_date_time->toDayDateTimeString()}}</td>
                             <td>{{$journey->applicant->emp_surname}}</td>
@@ -93,19 +88,12 @@
                                                 </dl>
                                                 <dl class="dl-horizontal">
                                                     <h4>Resources</h4>
-                                                    @if($journey->vehical_id != null)
-                                                        <dt>Vehicle Number</dt>
-                                                        <dd>{{$journey->vehical->registration_no}}</dd>
-                                                        <dt>Vehicle Name</dt>
-                                                        <dd>{{$journey->vehical->name}}</dd>
-                                                        <dt>Driver</dt>
-                                                        <dd>{{$journey->vehical->driver->fullname}}</dd>
-                                                    @endif
-                                                    @if($journey->vehical_id ==null)
-                                                    <dt>Vehicle</dt>
-                                                    <dd>External Vehicle</dd>
-                                                    @endif
-                                                    
+                                                    <dt>Vehicle Number</dt>
+                                                    <dd>{{$journey->vehical->registration_no}}</dd>
+                                                    <dt>Vehicle Name</dt>
+                                                    <dd>{{$journey->vehical->name}}</dd>
+                                                    <dt>Driver</dt>
+                                                    <dd>{{$journey->vehical->driver->fullname}}</dd>
                                                 </dl>
                                                 <dl class="dl-horizontal">
                                                     <dt>Divisional Head</dt>
@@ -183,24 +171,16 @@
                                                         <div class="form-group">
                                                             <label for="vehical_id">Change Vehicle</label>
                                                             {{-- {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control','id'=>'vehicle'])}} --}}
-                                                            <select  name="vehical_id" id="vehicle" class="form-control vehicle">                                                                                                       
+                                                            <select name="vehical_id" id="vehicle" class="form-control">                                                                                                       
                                                                 @foreach ($vehicles as $vehicle)
-                                                                    <option value="{{ $vehicle->id }}" >{{ $vehicle->id }} {{ $vehicle->registration_no }} ( {{ $vehicle->name }} )  </option>
+                                                                  <option value="{{ $vehicle->id }}" >{{ $vehicle->registration_no }} ( {{ $vehicle->name }} )  </option>
                                                                 @endforeach  
-                                                                    <option id="external" value="0">External Vehicle</option>   
+                                                                <option value="0">External Vehicle</option>   
                                                             </select>
-                                                        </div>
-                                                        <div class="form-group" id="company">
-                                                            <label for="company_name">External Vehicle's Company Name</label>
-                                                            {!! Form::text('company_name',null,['class'=>'form-control','id'=>'companyName','placeholder'=>'Company Name' ]) !!}
-                                                        </div>
-                                                        <div class="form-group" id="companycost">
-                                                            <label for="company_cost">Cost</label>
-                                                            {!! Form::text('cost',null,['class'=>'form-control','id'=>'cost','placeholder'=>'Cost' ]) !!}
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="form-group" id="driver">
+                                                        <div class="form-group">
                                                             <label for="driver_id">Change Driver</label>
                                                             {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','id'=>'driverid','placeholder'=>'Select a Vehicle'])}}
                                                         </div>
@@ -283,58 +263,14 @@
 
     </script>
     <script>
-        var journeys = {!! json_encode($journeys->toArray()) !!};
-
-        for (let index = 0; index < journeys.length; index++){
-
-            if(journeys[index].vehical_id==null){
-                $("#"+journeys[index].id).find("#vehicle").val('0').change();
-            }
-            else{
-                $("#"+journeys[index].id).find("#vehicle").val(journeys[index].vehical_id).change();
-            }
-            if(journeys[index].driver_id==null){
-                $("#"+journeys[index].id).find("#driver").hide();
-            }
-             
-        }
-
         $(document).ready(function() {
-                  //company
-            // $("div[id=company]").hide();
-            // $("div[id=companycost]").hide();
- 
+                  
             $("button[id=view]").on('click', function(){                      
                 $("input[id=change]").attr("disabled", "disabled");
-
-                $("div[id=company]").hide();
-                $("div[id=companycost]").hide();
-
-                
             });
-
-            $(".vehicle").on('change',function(evt){
+            $("select[id=vehicle]").on('change', function(){              
                 $("input[id=change]").removeAttr("disabled", "disabled");
-                var vehicle = $(this).val();
-	            if( vehicle == 0 ){
-                    $("div[id=company]").show();
-                    $("div[id=companycost]").show();
-                    $("div[id=driver]").hide();
-                }
-                else{
-                    $("div[id=company]").hide();
-                    $("div[id=companycost]").hide();
-                    $("div[id=driver]").show();
-                }
-                console.log(vehicle);
             });
-
-            $("button[id=close]").on('click',function(evt){
-                $("div[id=driver]").show();
-                console.log("vehicle");
-            });
-            
-            
             $("select[id=driverid]").on('change', function(){              
                 $("input[id=change]").removeAttr("disabled", "disabled");
             });

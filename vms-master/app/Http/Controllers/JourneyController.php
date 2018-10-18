@@ -6,7 +6,6 @@ use App\Models\Division;
 use App\Models\Driver;
 use App\Models\FundsAllocatedFrom;
 use App\Models\Journey;
-use App\Models\ExternalVehicle;
 use App\Models\JourneyStatus;
 use App\Models\Vehical;
 use App\Models\Employee;
@@ -82,6 +81,7 @@ class JourneyController extends Controller
             
         return response($vehicles);
     }
+
 
     public function ForConfirmationByVehicle(){ 
         $vid = $_GET['id'];
@@ -355,72 +355,19 @@ class JourneyController extends Controller
 
     public function changeOngoing(Request $request, $id)
     {
-        
         if($journey = Journey::whereId($id)->first()){
 
-            if($request->vehical_id != NULL &&  $request->vehical_id ==0 ){
-                    /*update details if this journey has already selected external vehicle */
-                if($journey->vehical_id == NULL && $externalExis = ExternalVehicle::where('journey_id','=',$id)->first()){
-                    $forUpdate = FALSE;
-                    if($request->company_name != Null){
-                        $externalExis->company_name = $request->company_name ;
-                        $forUpdate = TRUE;
-                    }
-                    if($request->cost != Null){
-                        $externalExis->cost = $request->cost ;
-                        $forUpdate = TRUE;
-                    }   
-                    if($forUpdate){
-                        $externalExis->update(); 
-                        return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);  
-                    }
-                    else {
-                        return redirect()->back()->with(['success'=>'There is nothing details to change Ongoing Journey !']); 
-                    }
-
-                    
-
-                    return $externalExis;
-                }
- 
-                else{
-                    $journey->vehical_id = Null;
-                    $journey->driver_id = NULL;
-                    $journey->update();
-                    
-                    $externalNew = new ExternalVehicle;
-                    $externalNew->company_name = $request->company_name ;
-                    $externalNew->cost = $request->cost ;
-                    $externalNew->journey_id = $id;
-
-                    $externalNew->save();  
-
-                    return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']); 
-                }
-
+            if($request->driver_id != NULL && $journey->driver_id != $request->driver_id){
+                $journey->driver_id = $request->driver_id;
             }
-            else{
-                    /*delete if this journey has selected external vehicle */
-                if($journey->vehical_id == NULL && $externalOld = ExternalVehicle::where('journey_id','=',$id)->first()){
-                    $externalOld->delete(); 
-                }
 
-                if($request->vehical_id != NULL &&  $journey->vehical_id != $request->vehical_id){
-                    $journey->vehical_id = $request->vehical_id;
-                }
-
-                if($request->driver_id != NULL && $journey->driver_id != $request->driver_id){
-                    $journey->driver_id = $request->driver_id;
-                }
-
-                if($request->driver_id == NULL && $vehicle = Vehical::whereId($request->vehical_id)->first()){
-                    $journey->driver_id = $vehicle->driver->id;  
-                }
-                //$journey->update();
-                
-                return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);  
+            if($request->vehical_id != NULL &&  $journey->vehical_id != $request->vehical_id){
+                $journey->vehical_id = $request->vehical_id;
             }
-   
+
+            //$journey->update();
+            return $request->vehical_id;
+            //return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);     
         }
     }
 
@@ -481,11 +428,11 @@ class JourneyController extends Controller
 
         $drivers = Driver::all()->pluck('fullName','id');
         $vehicles = Vehical::all()->pluck('fullName','id');
-        $vehicless = Vehical::all();
+        
         $vehiclesForColor = Vehical::all(); // for vehicle color button {delete}
         $journeys = Journey::notConfirmed();
 
-        return view('journey.confirms',compact('journeys','drivers','vehicles','vehicless','vehiclesForColor'));
+        return view('journey.confirms',compact('journeys','drivers','vehicles','vehiclesForColor'));
     }
 
     public function confirmedJourneys(){

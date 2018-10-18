@@ -43,12 +43,7 @@
                     <tr>
                         <td>{{$journey->applicant->emp_surname}}</td>
                         <td>{{$journey->applicant->division->dept_name}}</td>
-                        @if($journey->vehical_id != null)
                         <td>{{$journey->vehical->fullname}}</td>
-                        @endif
-                        @if($journey->vehical_id == null)
-                        <td>External Vehicle</td>
-                        @endif
                         <td>{{$journey->expected_start_date_time->toDayDateTimeString()}}</td>
                         <td>{{$journey->expected_end_date_time->toDayDateTimeString()}}</td>
                         <td>{{$journey->applicant->emp_surname}}</td>
@@ -125,18 +120,12 @@
                                         </dl>
                                         <dl class="dl-horizontal">
                                             <h4>Resources</h4>
-                                            @if($journey->vehical_id != null)
-                                                <dt>Vehicle Number</dt>
-                                                <dd>{{$journey->vehical->registration_no}}</dd>
-                                                <dt>Vehicle Name</dt>
-                                                <dd>{{$journey->vehical->name}}</dd>
-                                                <dt>Driver</dt>
-                                                <dd>{{$journey->vehical->driver->fullname}}</dd>
-                                            @endif
-                                            @if($journey->vehical_id ==null)
-                                                <dt>Vehicle</dt>
-                                                <dd>External Vehicle</dd>
-                                            @endif
+                                            <dt>Vehicle Number</dt>
+                                            <dd>{{$journey->vehical->registration_no}}</dd>
+                                            <dt>Vehicle Name</dt>
+                                            <dd>{{$journey->vehical->name}}</dd>
+                                            <dt>Driver</dt>
+                                            <dd>{{$journey->vehical->driver->fullname}}</dd>
                                         </dl>
                                         <dl class="dl-horizontal">
                                             <dt>Divisional Head</dt>

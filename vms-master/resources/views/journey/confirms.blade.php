@@ -319,28 +319,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="vehical_id">Change Vehicle</label>
-                                    {{-- {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control','id'=>'vehicle'])}} --}}
-                                    <select  name="vehical_id" id="vehicle_select" class="form-control vehicle">                                                                                                       
-                                        @foreach ($vehicless as $vehicle)
-                                            <option value="{{ $vehicle->id }}" >{{ $vehicle->registration_no }} ( {{ $vehicle->name }} )  </option>
-                                        @endforeach  
-                                            <option id="external" value="0">External Vehicle</option>   
-                                    </select>
+                                    {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control','id'=>'vehicle','placeholder'=>'Select a Vehicle'])}}
                                 </div>
-                                
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group" id="driverdiv">
+                                <div class="form-group">
                                     <label for="driver_id">Change Driver</label>
                                     {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','id'=>'driverid','placeholder'=>'Select a Vehicle'])}}
-                                </div>
-                                <div class="form-group" id="company">
-                                        <label for="company_name">External Vehicle's Company Name</label>
-                                        {!! Form::text('company_name',null,['class'=>'form-control','id'=>'companyName','placeholder'=>'Company Name' ]) !!}
-                                </div>
-                                <div class="form-group" id="companycost">
-                                    <label for="company_cost">Cost</label>
-                                    {!! Form::text('cost',null,['class'=>'form-control','id'=>'cost','placeholder'=>'Cost' ]) !!}
                                 </div>
                             </div>
                         </div>
@@ -614,7 +599,7 @@
                             {
                                 var details = JSON.parse(data);
 
-                                //console.log(details[0].vehical_id); //vehicle_select
+                                console.log(details[7]);
 
                                 $('#purpose').html(details[0].purpose);
                                 $('#places_to_be_visited').html(details[0].places_to_be_visited);
@@ -624,7 +609,7 @@
                                 $('#expected_end_date_time').html(details[11]);                            
                                 $('#approved_at').html(details[9]);     
                                 $('#approval_remarks').html(details[0].approval_remarks);
-                                $('#journeyid').val(details[0].id);                               
+                                $('#journeyid').val(details[0].id); 
 
                                 $('#approved_by').html(details[8]);
 
@@ -636,10 +621,8 @@
                                 $('#vehicle_name').html(details[2]);  
                                 $('#devisional_head').html(details[7]);
 
-                                document.getElementById('vehicle_select').value=details[0].vehical_id ; 
-                                document.getElementById('driverid').value=details[0].driver_id ; 
-                                // $('#vehicle_select').val(details[0].vehical_id).change();
-                                // $('#driverid').val(details[0].driver_id).change();                          
+                                document.getElementById('vehicle').value=details[0].vehical_id ; 
+                                document.getElementById('driverid').value=details[0].driver_id ;                           
                             }
                         });
                         $('#modal').modal('toggle');
@@ -690,10 +673,8 @@
                                 $('#vehicle_name').html(details[2]);  
                                 $('#devisional_head').html(details[7]);
 
-                                document.getElementById('vehicle_select').value=details[0].vehical_id ; 
-                                document.getElementById('driverid').value=details[0].driver_id ;
-                                // $('#vehicle_select').val(details[0].vehical_id).change();
-                                // $('#driverid').val(details[0].driver_id).change();  
+                                document.getElementById('vehicle').value=details[0].vehical_id ; 
+                                document.getElementById('driverid').value=details[0].driver_id ;  
                             }
                         });
 
@@ -732,10 +713,8 @@
                                 $('#vehicle_name').html(details[2]);  
                                 $('#devisional_head').html(details[7]);
 
-                                document.getElementById('vehicle_select').value=details[0].vehical_id ; 
-                                document.getElementById('driverid').value=details[0].driver_id ;
-                                // $('#vehicle_select').val(details[0].vehical_id).change();
-                                // $('#driverid').val(details[0].driver_id).change();  
+                                document.getElementById('vehicle').value=details[0].vehical_id ; 
+                                document.getElementById('driverid').value=details[0].driver_id ;  
                             }
                         });
                         $('#modal').modal('toggle');
@@ -745,6 +724,9 @@
            }
        })
     });
+</script> 
+
+<script>
 
     $('#formConfirmationAjax').on('submit',function(e){
         e.preventDefault();
@@ -753,38 +735,12 @@
         $.post(url,data,function(data){
             console.log(data);           
             //window.location.reload(true);
-            //location.reload();
-
-            qEvent=[]; 
-            $('#calendar').fullCalendar('removeEvents');
-            $.get("{{ URL::to('journey/confirmationJourneys') }}",function(data){ 
-                $.each(data,function(i,value){       
-                    qEvent.push(
-                    { 
-                        title : value.places_to_be_visited,
-                        start : value.expected_start_date_time,
-                        end : value.expected_end_date_time,
-                        id :  value.id,                                                     
-                        applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                             
-                        vehical_id : value.vehical_id,
-                        status: value.status, 
-                        borderColor: 'black',
-                        color :  journey_colors[value.vehical_id]    
-                    });                  
-                });
-                $('#calendar').fullCalendar('addEventSource', qEvent);
-                $('#calendar').fullCalendar('refetchEvents');
-            });                      
-
-            $('#modal').modal('hide');                 
+            location.reload();
+            // window.setTimeout(function(){ 
+            //     location.reload();
+            // } ,1000);                     
         });       
     });
-
-</script> 
-
-<script>
-
-    
     
 </script>
 
@@ -800,39 +756,6 @@
         }
 
 
-</script>
-
-<script>
-
-    $(document).ready(function() {
-
-        $("#company").hide();
-        $("#companycost").hide();
-
-        $(".vehicle").on('change',function(evt){
-        
-            var vehicle = $(this).val();
-            if( vehicle == 0 ){
-                $("#company").show();
-                $("#companycost").show();
-                $("#driverdiv").hide();
-            }
-            else{
-                $("#company").hide();
-                $("#companycost").hide();
-                $("#driverdiv").show();
-            }
-            console.log(vehicle);
-        });
-
-        $("#close").on('click',function(evt){
-            $("#company").hide();
-            $("#companycost").hide();
-            $("#driverdiv").show();
-            console.log("vehicle");
-        });
-
-    });
 </script>
 
 @endsection
