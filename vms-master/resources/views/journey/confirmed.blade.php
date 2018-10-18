@@ -94,15 +94,15 @@
                                                 <dl class="dl-horizontal">
                                                     <h4>Resources</h4>
                                                     @if($journey->vehical_id != null)
-                                                    <dt>Vehicle Number</dt>
-                                                    <dd>{{$journey->vehical->registration_no}}</dd>
-                                                    <dt>Vehicle Name</dt>
-                                                    <dd>{{$journey->vehical->name}}</dd>
-                                                    <dt>Driver</dt>
-                                                    <dd>{{$journey->vehical->driver->fullname}}</dd>
+                                                        <dt>Vehicle Number</dt>
+                                                        <dd>{{$journey->vehical->registration_no}}</dd>
+                                                        <dt>Vehicle Name</dt>
+                                                        <dd>{{$journey->vehical->name}}</dd>
+                                                        <dt>Driver</dt>
+                                                        <dd>{{$journey->vehical->driver->fullname}}</dd>
                                                     @endif
                                                     @if($journey->vehical_id ==null)
-                                                    <dt>Vehicle Number</dt>
+                                                    <dt>Vehicle</dt>
                                                     <dd>External Vehicle</dd>
                                                     @endif
                                                     
@@ -183,9 +183,9 @@
                                                         <div class="form-group">
                                                             <label for="vehical_id">Change Vehicle</label>
                                                             {{-- {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control','id'=>'vehicle'])}} --}}
-                                                            <select value={{ $journey->vehical_id }} name="vehical_id" id="vehicle" class="form-control vehicle">                                                                                                       
+                                                            <select  name="vehical_id" id="vehicle" class="form-control vehicle">                                                                                                       
                                                                 @foreach ($vehicles as $vehicle)
-                                                                    <option value="{{ $vehicle->id }}" >{{ $vehicle->registration_no }} ( {{ $vehicle->name }} )  </option>
+                                                                    <option value="{{ $vehicle->id }}" >{{ $vehicle->id }} {{ $vehicle->registration_no }} ( {{ $vehicle->name }} )  </option>
                                                                 @endforeach  
                                                                     <option id="external" value="0">External Vehicle</option>   
                                                             </select>
@@ -285,7 +285,7 @@
     <script>
         var journeys = {!! json_encode($journeys->toArray()) !!};
 
-        for (let index = 0; index < journeys.length; index++) {
+        for (let index = 0; index < journeys.length; index++){
 
             if(journeys[index].vehical_id==null){
                 $("#"+journeys[index].id).find("#vehicle").val('0').change();
@@ -294,33 +294,23 @@
                 $("#"+journeys[index].id).find("#vehicle").val(journeys[index].vehical_id).change();
             }
             if(journeys[index].driver_id==null){
-                //$("#"+journeys[index].id).find("#driver").hide();
+                $("#"+journeys[index].id).find("#driver").hide();
             }
-              
+             
         }
 
-        console.log(journeys[3].vehical_id);
-        $("#"+journeys[3].id).find("#vehicle").val(journeys[3].vehical_id).change();
-        var y = $("#"+journeys[3].id).find("#vehicle").val();
-        console.log(y);
         $(document).ready(function() {
                   //company
-            $("div[id=company]").hide();
-            $("div[id=companycost]").hide();
+            // $("div[id=company]").hide();
+            // $("div[id=companycost]").hide();
  
             $("button[id=view]").on('click', function(){                      
                 $("input[id=change]").attr("disabled", "disabled");
+
                 $("div[id=company]").hide();
                 $("div[id=companycost]").hide();
+                
             });
-
-            // $("select[id=vehicle]").on('change', function(){              
-            //     $("input[id=change]").removeAttr("disabled", "disabled");
-
-            //     // if($("select[id=vehicle]").val()==0){ //$(this).attr("value"); 
-            //     //     console.log("bk");
-            //     // }
-            // });
 
             $(".vehicle").on('change',function(evt){
                 $("input[id=change]").removeAttr("disabled", "disabled");
@@ -328,13 +318,19 @@
 	            if( vehicle == 0 ){
                     $("div[id=company]").show();
                     $("div[id=companycost]").show();
+                    $("div[id=driver]").hide();
                 }
                 else{
                     $("div[id=company]").hide();
                     $("div[id=companycost]").hide();
-                    // $("#"+journeys[index].id).find("#driver").show();
+                    $("div[id=driver]").show();
                 }
                 console.log(vehicle);
+            });
+
+            $("button[id=close]").on('click',function(evt){
+                $("div[id=driver]").show();
+                console.log("vehicle");
             });
             
             
