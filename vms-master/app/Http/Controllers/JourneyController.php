@@ -418,7 +418,7 @@ class JourneyController extends Controller
                     $journey->driver_id = $vehicle->driver->id;  
                 }
                 //$journey->update();
-                return $request->vehical_id;
+                return $journey;
                 //return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);  
             }
    
@@ -482,11 +482,11 @@ class JourneyController extends Controller
 
         $drivers = Driver::all()->pluck('fullName','id');
         $vehicles = Vehical::all()->pluck('fullName','id');
-        
+        $vehicless = Vehical::all();
         $vehiclesForColor = Vehical::all(); // for vehicle color button {delete}
         $journeys = Journey::notConfirmed();
 
-        return view('journey.confirms',compact('journeys','drivers','vehicles','vehiclesForColor'));
+        return view('journey.confirms',compact('journeys','drivers','vehicles','vehicless','vehiclesForColor'));
     }
 
     public function confirmedJourneys(){

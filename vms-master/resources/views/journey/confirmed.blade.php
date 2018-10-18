@@ -191,7 +191,7 @@
                                                             </select>
                                                         </div>
                                                         <div class="form-group" id="company">
-                                                            <label for="company_name">Company Name</label>
+                                                            <label for="company_name">External Vehicle's Company Name</label>
                                                             {!! Form::text('company_name',null,['class'=>'form-control','id'=>'companyName','placeholder'=>'Company Name' ]) !!}
                                                         </div>
                                                         <div class="form-group" id="companycost">
@@ -309,6 +309,7 @@
 
                 $("div[id=company]").hide();
                 $("div[id=companycost]").hide();
+
                 
             });
 
