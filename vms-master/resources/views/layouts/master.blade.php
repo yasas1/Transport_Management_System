@@ -171,27 +171,27 @@ desired effect
                     </ul>
                 </li>
                 @if(Auth::user()->canReadDriver() || Auth::user()->canCreateDriver() ||Auth::user()->canUpdateDriver() )
-                <li class="treeview">
-                    <a href="#"><i class="fa fa-user"></i> <span>DRIVER</span>
-                        <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-user"></i> <span>DRIVER</span>
+                            <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
 
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
 
-                        @if(Auth::user()->canReadDriver())
-                        <li><a href="{{url('/driver/')}}"><i class="fa fa-eye"></i> <span>VIEW CURRENT DRIVERS</span></a></li>
-                        @endif
-                        @if(Auth::user()->canCreateDriver())
-                            <li><a href="{{url('/driver/create')}}"><i class="fa fa-plus"></i> <span>ADD NEW DRIVER</span></a></li>
-                        @endif
-                        @if(Auth::user()->canUpdateDriver())
-                                <li><a href="{{url('/driver/')}}"><i class="fa fa-edit"></i> <span>EDIT A DRIVER</span></a></li>
-                        @endif
+                            @if(Auth::user()->canReadDriver())
+                            <li><a href="{{url('/driver/')}}"><i class="fa fa-eye"></i> <span>VIEW CURRENT DRIVERS</span></a></li>
+                            @endif
+                            @if(Auth::user()->canCreateDriver())
+                                <li><a href="{{url('/driver/create')}}"><i class="fa fa-plus"></i> <span>ADD NEW DRIVER</span></a></li>
+                            @endif
+                            @if(Auth::user()->canUpdateDriver())
+                                    <li><a href="{{url('/driver/')}}"><i class="fa fa-edit"></i> <span>EDIT A DRIVER</span></a></li>
+                            @endif
 
-                    </ul>
-                </li>
+                        </ul>
+                    </li>
                 @endif
                 <li class="treeview">
                     <a href="#"><i class="fa fa-road"></i> <span>JOURNEY</span>
@@ -220,6 +220,9 @@ desired effect
                         @if(Auth::user()->canViewCompletedJourneys())
                             <li><a href="{{url('/journey/requests/completed')}}"><i class="fa fa-edit"></i> <span>JOURNEY HISTORY</span></a></li>
                         @endif
+                        {{-- @if(Auth::user()->canViewCompletedJourneys()) --}}
+                            <li><a href="{{url('/journey/cancelled')}}"><i class="fa fa-edit"></i> <span>CANCELLED JOURNEYS</span></a></li>
+                        {{-- @endif --}}
 
                     </ul>
 

@@ -165,18 +165,10 @@
                                 <dt>Confirmed By</dt>                              
                                 <dd id="confirm_by"></dd>
                                 <dt>Confirmed At</dt>
-                                {{-- {{$journey->confirmed_at->toDayDateTimeString()}} --}}
                                 <dd id="confirm_at"></dd>
                                 <dt>Remarks</dt>
-                                {{-- {{$journey->confirmation_remarks}} --}}
                                 <dd id="confirm_remarks"></dd>
-                                <dt>Confirmed Start Time</dt>
-                                {{-- {{$journey->confirmed_start_date_time->toDayDateTimeString()}}
-                                    @if($journey->expected_start_date_time->diffInSeconds($journey->confirmed_start_date_time))
-                                        <span class="label label-warning">Changed</span>
-                                    @else
-                                        <span class="label label-success">Not Changed</span>
-                                    @endif --}}
+                                <dt>Confirmed Start Time</dt>                            
                                 <dd id="confirmed_start_date_time"> </dd>
                                 <dt>Confirmed End Time</dt>
                                 <dd id="confirmed_end_date_time"> </dd>
@@ -254,8 +246,7 @@
     <script>
         $(".btnView").click(function(evt){
 	        var journeyid = $(this).val();
-            console.log(journeyid);;
-
+            //console.log(journeyid);
             $.ajax({
                 url: '/journey/readConfirmed/{id}',
                 type: 'GET',
@@ -311,18 +302,6 @@
             $('#modal').modal('toggle');
         });
         
-        // $('#changeOngoingAjax').on('submit',function(e){
-        //     e.preventDefault();
-        //     var data = $(this).serialize();
-        //     var url = $(this).attr('action');
-        //     $.post(url,data,function(data){                         
-        //         console.log(data);
-        //         $('#modal').modal('hide');
-        //         $('div.flash-message').html(data); 
-        //         location.reload();
-        //     });
-        // });
-
         setTimeout(function() {
             $('#successMessage').fadeOut('fast');
         }, 10000);
@@ -359,7 +338,6 @@
     <script>
 
         $(document).ready(function() {
-                  //company
             // $("div[id=company]").hide();
             // $("div[id=companycost]").hide();
  
@@ -367,9 +345,7 @@
                 $("input[id=change]").attr("disabled", "disabled");
 
                 $("div[id=company]").hide();
-                $("div[id=companycost]").hide();
-
-                
+                $("div[id=companycost]").hide();    
                 
             });
 
@@ -385,16 +361,13 @@
                     $("div[id=company]").hide();
                     $("div[id=companycost]").hide();
                     $("div[id=driver]").show();
-                }
-                
+                }              
             });
 
-            $("button[id=close]").on('click',function(evt){
+            $("#close").on('click',function(evt){
                 $("div[id=driver]").show();
-                console.log("vehicle");
             });
-            
-            
+                       
             $("select[id=driverid]").on('change', function(){              
                 $("input[id=change]").removeAttr("disabled", "disabled");
             });
