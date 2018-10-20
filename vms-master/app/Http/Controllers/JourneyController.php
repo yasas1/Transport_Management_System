@@ -247,7 +247,7 @@ class JourneyController extends Controller
         
     }
 
-            /*  For Completed journey form details  */
+            /*  For Completed journey form details -- URL->/journey/readCompleted/{id} */
     public function readJourneyForCompletedAjax(){
         $id = $_GET['id'];
 
@@ -387,8 +387,7 @@ class JourneyController extends Controller
             return redirect()->back()->with(['success'=>'Journey added successfully !']);
     }
 
-    public function cancel(Request $request)
-    {
+    public function cancel(Request $request){
         $id = $request->id ;
         
         if($journey = Journey::whereId($id)->first()){
@@ -418,7 +417,7 @@ class JourneyController extends Controller
                         $forUpdate = TRUE;
                     }   
                     if($forUpdate){
-                        //$externalExis->update();
+                        $externalExis->update();
 
                         return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);  
                     }
@@ -426,21 +425,19 @@ class JourneyController extends Controller
                                                
                         return redirect()->back()->with(['success'=>'There is nothing details to change Ongoing Journey !']); 
                     }
-
-                    return $externalExis;
                 }
                 else{
                     
                     $journey->vehical_id = Null;
                     $journey->driver_id = NULL;
-                    //$journey->update();
+                    $journey->update();
                     
                     $externalNew = new ExternalVehicle;
                     $externalNew->company_name = $request->company_name ;
                     $externalNew->cost = $request->cost ;
                     $externalNew->journey_id = $id;
 
-                    //$externalNew->save();  
+                    $externalNew->save();  
                      
                     return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']); 
                 }
@@ -449,7 +446,7 @@ class JourneyController extends Controller
             else{
                     /*delete if this journey has selected external vehicle */
                 if($journey->vehical_id == NULL && $externalOld = ExternalVehicle::where('journey_id','=',$id)->first()){
-                    //$externalOld->delete(); 
+                    $externalOld->delete(); 
                 }
 
                 if($request->vehical_id != NULL &&  $journey->vehical_id != $request->vehical_id){
@@ -550,6 +547,13 @@ class JourneyController extends Controller
         $journeys = Journey::completed();
         $vehicles = Vehical::all(); // for vehicle color button {delete}
         return view('journey.completed',compact('journeys','vehicles'));
+    }
+
+    public function cancelledJourney(){
+        
+        $journeys = Journey::cancelled();
+    
+        return view('journey.cancelled',compact('journeys'));
     }
 
 }

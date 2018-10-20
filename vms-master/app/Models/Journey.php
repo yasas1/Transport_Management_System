@@ -180,6 +180,10 @@ class Journey extends Eloquent
 	
 	public static function journeyByVehicleCompleted($vid){
         return Journey::where('vehical_id','=',$vid)->where('journey_status_id','=','6')->get();
-    }
+	}
+	
+	public static function cancelled(){
+        return Journey::where('journey_status_id','=','7')->get();
+	}
 
 }
