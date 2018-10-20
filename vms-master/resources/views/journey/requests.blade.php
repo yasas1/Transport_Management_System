@@ -3,7 +3,7 @@
 @section('title', 'VEHICLE MANAGEMENT SYSTEM | VEHICLE')
 
 @section('styles')
-    <link href="{{asset('css/bootstrap-toggle.min.css')}}" rel="stylesheet">
+    {{-- <link href="{{asset('css/bootstrap-toggle.min.css')}}" rel="stylesheet"> --}}
 @endsection
 
 @section('header', 'View Journey Requests')

@@ -220,12 +220,10 @@ desired effect
                         @if(Auth::user()->canViewCompletedJourneys())
                             <li><a href="{{url('/journey/requests/completed')}}"><i class="fa fa-edit"></i> <span>JOURNEY HISTORY</span></a></li>
                         @endif
-                        {{-- @if(Auth::user()->canViewCompletedJourneys()) --}}
+                        @if(Auth::user()->canViewCancelledJourneys())
                             <li><a href="{{url('/journey/cancelled')}}"><i class="fa fa-edit"></i> <span>CANCELLED JOURNEYS</span></a></li>
-                        {{-- @endif --}}
-
+                        @endif
                     </ul>
-
                 </li>
 
                 <li class="treeview">
