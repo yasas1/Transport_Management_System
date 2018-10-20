@@ -89,7 +89,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
                 /* Journey Cancel */ 
     Route::post('/journey/request/{id}/cancel','JourneyController@cancel');
                 /* Journey Change Ongoing journey Details */
-    Route::post('/journey/request/{id}/changeOngoing','JourneyController@changeOngoing');
+    Route::post('/journey/request/changeOngoing','JourneyController@changeOngoing');
 
     /*Show Confirmed Requests*/
     Route::get('/journey/requests/confirmed','JourneyController@confirmedJourneys');
@@ -110,6 +110,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/journey/readJourneyForCreate/{id}','JourneyController@readJourneyForCreate');
     Route::get('/journey/read/{id}','JourneyController@readJourneyForConfirmAjax');
     Route::get('/journey/readCompleted/{id}','JourneyController@readJourneyForCompletedAjax'); 
+    Route::get('/journey/readConfirmed/{id}','JourneyController@ForOngingView');
     Route::get('/journey/readVehicleColor/','JourneyController@readVehicleColor'); 
     Route::get('/journey/ForCreateByVehicle/{id}','JourneyController@ForCreateByVehicle');
 

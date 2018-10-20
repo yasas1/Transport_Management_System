@@ -27,7 +27,7 @@
     <div class="box box-primary" id="tabl" style="display: none; height: 400px; overflow: auto;" >
         <div class="box-body" >
             @if($journeys)
-
+            
                 <table class="table table-hover" id="table"  >
                     <thead>
                     <tr>
@@ -752,8 +752,7 @@
         var data = $(this).serialize();
         var url = $(this).attr('action');
         $.post(url,data,function(data){
-            console.log(data);           
-            //window.location.reload(true);
+            //console.log(data);           
             //location.reload();
 
             qEvent=[]; 
@@ -782,13 +781,11 @@
         });       
     });
 
+    setTimeout(function() {
+        $('#successMessage').fadeOut('fast');
+    }, 10000);
+
 </script> 
-
-<script>
-
-    
-    
-</script>
 
 <script>
         //for hide and view table content 
@@ -824,7 +821,7 @@
                 $("#companycost").hide();
                 $("#driverdiv").show();
             }
-            console.log(vehicle);
+
         });
 
         $("#close").on('click',function(evt){

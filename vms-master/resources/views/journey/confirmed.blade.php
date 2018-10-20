@@ -17,6 +17,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">Ongoing Journey Requests List </h3>
         </div>
+        <div class="flash-message"></div>
         <div class="box-body">
             @if($journeys)
                 <table class="table" id="table">
@@ -304,7 +305,7 @@
                         document.getElementById('vehicle_select').value=0 ;
                         $("#driver").hide();
                     }
- 
+                    
                 }
             });
             $('#modal').modal('toggle');
@@ -314,11 +315,17 @@
             e.preventDefault();
             var data = $(this).serialize();
             var url = $(this).attr('action');
-            $.post(url,data,function(data){        
-                //location.reload();  
-                console.log(data); 
+            $.post(url,data,function(data){                         
+                console.log(data);
+                $('#modal').modal('hide');
+                $('div.flash-message').html(data); 
+                location.reload();
             });
         });
+
+        setTimeout(function() {
+            $('#successMessage').fadeOut('fast');
+        }, 10000);
 
     </script>
 

@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Requests\CreateJourneyRequest;
+use Session;
+use View;
 
 class JourneyController extends Controller
 {
@@ -396,14 +398,15 @@ class JourneyController extends Controller
         }
     }
 
-    public function changeOngoing(Request $request, $id)
+    public function changeOngoing(Request $request)
     {  
         //if($journey = Journey::whereId($id)->first()){
         if($request->ajax()){ 
-            return $request->id;
-            if($journey = Journey::find($request->id)){
-
-                if($request->vehical_id != NULL &&  $request->vehical_id ==0 ){
+            //return $request->id;
+            $id = $request->id ;
+            if( $journey = Journey::find($id) ){
+                
+                if($request->vehical_id ==0 ){
                         /*update details if this journey has already selected external vehicle */
                     if($journey->vehical_id == NULL && $externalExis = ExternalVehicle::where('journey_id','=',$id)->first()){
                         $forUpdate = FALSE;
@@ -417,24 +420,21 @@ class JourneyController extends Controller
                         }   
                         if($forUpdate){
                             //$externalExis->update();
-                            Session::flash('success', 'Journey request confirmed successfully !');
-                            // return View::make('layouts/success'); 
-                            return $externalExis;
-                            return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);  
+
+                            Session::flash('success', 'Ongoing Journey Details Changing successfully!');
+                            return View::make('layouts/success'); 
+                            //return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);  
                         }
                         else {
-                            Session::flash('success', 'Journey request confirmed successfully !');
-                            // return View::make('layouts/success');
-                            return "dsvfz";
-                            return redirect()->back()->with(['success'=>'There is nothing details to change Ongoing Journey !']); 
+                            Session::flash('success', 'There are no details to change Ongoing Journey !');
+                            return View::make('layouts/success');                        
+                            //return redirect()->back()->with(['success'=>'There is nothing details to change Ongoing Journey !']); 
                         }
-
-                        
 
                         return $externalExis;
                     }
-    
                     else{
+                        
                         $journey->vehical_id = Null;
                         $journey->driver_id = NULL;
                         //$journey->update();
@@ -445,10 +445,10 @@ class JourneyController extends Controller
                         $externalNew->journey_id = $id;
 
                         //$externalNew->save();  
-                        Session::flash('success', 'Journey request confirmed successfully !');
-                        // return View::make('layouts/success');
-                        return $externalNew;
-                        return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']); 
+                        Session::flash('success', 'Ongoing Journey Details Changing successfully !');
+                        return View::make('layouts/success'); 
+                        
+                        //return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']); 
                     }
 
                 }
@@ -469,11 +469,12 @@ class JourneyController extends Controller
                     if($request->driver_id == NULL && $vehicle = Vehical::whereId($request->vehical_id)->first()){
                         $journey->driver_id = $vehicle->driver->id;  
                     }
-                   // $journey->update();
-                    Session::flash('success', 'Journey request confirmed successfully !');
-                    // return View::make('layouts/success');
+                    $journey->update();
+
+                    Session::flash('success', 'Ongoing Journey Details Changing successfully !');
+                    return View::make('layouts/success'); 
                     return $journey;
-                    return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);  
+                    //return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);  
                 }
             }
         }
