@@ -157,6 +157,10 @@ class User extends Authenticatable
 
         return $this->checkPrivilege('Journey','View Ongoing Journeys');
     }
+    public function canViewCancelledJourneys(){
+
+        return $this->checkPrivilege('Journey','View Cancelled Journeys');
+    }
 
     public function canViewCompletedJourneys(){
 
@@ -181,7 +185,6 @@ class User extends Authenticatable
                         return true;
                     }
                 }
-
             }
 
         }

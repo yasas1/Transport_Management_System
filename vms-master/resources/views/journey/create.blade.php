@@ -284,7 +284,7 @@
                     data: { id: vid },
                     success: function(data)
                     {
-                        //console.log(data);              
+                        console.log(data);              
                         $(data).each(function (i,value) {                
                             qEvent.push(
                             { 
