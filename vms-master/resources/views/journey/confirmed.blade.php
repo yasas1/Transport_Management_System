@@ -17,7 +17,6 @@
         <div class="box-header with-border">
             <h3 class="box-title">Ongoing Journey Requests List </h3>
         </div>
-        <div class="flash-message"></div>
         <div class="box-body">
             @if($journeys)
                 <table class="table" id="table">
@@ -188,8 +187,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h4>Change Journey details</h4>
-                            {{-- {!! Form::model($journey,['method' => 'post','id'=>'formChange'.$journey->id ,'action'=>['JourneyController@changeOngoing',$journey->id]]) !!} --}}
-                            <form action="{{ URL::to('/journey/request/changeOngoing')}}" method="POST" id="changeOngoingAjax">
+                            {!! Form::open(['method' => 'post','id'=>'formChange','action'=>['JourneyController@changeOngoing']]) !!}
+                            {{-- <form action="{{ URL::to('/journey/request/changeOngoing')}}" method="POST" id="changeOngoingAjax"> --}}
                                 {{csrf_field()}}
                             <input type="hidden" name="id" id="journeyid">
                             <div class="row">
@@ -232,7 +231,8 @@
                     <br>
                     <div class="row">
                         <div class="col-md-12">
-                            {!! Form::open(['method' => 'post','id'=>'formCancel{{$journey->id}}','action'=>['JourneyController@cancel',$journey->id]]) !!}            
+                            {!! Form::open(['method' => 'post','id'=>'formCancel','action'=>['JourneyController@cancel']]) !!}   
+                            <input type="hidden" name="id" id="journeyId">         
                         </div>
                     </div>                                       
                     <div class="modal-footer">
@@ -263,9 +263,9 @@
                 success: function(data)
                 {
                     var details = JSON.parse(data);
-                    //console.log(details[16]);
-                    
+                    //console.log(details[16]); 
                     $('#journeyid').val(details[0].id);
+                    $('#journeyId').val(details[0].id);
                     $('#purpose').html(details[0].purpose);
                     $('#places_to_be_visited').html(details[0].places_to_be_visited);
                     $('#number_of_persons').html(details[0].number_of_persons);
@@ -311,17 +311,17 @@
             $('#modal').modal('toggle');
         });
         
-        $('#changeOngoingAjax').on('submit',function(e){
-            e.preventDefault();
-            var data = $(this).serialize();
-            var url = $(this).attr('action');
-            $.post(url,data,function(data){                         
-                console.log(data);
-                $('#modal').modal('hide');
-                $('div.flash-message').html(data); 
-                location.reload();
-            });
-        });
+        // $('#changeOngoingAjax').on('submit',function(e){
+        //     e.preventDefault();
+        //     var data = $(this).serialize();
+        //     var url = $(this).attr('action');
+        //     $.post(url,data,function(data){                         
+        //         console.log(data);
+        //         $('#modal').modal('hide');
+        //         $('div.flash-message').html(data); 
+        //         location.reload();
+        //     });
+        // });
 
         setTimeout(function() {
             $('#successMessage').fadeOut('fast');
@@ -357,21 +357,6 @@
 
     </script>
     <script>
-        // var journeys = {!! json_encode($journeys->toArray()) !!};
-
-        // for (let index = 0; index < journeys.length; index++){
-
-        //     if(journeys[index].vehical_id==null){
-        //         $("#"+journeys[index].id).find("#vehicle").val('0').change();
-        //     }
-        //     else{
-        //         $("#"+journeys[index].id).find("#vehicle").val(journeys[index].vehical_id).change();
-        //     }
-        //     if(journeys[index].driver_id==null){
-        //         $("#"+journeys[index].id).find("#driver").hide();
-        //     }
-             
-        // }
 
         $(document).ready(function() {
                   //company
@@ -417,36 +402,4 @@
         });
     </script>
 
-    {{-- <script>
-        $(function () {
-            $('.btnView').on('click',function () {
-                $.confirm({
-                    title:'',
-                    columnClass: 'col-lg-8 col-lg-offset-2',
-                    content:$('div#d'+$(this).attr('id')).html(),
-                    buttons: {
-                        formSubmit: {
-                            text: 'Close',
-                            btnClass: 'btn-green',
-                            action: function () {
-                                //close
-                            }
-                        },
-                        cancel: function () {
-                            //close
-                        },
-                    },
-                    onContentReady: function () {
-                        // bind to events
-                        var jc = this;
-                        this.$content.find('form').on('submit', function (e) {
-                            // if the user submits the form by pressing enter in the field.
-                            e.preventDefault();
-                            jc.$$formSubmit.trigger('click'); // reference the button and click it
-                        });
-                    }
-                });
-            })
-        });
-    </script> --}}
 @endsection
