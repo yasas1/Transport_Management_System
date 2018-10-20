@@ -56,8 +56,7 @@ class JourneyController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    public function create()
-    {
+    public function create(){
         $journeys = Journey::all();
         $divHeads = Division::all();
         $fundAlFroms = FundsAllocatedFrom::all();
@@ -65,6 +64,7 @@ class JourneyController extends Controller
         $vehicles = Vehical::all()->pluck('fullName','id');
         $vehiclesButton = Vehical::all();
         return view('journey.create',compact('fundAlFroms','drivers','vehicles','divHeads','journeys','vehiclesButton'));
+    
     }
 
     public function readJourney(){ 
@@ -113,6 +113,14 @@ class JourneyController extends Controller
 
     public function ForCreateByVehicle(){ 
         $vid = $_GET['id'];
+        $emp_id = Auth::user()->emp_id;
+        if($this->isDivisionalHead($emp_id)){
+            return $emp_id;
+        }
+        else{
+            return "fdsgs7777";
+        }
+        
         //$journeys = Journey::journeyByVehicle($vid); 
         $journeys = DB::table('journey')
         ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
@@ -552,8 +560,20 @@ class JourneyController extends Controller
     public function cancelledJourney(){
         
         $journeys = Journey::cancelled();
+        $divHeads = Division::all();
     
-        return view('journey.cancelled',compact('journeys'));
+        return view('journey.cancelled',compact('journeys','divHeads'));
     }
+
+    public function isDivisionalHead($id){
+        $divHeads = Division::divHead();
+        foreach($divHeads as $divHead){
+            if($divHead->head()->first()!='' && $divHead->head()->first()->emp_id == $id){
+                return true; 
+            }
+        }
+        return false;
+    }
+
 
 }
