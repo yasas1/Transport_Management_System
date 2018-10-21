@@ -113,14 +113,6 @@ class JourneyController extends Controller
 
     public function ForCreateByVehicle(){ 
         $vid = $_GET['id'];
-        $emp_id = Auth::user()->emp_id;
-        if($this->isDivisionalHead($emp_id)){
-            return $emp_id;
-        }
-        else{
-            return "fdsgs7777";
-        }
-        
         //$journeys = Journey::journeyByVehicle($vid); 
         $journeys = DB::table('journey')
         ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
