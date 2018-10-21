@@ -216,7 +216,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="confirmation_remarks">Remarks</label>
-                                                {{Form::textarea('driver_remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2' ])}}
+                                                {{Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2' ])}}
                                             </div>
                                         </div>
                                     </div>

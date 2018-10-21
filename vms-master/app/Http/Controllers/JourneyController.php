@@ -560,7 +560,7 @@ class JourneyController extends Controller
     public function isDivisionalHead($id){
         $divHeads = Division::divHead();
         foreach($divHeads as $divHead){
-            if($divHead->head()->first()!='' && $divHead->head()->first()->emp_id == $id){
+            if($divHead->head->first()!='' && $divHead->head == $id){
                 return true; 
             }
         }
