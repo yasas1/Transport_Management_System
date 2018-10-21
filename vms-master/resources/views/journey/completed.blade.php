@@ -44,10 +44,10 @@
                         <td>{{$journey->applicant->emp_surname}}</td>
                         <td>{{$journey->applicant->division->dept_name}}</td>
                         @if($journey->vehical_id != null)
-                        <td>{{$journey->vehical->fullname}}</td>
+                            <td>{{$journey->vehical->fullname}}</td>
                         @endif
                         @if($journey->vehical_id == null)
-                        <td>External Vehicle</td>
+                            <td>External Vehicle</td>
                         @endif
                         <td>{{$journey->expected_start_date_time->toDayDateTimeString()}}</td>
                         <td>{{$journey->expected_end_date_time->toDayDateTimeString()}}</td>

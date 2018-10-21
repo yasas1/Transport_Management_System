@@ -207,7 +207,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group" id="driver">
                                         <label for="driver_id">Change Driver</label>
-                                        {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','id'=>'driverid','placeholder'=>'Select a Vehicle'])}}
+                                        {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','id'=>'driverid'])}}
                                     </div>
                                 </div>
                             </div>
