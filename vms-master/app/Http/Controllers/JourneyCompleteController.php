@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Journey;
+use App\Models\ExternalVehicle;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -25,13 +26,28 @@ class JourneyCompleteController extends Controller
             $journey->real_start_date_time = Carbon::parse($request->real_start_date_time);
             $journey->real_end_date_time = Carbon::parse($request->real_end_date_time);
             $journey->real_distance = $request->real_distance;
-            $journey->driver_remarks = $request->driver_remarks;
 
-            $journey->driver_completed_at = Carbon::now();
-//          $journey->driver_filled_by = Auth::user()->emp_id;
-            $journey->journey_status_id = '6';
-            $journey->update();
-            return redirect()->back()->with(['success'=>'Journey completed successfully !']);
+            if($journey->vehical_id && $journey->driver_id && $externalExis = ExternalVehicle::where('journey_id','=',$id)->first() ){
+
+                $externalExis->complete_remarks = $request->remarks;
+                $externalExis->completed_at = Carbon::now();
+                $externalExis->complete_filled_by = Auth::user()->emp_id;
+
+                $journey->journey_status_id = '6';
+                $journey->update();
+                $externalExis->update();
+
+                return redirect()->back()->with(['success'=>'Journey completed successfully !']);
+
+            }
+            else{
+                $journey->driver_remarks = $request->remarks;
+                $journey->driver_completed_at = Carbon::now();
+                //$journey->driver_filled_by = Auth::user()->emp_id;
+                $journey->journey_status_id = '6';
+                $journey->update();
+                return redirect()->back()->with(['success'=>'Journey completed successfully !']);
+            }
         }
 
     }
