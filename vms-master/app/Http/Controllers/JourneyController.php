@@ -558,9 +558,9 @@ class JourneyController extends Controller
     }
 
     public function isDivisionalHead($id){
-        $divHeads = Division::divHead();
+        $divHeads = Division::all();
         foreach($divHeads as $divHead){
-            if($divHead->head->first()!='' && $divHead->head == $id){
+            if($divHead->head !='' && $divHead->head == $id){
                 return true; 
             }
         }
