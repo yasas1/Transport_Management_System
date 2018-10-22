@@ -557,7 +557,15 @@ class JourneyController extends Controller
         return view('journey.cancelled',compact('journeys','divHeads'));
     }
 
-    
+    public function isDivisionalHead($id){
+        $divHeads = Division::all();
+        foreach($divHeads as $divHead){
+            if($divHead->head !='' && $divHead->head == $id){
+                return true; 
+            }
+        }
+        return false;
+    }
 
 
 }
