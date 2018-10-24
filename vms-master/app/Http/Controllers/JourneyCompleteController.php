@@ -27,7 +27,7 @@ class JourneyCompleteController extends Controller
             $journey->real_end_date_time = Carbon::parse($request->real_end_date_time);
             $journey->real_distance = $request->real_distance;
 
-            if($journey->vehical_id && $journey->driver_id && $externalExis = ExternalVehicle::where('journey_id','=',$id)->first() ){
+            if($journey->vehical_id==NULL && $journey->driver_id == NULL && $externalExis = ExternalVehicle::where('journey_id','=',$id)->first() ){
 
                 $externalExis->complete_remarks = $request->remarks;
                 $externalExis->completed_at = Carbon::now();
@@ -36,7 +36,7 @@ class JourneyCompleteController extends Controller
                 $journey->journey_status_id = '6';
                 $journey->update();
                 $externalExis->update();
-
+                //return $externalExis;
                 return redirect()->back()->with(['success'=>'Journey completed successfully !']);
 
             }

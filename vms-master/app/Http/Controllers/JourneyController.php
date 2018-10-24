@@ -252,9 +252,21 @@ class JourneyController extends Controller
         $id = $_GET['id'];
 
         $journey = Journey::whereId($id)->first();
-        $vehicle_num = $journey->vehical->registration_no;
-        $vehicle_name = $journey->vehical->name;
-        $driver = $journey->driver->getFullNameAttribute();
+
+        if($journey->vehical_id==NULL){
+            $vehicle_num = NULL;
+            $vehicle_name = NULL;
+            $driver = NULL;
+
+            $external = $journey->externalVehicle;
+        }
+        else{
+            $vehicle_num = $journey->vehical->registration_no;
+            $vehicle_name = $journey->vehical->name;
+            $driver = $journey->driver->getFullNameAttribute();
+            $external = NULL;
+        }
+
         $applicant_name = $journey->applicant->getFullNameAttribute();
         $applicant_dept = $journey->applicant->division->dept_name;
         $applicant_email = $journey->applicant->emp_email;
@@ -279,7 +291,7 @@ class JourneyController extends Controller
         $data = json_encode(array(
             $journey , $vehicle_num ,$vehicle_name ,$driver ,$applicant_name , $applicant_dept, $applicant_email, $devisional_head, 
             $approved_by, $approved_at, $exp_start,$exp_end, $confirmed_by, $confirmed_at ,$confirmed_start,$confirmed_end,
-            $real_start,$real_end ,$driver_completed
+            $real_start,$real_end ,$driver_completed , $external
             
         ));
         return response($data);
@@ -558,9 +570,9 @@ class JourneyController extends Controller
     }
 
     public function isDivisionalHead($id){
-        $divHeads = Division::divHead();
+        $divHeads = Division::all();
         foreach($divHeads as $divHead){
-            if($divHead->head->first()!='' && $divHead->head == $id){
+            if($divHead->head !='' && $divHead->head == $id){
                 return true; 
             }
         }
