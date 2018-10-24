@@ -534,7 +534,18 @@ class JourneyController extends Controller
 
     public function requests(){
 
-        $journeys = Journey::notApproved();
+        //$userlogid = Auth::user()->emp_id;
+        $userlogid = "000053";
+        if($this->isDivisionalHead($userlogid)){
+            $divId = Division::where('head','=',$userlogid)->first()->dept_id;
+            return $divId;
+
+        }
+        else{
+            return "fdg";
+        }
+
+        $journeys = Journey::notApproved(); //
         $longDisJourneys = Journey::notApprovedLongDistance();
 
         return view('journey.requests',compact('journeys','longDisJourneys'));
