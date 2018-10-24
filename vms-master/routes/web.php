@@ -92,7 +92,10 @@ Route::group(['middleware'=>['authenticate','active']],function (){
 
     Route::post('/journey/request/confirmAjax','JourneyConfirmController@confirmAjax');
 
-                /* Journey Cancel */ 
+            /* Journey Denied from Confirmation View */ 
+     Route::post('/journey/request/denied','JourneyConfirmController@deny');
+
+            /* Journey Cancel from Ongoing View and Confirmation View */ 
     Route::post('/journey/request/cancel','JourneyController@cancel');
                 /* Journey Change Ongoing journey Details */
     Route::post('/journey/request/changeOngoing','JourneyController@changeOngoing');
