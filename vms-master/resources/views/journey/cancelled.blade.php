@@ -72,9 +72,9 @@
         @foreach($divHeads as $divHead)
 
         @if($divHead->head!='')
-            <p> {{$divHead->divHead->emp_id}} </p>
+            <p> {{$divHead->head}} </p>
             <span>
-                {{$divHead->divHead()->first()->emp_initials.'. '.$divHead->divHead()->first()->emp_surname.' ( '.$divHead->dept_name.' )'}}
+                {{$divHead->head()->first()->emp_initials.'. '.$divHead->head()->first()->emp_surname.' ( '.$divHead->dept_name.' )'}}
             </span>
             
         @endif

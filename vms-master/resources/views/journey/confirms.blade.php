@@ -359,16 +359,23 @@
                         </div>
                         <div class="form-group">
                             <label for="confirmation_remarks">Remarks</label>
-                            {{Form::textarea('confirmation_remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2' , 'required' ])}}
-                        </div>
-                        <div class="form-group">
-                            <label for="is_approved">CONFIRM</label> 
-                            {!! Form::checkbox('is_confirm', 1, true) !!}
+                            {{Form::textarea('confirmation_remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2' ])}}
                         </div>
                     </div>
                 </div>
-                    <input type="submit" class="btn btn-success" name="submit" value="SUBMIT">
-                </form>
+                
+                <div class="col-md-12">
+                    <div class="col-md-5">
+                        <input type="submit" class="btn btn-success" name="submit" value="CONFIRM"> 
+                        </form>
+
+                        {!! Form::open(['method' => 'post','id'=>'formDenied','action'=>['JourneyConfirmController@deny']]) !!}   
+                            <input type="hidden" name="id" id="Id">  
+                            <input type="submit" class="btn btn-warning" name="cancel" value="DENY">                                                     
+                        {!! Form::close() !!} 
+                    </div>
+                </div> 
+           
                 <div class="row">
                     <div class="col-md-12">
                         <div class="col-md-9">
@@ -378,7 +385,8 @@
                             <input type="hidden" name="id" id="journeyId">  
                             <input type="submit" class="btn btn-warning" name="cancel" value="Cancel Journey "> 
                             <button type="button" class="btn btn-danger" id="close" data-dismiss="modal">Close</button>                          
-                        {!! Form::close() !!}   
+                        {!! Form::close() !!}  
+                        
                         </div>    
                     </div>
                 </div>
@@ -635,7 +643,8 @@
                                 $('#approved_at').html(details[9]);     
                                 $('#approval_remarks').html(details[0].approval_remarks);
                                 $('#journeyid').val(details[0].id); 
-                                $('#journeyId').val(details[0].id);                              
+                                $('#journeyId').val(details[0].id);  
+                                $('#Id').val(details[0].id);                             
 
                                 $('#approved_by').html(details[8]);
 
@@ -691,6 +700,7 @@
                                 $('#approval_remarks').html(details[0].approval_remarks);
                                 $('#journeyid').val(event.id); 
                                 $('#journeyId').val(details[0].id);
+                                $('#Id').val(details[0].id);
 
                                 $('#approved_by').html(details[8]);
 
@@ -734,6 +744,7 @@
                                 $('#approval_remarks').html(details[0].approval_remarks);
                                 $('#journeyid').val(event.id); 
                                 $('#journeyId').val(details[0].id);
+                                $('#Id').val(details[0].id);
 
                                 $('#approved_by').html(details[8]);
 
@@ -794,23 +805,21 @@
     });
 
     setTimeout(function() {
-        $('#successMessage').fadeOut('fast');
+        $('#successMessage').fadeOut('fast');       
     }, 10000);
 
 </script> 
 
 <script>
-        //for hide and view table content 
-        function tableViewFunction() {
-            var x = document.getElementById("tabl");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
+    //for hide and view table content 
+    function tableViewFunction() {
+        var x = document.getElementById("tabl");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
         }
-
-
+    }
 </script>
 
 <script>
