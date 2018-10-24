@@ -379,7 +379,8 @@
                                 success: function(data)
                                 {
                                     var details = JSON.parse(data);
-                                    //console.log(data); 	places_to_be_visited
+                                    
+                                    //console.log(details[1]); 	
                                     $.confirm({
                                         title: 'Journey!', //Confirm
                                         content:"<h3>Place - "+ details[0].places_to_be_visited+"</h3>" + 
@@ -387,8 +388,8 @@
                                         "<h4>Status - "+ event.status +"</h4>"+
                                         "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:mm:SS') + "</h4>" +
                                         "<h4>End - "+ event.end.format('YYYY-MM-DD HH:mm:SS') +"</h4>"+
-                                        "<h4>Vehicle Number - "+ details[1] +"</h4>"+
-                                        "<h4>Driver - "+ details[3] +"</h4>",
+                                        "<h4>Vehicle - "+ details[1] +"</h4>"+
+                                        "<h4 id='test'>Driver - "+ details[3] +"</h4>",
                                         buttons: {
                                             somethingElse: {
                                                 text: 'OK',
@@ -399,6 +400,7 @@
                                             }
                                         }
                                     });
+                                
                                 }
                             });                          
                         },

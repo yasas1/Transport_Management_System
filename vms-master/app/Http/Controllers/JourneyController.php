@@ -197,10 +197,18 @@ class JourneyController extends Controller
         $journey = Journey::whereId($id)->first(); 
         
         // $journey->confirmed_at->toDayDateTimeString();
-        $purpose = $journey->purpose ;
-        $vehicle_num = $journey->vehical->registration_no;
-        $vehicle_name = $journey->vehical->name;
-        $driver = $journey->driver->getFullNameAttribute();
+        if($journey->vehical_id==NULL){
+            $vehicle_num = "External";
+            $vehicle_name = NULL;
+            $driver = "External";
+
+        }
+        else{
+            $vehicle_num = $journey->vehical->registration_no;
+            $vehicle_name = $journey->vehical->name;
+            $driver = $journey->driver->getFullNameAttribute();
+           
+        }
         $applicant_name = $journey->applicant->getFullNameAttribute();
         $applicant_dept = $journey->applicant->division->dept_name;
         $applicant_email = $journey->applicant->emp_email;
@@ -569,7 +577,6 @@ class JourneyController extends Controller
         return view('journey.cancelled',compact('journeys','divHeads'));
     }
 
-<<<<<<< HEAD
     public function isDivisionalHead($id){
         $divHeads = Division::all();
         foreach($divHeads as $divHead){
@@ -579,9 +586,6 @@ class JourneyController extends Controller
         }
         return false;
     }
-=======
-    
->>>>>>> 91966ebb97e2ba95223c0cd44b849de0be552505
 
 
 }
