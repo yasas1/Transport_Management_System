@@ -216,11 +216,9 @@
         @endforeach
     </div>
     <br><br>  
+        <!-- Calender View-->
     <div class="col-md-12">
         <div class="box box-primary">
-            {{-- <div class="box-header with-border">
-                <h3 class="box-title">Comfirm Journey Calender</h3>
-            </div> --}}
             <div class="box-body">
                 <div id='calendar'></div>
             </div>          
@@ -369,13 +367,24 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
                     <input type="submit" class="btn btn-success" name="submit" value="SUBMIT">
-                    <button type="button" class="btn btn-danger" id="close" data-dismiss="modal">Close</button>
-                    </form>
-                    {{-- {!! Form::close() !!} --}}
+                </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-9">
+                        </div>
+                        <div class="col-md-3">
+                        {!! Form::open(['method' => 'post','id'=>'formCancel','action'=>['JourneyController@cancel']]) !!}   
+                            <input type="hidden" name="id" id="journeyId">  
+                            <input type="submit" class="btn btn-warning" name="cancel" value="Cancel Journey "> 
+                            <button type="button" class="btn btn-danger" id="close" data-dismiss="modal">Close</button>                          
+                        {!! Form::close() !!}   
+                        </div>    
+                    </div>
+                </div>
             </div>
+            {{-- <div class="modal-footer">      
+            </div> --}}
         </div>
     </div>
 </div>
@@ -625,7 +634,8 @@
                                 $('#expected_end_date_time').html(details[11]);                            
                                 $('#approved_at').html(details[9]);     
                                 $('#approval_remarks').html(details[0].approval_remarks);
-                                $('#journeyid').val(details[0].id);                               
+                                $('#journeyid').val(details[0].id); 
+                                $('#journeyId').val(details[0].id);                              
 
                                 $('#approved_by').html(details[8]);
 
@@ -680,6 +690,7 @@
                                 $('#approved_at').html(details[9]);     
                                 $('#approval_remarks').html(details[0].approval_remarks);
                                 $('#journeyid').val(event.id); 
+                                $('#journeyId').val(details[0].id);
 
                                 $('#approved_by').html(details[8]);
 
@@ -722,6 +733,7 @@
                                 $('#approved_at').html(details[9]);     
                                 $('#approval_remarks').html(details[0].approval_remarks);
                                 $('#journeyid').val(event.id); 
+                                $('#journeyId').val(details[0].id);
 
                                 $('#approved_by').html(details[8]);
 
