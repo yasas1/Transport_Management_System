@@ -290,12 +290,18 @@
                             </dl>
                             <dl class="dl-horizontal">
                                 <h4>Resources</h4>
-                                <dt>Vehicle Number</dt>
-                                <dd id="vehicle_number"> </dd>
-                                <dt>Vehicle Name</dt>
-                                <dd id="vehicle_name"></dd>
-                                <dt>Driver</dt>
-                                <dd id="driver"></dd>
+                                <div id="vehicle_internal">
+                                    <dt>Vehicle Number</dt>
+                                    <dd id="vehicle_number"> </dd>
+                                    <dt>Vehicle Name</dt>
+                                    <dd id="vehicle_name"></dd>
+                                    <dt>Driver</dt>
+                                    <dd id="driver"></dd>
+                                </div>
+                                <div id="vehicle_external">
+                                    <dt>Vehicle</dt>
+                                    <dd>External Vehicle</dd>
+                                </div>
                             </dl>
                             <dl class="dl-horizontal">
                                 <dt>Divisional Head</dt>
@@ -329,10 +335,8 @@
                             <dl class="dl-horizontal">
                                 <h4>Approval</h4>
                                 <dt>Approved By</dt>
-                                {{-- {{$journey->approvedBy->emp_title.' '.$journey->approvedBy->emp_initials.'. '.$journey->approvedBy->emp_surname}} --}}
                                 <dd id="approved_by"></dd>
                                 <dt>Approved At</dt>
-                                {{-- {{$journey->approved_at->toDayDateTimeString()}} --}}
                                 <dd id="approved_at"></dd>
                                 <dt>Remarks</dt>
                                 <dd id="approval_remarks"></dd>
@@ -344,18 +348,10 @@
                                 <dt>Confirmed By</dt>                              
                                 <dd id="confirm_by"></dd>
                                 <dt>Confirmed At</dt>
-                                {{-- {{$journey->confirmed_at->toDayDateTimeString()}} --}}
                                 <dd id="confirm_at"></dd>
                                 <dt>Remarks</dt>
-                                {{-- {{$journey->confirmation_remarks}} --}}
                                 <dd id="confirm_remarks"></dd>
                                 <dt>Confirmed Start Time</dt>
-                                {{-- {{$journey->confirmed_start_date_time->toDayDateTimeString()}}
-                                    @if($journey->expected_start_date_time->diffInSeconds($journey->confirmed_start_date_time))
-                                        <span class="label label-warning">Changed</span>
-                                    @else
-                                        <span class="label label-success">Not Changed</span>
-                                    @endif --}}
                                 <dd id="confirmed_start_date_time"> </dd>
                                 <dt>Confirmed End Time</dt>
                                 <dd id="confirmed_end_date_time"> </dd>
@@ -366,12 +362,20 @@
                         <div class="col-md-6">
                             <dl class="dl-horizontal">
                                 <h4>Final Details</h4>
-                                <dt>Driver Filled At</dt>
-                                {{-- {{$journey->driver_completed_at->toDayDateTimeString()}} --}}
-                                <dd id="driver_completed_at"></dd>
-                                <dt>Driver Remarks</dt>
-                                {{-- {{$journey->driver_remarks}} --}}
-                                <dd id="driver_remarks"></dd>
+                                <div id="final_internal">
+                                    <dt>Driver Filled At</dt>
+                                    {{-- {{$journey->driver_completed_at->toDayDateTimeString()}} --}}
+                                    <dd id="driver_completed_at"></dd>
+                                    <dt>Driver Remarks</dt>
+                                    {{-- {{$journey->driver_remarks}} --}}
+                                    <dd id="driver_remarks"></dd>
+                                </div>
+                                <div id="final_external">
+                                    <dt>Completed At</dt>                              
+                                    <dd id="completed_at"></dd>
+                                    <dt>Completed Remarks</dt>                               
+                                    <dd id="completed_remarks"></dd>
+                                </div>
                                 <dt>Approximate Distance</dt>
                                 {{-- {{$journey->real_distance}} --}}
                                 <dd id="real_distance"></dd>
@@ -383,6 +387,7 @@
                                 <dd id="real_end_date_time"></dd>
                                 {{-- <dt>Total Hours</dt>
                                 <dd>{{$journey->real_start_date_time->diffInHours($journey->real_end_date_time)}} hours</dd> --}}
+                                
                             </dl>
                         </div>
                     </div>                   
@@ -582,9 +587,24 @@
                                 $('#expected_distance').html(details[0].expected_distance);
                                 $('#approval_remarks').html(details[0].approval_remarks);
 
-                                $('#vehicle_number').html(details[1]);
-                                $('#vehicle_name').html(details[2]); 
-                                $('#driver').html(details[3]);
+                                if(details[0].vehical_id == null){
+                                    $('#vehicle_internal').hide();
+                                    $('#final_internal').hide();
+                                    $('#vehicle_external').show();
+                                    $('#final_external').show();   
+                                    $('#completed_remarks').html(details[19].complete_remarks );
+                                    $('#completed_at').html(details[19].completed_at );
+                                }
+                                else{
+                                    $('#vehicle_external').hide();
+                                    $('#final_external').hide();
+                                    $('#vehicle_internal').show();
+                                    $('#final_internal').show();
+                                    $('#vehicle_number').html(details[1]);
+                                    $('#vehicle_name').html(details[2]); 
+                                    $('#driver').html(details[3]);
+                                }
+
                                 $('#appl_name').html(details[4]);
                                 $('#appl_dept').html(details[5]);
                                 $('#appl_email').html(details[6]);
@@ -608,6 +628,7 @@
 
                                 $('#driver_remarks').html(details[0].driver_remarks);
                                 $('#real_distance').html(details[0].real_distance);
+                                console.log(details[19]);
                                 
                                 
                             }
