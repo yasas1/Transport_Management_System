@@ -569,6 +569,7 @@ class JourneyController extends Controller
         return view('journey.cancelled',compact('journeys','divHeads'));
     }
 
+<<<<<<< HEAD
     public function isDivisionalHead($id){
         $divHeads = Division::all();
         foreach($divHeads as $divHead){
@@ -578,6 +579,9 @@ class JourneyController extends Controller
         }
         return false;
     }
+=======
+    
+>>>>>>> 91966ebb97e2ba95223c0cd44b849de0be552505
 
 
 }
