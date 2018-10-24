@@ -301,7 +301,12 @@
                                 <div id="vehicle_external">
                                     <dt>Vehicle</dt>
                                     <dd>External Vehicle</dd>
+                                    <dt>External Company</dt>
+                                    <dd id="external_company"></dd>
+                                    <dt>External Cost</dt>
+                                    <dd id="external_cost"></dd>
                                 </div>
+                                
                             </dl>
                             <dl class="dl-horizontal">
                                 <dt>Divisional Head</dt>
@@ -594,6 +599,8 @@
                                     $('#final_external').show();   
                                     $('#completed_remarks').html(details[19].complete_remarks );
                                     $('#completed_at').html(details[19].completed_at );
+                                    $('#external_company').html(details[19].company_name );
+                                    $('#external_cost').html(details[19].cost);
                                 }
                                 else{
                                     $('#vehicle_external').hide();
