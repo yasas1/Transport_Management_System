@@ -535,10 +535,13 @@ class JourneyController extends Controller
     public function requests(){
 
         //$userlogid = Auth::user()->emp_id;
-        $userlogid = "000053";
+        $userlogid = "000538";
         if($this->isDivisionalHead($userlogid)){
             $divId = Division::where('head','=',$userlogid)->first()->dept_id;
-            return $divId;
+            $journeys = Journey::where('divisional_head_id','=',$divId)->get();
+                //->where('journey_status_id','=','2')->get();
+                //->where('is_long_distance', '=', '0')->get();
+            return view('journey.requests',compact('journeys'));
 
         }
         else{
