@@ -533,21 +533,19 @@ class JourneyController extends Controller
     }
 
     public function requests(){
-
-        //$userlogid = Auth::user()->emp_id;
-        $userlogid = "000538";
+            /* Code for particular divissional head requests for approve*/
+        /*$userlogid = Auth::user()->emp_id;  //$userlogid = "000140";
         if($this->isDivisionalHead($userlogid)){
-            $divId = Division::where('head','=',$userlogid)->first()->dept_id;
-            $journeys = Journey::where('divisional_head_id','=',$divId)->get();
-                //->where('journey_status_id','=','2')->get();
-                //->where('is_long_distance', '=', '0')->get();
-            return view('journey.requests',compact('journeys'));
+            //$divId = Division::where('head','=',$userlogid)->first()->dept_id;
+            $journeys = Journey::where('divisional_head_id','=',$userlogid)
+                ->where('journey_status_id','=','1')
+                ->where('is_long_distance', '=', '0')->get();
+            $longDisJourneys = Journey::notApprovedLongDistance();
+            //return $userlogid ;
+            return view('journey.requests',compact('journeys','longDisJourneys'));
 
-        }
-        else{
-            return "fdg";
-        }
-
+        } */
+        
         $journeys = Journey::notApproved(); //
         $longDisJourneys = Journey::notApprovedLongDistance();
 
