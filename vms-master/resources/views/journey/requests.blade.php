@@ -332,42 +332,42 @@
 
     <script src="{{asset('js/bootstrap-toggle.min.js')}}"></script>
 
-    <script>
+    {{-- <script>
         $(function () {
             $('.btnView').on('click',function () {
 
-                // var longDisJourneys = {!! json_encode($longDisJourneys->toArray()) !!};
-                // console.log(longDisJourneys);
+                var longDisJourneys = {!! json_encode($longDisJourneys->toArray()) !!};
+                console.log(longDisJourneys);
 
-                // $.confirm({
-                //     title:'',
-                //     columnClass: 'col-lg-8 col-lg-offset-2',
-                //     content:$('div#d'+$(this).attr('id')).html(),
-                //     buttons: {
-                //         formSubmit: {
-                //             text: 'Submit',
-                //             btnClass: 'btn-green',
-                //             action: function () {
-                //                 $('#formApproval').submit();
-                //             }
-                //         },
-                //         cancel: function () {
-                //             //close
-                //         },
-                //     },
-                //     onContentReady: function () {
-                //         // bind to events
-                //         var jc = this;
-                //         this.$content.find('form').on('submit', function (e) {
-                //             // if the user submits the form by pressing enter in the field.
-                //             e.preventDefault();
-                //             jc.$$formSubmit.trigger('click'); // reference the button and click it
-                //         }); 
-                //     }
-                // });
+                $.confirm({
+                    title:'',
+                    columnClass: 'col-lg-8 col-lg-offset-2',
+                    content:$('div#d'+$(this).attr('id')).html(),
+                    buttons: {
+                        formSubmit: {
+                            text: 'Submit',
+                            btnClass: 'btn-green',
+                            action: function () {
+                                $('#formApproval').submit();
+                            }
+                        },
+                        cancel: function () {
+                            //close
+                        },
+                    },
+                    onContentReady: function () {
+                        // bind to events
+                        var jc = this;
+                        this.$content.find('form').on('submit', function (e) {
+                            // if the user submits the form by pressing enter in the field.
+                            e.preventDefault();
+                            jc.$$formSubmit.trigger('click'); // reference the button and click it
+                        }); 
+                    }
+                });
             })
         });
-    </script>
+    </script> --}}
     
     <script>
         $(document).ready(function() {

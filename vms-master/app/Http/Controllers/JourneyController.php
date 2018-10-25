@@ -533,18 +533,35 @@ class JourneyController extends Controller
     }
 
     public function requests(){
-            /* Code for particular divissional head requests for approve*/
-        /*$userlogid = Auth::user()->emp_id;  //$userlogid = "000140";
-        if($this->isDivisionalHead($userlogid)){
-            //$divId = Division::where('head','=',$userlogid)->first()->dept_id;
-            $journeys = Journey::where('divisional_head_id','=',$userlogid)
-                ->where('journey_status_id','=','1')
-                ->where('is_long_distance', '=', '0')->get();
+            
+        //$userlogid = Auth::user()->emp_id; 
+        //$userlogid = "000147"; //000140
+        
+                    // Code for Director for approve
+        if($this->isDirector($userlogid)){
+
+            $journeys = Journey::notApproved(); 
             $longDisJourneys = Journey::notApprovedLongDistance();
-            //return $userlogid ;
+
+            return view('journey.requests',compact('journeys','longDisJourneys'));
+        }                 
+        else if($this->isDivisionalHead($userlogid)){
+                    // Code for particular divissional head requests for approve
+            //$divId = Division::where('head','=',$userlogid)->first()->dept_id;
+            
+            $journeys = Journey::where('divisional_head_id','=',$userlogid)
+                ->where('journey_status_id','=','2')
+                ->where('is_long_distance', '=', '0')->get();
+
+            $longDisJourneys = NULL;
+
             return view('journey.requests',compact('journeys','longDisJourneys'));
 
-        } */
+        }
+        else{
+            return "test111";
+
+        } 
         
         $journeys = Journey::notApproved(); //
         $longDisJourneys = Journey::notApprovedLongDistance();
@@ -590,21 +607,34 @@ class JourneyController extends Controller
     }
 
     public function isDivisionalHead($id){
-        $divHeads = Division::all();
-        foreach($divHeads as $divHead){
-            if($divHead->head !='' && $divHead->head == $id){
-                return true; 
+        // $divHeads = Division::all();
+        // foreach($divHeads as $divHead){
+        //     if($divHead->head !='' && $divHead->head == $id){
+        //         return true; 
+        //     }
+        // }
+        if($divHeads=Division::where('head', '=', $id )->get()){
+            if($divHeads->count() != 0){
+                return true;
+            }
+            else{
+                return false;
             }
         }
-        return false;
+        
     }
 
     public function isDirector($id){
 
-        if(Employee::where('emp_id', '=', $id )->where('emp_designation', '=', '1' )->first()){ //  desig_id
-             return true;       
+        if($div=Division::where('head', '=', $id )->where('dept_name', '=', 'Office of the Director' )->get()){
+            if($div->count() != 0){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
-        return false;
+        
     }
 
 
