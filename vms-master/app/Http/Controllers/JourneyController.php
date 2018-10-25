@@ -599,5 +599,13 @@ class JourneyController extends Controller
         return false;
     }
 
+    public function isDirector($id){
+
+        if(Employee::where('emp_id', '=', $id )->where('emp_designation', '=', '1' )->first()){ //  desig_id
+             return true;       
+        }
+        return false;
+    }
+
 
 }
