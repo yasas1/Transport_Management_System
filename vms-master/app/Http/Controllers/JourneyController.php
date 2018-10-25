@@ -77,6 +77,17 @@ class JourneyController extends Controller
         
         return response($journeys);
     }
+    public function readExternal(){ 
+            // for create journey calender view database2.table2 as db2'
+        $journeys = DB::table('journey')
+        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
+        ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
+        ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
+        ->where('vehical_id','=',NULL)
+        ->get();
+        
+        return response($journeys);
+    }
 
     public function readVehicleColor(){   
         //$vehicles = Vehical::all()->select('journey_color')->get();
@@ -536,9 +547,8 @@ class JourneyController extends Controller
             
         //$userlogid = Auth::user()->emp_id; 
         //$userlogid = "000147"; //000140
-        
-                    // Code for Director for approve
-        if($this->isDirector($userlogid)){
+           /*         
+        if($this->isDirector($userlogid)){  // Code for Director for approve
 
             $journeys = Journey::notApproved(); 
             $longDisJourneys = Journey::notApprovedLongDistance();
@@ -547,8 +557,6 @@ class JourneyController extends Controller
         }                 
         else if($this->isDivisionalHead($userlogid)){
                     // Code for particular divissional head requests for approve
-            //$divId = Division::where('head','=',$userlogid)->first()->dept_id;
-            
             $journeys = Journey::where('divisional_head_id','=',$userlogid)
                 ->where('journey_status_id','=','2')
                 ->where('is_long_distance', '=', '0')->get();
@@ -561,9 +569,9 @@ class JourneyController extends Controller
         else{
             return "test111";
 
-        } 
+        } */
         
-        $journeys = Journey::notApproved(); //
+        $journeys = Journey::notApproved(); 
         $longDisJourneys = Journey::notApprovedLongDistance();
 
         return view('journey.requests',compact('journeys','longDisJourneys'));
