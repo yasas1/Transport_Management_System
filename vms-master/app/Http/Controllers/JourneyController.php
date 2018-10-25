@@ -78,12 +78,24 @@ class JourneyController extends Controller
         return response($journeys);
     }
     public function readExternal(){ 
-            // for create journey calender view database2.table2 as db2'
+            // for create journey calender view 
         $journeys = DB::table('journey')
         ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
         ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
         ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
         ->where('vehical_id','=',NULL)
+        ->get();
+        
+        return response($journeys);
+    }
+
+    public function readExternalCompleted(){ 
+            // for completed journey calender view ' 
+        $journeys = DB::table('journey')
+        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
+        ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
+        ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
+        ->where('vehical_id','=',NULL)->where('journey_status_id','=','6')
         ->get();
         
         return response($journeys);

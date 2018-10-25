@@ -241,19 +241,16 @@
     </div>
     <div class="col-md-12"> 
         <button  class="all"  style="height:25px;width:35px;border: 1px solid #555555;border-radius: 5px;" >ALL</button>
-    @foreach ($vehicles as $vehicle)
-        <button class="colorbutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}" style="border: 1px solid #555555;border-radius: 5px;"> {{$vehicle->registration_no}} </button>   
-    @endforeach
+        @foreach ($vehicles as $vehicle)
+            <button class="vehiclebutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}" style="border: 1px solid #555555;border-radius: 5px;"> {{$vehicle->registration_no}} </button>   
+        @endforeach
+        <button  class="external"  style="height:25px;width:65px;border: 1px solid #555555;border-radius: 5px; background-color:#778899;" >External</button>  
     </div>
     <br><br>
     <!-- For Calender View -->
     <div class="col-md-12">
-        <div class="box box-primary">
-            {{-- <div class="box-header with-border">
-                <h3 class="box-title">Completed Journey Calender</h3>
-            </div> --}}  
+        <div class="box box-primary">        
             <div class="box-body">
-                <!-- THE CALENDAR -->
                 <div id='calendar'></div>
             </div>
         </div>
@@ -460,25 +457,38 @@
 
     $.get("{{ URL::to('journey/readCompleted') }}",function(data){ 
         $.each(data,function(i,value){                       
-            qEvent.push(
-                { 
-                    title : value.places_to_be_visited,
+            if(value.vehical_id != null){
+                qEvent.push({ 
+                    title : value.places_to_be_visited, // need place as the title
                     start : value.expected_start_date_time,
                     end : value.expected_end_date_time,
-                    id :  value.id,                                                     
-                    applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                             
+                    id :  value.id, 
+                    applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
                     vehical_id : value.vehical_id,
-                    status: value.status, 
-                    borderColor: 'black',                   
-                    color :  journey_colors[value.vehical_id]        
-                }
-            );
+                    borderColor: 'black',
+                    status: value.status,
+                    color : journey_colors[value.vehical_id]
+                });    
+            } 
+            else{
+                qEvent.push({ 
+                    title : value.places_to_be_visited, // need place as the title
+                    start : value.expected_start_date_time,
+                    end : value.expected_end_date_time,
+                    id :  value.id, 
+                    applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                    vehical_id : value.vehical_id,
+                    borderColor: 'black',
+                    status: value.status,
+                    color : "#778899"
+                }); 
+            }
         });
     });
 
     $(document).ready(function(){
         //$('.colorbutton').css('background','#7CFD03');
-        $(".colorbutton").click(function(evt){
+        $(".vehiclebutton").click(function(evt){
             var vid = $(this).attr("value");   // Vehivle_id from Vehicle_Button
             //$(vid).css('background','#05DCB2');
             qEvent=[];                       
@@ -515,24 +525,61 @@
             $('#calendar').fullCalendar('removeEvents');
             $.get("{{ URL::to('journey/readCompleted') }}",function(data){ 
                 $.each(data,function(i,value){       
+                    if(value.vehical_id != null){
+                        qEvent.push({ 
+                            title : value.places_to_be_visited, // need place as the title
+                            start : value.expected_start_date_time,
+                            end : value.expected_end_date_time,
+                            id :  value.id, 
+                            applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                            vehical_id : value.vehical_id,
+                            borderColor: 'black',
+                            status: value.status,
+                            color : journey_colors[value.vehical_id]
+                        });    
+                    } 
+                    else{
+                        qEvent.push({ 
+                            title : value.places_to_be_visited, // need place as the title
+                            start : value.expected_start_date_time,
+                            end : value.expected_end_date_time,
+                            id :  value.id, 
+                            applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                            vehical_id : value.vehical_id,
+                            borderColor: 'black',
+                            status: value.status,
+                            color : "#778899"
+                        }); 
+                    }                  
+                });
+                $('#calendar').fullCalendar('addEventSource', qEvent);
+                $('#calendar').fullCalendar('refetchEvents');
+            });                       
+	    });
+
+        $(".external").click(function(evt){
+            qEvent=[]; 
+            $('#calendar').fullCalendar('removeEvents');
+            $.get("{{ URL::to('journey/readExternalCompleted') }}",function(data){
+                console.log(data); 
+                $.each(data,function(i,value){       
                     qEvent.push(
                     { 
                         title : value.places_to_be_visited,
                         start : value.expected_start_date_time,
                         end : value.expected_end_date_time,
-                        id :  value.id,                                                     
-                        applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                             
-                        vehical_id : value.vehical_id,
+                        id :  value.id,
+                        applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                      
+                        borderColor: 'black',
                         status: value.status, 
-                        borderColor: 'black',                   
-                        color :  journey_colors[value.vehical_id]    
+                        color :  "#778899"    
                     });                  
                 });
                 $('#calendar').fullCalendar('addEventSource', qEvent);
                 $('#calendar').fullCalendar('refetchEvents');
-            });                      
-            
-	    });
+            });                               
+        });
+
     });
     //console.log(qEvent); 
     $(function () {
