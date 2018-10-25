@@ -305,8 +305,7 @@
                         document.getElementById('cost').value=details[16].cost ; 
                         // $('#external_company').html(details[19].company_name );
                         // $('#external_cost').html(details[19].cost);
-                    }
-                    
+                    }                   
                 }
             });
             $('#modal').modal('toggle');
