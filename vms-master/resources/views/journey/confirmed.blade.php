@@ -190,7 +190,7 @@
                                         {{-- {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control','id'=>'vehicle'])}} --}}
                                         <select  name="vehical_id" id="vehicle_select" class="form-control vehicle">                                                                                                       
                                             @foreach ($vehicles as $vehicle)
-                                                <option value="{{ $vehicle->id }}" >{{ $vehicle->id }} {{ $vehicle->registration_no }} ( {{ $vehicle->name }} )  </option>
+                                                <option value="{{ $vehicle->id }}" >{{ $vehicle->id }} {{ $vehicle->registration_no }} ( {{ $vehicle->name }} ) </option>
                                             @endforeach  
                                                 <option id="external" value="0">External Vehicle</option>   
                                         </select>
@@ -289,12 +289,22 @@
                         $('#internal_vehicle').show();
                         document.getElementById('vehicle_select').value=details[0].vehical_id ; 
                         document.getElementById('driverid').value=details[0].driver_id ; 
+                        $('#company').hide();
+                        $('#companycost').hide();
+                        document.getElementById('companyName').value=''; 
+                        document.getElementById('cost').value='' ; 
                     }
                     else{
                         $('#internal_vehicle').hide();
                         $('#external_vehicle').show();
                         document.getElementById('vehicle_select').value=0 ;
                         $("#driver").hide();
+                        $('#company').show();
+                        $('#companycost').show();
+                        document.getElementById('companyName').value=details[16].company_name ; 
+                        document.getElementById('cost').value=details[16].cost ; 
+                        // $('#external_company').html(details[19].company_name );
+                        // $('#external_cost').html(details[19].cost);
                     }
                     
                 }
@@ -344,8 +354,8 @@
             $("button[id=view]").on('click', function(){                      
                 $("input[id=change]").attr("disabled", "disabled");
 
-                $("div[id=company]").hide();
-                $("div[id=companycost]").hide();    
+                // $("div[id=company]").hide();
+                // $("div[id=companycost]").hide();    
                 
             });
 
