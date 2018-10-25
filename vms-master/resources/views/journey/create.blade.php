@@ -326,18 +326,32 @@
                 $('#calendar').fullCalendar('removeEvents');
                 $.get("{{ URL::to('journey/read') }}",function(data){ 
                     $.each(data,function(i,value){       
-                        qEvent.push(
-                        { 
-                            title : value.places_to_be_visited,
-                            start : value.expected_start_date_time,
-                            end : value.expected_end_date_time,
-                            id :  value.id,
-                            applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                      
-                            vehical_id : value.vehical_id,
-                            borderColor: 'black',
-                            status: value.status, 
-                            color :  journey_colors[value.vehical_id]    
-                        });                  
+                        if(value.vehical_id != null){
+                            qEvent.push({ 
+                                title : value.places_to_be_visited, // need place as the title
+                                start : value.expected_start_date_time,
+                                end : value.expected_end_date_time,
+                                id :  value.id, 
+                                applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                                vehical_id : value.vehical_id,
+                                borderColor: 'black',
+                                status: value.status,
+                                color : journey_colors[value.vehical_id]
+                            });    
+                        } 
+                        else{
+                            qEvent.push({ 
+                                title : value.places_to_be_visited, // need place as the title
+                                start : value.expected_start_date_time,
+                                end : value.expected_end_date_time,
+                                id :  value.id, 
+                                applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                                vehical_id : value.vehical_id,
+                                borderColor: 'black',
+                                status: value.status,
+                                color : "#778899"
+                            }); 
+                        }                 
                     });
                     $('#calendar').fullCalendar('addEventSource', qEvent);
                     $('#calendar').fullCalendar('refetchEvents');
@@ -478,13 +492,7 @@
             $('#divDiviHead').html($(this).html());
         });
     </script>
-    {{-- <script>
-        $('#vid').on('change',function () {
-            $('#available').html('');
-            $('#dtp').val('');
-            console.log("check");
-        });
-    </script> --}}
+    
     <script type="text/javascript">
         // var journeys = {!! json_encode($journeys->toArray()) !!};
         $(function () {
