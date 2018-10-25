@@ -77,6 +77,29 @@ class JourneyController extends Controller
         
         return response($journeys);
     }
+    public function readExternal(){ 
+            // for create journey calender view 
+        $journeys = DB::table('journey')
+        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
+        ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
+        ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
+        ->where('vehical_id','=',NULL)
+        ->get();
+        
+        return response($journeys);
+    }
+
+    public function readExternalCompleted(){ 
+            // for completed journey calender view ' 
+        $journeys = DB::table('journey')
+        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
+        ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
+        ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
+        ->where('vehical_id','=',NULL)->where('journey_status_id','=','6')
+        ->get();
+        
+        return response($journeys);
+    }
 
     public function readVehicleColor(){   
         //$vehicles = Vehical::all()->select('journey_color')->get();
@@ -533,20 +556,40 @@ class JourneyController extends Controller
     }
 
     public function requests(){
-            /* Code for particular divissional head requests for approve*/
-        /*$userlogid = Auth::user()->emp_id;  //$userlogid = "000140";
-        if($this->isDivisionalHead($userlogid)){
-            //$divId = Division::where('head','=',$userlogid)->first()->dept_id;
-            $journeys = Journey::where('divisional_head_id','=',$userlogid)
-                ->where('journey_status_id','=','1')
-                ->where('is_long_distance', '=', '0')->get();
+            
+        //$userlogid = Auth::user()->emp_id; 
+        //$userlogid = "000147"; //000140
+           /*         
+        if($this->isDirector($userlogid)){  // Code for Director for approve
+
+            $journeys = Journey::notApproved(); 
             $longDisJourneys = Journey::notApprovedLongDistance();
-            //return $userlogid ;
+
+            return view('journey.requests',compact('journeys','longDisJourneys'));
+        }                 
+        else if($this->isDivisionalHead($userlogid)){
+                    // Code for particular divissional head requests for approve
+            $journeys = Journey::where('divisional_head_id','=',$userlogid)
+                ->where('journey_status_id','=','2')
+                ->where('is_long_distance', '=', '0')->get();
+
+            $longDisJourneys = NULL;
+
             return view('journey.requests',compact('journeys','longDisJourneys'));
 
-        } */
+        }
+          // this 
+        if(Auth::user()->role_id == 1){
+            return "Director";
+        }
+        else if(Auth::user()->role_id == 2){
+            return "Divisional Head";
+        }
+
+         */
+        // return Auth::user();
         
-        $journeys = Journey::notApproved(); //
+        $journeys = Journey::notApproved(); 
         $longDisJourneys = Journey::notApprovedLongDistance();
 
         return view('journey.requests',compact('journeys','longDisJourneys'));
@@ -590,13 +633,34 @@ class JourneyController extends Controller
     }
 
     public function isDivisionalHead($id){
-        $divHeads = Division::all();
-        foreach($divHeads as $divHead){
-            if($divHead->head !='' && $divHead->head == $id){
-                return true; 
+        // $divHeads = Division::all();
+        // foreach($divHeads as $divHead){
+        //     if($divHead->head !='' && $divHead->head == $id){
+        //         return true; 
+        //     }
+        // }
+        if($divHeads=Division::where('head', '=', $id )->get()){
+            if($divHeads->count() != 0){
+                return true;
+            }
+            else{
+                return false;
             }
         }
-        return false;
+        
+    }
+
+    public function isDirector($id){
+
+        if($div=Division::where('head', '=', $id )->where('dept_name', '=', 'Office of the Director' )->get()){
+            if($div->count() != 0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        
     }
 
 

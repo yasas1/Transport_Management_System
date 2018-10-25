@@ -108,11 +108,14 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/journey/requests/completed','JourneyController@completed'); 
 
                 // For Calender views
-    Route::get('/journey/read','JourneyController@readJourney');
+    Route::get('/journey/read','JourneyController@readJourney'); 
+    Route::get('/journey/readExternal','JourneyController@readExternal');
     Route::get('/journey/journeyStatus','JourneyController@journeyStatus');
     Route::get('/journey/journeyApplicant/','JourneyController@journeyApplicant');
     Route::get('/journey/confirmationJourneys','JourneyController@confirmationJourneys');
     Route::get('/journey/readCompleted','JourneyController@readcompletedJourney');
+
+    Route::get('/journey/readExternalCompleted','JourneyController@readExternalCompleted');
     
     Route::get('/journey/ForCompletedByVehicle/{id}','JourneyController@ForCompletedByVehicle');
     Route::get('/journey/ForConfirmationByVehicle/{id}','JourneyController@ForConfirmationByVehicle');

@@ -13,16 +13,15 @@
 @section('content')
     @include('layouts.errors')
     @include('layouts.success')
-            {{-- check with director's employee id from employee db --}} 
-    @if($longDisJourneys != null )
-    <div class="alert alert-info alert-dismissible fade in">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>Need Attention for Long Distance Journeys Request List...</strong> 
-    </div> 
-    @endif
 
-    @if($longDisJourneys)
-        @if(Auth::user()->canApproveLongDistanceJourney())    
+    @if(Auth::user()->canApproveLongDistanceJourney()) 
+        @if($longDisJourneys)  
+
+            <div class="alert alert-info alert-dismissible fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Need Attention for Long Distance Journeys Request List...</strong> 
+            </div>  
+
             {{-- for long distance journeys --}}
             <div class="box box-primary">
 
@@ -183,7 +182,7 @@
             <h3 class="box-title"> <strong>Journey Requests List </strong></h3>
         </div> 
         @if($journeys)
-        <div class="box-body" style="height: 400px; overflow: auto;">
+        <div class="box-body" style="height: 700px; overflow: auto;">
            
             <table class="table" id="table" >
                 <thead>
@@ -332,42 +331,42 @@
 
     <script src="{{asset('js/bootstrap-toggle.min.js')}}"></script>
 
-    <script>
+    {{-- <script>
         $(function () {
             $('.btnView').on('click',function () {
 
-                // var longDisJourneys = {!! json_encode($longDisJourneys->toArray()) !!};
-                // console.log(longDisJourneys);
+                var longDisJourneys = {!! json_encode($longDisJourneys->toArray()) !!};
+                console.log(longDisJourneys);
 
-                // $.confirm({
-                //     title:'',
-                //     columnClass: 'col-lg-8 col-lg-offset-2',
-                //     content:$('div#d'+$(this).attr('id')).html(),
-                //     buttons: {
-                //         formSubmit: {
-                //             text: 'Submit',
-                //             btnClass: 'btn-green',
-                //             action: function () {
-                //                 $('#formApproval').submit();
-                //             }
-                //         },
-                //         cancel: function () {
-                //             //close
-                //         },
-                //     },
-                //     onContentReady: function () {
-                //         // bind to events
-                //         var jc = this;
-                //         this.$content.find('form').on('submit', function (e) {
-                //             // if the user submits the form by pressing enter in the field.
-                //             e.preventDefault();
-                //             jc.$$formSubmit.trigger('click'); // reference the button and click it
-                //         }); 
-                //     }
-                // });
+                $.confirm({
+                    title:'',
+                    columnClass: 'col-lg-8 col-lg-offset-2',
+                    content:$('div#d'+$(this).attr('id')).html(),
+                    buttons: {
+                        formSubmit: {
+                            text: 'Submit',
+                            btnClass: 'btn-green',
+                            action: function () {
+                                $('#formApproval').submit();
+                            }
+                        },
+                        cancel: function () {
+                            //close
+                        },
+                    },
+                    onContentReady: function () {
+                        // bind to events
+                        var jc = this;
+                        this.$content.find('form').on('submit', function (e) {
+                            // if the user submits the form by pressing enter in the field.
+                            e.preventDefault();
+                            jc.$$formSubmit.trigger('click'); // reference the button and click it
+                        }); 
+                    }
+                });
             })
         });
-    </script>
+    </script> --}}
     
     <script>
         $(document).ready(function() {
