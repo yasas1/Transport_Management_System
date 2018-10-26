@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\Division;
 use App\Models\Driver;
 use App\Models\FundsAllocatedFrom;
@@ -24,10 +22,8 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Http\Requests\CreateJourneyRequest;
 use Session;
 use View;
-
 class JourneyController extends Controller
 {
-
     protected $client;
     public function __construct()
     {
@@ -39,7 +35,6 @@ class JourneyController extends Controller
         $client->setHttpClient($guzzleClient);
         $this->client = $client;
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -49,7 +44,6 @@ class JourneyController extends Controller
     {
      //
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -66,7 +60,6 @@ class JourneyController extends Controller
         return view('journey.create',compact('fundAlFroms','drivers','vehicles','divHeads','journeys','vehiclesButton'));
     
     } 
-
     public function createBacklog(){
         $journeys = Journey::all();
         $divHeads = Division::all();
@@ -77,8 +70,6 @@ class JourneyController extends Controller
         return view('journey.createBacklogJourney',compact('fundAlFroms','drivers','vehicles','divHeads','journeys','vehiclesButton'));
     
     }
-
-
     public function readJourney(){ 
             // for create journey calender view database2.table2 as db2'
         $journeys = DB::table('journey')
@@ -100,7 +91,6 @@ class JourneyController extends Controller
         
         return response($journeys);
     }
-
     public function readExternalCompleted(){ 
             // for completed journey calender view ' 
         $journeys = DB::table('journey')
@@ -112,14 +102,12 @@ class JourneyController extends Controller
         
         return response($journeys);
     }
-
     public function readVehicleColor(){   
         //$vehicles = Vehical::all()->select('journey_color')->get();
         $vehicles = DB::table('vehical')->select('id','journey_color')->get();
             
         return response($vehicles);
     }
-
     public function ForConfirmationByVehicle(){ 
         $vid = $_GET['id'];
         //$journeys = Journey::journeyByVehicleNotConfirmed($vid); 
@@ -129,10 +117,8 @@ class JourneyController extends Controller
         ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
         ->where('vehical_id','=',$vid)->where('journey_status_id','=','2')
         ->get();
-
         return response($journeys);
     }
-
     public function ForCompletedByVehicle(){ 
         $vid = $_GET['id'];
         //$journeys = Journey::journeyByVehicleCompleted($vid); 
@@ -142,10 +128,8 @@ class JourneyController extends Controller
         ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
         ->where('vehical_id','=',$vid)->where('journey_status_id','=','6')
         ->get();
-
         return response($journeys);
     }
-
     public function ForCreateByVehicle(){ 
         $vid = $_GET['id'];
         //$journeys = Journey::journeyByVehicle($vid); 
@@ -155,10 +139,8 @@ class JourneyController extends Controller
         ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
         ->where('vehical_id','=',$vid)
         ->get();
-
         return response($journeys);
     }
-
     public function confirmationJourneys(){
             // for Confirmation journey calender view
         //$journeys = Journey::notConfirmed();
@@ -171,7 +153,6 @@ class JourneyController extends Controller
         return response($journeys);
         
     }
-
     public function readcompletedJourney(){
             // for Completed journey calender view
         //$journeys = Journey::completed();
@@ -183,7 +164,6 @@ class JourneyController extends Controller
         ->get();
         return response($journeys);
     }
-
     public function ForOngingView(){ 
         $journeyid = $_GET['id'];
         //$journeys = Journey::journeyByVehicle($vid); 
@@ -192,7 +172,6 @@ class JourneyController extends Controller
             $vehicle_num = NULL;
             $vehicle_name = NULL;
             $driver = NULL;
-
             $external = $journey->externalVehicle;
         }
         else{
@@ -201,23 +180,18 @@ class JourneyController extends Controller
             $driver = $journey->driver->getFullNameAttribute();
             $external = NULL;
         }
-
         $applicant_name = $journey->applicant->getFullNameAttribute();
         $applicant_dept = $journey->applicant->division->dept_name;
         $applicant_email = $journey->applicant->emp_email;
         $devisional_head = $journey->divisional_head->getFullNameAttribute();
         $approved_by = $journey->approvedBy->getFullNameAttribute();
-
         $approved_at = $journey->approved_at->toDayDateTimeString();
         $exp_start = $journey->expected_start_date_time->toDayDateTimeString();
         $exp_end = $journey->expected_end_date_time->toDayDateTimeString();
-
         $confirmed_by = $journey->confirmedBy->getFullNameAttribute();
-
         $confirmed_at = $journey->confirmed_at->toDayDateTimeString();
         $confirmed_start = $journey->confirmed_start_date_time->toDayDateTimeString();
         $confirmed_end = $journey->confirmed_end_date_time->toDayDateTimeString();  
-
         $data = json_encode(array(
             $journey , $vehicle_num ,$vehicle_name,$driver, $applicant_name , $applicant_dept, $applicant_email, $devisional_head, 
             $approved_by, $approved_at, $exp_start,$exp_end, $confirmed_by, $confirmed_at ,$confirmed_start,$confirmed_end,
@@ -226,7 +200,6 @@ class JourneyController extends Controller
         ));
         return response($data);
     }
-
     public function readJourneyForCreate(){
         $id = $_GET['id'];
         $journey = Journey::whereId($id)->first(); 
@@ -236,7 +209,6 @@ class JourneyController extends Controller
             $vehicle_num = "External";
             $vehicle_name = NULL;
             $driver = "External";
-
         }
         else{
             $vehicle_num = $journey->vehical->registration_no;
@@ -250,17 +222,14 @@ class JourneyController extends Controller
         $devisional_head = $journey->divisional_head->getFullNameAttribute();
         $exp_start = $journey->expected_start_date_time->toDayDateTimeString();
         $exp_end = $journey->expected_end_date_time->toDayDateTimeString();
-
         $data = json_encode(array(
             $journey , $vehicle_num ,$vehicle_name ,$driver ,$applicant_name , $applicant_dept, $applicant_email, $devisional_head,
             $exp_start,$exp_end
             
         ));
-
         return response($data);
         
     }
-
           /*  For journey confirmation form details  */
     public function readJourneyForConfirmAjax(){
         $id = $_GET['id'];
@@ -279,71 +248,47 @@ class JourneyController extends Controller
         $approved_at = $journey->approved_at->toDayDateTimeString();
         $exp_start = $journey->expected_start_date_time->toDayDateTimeString();
         $exp_end = $journey->expected_end_date_time->toDayDateTimeString();
-
         $data = json_encode(array(
             $journey , $vehicle_num ,$vehicle_name ,$driver ,$applicant_name , $applicant_dept, $applicant_email, $devisional_head,
             $approved_by,$approved_at,$exp_start,$exp_end
             
         ));
-
         return response($data);
         
     }
-
             /*  For Completed journey form details -- URL->/journey/readCompleted/{id} */
     public function readJourneyForCompletedAjax(){
         $id = $_GET['id'];
-
         $journey = Journey::whereId($id)->first();
-
         if($journey->vehical_id==NULL){
             $vehicle_num = NULL;
             $vehicle_name = NULL;
-<<<<<<< HEAD
-            $driver = NULL;       
-
-=======
             $driver = NULL;
             $driver_completed = NULL;
->>>>>>> dummy2
+            $driver = NULL;
             $external = $journey->externalVehicle;
         }
         else{
             $vehicle_num = $journey->vehical->registration_no;
             $vehicle_name = $journey->vehical->name;
             $driver = $journey->driver->getFullNameAttribute();
-<<<<<<< HEAD
-           
-=======
             $driver_completed = $journey->driver_completed_at->toDayDateTimeString();
->>>>>>> dummy2
             $external = NULL;
         }
-
         $applicant_name = $journey->applicant->getFullNameAttribute();
         $applicant_dept = $journey->applicant->division->dept_name;
         $applicant_email = $journey->applicant->emp_email;
         $devisional_head = $journey->divisional_head->getFullNameAttribute();
         $approved_by = $journey->approvedBy->getFullNameAttribute();
-
         $approved_at = $journey->approved_at->toDayDateTimeString();
         $exp_start = $journey->expected_start_date_time->toDayDateTimeString();
         $exp_end = $journey->expected_end_date_time->toDayDateTimeString();
-
         $confirmed_by = $journey->confirmedBy->getFullNameAttribute();
-
         $confirmed_at = $journey->confirmed_at->toDayDateTimeString();
         $confirmed_start = $journey->confirmed_start_date_time->toDayDateTimeString();
         $confirmed_end = $journey->confirmed_end_date_time->toDayDateTimeString();
-
         $real_start = $journey->real_start_date_time->toDayDateTimeString(); 
         $real_end = $journey->real_end_date_time->toDayDateTimeString(); 
-<<<<<<< HEAD
-        $driver_completed = $journey->driver_completed_at->toDayDateTimeString(); 
-=======
-         
->>>>>>> dummy2
-
         $data = json_encode(array(
             $journey , $vehicle_num ,$vehicle_name ,$driver ,$applicant_name , $applicant_dept, $applicant_email, $devisional_head, 
             $approved_by, $approved_at, $exp_start,$exp_end, $confirmed_by, $confirmed_at ,$confirmed_start,$confirmed_end,
@@ -353,7 +298,6 @@ class JourneyController extends Controller
         return response($data);
         
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -365,43 +309,32 @@ class JourneyController extends Controller
         $journey = new Journey;
         //$journey->applicant_id = '000004';
        $journey->applicant_id = Auth::user()->emp_id;
-
         $journey->vehical_id = $request->vehical_id;
         if ($vehicle = Vehical::whereId($request->vehical_id)->first()){
             $journey->driver_id = $vehicle->driver->id;
         }
-
         $string=$request->time_range;
         $pos = strrpos($string, ' - ');
         $first = substr($string, 0, $pos);
         $second = substr($string, $pos + 3); 
-
         if($expected_start_date_time = Carbon::parse($first)){
                 $journey->expected_start_date_time = $expected_start_date_time;
         }
-
         if($expected_end_date_time = Carbon::parse($second)){
             $journey->expected_end_date_time = $expected_end_date_time;
         }  
-
         $journey->purpose = $request->purpose;
         $journey->places_to_be_visited = $request->places_to_be_visited;
         $journey->number_of_persons = $request->number_of_persons;
-
         $journey->expected_distance = $request->expected_distance;
-
         //check long distance
         if($request->expected_distance>=150){
             $journey->is_long_distance = 1;
         }
-
         $journey->funds_allocated_from_id = $request->funds_allocated_from_id;
         $journey->divisional_head_id = $request->divisional_head_id;
-
         $journey->save();      
-
         try{
-
             if (true) {
                 session_start();
                 $this->client->setAccessToken($_SESSION['access_token']);
@@ -419,11 +352,9 @@ class JourneyController extends Controller
                         'timeZone' => 'Asia/Colombo',
                     ),
                 ));
-
                 $calendarId = 'cmb.ac.lk_ccip5rfck0q19ptlgbsii5e3sk@group.calendar.google.com';
                 $event = $service->events->insert($calendarId, $event);
             } else {
-
                 $token = Auth::user()->token;
                 $this->client->setAccessToken($token);
                 $service = new Google_Service_Calendar($this->client);
@@ -440,33 +371,27 @@ class JourneyController extends Controller
                         'timeZone' => 'Asia/Colombo',
                     ),
                 ));
-
                 $calendarId = 'cmb.ac.lk_ccip5rfck0q19ptlgbsii5e3sk@group.calendar.google.com';
                 $event = $service->events->insert($calendarId, $event);
             }
-
         }catch (Exception $e){
             if($e->getMessage() === 'Undefined index: access_token'){
                 return redirect()->back()->withErrors(['Cannot Connect to Google Calender !']);
             }
             return $e;
         }
-
             return redirect()->back()->with(['success'=>'Journey added successfully !']);
     }
-
     public function cancel(Request $request){
         $id = $request->id ;
         
         if($journey = Journey::whereId($id)->first()){
-
             $journey->journey_status_id = "7";
             $journey->update();
             //return $journey;
             return redirect()->back()->with(['success'=>'Journey request Canceled successfully !']);     
         }
     }
-
     public function changeOngoing(Request $request)
     {  
         $id = $request->id ;
@@ -486,7 +411,6 @@ class JourneyController extends Controller
                     }   
                     if($forUpdate){
                         $externalExis->update();
-
                         return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);  
                     }
                     else {
@@ -504,39 +428,31 @@ class JourneyController extends Controller
                     $externalNew->company_name = $request->company_name ;
                     $externalNew->cost = $request->cost ;
                     $externalNew->journey_id = $id;
-
                     $externalNew->save();  
                      
                     return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']); 
                 }
-
             }
             else{
                     /*delete if this journey has selected external vehicle */
                 if($journey->vehical_id == NULL && $externalOld = ExternalVehicle::where('journey_id','=',$id)->first()){
                     $externalOld->delete(); 
                 }
-
                 if($request->vehical_id != NULL &&  $journey->vehical_id != $request->vehical_id){
                     $journey->vehical_id = $request->vehical_id;
                 }
-
                 if($request->driver_id != NULL && $journey->driver_id != $request->driver_id){
                     $journey->driver_id = $request->driver_id;
                 }
-
                 if($request->driver_id == NULL && $vehicle = Vehical::whereId($request->vehical_id)->first()){
                     $journey->driver_id = $vehicle->driver->id;  
                 }
                 $journey->update();
-
                 //return $journey;
                 return redirect()->back()->with(['success'=>'Ongoing Journey Details Changing successfully !']);  
             }
         } 
     }
-
-
     /**
      * Display the specified resource.
      *
@@ -568,7 +484,6 @@ class JourneyController extends Controller
     {
         //
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -579,17 +494,14 @@ class JourneyController extends Controller
     {
         //
     }
-
     public function requests(){
             
         //$userlogid = Auth::user()->emp_id; 
         //$userlogid = "000147"; //000140
            /*         
         if($this->isDirector($userlogid)){  // Code for Director for approve
-
             $journeys = Journey::notApproved(); 
             $longDisJourneys = Journey::notApprovedLongDistance();
-
             return view('journey.requests',compact('journeys','longDisJourneys'));
         }                 
         else if($this->isDivisionalHead($userlogid)){
@@ -597,11 +509,8 @@ class JourneyController extends Controller
             $journeys = Journey::where('divisional_head_id','=',$userlogid)
                 ->where('journey_status_id','=','2')
                 ->where('is_long_distance', '=', '0')->get();
-
             $longDisJourneys = NULL;
-
             return view('journey.requests',compact('journeys','longDisJourneys'));
-
         }
           // this 
         if(Auth::user()->role_id == 1){
@@ -610,45 +519,34 @@ class JourneyController extends Controller
         else if(Auth::user()->role_id == 2){
             return "Divisional Head";
         }
-
          */
         // return Auth::user();
         
         $journeys = Journey::notApproved(); 
         $longDisJourneys = Journey::notApprovedLongDistance();
-
         return view('journey.requests',compact('journeys','longDisJourneys'));
     }
-
-
     public function notConfirmedJourneys(){
-
         $drivers = Driver::all()->pluck('fullName','id');
         $vehicles = Vehical::all()->pluck('fullName','id');
         $vehicless = Vehical::all();
         $vehiclesForColor = Vehical::all(); // for vehicle color button {delete}
         $journeys = Journey::notConfirmed();
-
         return view('journey.confirms',compact('journeys','drivers','vehicles','vehicless','vehiclesForColor'));
     }
-
     public function confirmedJourneys(){
-
         $drivers = Driver::all()->pluck('fullName','id');
         //$vehicles = Vehical::all()->pluck('fullName','id');
         $vehicles = Vehical::all();
         $journeys = Journey::confirmed();
-
         return view('journey.confirmed',compact('journeys','drivers','vehicles'));
     }
-
     public function completed(){
         
         $journeys = Journey::completed();
         $vehicles = Vehical::all(); // for vehicle color button {delete}
         return view('journey.completed',compact('journeys','vehicles'));
     }
-
     public function cancelledJourney(){
         
         $journeys = Journey::cancelled();
@@ -656,7 +554,6 @@ class JourneyController extends Controller
     
         return view('journey.cancelled',compact('journeys','divHeads'));
     }
-
     public function isDivisionalHead($id){
         // $divHeads = Division::all();
         // foreach($divHeads as $divHead){
@@ -674,9 +571,7 @@ class JourneyController extends Controller
         }
         
     }
-
     public function isDirector($id){
-
         if($div=Division::where('head', '=', $id )->where('dept_name', '=', 'Office of the Director' )->get()){
             if($div->count() != 0){
                 return true;
@@ -687,6 +582,4 @@ class JourneyController extends Controller
         }
         
     }
-
-
 }
