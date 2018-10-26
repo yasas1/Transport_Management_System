@@ -27,7 +27,6 @@
                         <th>Vehicle</th>
                         <th>Start Date / Time</th>
                         <th>End Date / Time</th>
-                        <th>Updated at</th>
                         <th width="200px">Actions</th>
                     </tr>
                     </thead>
@@ -44,7 +43,6 @@
                             @endif
                             <td>{{$journey->expected_start_date_time->toDayDateTimeString()}}</td>
                             <td>{{$journey->expected_end_date_time->toDayDateTimeString()}}</td>
-                            <td>{{$journey->applicant->emp_surname}}</td>
 
                             <td width="200px">
                                 <button class="btn btn-success btnView" id="view" value={{$journey->id}} ><i class="fa fa-eye"></i></button>
@@ -61,7 +59,6 @@
                         <th>Vehicle</th>
                         <th>Start Date / Time</th>
                         <th>End Date / Time</th>
-                        <th>Updated at</th>
                         <th width="200px">Actions</th>
                     </tr>
                     </tfoot>

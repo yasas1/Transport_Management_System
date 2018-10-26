@@ -213,10 +213,12 @@
                                     <div class="col-md-6">
                                         <dl class="dl-horizontal">
                                             <h4>Final Details</h4>
-                                            <dt>Driver Filled At</dt>
-                                            <dd>{{$journey->driver_completed_at->toDayDateTimeString()}}</dd>
-                                            <dt>Driver Remarks</dt>
-                                            <dd>{{$journey->driver_remarks}}</dd>
+                                            @if($journey->vehical_id != null)
+                                                <dt>Driver Filled At</dt>
+                                                <dd>{{$journey->driver_completed_at->toDayDateTimeString()}}</dd>
+                                                <dt>Driver Remarks</dt>
+                                                <dd>{{$journey->driver_remarks}}</dd>
+                                            @endif
                                             <dt>Approximate Distance</dt>
                                             <dd>{{$journey->real_distance}}</dd>
                                             <dt>Start Time</dt>
@@ -603,8 +605,7 @@
                 // alert(err.toString());
             },
             complete:function () {             
-
-                console.log(aaa);
+                //console.log(aaa);
                 $('#calendar').fullCalendar({
                     selectable: true,
                     defaultView:'month', //agendaWeek
