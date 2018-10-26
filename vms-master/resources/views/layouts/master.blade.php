@@ -216,7 +216,7 @@ desired effect
                             <li><a href="{{url('/journey/requests/confirmed')}}"><i class="fa fa-edit"></i> <span>ONGOING JOURNEYS</span></a></li>
                         @endif
                         @if(Auth::user()->canCompleteJourney())
-                            <li><a href="{{url('/journey/requests/complete')}}"><i class="fa fa-edit"></i> <span>RUNNING CHART (LOG)</span></a></li>
+                            <li><a href="{{url('/journey/requests/complete')}}"><i class="fa fa-edit"></i> <span>RUNNING CHART (Driver)</span></a></li>
                         @endif
                         @if(Auth::user()->canViewCompletedJourneys())
                             <li><a href="{{url('/journey/requests/completed')}}"><i class="fa fa-edit"></i> <span>JOURNEY HISTORY</span></a></li>
