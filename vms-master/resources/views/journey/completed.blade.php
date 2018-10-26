@@ -605,8 +605,7 @@
                 // alert(err.toString());
             },
             complete:function () {             
-
-                console.log(aaa);
+                //console.log(aaa);
                 $('#calendar').fullCalendar({
                     selectable: true,
                     defaultView:'month', //agendaWeek
