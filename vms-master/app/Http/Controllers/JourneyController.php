@@ -288,6 +288,7 @@ class JourneyController extends Controller
             $vehicle_num = NULL;
             $vehicle_name = NULL;
             $driver = NULL;
+            $driver_completed = NULL;
 
             $external = $journey->externalVehicle;
         }
@@ -295,6 +296,7 @@ class JourneyController extends Controller
             $vehicle_num = $journey->vehical->registration_no;
             $vehicle_name = $journey->vehical->name;
             $driver = $journey->driver->getFullNameAttribute();
+            $driver_completed = $journey->driver_completed_at->toDayDateTimeString();
             $external = NULL;
         }
 
@@ -315,9 +317,7 @@ class JourneyController extends Controller
         $confirmed_end = $journey->confirmed_end_date_time->toDayDateTimeString();
 
         $real_start = $journey->real_start_date_time->toDayDateTimeString(); 
-        $real_end = $journey->real_end_date_time->toDayDateTimeString(); 
-        $driver_completed = $journey->driver_completed_at->toDayDateTimeString(); 
-       
+        $real_end = $journey->real_end_date_time->toDayDateTimeString();  
 
         $data = json_encode(array(
             $journey , $vehicle_num ,$vehicle_name ,$driver ,$applicant_name , $applicant_dept, $applicant_email, $devisional_head, 
