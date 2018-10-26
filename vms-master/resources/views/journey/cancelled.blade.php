@@ -6,14 +6,14 @@
     {{-- <link href="{{asset('css/bootstrap-toggle.min.css')}}" rel="stylesheet"> --}}  
 @endsection
 
-@section('header', 'Cancelled Journeys')
+@section('header', 'Not Occurred Journeys')
 
 @section('content')
     @include('layouts.errors')
     @include('layouts.success')
-    <div class="box box-primary" style="height: 750px; overflow: auto;" >
+    <div class="box box-primary" style="height: 450px; overflow: auto;" >
         <div class="box-header with-border">
-            {{-- <h3 class="box-title"> Cancelled Journey </h3> --}}
+            <h3 class="box-title"> Cancelled Journey </h3>
         </div>
         <div class="box-body">
             @if($journeys)
@@ -68,7 +68,65 @@
 
         </div>
     </div>
-    <div>
+
+    <div class="box box-primary" style="height: 450px; overflow: auto;" >
+        <div class="box-header with-border">
+            <h3 class="box-title"> Cancelled Journey </h3>
+        </div>
+        <div class="box-body">
+            @if($journeys)
+                <table class="table" id="table">
+                    <thead>
+                    <tr>
+                        <th>Applicant Name</th>
+                        <th>Applicant Division</th>
+                        <th>Vehicle</th>
+                        <th>Start Date / Time</th>
+                        <th>End Date / Time</th>
+                        <th>Requested Place</th>
+                        <th>Requested Distance</th>
+                        {{-- <th width="200px">Actions</th> --}}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($journeys as $journey)
+                        <tr>
+                            <td>{{$journey->applicant->emp_surname}}</td>
+                            <td>{{$journey->applicant->division->dept_name}}</td>        
+                            @if($journey->vehical_id != null)
+                                <td>{{$journey->vehical->fullname}}</td>
+                            @endif
+                            @if($journey->vehical_id == null)
+                                <td>External Vehicle</td>
+                            @endif
+                            <td>{{$journey->expected_start_date_time->toDayDateTimeString()}}</td>
+                            <td>{{$journey->expected_end_date_time->toDayDateTimeString()}}</td>
+                            <td>{{$journey->places_to_be_visited}}</td>
+                            <td>{{$journey->expected_distance}}</td>
+                            {{-- <td width="200px">
+                                <button class="btn btn-success btnView" id="view" value={{$journey->id}} ><i class="fa fa-eye"></i></button> 
+                            </td> --}}
+                        </tr>
+
+                    @endforeach    
+                    </tbody>
+                    {{-- <tfoot>
+                    <tr>
+                        <th>Applicant Name</th>
+                        <th>Applicant Division</th>
+                        <th>Vehicle</th>
+                        <th>Start Date / Time</th>
+                        <th>End Date / Time</th>
+                        <th>Updated at</th>
+                        <th width="200px">Actions</th>
+                    </tr>
+                    </tfoot> --}}
+                </table>              
+            @endif
+
+        </div>
+    </div>
+    {{-- <div>
         @foreach($divHeads as $divHead)
 
         @if($divHead->head!='')
@@ -80,7 +138,7 @@
         @endif
 
         @endforeach
-    </div>
+    </div> --}}
 
 @endsection
 
