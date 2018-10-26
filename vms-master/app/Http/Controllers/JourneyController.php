@@ -65,7 +65,19 @@ class JourneyController extends Controller
         $vehiclesButton = Vehical::all();
         return view('journey.create',compact('fundAlFroms','drivers','vehicles','divHeads','journeys','vehiclesButton'));
     
+    } 
+
+    public function createBacklog(){
+        $journeys = Journey::all();
+        $divHeads = Division::all();
+        $fundAlFroms = FundsAllocatedFrom::all();
+        $drivers = Driver::all()->pluck('fullName','id');
+        $vehicles = Vehical::all()->pluck('fullName','id');
+        $vehiclesButton = Vehical::all();
+        return view('journey.createBacklogJourney',compact('fundAlFroms','drivers','vehicles','divHeads','journeys','vehiclesButton'));
+    
     }
+
 
     public function readJourney(){ 
             // for create journey calender view database2.table2 as db2'
@@ -287,15 +299,24 @@ class JourneyController extends Controller
         if($journey->vehical_id==NULL){
             $vehicle_num = NULL;
             $vehicle_name = NULL;
+<<<<<<< HEAD
             $driver = NULL;       
 
+=======
+            $driver = NULL;
+            $driver_completed = NULL;
+>>>>>>> dummy2
             $external = $journey->externalVehicle;
         }
         else{
             $vehicle_num = $journey->vehical->registration_no;
             $vehicle_name = $journey->vehical->name;
             $driver = $journey->driver->getFullNameAttribute();
+<<<<<<< HEAD
            
+=======
+            $driver_completed = $journey->driver_completed_at->toDayDateTimeString();
+>>>>>>> dummy2
             $external = NULL;
         }
 
@@ -317,7 +338,11 @@ class JourneyController extends Controller
 
         $real_start = $journey->real_start_date_time->toDayDateTimeString(); 
         $real_end = $journey->real_end_date_time->toDayDateTimeString(); 
+<<<<<<< HEAD
         $driver_completed = $journey->driver_completed_at->toDayDateTimeString(); 
+=======
+         
+>>>>>>> dummy2
 
         $data = json_encode(array(
             $journey , $vehicle_num ,$vehicle_name ,$driver ,$applicant_name , $applicant_dept, $applicant_email, $devisional_head, 

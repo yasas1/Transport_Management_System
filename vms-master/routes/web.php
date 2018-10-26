@@ -68,6 +68,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::post('/journey/store','JourneyController@store');
     Route::get('/journey/{id}/edit','JourneyController@edit');
     Route::patch('/journey/update/{id}','JourneyController@update');
+    Route::get('/journey/createBacklog','JourneyController@createBacklog');
 
     /*
      * Show Journey Requests
