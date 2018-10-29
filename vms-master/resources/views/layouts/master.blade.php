@@ -206,7 +206,7 @@ desired effect
                         @if(Auth::user()->canRequestJourney())
                             <li><a href="{{url('/journey/create')}}"><i class="fa fa-plus"></i> <span>NEW JOURNEY REQUEST</span></a></li>
                         @endif
-                        <li><a href="{{url('/journey/createBacklog')}}"><i class="fa fa-edit"></i> <span>NEW BACKLOG JOURNEYS</span></a></li>
+                        <li><a href="{{url('/journey/createBacklog')}}"><i class="fa fa-plus"></i> <span>NEW BACKLOG JOURNEYS</span></a></li>
                         @if(Auth::user()->canApproveJourney())
                             <li><a href="{{url('/journey/requests')}}"><i class="fa fa-edit"></i> <span>APPROVE REQUESTS (HEAD)</span></a></li>
                         @endif

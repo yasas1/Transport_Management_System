@@ -246,7 +246,9 @@
         @foreach ($vehicles as $vehicle)
             <button class="vehiclebutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}" style="border: 1px solid #555555;border-radius: 5px;"> {{$vehicle->registration_no}} </button>   
         @endforeach
-        <button  class="external"  style="height:25px;width:65px;border: 1px solid #555555;border-radius: 5px; background-color:#778899;" >External</button>  
+        @if(Auth::user()->role_id != 4)
+            <button  class="external"  style="height:25px;width:65px;border: 1px solid #555555;border-radius: 5px; background-color:#778899;" >External</button>  
+        @endif
     </div>
     <br><br>
     <!-- For Calender View -->

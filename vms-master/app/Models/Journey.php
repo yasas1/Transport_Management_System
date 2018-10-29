@@ -186,4 +186,8 @@ class Journey extends Eloquent
         return Journey::where('journey_status_id','=','7')->get();
 	}
 
+	public static function denied(){
+        return Journey::where('journey_status_id','=','3')->get();
+	}
+
 }

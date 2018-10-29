@@ -50,7 +50,8 @@ class Driver extends Eloquent
 		'nic',
 		'licence_no',
 		'mobile',
-		'licence_expire_date'
+		'licence_expire_date',
+		'emp_id'
 	];
 
 	public function title()

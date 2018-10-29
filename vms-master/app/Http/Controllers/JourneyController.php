@@ -122,13 +122,31 @@ class JourneyController extends Controller
     public function ForCompletedByVehicle(){ 
         $vid = $_GET['id'];
         //$journeys = Journey::journeyByVehicleCompleted($vid); 
-        $journeys = DB::table('journey')
-        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
-        ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
-        ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
-        ->where('vehical_id','=',$vid)->where('journey_status_id','=','6')
-        ->get();
-        return response($journeys);
+
+        if(Auth::user()->role_id == 4){
+            $driverEmp = Auth::user()->emp_id;
+
+            $driverId = Driver::where('emp_id','=',$driverEmp)->first()->id;
+
+            $journeys = DB::table('journey')
+            ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
+            ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
+            ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
+            ->where('vehical_id','=',$vid)->where('journey_status_id','=','6')
+            ->where('driver_id','=',$driverId)
+            ->get();
+            return response($journeys);
+        }
+        else{
+
+            $journeys = DB::table('journey')
+            ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
+            ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
+            ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
+            ->where('vehical_id','=',$vid)->where('journey_status_id','=','6')
+            ->get();
+            return response($journeys);
+        }
     }
     public function ForCreateByVehicle(){ 
         $vid = $_GET['id'];
@@ -154,15 +172,33 @@ class JourneyController extends Controller
         
     }
     public function readcompletedJourney(){
-            // for Completed journey calender view
+            // for Completed journey calender view URL -> /journey/readCompleted
         //$journeys = Journey::completed();
-        $journeys = DB::table('journey')
-        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
-        ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
-        ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
-        ->where('journey_status_id','=','6')
-        ->get();
-        return response($journeys);
+
+        if(Auth::user()->role_id == 4){
+            $driverEmp = Auth::user()->emp_id;
+
+            $driverId = Driver::where('emp_id','=',$driverEmp)->first()->id;
+
+            $journeys = DB::table('journey')
+            ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
+            ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
+            ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
+            ->where('journey_status_id','=','6')
+            ->where('driver_id','=',$driverId)
+            ->get();
+            return response($journeys);
+        }
+        else{
+            $journeys = DB::table('journey')
+            ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
+            ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
+            ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
+            ->where('journey_status_id','=','6')
+            ->get();
+            return response($journeys);
+        }
+        
     }
     public function ForOngingView(){ 
         $journeyid = $_GET['id'];
@@ -542,17 +578,33 @@ class JourneyController extends Controller
         return view('journey.confirmed',compact('journeys','drivers','vehicles'));
     }
     public function completed(){
+
+        if(Auth::user()->role_id == 4){
+            $driverEmp = Auth::user()->emp_id;
+            $driverId = Driver::where('emp_id','=',$driverEmp)->first()->id;
+            
+            $journeys = Journey::where('journey_status_id','=','6')
+            ->where('driver_id','=',$driverId)
+            ->get();
+
+            //return $journeys;
+
+            $vehicles = Vehical::all(); // for vehicle color button {delete}
+            return view('journey.completed',compact('journeys','vehicles'));
+        }
+        else{
+            $journeys = Journey::completed();
+            $vehicles = Vehical::all(); // for vehicle color button {delete}
+            return view('journey.completed',compact('journeys','vehicles'));
+        }
         
-        $journeys = Journey::completed();
-        $vehicles = Vehical::all(); // for vehicle color button {delete}
-        return view('journey.completed',compact('journeys','vehicles'));
     }
     public function cancelledJourney(){
         
         $journeys = Journey::cancelled();
-        $divHeads = Division::all();
+        $DeniedJourneys = Journey::denied();
     
-        return view('journey.cancelled',compact('journeys','divHeads'));
+        return view('journey.cancelled',compact('journeys','DeniedJourneys'));
     }
     public function isDivisionalHead($id){
         // $divHeads = Division::all();
