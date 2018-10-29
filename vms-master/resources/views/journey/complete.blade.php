@@ -18,6 +18,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">Ongoing Journey List</h3>
         </div>
+        <button type="button" class="btn btn-info"> <a href="{{ url('/journey/requests/completed') }}">Journey History</a></button>
         <div class="box-body">
             @if($journeys)
                 <table class="table" id="table">
@@ -30,6 +31,7 @@
                         <th>End Date / Time</th>
                         <th width="200px">Actions</th>
                     </tr>
+                    {{-- /journey/requests/completed --}}
                     </thead>
                     <tbody>
                     @foreach($journeys as $journey)

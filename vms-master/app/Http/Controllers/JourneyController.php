@@ -592,10 +592,12 @@ class JourneyController extends Controller
             $vehicles = Vehical::all(); // for vehicle color button {delete}
             return view('journey.completed',compact('journeys','vehicles'));
         }
+        else{
+            $journeys = Journey::completed();
+            $vehicles = Vehical::all(); // for vehicle color button {delete}
+            return view('journey.completed',compact('journeys','vehicles'));
+        }
         
-        $journeys = Journey::completed();
-        $vehicles = Vehical::all(); // for vehicle color button {delete}
-        return view('journey.completed',compact('journeys','vehicles'));
     }
     public function cancelledJourney(){
         
