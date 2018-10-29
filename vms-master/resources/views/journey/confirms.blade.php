@@ -368,7 +368,7 @@
                     <div class="col-md-5">
                         <input type="submit" class="btn btn-success" name="submit" value="CONFIRM"> 
                         </form>
-
+                    <br/>
                         {!! Form::open(['method' => 'post','id'=>'formDenied','action'=>['JourneyConfirmController@deny']]) !!}   
                             <input type="hidden" name="id" id="Id">  
                             <input type="submit" class="btn btn-warning" name="cancel" value="DENY">                                                     
