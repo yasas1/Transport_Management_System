@@ -107,7 +107,7 @@
                                                     <dt>Vehicle Name</dt>
                                                     <dd>{{$journey->vehical->name}}</dd>
                                                     <dt>Driver</dt>
-                                                    <dd>{{$journey->vehical->driver->fullname}}</dd>
+                                                    <dd>{{$journey->driver->fullname}}</dd>
                                                 @endif
                                                 @if($journey->vehical_id ==null)
                                                     <dt>Vehicle</dt>

@@ -454,10 +454,10 @@
                         dayClick: function(date) {
                             //alert('clicked ' + date.format());
                         },
-                        selectConstraint: {
-                            start: $.fullCalendar.moment().add(10, 'minutes'), //subtract
-                            end: $.fullCalendar.moment().startOf('year').add(1, 'year')
-                        },
+                        // selectConstraint: {
+                        //     start: $.fullCalendar.moment().add(10, 'minutes'), //subtract
+                        //     end: $.fullCalendar.moment().startOf('year').add(1, 'year')
+                        // },
                         select: function(startDate, endDate) {                 
                             $('#myModal').modal('toggle');
                             //alert('selected ' + startDate.format() + ' to ' + endDate.format());
