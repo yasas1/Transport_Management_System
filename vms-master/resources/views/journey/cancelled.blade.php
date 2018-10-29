@@ -13,7 +13,7 @@
     @include('layouts.success')
     <div class="box box-primary" style="height: 450px; overflow: auto;" >
         <div class="box-header with-border">
-            <h3 class="box-title"> Cancelled Journey </h3>
+            <h3 class="box-title"> <strong> Cancelled Journeys </strong></h3>
         </div>
         <div class="box-body">
             @if($journeys)
@@ -71,11 +71,11 @@
 
     <div class="box box-primary" style="height: 450px; overflow: auto;" >
         <div class="box-header with-border">
-            <h3 class="box-title"> Cancelled Journey </h3>
+            <h3 class="box-title" > <strong> Denied Journeys </strong> </h3>
         </div>
         <div class="box-body">
-            @if($journeys)
-                <table class="table" id="table">
+            @if($DeniedJourneys)
+                <table class="table" id="tableDenied">
                     <thead>
                     <tr>
                         <th>Applicant Name</th>
@@ -89,7 +89,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($journeys as $journey)
+                    @foreach($DeniedJourneys as $journey)
                         <tr>
                             <td>{{$journey->applicant->emp_surname}}</td>
                             <td>{{$journey->applicant->division->dept_name}}</td>        
@@ -110,8 +110,8 @@
 
                     @endforeach    
                     </tbody>
-                    {{-- <tfoot>
-                    <tr>
+                    <tfoot>
+                    {{-- <tr>
                         <th>Applicant Name</th>
                         <th>Applicant Division</th>
                         <th>Vehicle</th>
@@ -119,8 +119,8 @@
                         <th>End Date / Time</th>
                         <th>Updated at</th>
                         <th width="200px">Actions</th>
-                    </tr>
-                    </tfoot> --}}
+                    </tr> --}}
+                    </tfoot>
                 </table>              
             @endif
 
@@ -170,5 +170,33 @@
         });    
 
     </script>
+
+<script>
+    $(document).ready(function() {
+        $('#tableDenied').DataTable( {
+            initComplete: function () {
+                this.api().columns().every( function () {
+                    var column = this;
+                    var select = $('<select><option value=""></option></select>')
+                        .appendTo( $(column.footer()).empty() )
+                        .on( 'change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search( val ? '^'+val+'$' : '', true, false )
+                                .draw();
+                        } );
+
+                    column.data().unique().sort().each( function ( d, j ) {
+                        select.append( '<option value="'+d+'">'+d+'</option>' )
+                    } );
+                } );
+            }
+        });  
+    });    
+
+</script>
 
 @endsection

@@ -639,9 +639,9 @@ class JourneyController extends Controller
     public function cancelledJourney(){
         
         $journeys = Journey::cancelled();
-        $divHeads = Division::all();
+        $DeniedJourneys = Journey::denied();
     
-        return view('journey.cancelled',compact('journeys','divHeads'));
+        return view('journey.cancelled',compact('journeys','DeniedJourneys'));
     }
 
     public function isDivisionalHead($id){
