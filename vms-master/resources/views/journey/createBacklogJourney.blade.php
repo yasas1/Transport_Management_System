@@ -58,7 +58,7 @@
                     </div> 
                     @endif
 
-                    {!! Form::open(['method' => 'post','action'=>'JourneyController@store','files'=>true]) !!}
+                    {!! Form::open(['method' => 'post','action'=>'JourneyController@storeBacklog','files'=>true]) !!}
                     <div class="row">
                         <div class="col-md-12">
                             <h4><i class="fa fa-user"></i> Applicant</h4>

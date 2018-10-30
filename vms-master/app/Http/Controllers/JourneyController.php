@@ -418,6 +418,41 @@ class JourneyController extends Controller
         }
             return redirect()->back()->with(['success'=>'Journey added successfully !']);
     }
+
+    public function storeBacklog(CreateJourneyRequest $request)
+    {     
+        $journey = new Journey;
+        //$journey->applicant_id = '000004';
+       $journey->applicant_id = Auth::user()->emp_id;
+        $journey->vehical_id = $request->vehical_id;
+        if ($vehicle = Vehical::whereId($request->vehical_id)->first()){
+            $journey->driver_id = $vehicle->driver->id;
+        }
+        $string=$request->time_range;
+        $pos = strrpos($string, ' - ');
+        $first = substr($string, 0, $pos);
+        $second = substr($string, $pos + 3); 
+        if($expected_start_date_time = Carbon::parse($first)){
+                $journey->expected_start_date_time = $expected_start_date_time;
+        }
+        if($expected_end_date_time = Carbon::parse($second)){
+            $journey->expected_end_date_time = $expected_end_date_time;
+        }  
+        $journey->purpose = $request->purpose;
+        $journey->places_to_be_visited = $request->places_to_be_visited;
+        $journey->number_of_persons = $request->number_of_persons;
+        $journey->expected_distance = $request->expected_distance;
+        //check long distance
+        if($request->expected_distance>=150){
+            $journey->is_long_distance = 1;
+        }
+        $journey->funds_allocated_from_id = $request->funds_allocated_from_id;
+        $journey->divisional_head_id = $request->divisional_head_id;
+        $journey->save();      
+        
+        return redirect()->back()->with(['success'=>'Journey added successfully !']);
+    }
+
     public function cancel(Request $request){
         $id = $request->id ;
         

@@ -18,7 +18,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">Ongoing Journey List</h3>
         </div>
-        <button type="button" class="btn btn-info"> <a href="{{ url('/journey/requests/completed') }}">Journey History</a></button>
+        <a href="{{ url('/journey/requests/completed') }}" class="btn btn-info" role="button">View Journey History</a>
         <div class="box-body">
             @if($journeys)
                 <table class="table" id="table">
@@ -221,7 +221,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <input type="submit" class="btn btn-success"  value="Submit">
+                                    <input type="submit" class="btn btn-success"  value="Complete">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                     {!! Form::close() !!}
                                 </div>
