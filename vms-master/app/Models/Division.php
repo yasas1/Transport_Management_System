@@ -52,6 +52,10 @@ class Division extends Eloquent
 	public function head(){
         return $this->hasOne(\App\Models\Employee::class,'emp_divison_id','dept_id');
 	}
+
+	public function getHead(){
+        return $this->hasOne(\App\Models\Employee::class,'emp_id','head');
+	}
 	
 
 }
