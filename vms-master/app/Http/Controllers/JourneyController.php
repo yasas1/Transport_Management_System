@@ -61,7 +61,7 @@ class JourneyController extends Controller
     
     } 
     public function createBacklog(){
-        $journeys = Journey::all();
+        $journeys = Journey::where('journey_status_id','=','8')->get();
         $divHeads = Division::all();
         $fundAlFroms = FundsAllocatedFrom::all();
         $drivers = Driver::all()->pluck('fullName','id');
@@ -420,8 +420,19 @@ class JourneyController extends Controller
             return redirect()->back()->with(['success'=>'Journey added successfully !']);
     }
 
-    public function storeBacklog(Request $request)
-    {     
+    public function storeBacklog(Request $request){
+        
+        $this->validate($request , [
+            'applicant_id' => 'required',
+            'vehical_id' => 'required',
+            'time_range' => 'required',
+            'number_of_persons' => 'required',
+            'real_distance' => 'required',
+            'divisional_head_id' => 'required',
+            'purpose' => 'required', 
+            'funds_allocated_from_id' => 'required',
+        ]);
+        
         $journey = new Journey;
         //return $request->vehical_id;
         //$journey->applicant_id = '000004'; driver_id
@@ -466,7 +477,7 @@ class JourneyController extends Controller
 
         $journey->journey_status_id = '8';
 
-        // return $journey; 
+        return $journey; 
         $journey->save();      
         
         return redirect()->back()->with(['success'=>'Backlog Journey added successfully !']);
