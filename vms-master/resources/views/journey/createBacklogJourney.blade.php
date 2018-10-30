@@ -316,9 +316,9 @@
                         color : journey_colors[value.vehical_id]
                     });    
                 } 
-                else{
+                else{        //for external vehicle color
                     qEvent.push({ 
-                        title : value.places_to_be_visited, // need place as the title
+                        title : value.places_to_be_visited, 
                         start : value.expected_start_date_time,
                         end : value.expected_end_date_time,
                         id :  value.id, 

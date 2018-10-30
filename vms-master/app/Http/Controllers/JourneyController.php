@@ -613,14 +613,16 @@ class JourneyController extends Controller
             $longDisJourneys = NULL;
             return view('journey.requests',compact('journeys','longDisJourneys'));
         }
-          // this 
+          */
         if(Auth::user()->role_id == 1){
-            return "Director";
+            $journeys = Journey::notApproved(); 
+            $longDisJourneys = Journey::notApprovedLongDistance();
+            return view('journey.requests',compact('journeys','longDisJourneys'));
         }
         else if(Auth::user()->role_id == 2){
             return "Divisional Head";
         }
-         */
+         
         // return Auth::user();
         
         $journeys = Journey::notApproved(); 
