@@ -65,7 +65,8 @@ class JourneyController extends Controller
         $divHeads = Division::all();
         $fundAlFroms = FundsAllocatedFrom::all();
         $drivers = Driver::all()->pluck('fullName','id');
-        $vehicles = Vehical::all()->pluck('fullName','id');
+        //$vehicles = Vehical::all()->pluck('fullName','id');
+        $vehicles = Vehical::all();
         $vehiclesButton = Vehical::all();
         return view('journey.createBacklogJourney',compact('fundAlFroms','drivers','vehicles','divHeads','journeys','vehiclesButton'));
     
@@ -423,30 +424,41 @@ class JourneyController extends Controller
     {     
         $journey = new Journey;
         return $request->applicant_id;
-        //$journey->applicant_id = '000004';
-       $journey->applicant_id = Auth::user()->emp_id;
+        //$journey->applicant_id = '000004'; driver_id
+        $journey->applicant_id = $request->applicant_id;
+
         $journey->vehical_id = $request->vehical_id;
-        if ($vehicle = Vehical::whereId($request->vehical_id)->first()){
+        if($request->driver_id == NULL){
+            $vehicle = Vehical::whereId($request->vehical_id)->first();
             $journey->driver_id = $vehicle->driver->id;
         }
+        else{
+            $journey->driver_id = $request->driver_id;
+        }
+        // if ($vehicle = Vehical::whereId($request->vehical_id)->first()){
+        //     $journey->driver_id = $vehicle->driver->id;
+        // }
         $string=$request->time_range;
         $pos = strrpos($string, ' - ');
         $first = substr($string, 0, $pos);
         $second = substr($string, $pos + 3); 
-        if($expected_start_date_time = Carbon::parse($first)){
-                $journey->expected_start_date_time = $expected_start_date_time;
+        if($real_start_date_time = Carbon::parse($first)){
+                $journey->real_start_date_time = $real_start_date_time;
         }
-        if($expected_end_date_time = Carbon::parse($second)){
-            $journey->expected_end_date_time = $expected_end_date_time;
+        if($real_end_date_time = Carbon::parse($second)){
+            $journey->real_end_date_time = $real_end_date_time;
         }  
+
         $journey->purpose = $request->purpose;
         $journey->places_to_be_visited = $request->places_to_be_visited;
         $journey->number_of_persons = $request->number_of_persons;
-        $journey->expected_distance = $request->expected_distance;
+        $journey->real_distance = $request->real_distance;
+
         //check long distance
         if($request->expected_distance>=150){
             $journey->is_long_distance = 1;
         }
+        
         $journey->funds_allocated_from_id = $request->funds_allocated_from_id;
         $journey->divisional_head_id = $request->divisional_head_id;
         $journey->save();      

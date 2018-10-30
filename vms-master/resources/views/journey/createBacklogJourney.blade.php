@@ -73,9 +73,9 @@
                                    
                                     <div class="form-group">
                                     {!! Form::hidden('applicant_id', null,['id'=>'textApplicant']); !!}
-                                        <div class="btn-group dropup col-md-12">
+                                        <div class="btn-group dropdown col-md-12">
                                             <button type="button" class="btn btn-default" id="divApplicant">Select Applicant </button>
-                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
                                                 <span class="caret"></span>
                                                 <span class="sr-only">Toggle Dropdown</span>
                                             </button>
@@ -93,27 +93,46 @@
 
                                         </div>
                                     </div>
-                                     
-                                    {{-- <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="applicant_email"><h4>Email - {{Auth::user()->email.'@ucsc.cmb.ac.lk'}}</h4></label>
-                                        </div>
-                                    </div> --}}
                                 </div>
                             </div>
                             <div class="clearfix"></div>
 
-
-                            <h4><i class="fa fa-car"></i> Vehicle Required</h4>
-                            <div class="col-md-offset-1">
+                            {{-- <h4><i class="fa fa-car"></i> Vehicle </h4> --}}
+                            {{-- <div class="col-md-offset-1"> --}}
                                 <div class="row">
                                     <div class="col-md-6">
+                                            <h4><i class="fa fa-car"></i> Vehicle </h4>
                                         <div class="form-group">
-                                            {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Select a Vehicle'])}}
+                                            
+                                            {{-- <label for="vehical_id">Change Vehicle</label> --}}
+                                            {{-- {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control','id'=>'vehicle'])}} --}}
+                                            <select  name="vehical_id" id="vehicle_select" class="form-control vehicle">                                                                                                       
+                                                @foreach ($vehicles as $vehicle)
+                                                    <option value="{{ $vehicle->id }}" >{{ $vehicle->registration_no }} ( {{ $vehicle->name }} )  </option>
+                                                @endforeach  
+                                                    <option id="external" value="0">External Vehicle</option>   
+                                            </select>
+                                        </div>                                    
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="driverdiv">
+                                            {{-- <label for="driver_id">Select Driver</label> --}}
+                                            <h4><i class="fa fa-car"></i> Driver </h4>
+                                            {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','id'=>'driverid','placeholder'=>'Select a Vehicle'])}}
+                                        </div>
+                                        <div class="form-group" id="company">
+                                                {{-- <label for="company_name">External Vehicle's Company Name</label> --}}
+                                                <h5><i class="fa fa-car"></i> External Vehicle's Company Name </h5>
+                                                {!! Form::text('company_name',null,['class'=>'form-control','id'=>'companyName','placeholder'=>'Company Name' ]) !!}
+                                        </div>
+                                        <div class="form-group" id="companycost">
+                                            {{-- <label for="company_cost">Cost</label> --}}
+                                            <h5><i class="fa fa-car"></i> Cost </h5>
+                                            {!! Form::text('cost',null,['class'=>'form-control','id'=>'cost','placeholder'=>'Cost' ]) !!}
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            
 
                             <div class="clearfix"></div>
 
@@ -163,9 +182,9 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="expected_distance" class="col-sm-7">Approximate Distance (km)</label>
+                                            <label for="expected_distance" class="col-sm-7"> Distance (km)</label>
                                             <div class="col-lg-5">
-                                                {{Form::text('expected_distance',null,['class'=>'form-control','placeholder'=>'km','id'=>'txtDistance'])}}
+                                                {{Form::text('real_distance',null,['class'=>'form-control','placeholder'=>'km','id'=>'txtDistance'])}}
                                             </div>
                                         </div>
                                     </div>
@@ -218,11 +237,36 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <h4><i class="fa fa-user-o"></i> Approved By</h4>
+                            <div class="col-md-offset-1">
+                                <div class="row">
+                                    <div class="">
+                                        {!! Form::hidden('approved_by', null,['id'=>'txtApprovedBy']); !!}
+                                        <div class="btn-group dropup col-md-12">
+                                            <button type="button" class="btn btn-default" id="divApprovedBy">Select Divisional Head</button>
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="caret"></span>
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                @foreach($divHeads as $divHead)
+                                                    @if($divHead->head !='')
+                                                        <li class="cmbApprovedBy dropdown-item" data-value="{{$divHead->head}}">
+                                                        <span>
+                                                            {{$divHead->getHead()->first()->emp_initials.'. '.$divHead->getHead()->first()->emp_surname.' ( '.$divHead->dept_name.' )'}}
+                                                        </span>
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    {{--'is_long_distance',--}}
-                    {{--'real_distance'--}}
-
                 </div>
                 <div class="modal-footer">
                     <div class="form-group">
@@ -237,21 +281,6 @@
 
         </div>
     </div>
-    {{--<div class="col-md-6">--}}
-        {{--<div class="box box-primary">--}}
-            {{--<div class="box-header with-border">--}}
-                {{--<h3 class="box-title">Vehicle Calender</h3>--}}
-            {{--</div>--}}
-            {{--<div class="box-body">--}}
-                {{--<div class="row">--}}
-                    {{--<div class="col-md-12">--}}
-                        {{--<iframe src="https://calendar.google.com/calendar/embed?src=cmb.ac.lk_3131313639323032363931%40resource.calendar.google.com&ctz=Asia%2FColombo" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--{!! Form::close() !!}--}}
-        {{--</div>--}}
-    {{--</div>--}}
     <div class="aletr alert-successs" id="aaa">aaaa</div>
 @endsection
 
@@ -507,9 +536,13 @@
             $('#txtDivisionalHead').val($(this).attr('data-value'));
             $('#divDiviHead').html($(this).html());
         });
-        $('.cmbApplicant').on('click',function () {
+        $('.cmbApplicant').on('click',function () {   
             $('#textApplicant').val($(this).attr('data-value'));
             $('#divApplicant').html($(this).html());
+        });
+        $('.cmbApprovedBy').on('click',function () {
+            $('#txtApprovedBy').val($(this).attr('data-value'));
+            $('#divApprovedBy').html($(this).html());
         });
     </script>
     
@@ -542,5 +575,38 @@
         //     console.log( 'check change' );  
         // });
     </script>
+
+<script>
+
+    $(document).ready(function() {
+
+        $("#company").hide();
+        $("#companycost").hide();
+
+        $(".vehicle").on('change',function(evt){
+        
+            var vehicle = $(this).val();
+            if( vehicle == 0 ){
+                $("#company").show();
+                $("#companycost").show();
+                $("#driverdiv").hide();
+            }
+            else{
+                $("#company").hide();
+                $("#companycost").hide();
+                $("#driverdiv").show();
+            }
+
+        });
+
+        $("#close").on('click',function(evt){
+            $("#company").hide();
+            $("#companycost").hide();
+            $("#driverdiv").show();
+            console.log("vehicle");
+        });
+
+    });
+</script>
 
 @endsection
