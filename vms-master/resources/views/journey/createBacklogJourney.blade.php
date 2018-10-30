@@ -59,21 +59,46 @@
                     @endif
 
                     {!! Form::open(['method' => 'post','action'=>'JourneyController@storeBacklog','files'=>true]) !!}
+                    {{-- storeBacklog --}}
                     <div class="row">
                         <div class="col-md-12">
                             <h4><i class="fa fa-user"></i> Applicant</h4>
                             <div class="col-md-offset-1">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="name"><h4>Name - {{Auth::user()->name}}</h4></label>
                                         </div>
+                                    </div> --}}
+                                   
+                                    <div class="form-group">
+                                    {!! Form::hidden('applicant_id', null,['id'=>'textApplicant']); !!}
+                                        <div class="btn-group dropup col-md-12">
+                                            <button type="button" class="btn btn-default" id="divApplicant">Select Applicant </button>
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="caret"></span>
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                @foreach($divHeads as $divHead)
+                                                    @if($divHead->head !='')
+                                                        <li class="cmbApplicant dropdown-item" data-value="{{$divHead->head}}">
+                                                        <span>
+                                                            {{$divHead->getHead()->first()->emp_initials.'. '.$divHead->getHead()->first()->emp_surname}}
+                                                        </span>
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
+
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
+                                     
+                                    {{-- <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="applicant_email"><h4>Email - {{Auth::user()->email.'@ucsc.cmb.ac.lk'}}</h4></label>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="clearfix"></div>
@@ -179,10 +204,10 @@
                                             </button>
                                             <ul class="dropdown-menu">
                                                 @foreach($divHeads as $divHead)
-                                                    @if($divHead->head()->first()!='')
-                                                        <li class="cmbDivHead dropdown-item" data-value="{{$divHead->head()->first()->emp_id}}">
+                                                    @if($divHead->head !='')
+                                                        <li class="cmbDivHead dropdown-item" data-value="{{$divHead->head}}">
                                                         <span>
-                                                            {{$divHead->head()->first()->emp_initials.'. '.$divHead->head()->first()->emp_surname.' ( '.$divHead->dept_name.' )'}}
+                                                            {{$divHead->getHead()->first()->emp_initials.'. '.$divHead->getHead()->first()->emp_surname.' ( '.$divHead->dept_name.' )'}}
                                                         </span>
                                                         </li>
                                                     @endif
@@ -481,6 +506,10 @@
         $('.cmbDivHead').on('click',function () {
             $('#txtDivisionalHead').val($(this).attr('data-value'));
             $('#divDiviHead').html($(this).html());
+        });
+        $('.cmbApplicant').on('click',function () {
+            $('#textApplicant').val($(this).attr('data-value'));
+            $('#divApplicant').html($(this).html());
         });
     </script>
     

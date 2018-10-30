@@ -419,9 +419,10 @@ class JourneyController extends Controller
             return redirect()->back()->with(['success'=>'Journey added successfully !']);
     }
 
-    public function storeBacklog(CreateJourneyRequest $request)
+    public function storeBacklog(Request $request)
     {     
         $journey = new Journey;
+        return $request->applicant_id;
         //$journey->applicant_id = '000004';
        $journey->applicant_id = Auth::user()->emp_id;
         $journey->vehical_id = $request->vehical_id;
