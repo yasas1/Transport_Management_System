@@ -423,7 +423,7 @@ class JourneyController extends Controller
     public function storeBacklog(Request $request)
     {     
         $journey = new Journey;
-        return $request->applicant_id;
+        //return $request->vehical_id;
         //$journey->applicant_id = '000004'; driver_id
         $journey->applicant_id = $request->applicant_id;
 
@@ -458,12 +458,18 @@ class JourneyController extends Controller
         if($request->expected_distance>=150){
             $journey->is_long_distance = 1;
         }
-        
+
         $journey->funds_allocated_from_id = $request->funds_allocated_from_id;
         $journey->divisional_head_id = $request->divisional_head_id;
+
+        $journey->approved_by = $request->approved_by;
+
+        $journey->journey_status_id = '8';
+
+        // return $journey; 
         $journey->save();      
         
-        return redirect()->back()->with(['success'=>'Journey added successfully !']);
+        return redirect()->back()->with(['success'=>'Backlog Journey added successfully !']);
     }
 
     public function cancel(Request $request){

@@ -244,7 +244,7 @@
                                     <div class="">
                                         {!! Form::hidden('approved_by', null,['id'=>'txtApprovedBy']); !!}
                                         <div class="btn-group dropup col-md-12">
-                                            <button type="button" class="btn btn-default" id="divApprovedBy">Select Divisional Head</button>
+                                            <button type="button" class="btn btn-default" id="divApprovedBy">Approved By</button>
                                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <span class="caret"></span>
                                                 <span class="sr-only">Toggle Dropdown</span>
@@ -273,7 +273,7 @@
                         <hr>
                         {{Form::submit('SEND JOURNEY REQUEST', ['class'=>'btn btn-success pull-left'])}}
                         {{Form::reset('RESET', ['class'=>'btn btn-warning'])}}
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" id="close">Close</button>
                     </div>
                     {!! Form::close() !!}
                 </div>
@@ -544,6 +544,8 @@
             $('#txtApprovedBy').val($(this).attr('data-value'));
             $('#divApprovedBy').html($(this).html());
         });
+
+        
     </script>
     
     <script type="text/javascript">
