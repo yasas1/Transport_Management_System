@@ -438,14 +438,29 @@ class JourneyController extends Controller
         //$journey->applicant_id = '000004'; driver_id
         $journey->applicant_id = $request->applicant_id;
 
-        $journey->vehical_id = $request->vehical_id;
-        if($request->driver_id == NULL){
-            $vehicle = Vehical::whereId($request->vehical_id)->first();
-            $journey->driver_id = $vehicle->driver->id;
+        if($request->vehical_id == 0){
+            $journey->vehical_id = Null;
+            $journey->driver_id = NULL;
+
+            $externalNew = new ExternalVehicle;       
+            $externalNew->company_name = $request->company_name ;               
+            $externalNew->cost = $request->cost ;                  
+            //$externalNew->journey_id = $request->id;              
+            $externalNew->save();
+
         }
         else{
-            $journey->driver_id = $request->driver_id;
+            $journey->vehical_id = $request->vehical_id;
+            if($request->driver_id == NULL){
+                $vehicle = Vehical::whereId($request->vehical_id)->first();
+                $journey->driver_id = $vehicle->driver->id;
+            }
+            else{
+                $journey->driver_id = $request->driver_id;
+            }
         }
+
+        
         // if ($vehicle = Vehical::whereId($request->vehical_id)->first()){
         //     $journey->driver_id = $vehicle->driver->id;
         // }
