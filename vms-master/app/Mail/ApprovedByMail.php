@@ -17,10 +17,12 @@ class ApprovedByMail extends Mailable
      * @return void
      */
     public $address;
+    public $msg;
 
-    public function __construct($address)
+    public function __construct($address,$msg)
     {
         $this->address = $address;
+        $this->msg = $msg;
     }
 
     /**
@@ -30,6 +32,6 @@ class ApprovedByMail extends Mailable
      */
     public function build()
     {
-        return $this->view('Mail.mailForApprovedBy')->to($this->address);
+        return $this->view('Mail.mailForApprovedBy',['msg'=>$this->msg])->to($this->address);
     }
 }

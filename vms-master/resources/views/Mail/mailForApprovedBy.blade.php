@@ -76,8 +76,13 @@
                     <tr class="m_-7480336755895581727content__row">
                         <td class="m_-7480336755895581727content__text" style="border-collapse:collapse;padding:0">
                             <p style="color:#666;font-size:14px;margin:0">Welcome!</p>
-                            <p style="color:#666;font-size:14px;margin:0">Your key request accepted. Your divisional head has to authorize this request.</p>
-                            <p style="color:#666;font-size:14px;margin:0">Click the button to verify your key request.. </p>
+                            <p style="color:#666;font-size:14px;margin:0"> 
+                                This is to inform that you have been appointed as an approver of a recent backlog journey.
+                            </p>
+                            <p style="color:#000000;font-size:14px;margin:0"> 
+                                {{$msg}}
+                            </p>
+                            
                         </td>
                     </tr>
                     <tr class="m_-7480336755895581727content__row">
@@ -99,7 +104,7 @@
         </tr>
         <tr>
             <td style="border-collapse:collapse;color:#666;font-size:12px;padding:20px;text-align:center;width:100%" bgcolor="#f7f7f7">
-                You received this email because you requested a key using Key Management System (UCSC). If you didn't request this, you can safely ignore this e-mail.
+                If you didn't approve this, you can inform.
             </td>
         </tr>
         <tr>
