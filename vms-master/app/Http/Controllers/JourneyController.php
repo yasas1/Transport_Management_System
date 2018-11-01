@@ -446,7 +446,7 @@ class JourneyController extends Controller
             $externalNew->company_name = $request->company_name ;               
             $externalNew->cost = $request->cost ;                  
             //$externalNew->journey_id = $request->id;              
-            $externalNew->save();
+            //$externalNew->save();
 
         }
         else{
@@ -460,10 +460,6 @@ class JourneyController extends Controller
             }
         }
 
-        
-        // if ($vehicle = Vehical::whereId($request->vehical_id)->first()){
-        //     $journey->driver_id = $vehicle->driver->id;
-        // }
         $string=$request->time_range;
         $pos = strrpos($string, ' - ');
         $first = substr($string, 0, $pos);
@@ -489,6 +485,15 @@ class JourneyController extends Controller
         $journey->divisional_head_id = $request->divisional_head_id;
 
         $journey->approved_by = $request->approved_by;
+
+        if($request->approved_by != NULL){
+
+            $approvedID = $request->approved_by;
+
+            $emailOfApproved = Employee::where('emp_id','=',$approvedID)->first()->emp_email.'@ucsc.cmb.ac.lk';
+
+            //return $emailOfApproved; 
+        }    
 
         $journey->journey_status_id = '8';
 
