@@ -22,6 +22,10 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Http\Requests\CreateJourneyRequest;
 use Session;
 use View;
+
+use Mail;
+use App\Mail\ApprovedByMail;
+
 class JourneyController extends Controller
 {
     protected $client;
@@ -490,12 +494,18 @@ class JourneyController extends Controller
 
             $approvedID = $request->approved_by;
 
-            $emailOfApproved = Employee::where('emp_id','=',$approvedID)->first()->emp_email.'@ucsc.cmb.ac.lk';
+            //$emailAddress = Employee::where('emp_id','=',$approvedID)->first()->emp_email.'@ucsc.cmb.ac.lk';
 
             //return $emailOfApproved; 
+
+            
         }    
 
+        $emailAddress= 'ranawaka.y@gmail.com';
+
         $journey->journey_status_id = '8';
+
+        Mail::send(new ApprovedByMail($emailAddress));
 
         return $journey; 
         $journey->save();      
