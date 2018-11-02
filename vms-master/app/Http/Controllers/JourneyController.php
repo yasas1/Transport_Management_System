@@ -418,6 +418,11 @@ class JourneyController extends Controller
         if($request->expected_distance>=150){
             $journey->is_long_distance = 1;
         }
+
+        if(Auth::user()->role_id == 1){
+            $journey->journey_status_id = 2;
+        }
+
         $journey->funds_allocated_from_id = $request->funds_allocated_from_id;
         $journey->divisional_head_id = $request->divisional_head_id;
         $journey->save();      
@@ -675,8 +680,8 @@ class JourneyController extends Controller
     }
     public function requests(){
             
-        //$userlogid = Auth::user()->emp_id; 
-        //$userlogid = "000147"; //000140
+        $userlogid = Auth::user()->emp_id; 
+        //$userlogid = "000538"; //000140
            /*         
         if($this->isDirector($userlogid)){  // Code for Director for approve
             $journeys = Journey::notApproved(); 
@@ -698,7 +703,12 @@ class JourneyController extends Controller
             return view('journey.requests',compact('journeys','longDisJourneys'));
         }
         else if(Auth::user()->role_id == 2){
-            return "Divisional Head";
+                // Code for particular divissional head requests for approve
+            $journeys = Journey::where('divisional_head_id','=',$userlogid)
+                ->where('journey_status_id','=','2')
+                ->where('is_long_distance', '=', '0')->get();
+            $longDisJourneys = NULL;
+            return view('journey.requests',compact('journeys','longDisJourneys'));
         }
          
         // return Auth::user();
@@ -752,12 +762,7 @@ class JourneyController extends Controller
         return view('journey.cancelled',compact('journeys','DeniedJourneys'));
     }
     public function isDivisionalHead($id){
-        // $divHeads = Division::all();
-        // foreach($divHeads as $divHead){
-        //     if($divHead->head !='' && $divHead->head == $id){
-        //         return true; 
-        //     }
-        // }
+        
         if($divHeads=Division::where('head', '=', $id )->get()){
             if($divHeads->count() != 0){
                 return true;
