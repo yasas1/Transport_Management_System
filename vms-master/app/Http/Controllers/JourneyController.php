@@ -22,6 +22,10 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Http\Requests\CreateJourneyRequest;
 use Session;
 use View;
+
+use Mail;
+use App\Mail\ApprovedByMail;
+
 class JourneyController extends Controller
 {
     protected $client;
@@ -426,7 +430,6 @@ class JourneyController extends Controller
             'applicant_id' => 'required',
             'vehical_id' => 'required',
             'time_range' => 'required',
-            'number_of_persons' => 'required',
             'real_distance' => 'required',
             'divisional_head_id' => 'required',
             'purpose' => 'required', 
@@ -434,21 +437,24 @@ class JourneyController extends Controller
         ]);
         
         $journey = new Journey;
-        //return $request->vehical_id;
-        //$journey->applicant_id = '000004'; driver_id
-        $journey->applicant_id = $request->applicant_id;
 
-        $journey->vehical_id = $request->vehical_id;
-        if($request->driver_id == NULL){
-            $vehicle = Vehical::whereId($request->vehical_id)->first();
-            $journey->driver_id = $vehicle->driver->id;
+        $journey->applicant_id = $request->applicant_id;
+       
+        if($request->vehical_id != 0){
+            $journey->vehical_id = $request->vehical_id;
+            if($request->driver_id == NULL){
+                $vehicle = Vehical::whereId($request->vehical_id)->first();
+                $journey->driver_id = $vehicle->driver->id;
+            }
+            else{
+                $journey->driver_id = $request->driver_id;
+            }
         }
         else{
-            $journey->driver_id = $request->driver_id;
+            $journey->vehical_id = Null;
+            $journey->driver_id = NULL;
         }
-        // if ($vehicle = Vehical::whereId($request->vehical_id)->first()){
-        //     $journey->driver_id = $vehicle->driver->id;
-        // }
+
         $string=$request->time_range;
         $pos = strrpos($string, ' - ');
         $first = substr($string, 0, $pos);
@@ -475,10 +481,36 @@ class JourneyController extends Controller
 
         $journey->approved_by = $request->approved_by;
 
+        if($request->approved_by != NULL){
+
+            $approvedID = $request->approved_by;
+
+                    /* Sending email -- send from webmaster email -- check after uploaded to sever */
+
+            // $emailAddress = Employee::where('emp_id','=',$approvedID)->first()->emp_email.'@ucsc.cmb.ac.lk';
+
+            // $msg= 'Place -  '.$journey->places_to_be_visited.'  Start -  '.$journey->real_start_date_time.'  End -  '.$journey->real_end_date_time.'  ';
+
+            // Mail::send(new ApprovedByMail($emailAddress,$msg));
+
+            $emailAddress= 'ranawaka.y@gmail.com'; // for testing
+            
+        }    
+
         $journey->journey_status_id = '8';
 
-        return $journey; 
-        $journey->save();      
+        //return $journey; 
+        $journey->save();
+        
+        if($request->vehical_id == 0){
+            
+            $externalNew = new ExternalVehicle;       
+            $externalNew->company_name = $request->company_name ;               
+            $externalNew->cost = $request->cost ;                  
+            $externalNew->journey_id = $journey->id;              
+            $externalNew->save();
+
+        }
         
         return redirect()->back()->with(['success'=>'Backlog Journey added successfully !']);
     }
