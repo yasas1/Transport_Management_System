@@ -701,7 +701,8 @@ class JourneyController extends Controller
         if(Auth::user()->role_id == 1){
             $journeys = Journey::notApproved(); 
             $longDisJourneys = Journey::notApprovedLongDistance();
-            return view('journey.requests',compact('journeys','longDisJourneys'));
+            $otherDivHeadsJourneys = NULL;
+            return view('journey.requests',compact('journeys','longDisJourneys','otherDivHeadsJourneys'));
         }
         else if(Auth::user()->role_id == 2){
                 // Code for particular divissional head requests for approve
@@ -714,20 +715,22 @@ class JourneyController extends Controller
 
             $divHeads=Division::where('head', '!=', '' )->pluck('head'); 
 
-            $otherDivHeadsJourneys = Journey::whereIn('applicant_id', $divHeads)
+            $otherDivHeadsJourneys = Journey::where('applicant_id','!=',$userlogid)
+            ->whereIn('applicant_id', $divHeads)
             ->where('journey_status_id','=','1')
             ->where('is_long_distance', '=', '0')->get();
 
-            return $otherDivHeadsJourneys;
+            //return $otherDivHeadsJourneys;
 
-            return view('journey.requests',compact('journeys','longDisJourneys'));
+            return view('journey.requests',compact('journeys','longDisJourneys','otherDivHeadsJourneys'));
         }
          
         // return Auth::user();
         
         $journeys = Journey::notApproved(); 
         $longDisJourneys = Journey::notApprovedLongDistance();
-        return view('journey.requests',compact('journeys','longDisJourneys'));
+        $otherDivHeadsJourneys = NULL;
+        return view('journey.requests',compact('journeys','longDisJourneys','otherDivHeadsJourneys'));
     }
     public function notConfirmedJourneys(){
         $drivers = Driver::all()->pluck('fullName','id');
