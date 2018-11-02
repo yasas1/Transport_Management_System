@@ -680,8 +680,9 @@ class JourneyController extends Controller
     }
     public function requests(){
             
-        $userlogid = Auth::user()->emp_id; 
-        //$userlogid = "000538"; //000140
+        $userlogid = Auth::user()->emp_id;      
+        
+        //$userlogid = "000538"; //000140 for test
            /*         
         if($this->isDirector($userlogid)){  // Code for Director for approve
             $journeys = Journey::notApproved(); 
@@ -691,7 +692,7 @@ class JourneyController extends Controller
         else if($this->isDivisionalHead($userlogid)){
                     // Code for particular divissional head requests for approve
             $journeys = Journey::where('divisional_head_id','=',$userlogid)
-                ->where('journey_status_id','=','2')
+                ->where('journey_status_id','=','1')
                 ->where('is_long_distance', '=', '0')->get();
             $longDisJourneys = NULL;
             return view('journey.requests',compact('journeys','longDisJourneys'));
@@ -704,10 +705,21 @@ class JourneyController extends Controller
         }
         else if(Auth::user()->role_id == 2){
                 // Code for particular divissional head requests for approve
+
             $journeys = Journey::where('divisional_head_id','=',$userlogid)
-                ->where('journey_status_id','=','2')
+                ->where('journey_status_id','=','1')
                 ->where('is_long_distance', '=', '0')->get();
+
             $longDisJourneys = NULL;
+
+            $divHeads=Division::where('head', '!=', '' )->pluck('head'); 
+
+            $otherDivHeadsJourneys = Journey::whereIn('applicant_id', $divHeads)
+            ->where('journey_status_id','=','1')
+            ->where('is_long_distance', '=', '0')->get();
+
+            return $otherDivHeadsJourneys;
+
             return view('journey.requests',compact('journeys','longDisJourneys'));
         }
          
