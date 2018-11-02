@@ -117,6 +117,9 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/journey/confirmationJourneys','JourneyController@confirmationJourneys');
     Route::get('/journey/readCompleted','JourneyController@readcompletedJourney');
 
+            // For Backlog Calender views 
+    Route::get('/journey/readBcaklogJourney','JourneyController@readBcaklogJourney'); 
+
     Route::get('/journey/readExternalCompleted','JourneyController@readExternalCompleted');
     
     Route::get('/journey/ForCompletedByVehicle/{id}','JourneyController@ForCompletedByVehicle');
@@ -126,7 +129,8 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/journey/readCompleted/{id}','JourneyController@readJourneyForCompletedAjax'); 
     Route::get('/journey/readConfirmed/{id}','JourneyController@ForOngingView');
     Route::get('/journey/readVehicleColor/','JourneyController@readVehicleColor'); 
-    Route::get('/journey/ForCreateByVehicle/{id}','JourneyController@ForCreateByVehicle');
+    Route::get('/journey/ForCreateByVehicle/{id}','JourneyController@ForCreateByVehicle'); 
+    Route::get('/journey/ForCreateBacklogByVehicle/{id}','JourneyController@ForCreateBacklogByVehicle');
 
     /*User Crud*/
     Route::get('/users','UserController@index');

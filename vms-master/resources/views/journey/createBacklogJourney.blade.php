@@ -295,14 +295,14 @@
                 journey_colors[value.id]='#'+value.journey_color;
             });
         });      
-        $.get("{{ URL::to('journey/read') }}",function(data){ 
+        $.get("{{ URL::to('journey/readBcaklogJourney') }}",function(data){ 
             //console.log(data);
             $.each(data,function(i,value){ 
                 if(value.vehical_id != null){
                     qEvent.push({ 
                         title : value.places_to_be_visited, // need place as the title
-                        start : value.expected_start_date_time,
-                        end : value.expected_end_date_time,
+                        start : value.real_start_date_time,
+                        end : value.real_end_date_time,
                         id :  value.id, 
                         applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
                         vehical_id : value.vehical_id,
@@ -314,8 +314,8 @@
                 else{        //for external vehicle color
                     qEvent.push({ 
                         title : value.places_to_be_visited, 
-                        start : value.expected_start_date_time,
-                        end : value.expected_end_date_time,
+                        start : value.real_start_date_time,
+                        end : value.real_end_date_time,
                         id :  value.id, 
                         applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
                         vehical_id : value.vehical_id,
@@ -335,7 +335,7 @@
                 qEvent=[];                       
                 $('#calendar').fullCalendar('removeEvents');
                 $.ajax({
-                    url: '/journey/ForCreateByVehicle/{id}',
+                    url: '/journey/ForCreateBacklogByVehicle/{id}',
                     type: 'GET',
                     data: { id: vid },
                     success: function(data)
@@ -345,8 +345,8 @@
                             qEvent.push(
                             { 
                                 title : value.places_to_be_visited,
-                                start : value.expected_start_date_time,
-                                end : value.expected_end_date_time,
+                                start : value.real_start_date_time,
+                                end : value.real_end_date_time,
                                 id :  value.id,         
                                 applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                             
                                 vehical_id : value.vehical_id,
@@ -364,13 +364,13 @@
             $(".all").click(function(evt){
                 qEvent=[]; 
                 $('#calendar').fullCalendar('removeEvents');
-                $.get("{{ URL::to('journey/read') }}",function(data){ 
+                $.get("{{ URL::to('journey/readBcaklogJourney') }}",function(data){ 
                     $.each(data,function(i,value){       
                         if(value.vehical_id != null){
                             qEvent.push({ 
                                 title : value.places_to_be_visited, // need place as the title
-                                start : value.expected_start_date_time,
-                                end : value.expected_end_date_time,
+                                start : value.real_start_date_time,
+                                end : value.real_end_date_time,
                                 id :  value.id, 
                                 applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
                                 vehical_id : value.vehical_id,
@@ -382,8 +382,8 @@
                         else{
                             qEvent.push({ 
                                 title : value.places_to_be_visited, // need place as the title
-                                start : value.expected_start_date_time,
-                                end : value.expected_end_date_time,
+                                start : value.real_start_date_time,
+                                end : value.real_end_date_time,
                                 id :  value.id, 
                                 applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
                                 vehical_id : value.vehical_id,
@@ -516,13 +516,7 @@
                     });
                 }
             })
-        });
-        // var calendar = $('#calendar').fullCalendar('getCalendar');
-        //
-        // calendar.on('dayClick', function(date, jsEvent, view) {
-        //     console.log('clicked on ' + date.format());
-        // });
-                
+        });  
            
     </script>
 
@@ -551,7 +545,6 @@
                 "linkedCalendars": false,
                 "showCustomRangeLabel": false,
                 "timePicker24Hour": true,
-                "minDate": moment(),
                 locale: {
                     format: 'MM/DD/YYYY HH:mm'
                 }
