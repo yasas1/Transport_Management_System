@@ -121,6 +121,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/journey/readBcaklogJourney','JourneyController@readBcaklogJourney'); 
 
     Route::get('/journey/readExternalCompleted','JourneyController@readExternalCompleted');
+    Route::get('/journey/readExternalBacklog','JourneyController@readExternalBacklog');
     
     Route::get('/journey/ForCompletedByVehicle/{id}','JourneyController@ForCompletedByVehicle');
     Route::get('/journey/ForConfirmationByVehicle/{id}','JourneyController@ForConfirmationByVehicle');

@@ -65,14 +65,13 @@ class JourneyController extends Controller
     
     } 
     public function createBacklog(){
-        $journeys = Journey::where('journey_status_id','=','8')->get();
+        
         $divHeads = Division::all();
         $fundAlFroms = FundsAllocatedFrom::all();
         $drivers = Driver::all()->pluck('fullName','id');
         //$vehicles = Vehical::all()->pluck('fullName','id');
         $vehicles = Vehical::all();
-        $vehiclesButton = Vehical::all();
-        return view('journey.createBacklogJourney',compact('fundAlFroms','drivers','vehicles','divHeads','journeys','vehiclesButton'));
+        return view('journey.createBacklogJourney',compact('fundAlFroms','drivers','vehicles','divHeads'));
     
     }
     public function readJourney(){ 
@@ -103,6 +102,18 @@ class JourneyController extends Controller
         ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
         ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
         ->where('vehical_id','=',NULL)->where('journey_status_id','=','6')
+        ->get();
+        
+        return response($journeys);
+    }
+
+    public function readExternalBacklog(){ 
+            // for Backlog journey calender view External vehicle journeys' 
+        $journeys = DB::table('journey')
+        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
+        ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
+        ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
+        ->where('vehical_id','=',NULL)->where('journey_status_id','=','8')
         ->get();
         
         return response($journeys);

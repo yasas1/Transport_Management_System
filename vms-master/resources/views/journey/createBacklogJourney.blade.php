@@ -27,7 +27,7 @@
             </div>
             <div>   
                 <button  class="all"  style="height:25px;width:35px;border: 1px solid #555555;border-radius: 5px;" >ALL</button> 
-                @foreach ($vehiclesButton as $vehicle)
+                @foreach ($vehicles as $vehicle)
                     <button class="vehiclebutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}" style="border: 1px solid #555555;border-radius: 5px;"> {{$vehicle->registration_no}} </button>   
                 @endforeach
                 <button  class="external"  style="height:25px;width:65px;border: 1px solid #555555;border-radius: 5px; background-color:#778899;" >External</button> 
@@ -284,8 +284,7 @@
     <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js')}}"></script>
     <script src='{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/gcal.min.js')}}'></script>
     <script src="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
-    <script>
-        //var journeys = {!! json_encode($journeys->toArray()) !!};       
+    <script>      
         var qEvent=[]; // for calender events
         var journey_colors = [];///journey/readVehicle/             
                 // get Journet Color
@@ -401,14 +400,14 @@
             $(".external").click(function(evt){
                 qEvent=[]; 
                 $('#calendar').fullCalendar('removeEvents');
-                $.get("{{ URL::to('journey/readExternal') }}",function(data){
+                $.get("{{ URL::to('journey/readExternalBacklog') }}",function(data){
                     console.log(data); 
                     $.each(data,function(i,value){       
                         qEvent.push(
                         { 
                             title : value.places_to_be_visited,
-                            start : value.expected_start_date_time,
-                            end : value.expected_end_date_time,
+                            start : value.real_start_date_time,
+                            end : value.real_end_date_time,
                             id :  value.id,
                             applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                      
                             borderColor: 'black',
@@ -471,10 +470,9 @@
                                 success: function(data)
                                 {
                                     var details = JSON.parse(data);
-                                    
-                                    //console.log(details[1]); 	
+                                    	
                                     $.confirm({
-                                        title: 'Journey!', //Confirm
+                                        title: 'Journey!',
                                         content:"<h3>Place - "+ details[0].places_to_be_visited+"</h3>" + 
                                         "<h4>Applicant - "+ event.applicant +"</h4>"+
                                         "<h4>Status - "+ event.status +"</h4>"+
@@ -503,10 +501,6 @@
                         dayClick: function(date) {
                             //alert('clicked ' + date.format());
                         },
-                        // selectConstraint: {
-                        //     start: $.fullCalendar.moment().add(10, 'minutes'), //subtract
-                        //     end: $.fullCalendar.moment().startOf('year').add(1, 'year')
-                        // },
                         select: function(startDate, endDate) {                 
                             $('#myModal').modal('toggle');
                             //alert('selected ' + startDate.format() + ' to ' + endDate.format());
@@ -538,7 +532,7 @@
     </script>
     
     <script type="text/javascript">
-        // var journeys = {!! json_encode($journeys->toArray()) !!};
+        
         $(function () {
             $('#dtp').daterangepicker({
                 "timePicker": true,
