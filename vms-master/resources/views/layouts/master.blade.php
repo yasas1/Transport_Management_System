@@ -225,6 +225,7 @@ desired effect
                         @if(Auth::user()->canViewCancelledJourneys())
                             <li><a href="{{url('/journey/cancelled')}}"><i class="fa fa-edit"></i> <span>CANCELLED JOURNEYS</span></a></li>
                         @endif
+                        <li><a href="{{url('/journey/myjourneys')}}"><i class="fa fa-edit"></i> <span>MY JOURNEYS</span></a></li>
                     </ul>
                 </li>
 

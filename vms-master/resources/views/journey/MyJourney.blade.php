@@ -701,9 +701,6 @@
                     },
                     select: function(startDate, endDate) {
                         $('#myModal').modal('toggle');
-                        //alert('selected ' + startDate.format() + ' to ' + endDate.format());
-                        // $('#dtp').val(startDate.format('MM/DD/YYYY HH:mm')+' - '+endDate.format('MM/DD/YYYY HH:mm'));
-                        //$('#dtp').val(startDate.format()+' - '+endDate.format())
                     }
                 });
             }
@@ -713,7 +710,7 @@
 </script> 
 
 <script>
-    //for hide and view table content 
+            //for hide and view table content 
     function tableViewFunction() {
         var x = document.getElementById("table");
         var y = document.getElementById("hidetable");
