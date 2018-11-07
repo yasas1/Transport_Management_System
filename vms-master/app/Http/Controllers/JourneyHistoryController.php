@@ -22,23 +22,64 @@ class JourneyHistoryController extends Controller
 {
     public function index()
     {
-        if(Auth::user()->role_id == 4){
-            $driverEmp = Auth::user()->emp_id;
-            $driverId = Driver::where('emp_id','=',$driverEmp)->first()->id;
-            
-            $journeys = Journey::where('journey_status_id','=','6')
-            ->where('driver_id','=',$driverId)
-            ->get();
+        
+        $userid = Auth::user()->emp_id;
+        
+        $journeys = Journey::where('applicant_id','=',$userid)->get();
 
-            //return $journeys;
+        //return $journeys;
 
-            $vehicles = Vehical::all(); // for vehicle color button {delete}
-            return view('journey.completed',compact('journeys','vehicles'));
-        }
-        else{
-            $journeys = Journey::completed();
-            $vehicles = Vehical::all(); // for vehicle color button {delete}
-            return view('journey.completed',compact('journeys','vehicles'));
-        }
+        $vehicles = Vehical::all(); // for vehicle color button {delete}
+        return view('journey.MyJourney',compact('journeys','vehicles'));
+        
+    }
+
+    public function readMyJourney(){
+            // for Completed journey calender view URL -> /journey/readCompleted
+        //$journeys = Journey::completed();
+
+        $userid = Auth::user()->emp_id;
+
+        $journeys = DB::table('journey')
+        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
+        ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
+        ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
+        ->where('applicant_id','=',$userid)
+        ->get();
+        return response($journeys);
+        
+    
+    }
+
+    public function myJourneyByVehicle(){ 
+        $vid = $_GET['id'];
+        //$journeys = Journey::journeyByVehicleCompleted($vid); 
+
+        $userid = Auth::user()->emp_id;
+
+        $journeys = DB::table('journey')
+        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
+        ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
+        ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
+        ->where('vehical_id','=',$vid)->where('applicant_id','=',$userid)
+        ->get();
+        return response($journeys);
+        
+    }
+
+    
+
+    public function myJourneyExternal(){ 
+
+        $userid = Auth::user()->emp_id;
+
+        $journeys = DB::table('journey')
+        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
+        ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
+        ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
+        ->where('vehical_id','=',$vid)->where('applicant_id','=',$userid)
+        ->get();
+        return response($journeys);
+        
     }
 }

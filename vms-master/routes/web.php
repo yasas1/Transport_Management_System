@@ -70,7 +70,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::patch('/journey/update/{id}','JourneyController@update');
     Route::get('/journey/createBacklog','JourneyController@createBacklog');
     Route::post('/journey/storeBacklog','JourneyController@storeBacklog'); 
-    Route::get('/journey/myjourneys','JourneyHistoryController@index');
+    Route::get('/journey/myjourneys','JourneyHistoryController@index');  
 
     /*
      * Show Journey Requests
@@ -134,14 +134,23 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/journey/ForCreateByVehicle/{id}','JourneyController@ForCreateByVehicle'); 
     Route::get('/journey/ForCreateBacklogByVehicle/{id}','JourneyController@ForCreateBacklogByVehicle');
 
+
+    /*
+     * My Journeys
+     * */
+    Route::get('/journey/readMyJourney','JourneyHistoryController@readMyJourney');  
+    Route::get('/journey/myJourneyByVehicle/{id}','JourneyHistoryController@myJourneyByVehicle');
+    Route::get('/journey/myJourneyExternal','JourneyHistoryController@myJourneyExternal');
+
+
+
     /*User Crud*/
     Route::get('/users','UserController@index');
     Route::get('/user/create','UserController@create');
     Route::post('/user/store','UserController@store');
     Route::get('/user/{id}/edit','UserController@edit');
     Route::patch('/user/update','UserController@update');
-
-    
+  
 
     /*Role Crud*/
     Route::get('/user/roles','RoleController@index');
