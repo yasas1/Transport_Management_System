@@ -1,596 +1,733 @@
 @extends('layouts.master')
 
-@section('title', 'JOURNEY | VEHICLE MANAGEMENT SYSTEM')
+@section('title', 'VEHICLE MANAGEMENT SYSTEM | VEHICLE')
 
 @section('styles')
     <link rel="stylesheet" href="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.css')}}">
     <link rel="stylesheet" href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css')}}">
 @endsection
 
-@section('header', 'Create New Backlog Journey')
+@section('header', 'View Completed Journey Requests')
 
-@section('description', 'Select Date / Time range to request new journey.')
+@section('description', 'Select a journey to view details.')
 
 @section('content')
+    @include('layouts.errors')
+    @include('layouts.success')
 
-    <div class="col-md-12">
-        <div class="hidden">
-            @include('layouts.errors')
-            @include('layouts.success')
+    <div class="box box-primary">
+   
+        <div class="box-header with-border" >
+            <h3 class="box-title">Completed Journey List</h3>
         </div>
+        @if($journeys)
+                <!-- for hide and view table content -->
+        <button onclick="tableViewFunction()" class="btn btn-info">Table View </button> <br>
 
-    </div>
-    <div class="col-sm-12 col-md-12">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">Vehicle Calender</h3>
-            </div>
-            <div>   
-                <button  class="all"  style="height:25px;width:35px;border: 1px solid #555555;border-radius: 5px;" >ALL</button> 
-                @foreach ($vehicles as $vehicle)
-                    <button class="vehiclebutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}" style="border: 1px solid #555555;border-radius: 5px;"> {{$vehicle->registration_no}} </button>   
+        <div id="hidetable" class="box-body" style="display: none;">
+                   
+            <table class="table" id="table" style="display: none; height:300px; overflow: auto;" >
+                <thead>
+                <tr>
+                    <th>Applicant Name</th>
+                    <th>Applicant Division</th>
+                    <th>Vehicle</th>
+                    <th>Start Date / Time</th>
+                    <th>End Date / Time</th>
+                    <th>Updated at</th>
+                    <th width="200px">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($journeys as $journey)
+                    <tr>
+                        <td>{{$journey->applicant->emp_surname}}</td>
+                        <td>{{$journey->applicant->division->dept_name}}</td>
+                        @if($journey->vehical_id != null)
+                            <td>{{$journey->vehical->fullname}}</td>
+                        @endif
+                        @if($journey->vehical_id == null)
+                            <td>External Vehicle</td>
+                        @endif
+                        <td>{{$journey->expected_start_date_time->toDayDateTimeString()}}</td>
+                        <td>{{$journey->expected_end_date_time->toDayDateTimeString()}}</td>
+                        <td>{{$journey->applicant->emp_surname}}</td>
+
+                        <td width="200px">
+                            <button class="btn btn-success btnView" data-toggle="modal" data-target="#{{$journey->id}}"><i class="fa fa-eye"></i></button>
+                        </td>
+                    </tr>
                 @endforeach
-                <button  class="external"  style="height:25px;width:65px;border: 1px solid #555555;border-radius: 5px; background-color:#778899;" >External</button> 
-            </div>
-                <!-- THE CALENDAR -->
-            <div class="box-body">
-                <div id='calendar'></div>
-            </div>           
-        </div>
-    </div>
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-lg">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Requesting new journey</h4>
-                </div>
-                <div class="modal-body">
-                    @if(count($errors)>0)
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach($errors->all() as $error)
-                            <li> {{ $error}} </li>
-                            @endforeach
-                        </ul>
-                    </div> 
-                    @endif
-
-                    {!! Form::open(['method' => 'post','action'=>'JourneyController@storeBacklog','files'=>true]) !!}
-                    {{-- storeBacklog --}}
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4><i class="fa fa-user"></i> Applicant</h4>
-                            <div class="col-md-offset-1">
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>Applicant Name</th>
+                    <th>Applicant Division</th>
+                    <th>Vehicle</th>
+                    <th>Start Date / Time</th>
+                    <th>End Date / Time</th>
+                    <th>Updated at</th>
+                    <th width="200px">Actions</th>
+                </tr>
+                </tfoot>
+            </table>
+        
+            @foreach($journeys as $journey)
+                <div class="modal fade bs-example-modal-lg" id="{{$journey->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 <div class="row">
-                    
-                                    <div class="form-group">
-                                    {!! Form::hidden('applicant_id', null,['id'=>'textApplicant']); !!}
-                                        <div class="btn-group dropdown col-md-12">
-                                            <button type="button" class="btn btn-default" id="divApplicant">Select Applicant </button>
-                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
-                                                <span class="caret"></span>
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                @foreach($divHeads as $divHead)
-                                                    @if($divHead->head !='')
-                                                        <li class="cmbApplicant dropdown-item" data-value="{{$divHead->head}}">
-                                                        <span>
-                                                            {{$divHead->getHead()->first()->emp_initials.'. '.$divHead->getHead()->first()->emp_surname}}
-                                                        </span>
-                                                        </li>
-                                                    @endif
-                                                @endforeach
-                                            </ul>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-
-                            {{-- <h4><i class="fa fa-car"></i> Vehicle </h4> --}}
-                            {{-- <div class="col-md-offset-1"> --}}
-                                <div class="row">
-                                    <div class="col-md-6">
-                                            <h4><i class="fa fa-car"></i> Vehicle </h4>
-                                        <div class="form-group">
-                                            
-                                            {{-- <label for="vehical_id">Change Vehicle</label> --}}
-                                            {{-- {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control','id'=>'vehicle'])}} --}}
-                                            <select  name="vehical_id" id="vehicle_select" class="form-control vehicle">                                                                                                       
-                                                @foreach ($vehicles as $vehicle)
-                                                    <option value="{{ $vehicle->id }}" >{{ $vehicle->registration_no }} ( {{ $vehicle->name }} )  </option>
-                                                @endforeach  
-                                                    <option id="external" value="0">External Vehicle</option>   
-                                            </select>
-                                        </div>                                    
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group" id="driverdiv">
-                                            {{-- <label for="driver_id">Select Driver</label> --}}
-                                            <h4><i class="fa fa-car"></i> Driver </h4>
-                                            {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','id'=>'driverid','placeholder'=>'Select a Vehicle'])}}
-                                        </div>
-                                        <div class="form-group" id="company">
-                                                {{-- <label for="company_name">External Vehicle's Company Name</label> --}}
-                                                <h5><i class="fa fa-car"></i> External Vehicle's Company Name </h5>
-                                                {!! Form::text('company_name',null,['class'=>'form-control','id'=>'companyName','placeholder'=>'Company Name' ]) !!}
-                                        </div>
-                                        <div class="form-group" id="companycost">
-                                            {{-- <label for="company_cost">Cost</label> --}}
-                                            <h5><i class="fa fa-car"></i> Cost </h5>
-                                            {!! Form::text('cost',null,['class'=>'form-control','id'=>'cost','placeholder'=>'Cost' ]) !!}
-                                        </div>
-                                    </div>
-                                </div>
-                            
-
-                            <div class="clearfix"></div>
-
-                            <div class="col-md-12">
-                                <span class="text-orange" id="available"></span>
-                            </div>
-
-                            <h4><i class="fa fa-calendar"></i> Date and Time Range</h4>
-                            <div class="form-group col-md-offset-1">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-10">
-                                                <div class="form-group">
-                                                    {{Form::text('time_range',null,['class'=>'form-control','id'=>'dtp','placeholder'=>'Reserve Date and Time'])}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            
-                            <h4><i class="fa fa-newspaper-o"></i> Details</h4>
-                            <div class="col-md-offset-1">
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="purpose">Purpose</label>
-                                            {{Form::textarea('purpose',null,['class'=>'form-control','placeholder'=>'Purpose','rows'=>'3'])}}
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="places_to_be_visited">Places To Be Visited</label>
-                                            {{Form::textarea('places_to_be_visited',null,['class'=>'form-control','placeholder'=>'Places To Be Visited','rows'=>'3' ])}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="number_of_persons" class="col-sm-7">Number of Persons</label>
-                                            <div class="col-lg-5">
-                                                {{Form::number('number_of_persons',null,['class'=>'form-control','placeholder'=>'0','min'=>'1'])}}
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="expected_distance" class="col-sm-7"> Distance (km)</label>
-                                            <div class="col-lg-5">
-                                                {{Form::text('real_distance',null,['class'=>'form-control','placeholder'=>'km','id'=>'txtDistance'])}}
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="col-md-12">
-                                        <span class="text-orange" id="txtDistanceHelpBox"></span>
+                                        <h3>Journey Request Confirmation
+                                            @if($journey->journey_status_id == 1)
+                                                <span class="label label-danger pull-right">Not Approved</span>
+                                                <span class="label label-danger pull-right">Not Confirmed</span>
+                                            @endif
+                                            @if($journey->journey_status_id == 2)
+                                                <span class="label label-success pull-right">Approved</span>
+                                                <span class="label label-danger pull-right">Not Confirmed</span>
+                                            @endif
+                                            @if($journey->journey_status_id == 3)
+                                                <span class="label label-success pull-right">Approved</span>
+                                                <span class="label label-danger pull-right">Confirmed</span>
+                                            @endif
+                                            @if($journey->journey_status_id == 4)
+                                                <span class="label label-success pull-right">Approved</span>
+                                                <span class="label label-success pull-right">Confirmed</span>
+                                                <span class="label label-info pull-right">Ongoing</span>
+                                            @endif
+                                            @if($journey->journey_status_id == 5)
+                                                <span class="label label-success pull-right">Approved</span>
+                                                <span class="label label-danger pull-right">Confirmation Rejected</span>
+                                            @endif
+                                            @if($journey->journey_status_id == 6)
+                                                <span class="label label-success pull-right">Approved</span>
+                                                <span class="label label-success pull-right">Confirmed</span>
+                                                <span class="label label-success pull-right">Completed</span>
+                                            @endif
+                                        </h3>
                                     </div>
                                 </div>
                             </div>
-                            <div class="clearfix"></div>
-
-                            <h4><i class="fa fa-money"></i> Fund Allocated From</h4>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="row col-md-offset-1">
-                                        @foreach($fundAlFroms as $fundAlFrom)
-                                            <div class="col-md-6">
-                                                {!! Form::radio('funds_allocated_from_id', $fundAlFrom->id, false); !!}
-                                                {{$fundAlFrom->name}}
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-
-                            <h4><i class="fa fa-user-o"></i> Divisional Head</h4>
-                            <div class="col-md-offset-1">
+                            <div class="modal-body">
                                 <div class="row">
-                                    <div class="">
-                                        {!! Form::hidden('divisional_head_id', null,['id'=>'txtDivisionalHead']); !!}
-                                        <div class="btn-group dropup col-md-12">
-                                            <button type="button" class="btn btn-default" id="divDiviHead">Select Divisional Head</button>
-                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <span class="caret"></span>
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                @foreach($divHeads as $divHead)
-                                                    @if($divHead->head !='')
-                                                        <li class="cmbDivHead dropdown-item" data-value="{{$divHead->head}}">
-                                                        <span>
-                                                            {{$divHead->getHead()->first()->emp_initials.'. '.$divHead->getHead()->first()->emp_surname.' ( '.$divHead->dept_name.' )'}}
-                                                        </span>
-                                                        </li>
-                                                    @endif
-                                                @endforeach
-                                            </ul>
+                                    <div class="col-md-6">
+                                        <dl class="dl-horizontal">
+                                            <h4>Applicant</h4>
+                                            <dt>Name</dt>
+                                            <dd>{{$journey->applicant->emp_surname}}</dd>
+                                            <dt>Division</dt>
+                                            <dd>{{$journey->applicant->division->dept_name}}</dd>
+                                            <dt>Email</dt>
+                                            <dd>{{$journey->applicant->emp_email}}</dd>
+                                        </dl>
+                                        <dl class="dl-horizontal">
+                                            <h4>Resources</h4>
+                                            @if($journey->vehical_id != null)
+                                                <dt>Vehicle Number</dt>
+                                                <dd>{{$journey->vehical->registration_no}}</dd>
+                                                <dt>Vehicle Name</dt>
+                                                <dd>{{$journey->vehical->name}}</dd>
+                                                <dt>Driver</dt>
+                                                <dd>{{$journey->vehical->driver->fullname}}</dd>
+                                            @endif
+                                            @if($journey->vehical_id ==null)
+                                                <dt>Vehicle</dt>
+                                                <dd>External Vehicle</dd>
+                                            @endif
+                                        </dl>
+                                        <dl class="dl-horizontal">
+                                            <dt>Divisional Head</dt>
+                                            <dd>{{$journey->divisional_head->emp_title.' '.$journey->divisional_head->emp_initials.'. '.$journey->divisional_head->emp_surname}}</dd>
+                                        </dl>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <dl class="dl-horizontal">
+                                            <h4>Details</h4>
+                                            <dt>Purpose</dt>
+                                            <dd>{{$journey->purpose}}</dd>
+                                            <dt>Places To Be Visited</dt>
+                                            <dd>{{$journey->places_to_be_visited}}</dd>
+                                            <dt>Number of Persons</dt>
+                                            <dd>{{$journey->number_of_persons}}</dd>
+                                            <dt>Approximate Distance</dt>
+                                            <dd>{{$journey->expected_distance.' km'}}</dd>
+                                        </dl>
+                                        <dl class="dl-horizontal">
+                                            <h4>Expected Date and Time Range</h4>
+                                            <dt>Start Date/ Time</dt>
+                                            <dd>{{$journey->expected_start_date_time->toDayDateTimeString()}}</dd>
+                                            <dt>End Date/ Time</dt>
+                                            <dd>{{$journey->expected_end_date_time->toDayDateTimeString()}}</dd>
+                                            <dt>Journey Duration</dt>
+                                            <dd>{{$journey->expected_end_date_time->diffInHours($journey->expected_start_date_time)}} hours</dd>
+                                        </dl>
 
-                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <dl class="dl-horizontal">
+                                            <h4>Approval</h4>
+                                            <dt>Approved By</dt>
+                                            <dd>{{$journey->approvedBy->emp_title.' '.$journey->approvedBy->emp_initials.'. '.$journey->approvedBy->emp_surname}}</dd>
+                                            <dt>Approved At</dt>
+                                            <dd>{{$journey->approved_at->toDayDateTimeString()}}</dd>
+                                            <dt>Remarks</dt>
+                                            <dd>{{$journey->approval_remarks}}</dd>
+                                        </dl>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <dl class="dl-horizontal">
+                                            <h4>Confirmaion</h4>
+                                            <dt>Confirmed By</dt>
+                                            <dd>{{$journey->confirmedBy->emp_title.' '.$journey->confirmedBy->emp_initials.'. '.$journey->confirmedBy->emp_surname}}</dd>
+                                            <dt>Confirmed At</dt>
+                                            <dd>{{$journey->confirmed_at->toDayDateTimeString()}}</dd>
+                                            <dt>Remarks</dt>
+                                            <dd>{{$journey->confirmation_remarks}}</dd>
+                                            <dt>Confirmed Start Time</dt>
+                                            <dd>{{$journey->confirmed_start_date_time->toDayDateTimeString()}}
+                                                @if($journey->expected_start_date_time->diffInSeconds($journey->confirmed_start_date_time))
+                                                    <span class="label label-warning">Changed</span>
+                                                @else
+                                                    <span class="label label-success">Not Changed</span>
+                                                @endif
+                                            </dd>
+                                            <dt>Confirmed End Time</dt>
+                                            <dd>{{$journey->confirmed_end_date_time->toDayDateTimeString()}}
+                                                @if($journey->expected_end_date_time->diffInSeconds($journey->confirmed_end_date_time))
+                                                    <span class="label label-warning">Changed</span>
+                                                @else
+                                                    <span class="label label-success">Not Changed</span>
+                                                @endif
+                                            </dd>
+
+                                        </dl>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <dl class="dl-horizontal">
+                                            <h4>Final Details</h4>
+                                            @if($journey->vehical_id != null)
+                                                <dt>Driver Filled At</dt>
+                                                <dd>{{$journey->driver_completed_at->toDayDateTimeString()}}</dd>
+                                                <dt>Driver Remarks</dt>
+                                                <dd>{{$journey->driver_remarks}}</dd>
+                                            @endif
+                                            <dt>Approximate Distance</dt>
+                                            <dd>{{$journey->real_distance}}</dd>
+                                            <dt>Start Time</dt>
+                                            <dd>{{$journey->real_start_date_time}}</dd>
+                                            <dt>End Time</dt>
+                                            <dd>{{$journey->real_end_date_time}}</dd>
+                                            <dt>Total Hours</dt>
+                                            <dd>{{$journey->real_start_date_time->diffInHours($journey->real_end_date_time)}} hours</dd>
+                                        </dl>
                                     </div>
                                 </div>
                             </div>
-
-                            <h4><i class="fa fa-user-o"></i> Approved By</h4>
-                            <div class="col-md-offset-1">
-                                <div class="row">
-                                    <div class="">
-                                        {!! Form::hidden('approved_by', null,['id'=>'txtApprovedBy']); !!}
-                                        <div class="btn-group dropup col-md-12">
-                                            <button type="button" class="btn btn-default" id="divApprovedBy">Approved By</button>
-                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <span class="caret"></span>
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                @foreach($divHeads as $divHead)
-                                                    @if($divHead->head !='')
-                                                        <li class="cmbApprovedBy dropdown-item" data-value="{{$divHead->head}}">
-                                                        <span>
-                                                            {{$divHead->getHead()->first()->emp_initials.'. '.$divHead->getHead()->first()->emp_surname.' ( '.$divHead->dept_name.' )'}}
-                                                        </span>
-                                                        </li>
-                                                    @endif
-                                                @endforeach
-                                            </ul>
-
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="modal-footer">
+                                <input type="button" class="btn btn-success" data-dismiss="modal"  value="OK">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <div class="form-group">
-                        <hr>
-                        {{Form::submit('SEND JOURNEY REQUEST', ['class'=>'btn btn-success pull-left'])}}
-                        {{Form::reset('RESET', ['class'=>'btn btn-warning'])}}
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" id="close">Close</button>
-                    </div>
-                    {!! Form::close() !!}
-                </div>
+            @endforeach                     
+        </div>
+        @endif
+    </div>
+    <div class="col-md-12"> 
+        <button  class="all"  style="height:25px;width:35px;border: 1px solid #555555;border-radius: 5px;" >ALL</button>
+        @foreach ($vehicles as $vehicle)
+            <button class="vehiclebutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}" style="border: 1px solid #555555;border-radius: 5px;"> {{$vehicle->registration_no}} </button>   
+        @endforeach
+        @if(Auth::user()->role_id != 4)
+            <button  class="external"  style="height:25px;width:65px;border: 1px solid #555555;border-radius: 5px; background-color:#778899;" >External</button>  
+        @endif
+    </div>
+    <br><br>
+    <!-- For Calender View -->
+    <div class="col-md-12">
+        <div class="box box-primary">        
+            <div class="box-body">
+                <div id='calendar'></div>
             </div>
-
         </div>
     </div>
-    <div class="aletr alert-successs" id="aaa">aaaa</div>
+            <!-- For Calender Event Click-->
+    <div id="modal" class="modal fade" role="dialog">
+
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Journey Request Confirmation                                   
+                                <span class="label label-success pull-right">Approved</span>
+                                <span class="label label-success pull-right">Confirmed</span>
+                                <span class="label label-success pull-right">Completed</span>                               
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dl class="dl-horizontal">
+                                <h4>Applicant</h4>
+                                <dt >Name</dt>
+                                <dd id="appl_name"> </dd>
+                                <dt >Division</dt>
+                                <dd id="appl_dept"></dd>
+                                <dt>Email</dt>
+                                <dd id="appl_email"></dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <h4>Resources</h4>
+                                <div id="vehicle_internal">
+                                    <dt>Vehicle Number</dt>
+                                    <dd id="vehicle_number"> </dd>
+                                    <dt>Vehicle Name</dt>
+                                    <dd id="vehicle_name"></dd>
+                                    <dt>Driver</dt>
+                                    <dd id="driver"></dd>
+                                </div>
+                                <div id="vehicle_external">
+                                    <dt>Vehicle</dt>
+                                    <dd>External Vehicle</dd>
+                                    <dt>External Company</dt>
+                                    <dd id="external_company"></dd>
+                                    <dt>External Cost</dt>
+                                    <dd id="external_cost"></dd>
+                                </div>
+                                
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt>Divisional Head</dt>
+                                <dd id="devisional_head"> </dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <dl class="dl-horizontal">
+                                <h4>Details</h4>
+                                <dt>Purpose</dt>
+                                <dd id="purpose"></dd>
+                                <dt>Places To Be Visited</dt>
+                                <dd id="places_to_be_visited"></dd>
+                                <dt>Number of Persons</dt>
+                                <dd id="number_of_persons"></dd>
+                                <dt>Approximate Distance  km</dt>
+                                <dd id="expected_distance">  </dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <h4>Expected Date and Time Range</h4>
+                                <dt>Start Date/ Time</dt>
+                                <dd id="expected_start_date_time"></dd>
+                                <dt>End Date/ Time</dt>
+                                <dd id="expected_end_date_time"></dd>
+                                
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dl class="dl-horizontal">
+                                <h4>Approval</h4>
+                                <dt>Approved By</dt>
+                                <dd id="approved_by"></dd>
+                                <dt>Approved At</dt>
+                                <dd id="approved_at"></dd>
+                                <dt>Remarks</dt>
+                                <dd id="approval_remarks"></dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <dl class="dl-horizontal">
+                                <h4>Confirmaion</h4>
+                                <dt>Confirmed By</dt>                              
+                                <dd id="confirm_by"></dd>
+                                <dt>Confirmed At</dt>
+                                <dd id="confirm_at"></dd>
+                                <dt>Remarks</dt>
+                                <dd id="confirm_remarks"></dd>
+                                <dt>Confirmed Start Time</dt>
+                                <dd id="confirmed_start_date_time"> </dd>
+                                <dt>Confirmed End Time</dt>
+                                <dd id="confirmed_end_date_time"> </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dl class="dl-horizontal">
+                                <h4>Final Details</h4>
+                                <div id="final_internal">
+                                    <dt>Driver Filled At</dt>
+                                    {{-- {{$journey->driver_completed_at->toDayDateTimeString()}} --}}
+                                    <dd id="driver_completed_at"></dd>
+                                    <dt>Driver Remarks</dt>
+                                    {{-- {{$journey->driver_remarks}} --}}
+                                    <dd id="driver_remarks"></dd>
+                                </div>
+                                <div id="final_external">
+                                    <dt>Completed At</dt>                              
+                                    <dd id="completed_at"></dd>
+                                    <dt>Completed Remarks</dt>                               
+                                    <dd id="completed_remarks"></dd>
+                                </div>
+                                <dt>Approximate Distance</dt>
+                                {{-- {{$journey->real_distance}} --}}
+                                <dd id="real_distance"></dd>
+                                <dt>Start Time</dt>
+                                {{-- {{$journey->real_start_date_time}} --}}
+                                <dd id="real_start_date_time"></dd>
+                                <dt>End Time</dt>
+                                {{-- {{$journey->real_end_date_time}} --}}
+                                <dd id="real_end_date_time"></dd>
+                                {{-- <dt>Total Hours</dt>
+                                <dd>{{$journey->real_start_date_time->diffInHours($journey->real_end_date_time)}} hours</dd> --}}
+                                
+                            </dl>
+                        </div>
+                    </div>                   
+                </div>
+                <div class="modal-footer">                       
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"> OK </button>                        
+                </div>
+            </div>
+        </div>
+    </div>       
 @endsection
 
 @section('scripts')
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js')}}"></script>
-    <script src='{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/gcal.min.js')}}'></script>
     <script src="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
-    <script>      
-        var qEvent=[]; // for calender events
-        var journey_colors = [];///journey/readVehicle/             
-                // get Journet Color
-        $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
-            $.each(data,function(i,value){   
-                $('#v'+value.id).css('background-color','#'+value.journey_color); // For button color    
-                journey_colors[value.id]='#'+value.journey_color;
-            });
-        });      
-        $.get("{{ URL::to('journey/readBcaklogJourney') }}",function(data){ 
-            //console.log(data);
-            $.each(data,function(i,value){ 
-                if(value.vehical_id != null){
-                    qEvent.push({ 
-                        title : value.places_to_be_visited, // need place as the title
-                        start : value.real_start_date_time,
-                        end : value.real_end_date_time,
-                        id :  value.id, 
-                        applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
-                        vehical_id : value.vehical_id,
-                        borderColor: 'black',
-                        status: value.status,
-                        color : journey_colors[value.vehical_id]
-                    });    
-                } 
-                else{        //for external vehicle color
-                    qEvent.push({ 
-                        title : value.places_to_be_visited, 
-                        start : value.real_start_date_time,
-                        end : value.real_end_date_time,
-                        id :  value.id, 
-                        applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
-                        vehical_id : value.vehical_id,
-                        borderColor: 'black',
-                        status: value.status,
-                        color : "#778899"
-                    }); 
-                }               
-                           
-            });
-        });
-        $(document).ready(function(){
-                //$('.colorbutton').css('background','#7CFD03');
-            $(".vehiclebutton").click(function(evt){
-                var vid = $(this).attr("value");   // Vehivle_id from Vehicle_Button
-                //$(vid).css('background','#05DCB2');
-                qEvent=[];                       
-                $('#calendar').fullCalendar('removeEvents');
-                $.ajax({
-                    url: '/journey/ForCreateBacklogByVehicle/{id}',
-                    type: 'GET',
-                    data: { id: vid },
-                    success: function(data)
-                    {
-                        console.log(data);              
-                        $(data).each(function (i,value) {                
-                            qEvent.push(
-                            { 
-                                title : value.places_to_be_visited,
-                                start : value.real_start_date_time,
-                                end : value.real_end_date_time,
-                                id :  value.id,         
-                                applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                             
-                                vehical_id : value.vehical_id,
-                                borderColor: 'black',
-                                status: value.status, 
-                                color :  journey_colors[value.vehical_id]                                                        
-                            });                       
-                        }); 
-                        //console.log(qEvent);
-                        $('#calendar').fullCalendar('addEventSource', qEvent);
-                        $('#calendar').fullCalendar('refetchEvents');  
-                    }
-                });
-            });
-            $(".all").click(function(evt){
-                qEvent=[]; 
-                $('#calendar').fullCalendar('removeEvents');
-                $.get("{{ URL::to('journey/readBcaklogJourney') }}",function(data){ 
-                    $.each(data,function(i,value){       
-                        if(value.vehical_id != null){
-                            qEvent.push({ 
-                                title : value.places_to_be_visited, // need place as the title
-                                start : value.real_start_date_time,
-                                end : value.real_end_date_time,
-                                id :  value.id, 
-                                applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
-                                vehical_id : value.vehical_id,
-                                borderColor: 'black',
-                                status: value.status,
-                                color : journey_colors[value.vehical_id]
-                            });    
-                        } 
-                        else{
-                            qEvent.push({ 
-                                title : value.places_to_be_visited, // need place as the title
-                                start : value.real_start_date_time,
-                                end : value.real_end_date_time,
-                                id :  value.id, 
-                                applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
-                                vehical_id : value.vehical_id,
-                                borderColor: 'black',
-                                status: value.status,
-                                color : "#778899"
-                            }); 
-                        }                 
-                    });
-                    $('#calendar').fullCalendar('addEventSource', qEvent);
-                    $('#calendar').fullCalendar('refetchEvents');
-                });                      
-                
-            });
-            $(".external").click(function(evt){
-                qEvent=[]; 
-                $('#calendar').fullCalendar('removeEvents');
-                $.get("{{ URL::to('journey/readExternalBacklog') }}",function(data){
-                    console.log(data); 
-                    $.each(data,function(i,value){       
-                        qEvent.push(
-                        { 
-                            title : value.places_to_be_visited,
-                            start : value.real_start_date_time,
-                            end : value.real_end_date_time,
-                            id :  value.id,
-                            applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                      
-                            borderColor: 'black',
-                            status: value.status, 
-                            color :  "#778899"    
-                        });                  
-                    });
-                    $('#calendar').fullCalendar('addEventSource', qEvent);
-                    $('#calendar').fullCalendar('refetchEvents');
-                });                      
-                
-            });
-        });
-                        
-        $(function () {
-            var aaa;
-           $.ajax({
-                method:'GET',
-                url:'{{url('/google/calenders')}}',
-                success:function (data) {
-                    var eventSources = [];
-
-                    $.each(data,function (i,item) {
-                        var event = {};
-                        event.id = i;
-                        event.googleCalendarId = item.id;
-                        event.color = item.backgroundColor;
-                        eventSources.push(event)
-                        $('#aaa').append(item.id);
-                    });
-                    aaa = eventSources;
-                },
-                error:function (err) {
-                   // alert(err.toString());
-                },
-                complete:function () {             
-                   //console.log(aaa);
-                   $('#calendar').fullCalendar({
-                        selectable: true,
-                        defaultView:'agendaWeek',
-                        defaultDate: $('#calendar').fullCalendar('today'),                        
-                        header: {
-                            left: 'prev,next today myCustomButton',
-                            center: 'title',
-                            right: 'month,agendaWeek,agendaDay'
-                        },
-                        googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',                   
-                        //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
-
-                        events:qEvent,
-                        eventSources: aaa,
-                        eventClick: function(event, element) {
-                            //console.log(event);
-                            var moment = $('#calendar').fullCalendar('getDate');
-                            
-                            $.ajax({
-                                url: '/journey/readJourneyForCreate/{id}',
-                                type: 'GET',
-                                data: { id: event.id },
-                                success: function(data)
-                                {
-                                    var details = JSON.parse(data);
-                                    	
-                                    $.confirm({
-                                        title: 'Journey!',
-                                        content:"<h3>Place - "+ details[0].places_to_be_visited+"</h3>" + 
-                                        "<h4>Applicant - "+ event.applicant +"</h4>"+
-                                        "<h4>Status - "+ event.status +"</h4>"+
-                                        "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:mm:SS') + "</h4>" +
-                                        "<h4>End - "+ event.end.format('YYYY-MM-DD HH:mm:SS') +"</h4>"+
-                                        "<h4>Vehicle - "+ details[1] +"</h4>"+
-                                        "<h4 id='test'>Driver - "+ details[3] +"</h4>",
-                                        buttons: {
-                                            somethingElse: {
-                                                text: 'OK',
-                                                btnClass: 'btn-blue',
-                                                keys: ['enter', 'shift'],
-                                                action: function(){
-                                                }
-                                            }
-                                        }
-                                    });
-                                
-                                }
-                            });                          
-                        },
-                        eventLimit: 2,
-                        eventRender: function(event, element) {
-                            element.find('.fc-title').append("<br/>" +event.applicant +"<br/>"+ event.status); 
-                        },
-                        dayClick: function(date) {
-                            //alert('clicked ' + date.format());
-                        },
-                        select: function(startDate, endDate) {                 
-                            $('#myModal').modal('toggle');
-                            //alert('selected ' + startDate.format() + ' to ' + endDate.format());
-                            // $('#dtp').val(startDate.format('MM/DD/YYYY HH:mm')+' - '+endDate.format('MM/DD/YYYY HH:mm'));
-                            $('#dtp').val(startDate.format()+' - '+endDate.format())
-                        }
-                    });
-                }
-            })
-        });  
-           
-    </script>
-
     <script>
-        $('.cmbDivHead').on('click',function () {
-            $('#txtDivisionalHead').val($(this).attr('data-value'));
-            $('#divDiviHead').html($(this).html());
-        });
-        $('.cmbApplicant').on('click',function () {   
-            $('#textApplicant').val($(this).attr('data-value'));
-            $('#divApplicant').html($(this).html());
-        });
-        $('.cmbApprovedBy').on('click',function () {
-            $('#txtApprovedBy').val($(this).attr('data-value'));
-            $('#divApprovedBy').html($(this).html());
-        });
+        $(document).ready(function() {
+            $('#table').DataTable( {
+                initComplete: function () {
+                    this.api().columns().every( function () {
+                        var column = this;
+                        var select = $('<select><option value=""></option></select>')
+                            .appendTo( $(column.footer()).empty() )
+                            .on( 'change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
 
-        
-    </script>
-    
-    <script type="text/javascript">
-        
-        $(function () {
-            $('#dtp').daterangepicker({
-                "timePicker": true,
-                "linkedCalendars": false,
-                "showCustomRangeLabel": false,
-                "timePicker24Hour": true,
-                locale: {
-                    format: 'MM/DD/YYYY HH:mm'
+                                column
+                                    .search( val ? '^'+val+'$' : '', true, false )
+                                    .draw();
+                            } );
+
+                        column.data().unique().sort().each( function ( d, j ) {
+                            select.append( '<option value="'+d+'">'+d+'</option>' )
+                        } );
+                    } );
                 }
-            },function(start, end, label) {
-                console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:mm') + ' to ' + end.format('YYYY-MM-DD HH:mm') + ' (predefined range: ' + label + ')');                 
-            });
-        });
-        $('#txtDistance').on('keyup',function () {
-           var val = $(this).val();
-           if(parseInt(val)>=150){
-                $('#txtDistanceHelpBox').html('Director approval is required for long distance ( more than 150km ) journeys.');
-           }else {
-               $('#txtDistanceHelpBox').html('');
-           }
-        });
-        // $('#dtp').on('keyup change',function () {
-           
-        //     console.log( 'check change' );  
-        // });
+            } );
+        } );
+
     </script>
 
+{{-- Script for calender view --}}
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js')}}"></script>
+<script src='{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/gcal.min.js')}}'></script>
+<script src="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 <script>
 
-    $(document).ready(function() {
+    var qEvent=[];
+    journey_color = ['#000000','#EF5B5B','#2697F9','#14C5EF','#05DCB2'];
 
-        $("#company").hide();
-        $("#companycost").hide();
-
-        $(".vehicle").on('change',function(evt){
+    var journey_colors = [];///journey/readVehicle/
+    $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
         
-            var vehicle = $(this).val();
-            if( vehicle == 0 ){
-                $("#company").show();
-                $("#companycost").show();
-                $("#driverdiv").hide();
-            }
-            else{
-                $("#company").hide();
-                $("#companycost").hide();
-                $("#driverdiv").show();
-            }
+        $.each(data,function(i,value){
+            $('#v'+value.id).css('background-color','#'+value.journey_color); // For button color       
+            journey_colors[value.id]='#'+value.journey_color;
+        });
+        //console.log(journey_colors);
+    });
 
+    $.get("{{ URL::to('journey/readCompleted') }}",function(data){ 
+        $.each(data,function(i,value){                       
+            if(value.vehical_id != null){
+                qEvent.push({ 
+                    title : value.places_to_be_visited, // need place as the title
+                    start : value.expected_start_date_time,
+                    end : value.expected_end_date_time,
+                    id :  value.id, 
+                    applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                    vehical_id : value.vehical_id,
+                    borderColor: 'black',
+                    status: value.status,
+                    color : journey_colors[value.vehical_id]
+                });    
+            } 
+            else{
+                qEvent.push({ 
+                    title : value.places_to_be_visited, // need place as the title
+                    start : value.expected_start_date_time,
+                    end : value.expected_end_date_time,
+                    id :  value.id, 
+                    applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                    vehical_id : value.vehical_id,
+                    borderColor: 'black',
+                    status: value.status,
+                    color : "#778899"
+                }); 
+            }
+        });
+    });
+
+    $(document).ready(function(){
+        //$('.colorbutton').css('background','#7CFD03');
+        $(".vehiclebutton").click(function(evt){
+            var vid = $(this).attr("value");   // Vehivle_id from Vehicle_Button
+            //$(vid).css('background','#05DCB2');
+            qEvent=[];                       
+            $('#calendar').fullCalendar('removeEvents');
+            $.ajax({
+                url: '/journey/ForCompletedByVehicle/{id}',
+                type: 'GET',
+                data: { id: vid },
+                success: function(data)
+                {
+                    //console.log(data);              
+                    $(data).each(function (i,value) {                
+                        qEvent.push(                           { 
+                            title : value.places_to_be_visited,
+                            start : value.expected_start_date_time,
+                            end : value.expected_end_date_time,
+                            id :  value.id,                                                     
+                            applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                             
+                            vehical_id : value.vehical_id,
+                            status: value.status, 
+                            borderColor: 'black',                   
+                            color :  journey_colors[value.vehical_id]                                
+                        });                       
+                    }); 
+                    //console.log(qEvent);
+                    $('#calendar').fullCalendar('addEventSource', qEvent);
+                    $('#calendar').fullCalendar('refetchEvents');  
+                }
+            });
         });
 
-        $("#close").on('click',function(evt){
-            $("#company").hide();
-            $("#companycost").hide();
-            $("#driverdiv").show();
-            console.log("vehicle");
+        $(".all").click(function(evt){
+            qEvent=[]; 
+            $('#calendar').fullCalendar('removeEvents');
+            $.get("{{ URL::to('journey/readCompleted') }}",function(data){ 
+                $.each(data,function(i,value){       
+                    if(value.vehical_id != null){
+                        qEvent.push({ 
+                            title : value.places_to_be_visited, // need place as the title
+                            start : value.expected_start_date_time,
+                            end : value.expected_end_date_time,
+                            id :  value.id, 
+                            applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                            vehical_id : value.vehical_id,
+                            borderColor: 'black',
+                            status: value.status,
+                            color : journey_colors[value.vehical_id]
+                        });    
+                    } 
+                    else{
+                        qEvent.push({ 
+                            title : value.places_to_be_visited, // need place as the title
+                            start : value.expected_start_date_time,
+                            end : value.expected_end_date_time,
+                            id :  value.id, 
+                            applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                            vehical_id : value.vehical_id,
+                            borderColor: 'black',
+                            status: value.status,
+                            color : "#778899"
+                        }); 
+                    }                  
+                });
+                $('#calendar').fullCalendar('addEventSource', qEvent);
+                $('#calendar').fullCalendar('refetchEvents');
+            });                       
+	    });
+
+        $(".external").click(function(evt){
+            qEvent=[]; 
+            $('#calendar').fullCalendar('removeEvents');
+            $.get("{{ URL::to('journey/readExternalCompleted') }}",function(data){
+                console.log(data); 
+                $.each(data,function(i,value){       
+                    qEvent.push(
+                    { 
+                        title : value.places_to_be_visited,
+                        start : value.expected_start_date_time,
+                        end : value.expected_end_date_time,
+                        id :  value.id,
+                        applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                      
+                        borderColor: 'black',
+                        status: value.status, 
+                        color :  "#778899"    
+                    });                  
+                });
+                $('#calendar').fullCalendar('addEventSource', qEvent);
+                $('#calendar').fullCalendar('refetchEvents');
+            });                               
         });
 
     });
+    //console.log(qEvent); 
+    $(function () {
+        var aaa;
+        $.ajax({
+            method:'GET',
+            url:'{{url('/google/calenders')}}',
+            success:function (data) {
+                var eventSources = [];
+                $.each(data,function (i,item) {
+                    var event = {};
+                    event.id = i;
+                    event.googleCalendarId = item.id;
+                    event.color = item.backgroundColor;
+                    eventSources.push(event)
+                        $('#aaa').append(item.id);
+                });
+                aaa = eventSources;
+            },
+            error:function (err) {
+                // alert(err.toString());
+            },
+            complete:function () {             
+                //console.log(aaa);
+                $('#calendar').fullCalendar({
+                    selectable: true,
+                    defaultView:'month', //agendaWeek
+                    header: {
+                        left: 'prev,next today myCustomButton',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                    },
+                    googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',
+                    
+                        //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
+
+                    events:qEvent,                  
+
+                    eventSources: aaa,
+                    eventClick: function(event, element) {
+                        //$('#myModal').modal('toggle');
+                        var moment = $('#calendar').fullCalendar('getDate');
+
+                        $.ajax({
+                            url: '/journey/readCompleted/{id}',
+                            type: 'GET',
+                            data: { id: event.id },
+                            success: function(data)
+                            {
+                                var details = JSON.parse(data);
+                                
+                                $('#journeyid').val(details[0].id);
+                                $('#purpose').html(details[0].purpose);
+                                $('#places_to_be_visited').html(details[0].places_to_be_visited);
+                                $('#number_of_persons').html(details[0].number_of_persons);
+                                $('#expected_distance').html(details[0].expected_distance);
+                                $('#approval_remarks').html(details[0].approval_remarks);
+
+                                if(details[0].vehical_id == null){
+                                    $('#vehicle_internal').hide();
+                                    $('#final_internal').hide();
+                                    $('#vehicle_external').show();
+                                    $('#final_external').show();   
+                                    $('#completed_remarks').html(details[19].complete_remarks );
+                                    $('#completed_at').html(details[19].completed_at );
+                                    $('#external_company').html(details[19].company_name );
+                                    $('#external_cost').html(details[19].cost);
+                                }
+                                else{
+                                    $('#vehicle_external').hide();
+                                    $('#final_external').hide();
+                                    $('#vehicle_internal').show();
+                                    $('#final_internal').show();
+                                    $('#vehicle_number').html(details[1]);
+                                    $('#vehicle_name').html(details[2]); 
+                                    $('#driver').html(details[3]);
+                                }
+
+                                $('#appl_name').html(details[4]);
+                                $('#appl_dept').html(details[5]);
+                                $('#appl_email').html(details[6]);
+                                $('#devisional_head').html(details[7]);
+                                $('#approved_by').html(details[8]);
+                                $('#approved_at').html(details[9]); 
+                                $('#expected_start_date_time').html(details[10]);  
+                                $('#expected_end_date_time').html(details[11]);                            
+                                   
+                                $('#confirm_by').html(details[12]);
+                                $('#confirm_at').html(details[13]);
+
+                                $('#confirm_remarks').html(details[0].confirmation_remarks);
+                                
+                                $('#confirmed_start_date_time').html(details[14] );
+                                $('#confirmed_end_date_time').html(details[15] ); 
+                                //new Date(Date.parse(details[0].confirmed_end_date_time))
+                                $('#real_start_date_time').html(details[16]);
+                                $('#real_end_date_time').html(details[17]);
+                                $('#driver_completed_at').html(details[18]);
+
+                                $('#driver_remarks').html(details[0].driver_remarks);
+                                $('#real_distance').html(details[0].real_distance);
+                                console.log(details[19]);
+                                
+                                
+                            }
+                        });
+                        $('#modal').modal('toggle');
+                    },
+                    eventLimit: 2,
+                    eventRender: function(event, element) {
+                        element.find('.fc-title').append("<br/>" +event.applicant +"<br/>"+ event.status); 
+                    }, 
+                    dayClick: function(date) {
+                        //alert('clicked ' + date.format());
+                    },
+                    select: function(startDate, endDate) {
+                        $('#myModal').modal('toggle');
+                        //alert('selected ' + startDate.format() + ' to ' + endDate.format());
+                        // $('#dtp').val(startDate.format('MM/DD/YYYY HH:mm')+' - '+endDate.format('MM/DD/YYYY HH:mm'));
+                        //$('#dtp').val(startDate.format()+' - '+endDate.format())
+                    }
+                });
+            }
+        })
+    });
+
+</script> 
+
+<script>
+    //for hide and view table content 
+    function tableViewFunction() {
+        var x = document.getElementById("table");
+        var y = document.getElementById("hidetable");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+        if (y.style.display === "none") {
+            y.style.display = "block";
+        } else {
+            y.style.display = "none";
+        }
+    }
 </script>
 
 @endsection
