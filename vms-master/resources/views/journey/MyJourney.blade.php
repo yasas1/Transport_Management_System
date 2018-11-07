@@ -492,7 +492,7 @@
             } 
             else{
                 qEvent.push({ 
-                    title : value.places_to_be_visited, // need place as the title
+                    title : value.places_to_be_visited, 
                     start : value.expected_start_date_time,
                     end : value.expected_end_date_time,
                     id :  value.id, 
@@ -580,7 +580,7 @@
         $(".external").click(function(evt){
             qEvent=[]; 
             $('#calendar').fullCalendar('removeEvents');
-            $.get("{{ URL::to('journey/readExternalCompleted') }}",function(data){
+            $.get("{{ URL::to('journey/myJourneyExternal') }}",function(data){
                 console.log(data); 
                 $.each(data,function(i,value){       
                     qEvent.push(
