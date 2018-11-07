@@ -644,7 +644,7 @@
                         var moment = $('#calendar').fullCalendar('getDate');
 
                         $.ajax({
-                            url: '/journey/readCompleted/{id}',
+                            url: '/journey/clickMyJourneys/{id}',
                             type: 'GET',
                             data: { id: event.id },
                             success: function(data)

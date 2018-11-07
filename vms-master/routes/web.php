@@ -141,6 +141,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/journey/readMyJourney','JourneyHistoryController@readMyJourney');  
     Route::get('/journey/myJourneyByVehicle/{id}','JourneyHistoryController@myJourneyByVehicle');
     Route::get('/journey/myJourneyExternal','JourneyHistoryController@myJourneyExternal');
+    Route::get('/journey/clickMyJourneys/{id}','JourneyHistoryController@clickMyJourneys'); 
 
 
 
