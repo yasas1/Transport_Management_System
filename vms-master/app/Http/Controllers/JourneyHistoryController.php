@@ -92,9 +92,9 @@ class JourneyHistoryController extends Controller
         $journey = Journey::whereId($id)->first();
 
         if($journey->vehical_id==NULL){
-            $vehicle_num = NULL;
+            $vehicle_num = "External";
             $vehicle_name = NULL;
-            $driver = NULL;
+            $driver = "External";
             $driver_completed = NULL;
             $external = $journey->externalVehicle;
         }
@@ -117,20 +117,20 @@ class JourneyHistoryController extends Controller
 
         $devisional_head = $journey->divisional_head->getFullNameAttribute();
 
-        if($journey->approved_by==NULL){
-            $approved_by = NULL;
-            $approved_at = NULL;
-        }
-        else{
-            $approved_by = $journey->approvedBy->getFullNameAttribute();
-            if($journey->approved_at==NULL){
-                $approved_at = NULL;
-            }
-            else{
-                $approved_at = $journey->approved_at->toDayDateTimeString();
-            }
+        // if($journey->approved_by==NULL){
+        //     $approved_by = NULL;
+        //     $approved_at = NULL;
+        // }
+        // else{
+        //     $approved_by = $journey->approvedBy->getFullNameAttribute();
+        //     if($journey->approved_at==NULL){
+        //         $approved_at = NULL;
+        //     }
+        //     else{
+        //         $approved_at = $journey->approved_at->toDayDateTimeString();
+        //     }
             
-        }
+        // }
 
         if($journey->expected_start_date_time==NULL){
             $exp_start = NULL;
@@ -142,37 +142,19 @@ class JourneyHistoryController extends Controller
   
         }
 
-        if($journey->real_start_date_time==NULL){
-            $real_start = NULL;
-            $real_end = NULL;
-        }
-        else{
-            $real_start = $journey->real_start_date_time->toDayDateTimeString(); 
-            $real_end = $journey->real_end_date_time->toDayDateTimeString();
+        // if($journey->real_start_date_time==NULL){
+        //     $real_start = NULL;
+        //     $real_end = NULL;
+        // }
+        // else{
+        //     $real_start = $journey->real_start_date_time->toDayDateTimeString(); 
+        //     $real_end = $journey->real_end_date_time->toDayDateTimeString();
   
-        }
-
-        if($journey->confirmed_by == NULL){
-            $confirmed_by = NULL;
-            $confirmed_at = NULL;
-            $confirmed_start = NULL;
-            $confirmed_end = NULL;
-        }
-        else{
-            $confirmed_by = $journey->confirmedBy->getFullNameAttribute();
-            $confirmed_at = $journey->confirmed_at->toDayDateTimeString();
-            $confirmed_start = $journey->confirmed_start_date_time->toDayDateTimeString();
-            $confirmed_end = $journey->confirmed_end_date_time->toDayDateTimeString();
-  
-        }
-
-        
+        // }   
         
         $data = json_encode(array(
-            $journey , $vehicle_num ,$vehicle_name ,$driver ,$applicant_name , $applicant_dept, $applicant_email, $devisional_head, 
-            $approved_by, $approved_at, $exp_start,$exp_end, $confirmed_by, $confirmed_at ,$confirmed_start,$confirmed_end,
-            $real_start,$real_end ,$driver_completed , 
-            $external,
+            $journey , $vehicle_num ,$vehicle_name ,$driver ,$applicant_name , $applicant_dept, $applicant_email, $devisional_head,
+            $exp_start,$exp_end
             
         ));
         return response($data);

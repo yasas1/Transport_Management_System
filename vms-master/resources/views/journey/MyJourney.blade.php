@@ -543,8 +543,22 @@
                 success: function(data)
                 {
                     //console.log(data);              
-                    $(data).each(function (i,value) {                
-                        qEvent.push(                           { 
+                    $(data).each(function (i,value) {     
+                        if(value.expected_start_date_time == null){
+                            qEvent.push({ 
+                                title : value.places_to_be_visited, // need place as the title
+                                start : value.real_start_date_time,
+                                end : value.real_end_date_time,
+                                id :  value.id, 
+                                applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                                vehical_id : value.vehical_id,
+                                borderColor: 'black',
+                                status: value.status,
+                                color : journey_colors[value.vehical_id]
+                            }); 
+                        }    
+                        else{
+                            qEvent.push({ 
                             title : value.places_to_be_visited,
                             start : value.expected_start_date_time,
                             end : value.expected_end_date_time,
@@ -554,7 +568,9 @@
                             status: value.status, 
                             borderColor: 'black',                   
                             color :  journey_colors[value.vehical_id]                                
-                        });                       
+                        }); 
+                        }       
+                                              
                     }); 
                     //console.log(qEvent);
                     $('#calendar').fullCalendar('addEventSource', qEvent);
@@ -593,7 +609,20 @@
                             status: value.status,
                             color : "#778899"
                         }); 
-                    }                  
+                    }  
+                    if(value.expected_start_date_time == null){
+                        qEvent.push({ 
+                            title : value.places_to_be_visited, // need place as the title
+                            start : value.real_start_date_time,
+                            end : value.real_end_date_time,
+                            id :  value.id, 
+                            applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                            vehical_id : value.vehical_id,
+                            borderColor: 'black',
+                            status: value.status,
+                            color : journey_colors[value.vehical_id]
+                        }); 
+                    }                
                 });
                 $('#calendar').fullCalendar('addEventSource', qEvent);
                 $('#calendar').fullCalendar('refetchEvents');
@@ -675,63 +704,30 @@
                             {      
                                 //console.log(data);                         
                                 var details = JSON.parse(data);
-                                console.log(details);
-                                $('#journeyid').val(details[0].id);
-                                $('#purpose').html(details[0].purpose);
-                                $('#places_to_be_visited').html(details[0].places_to_be_visited);
-                                $('#number_of_persons').html(details[0].number_of_persons);
-                                $('#expected_distance').html(details[0].expected_distance);
-                                $('#approval_remarks').html(details[0].approval_remarks);
 
-                                if(details[0].vehical_id == null){
-                                    $('#vehicle_internal').hide();
-                                    $('#final_internal').hide();
-                                    $('#vehicle_external').show();
-                                    $('#final_external').show();   
-                                    $('#completed_remarks').html(details[19].complete_remarks );
-                                    $('#completed_at').html(details[19].completed_at );
-                                    $('#external_company').html(details[19].company_name );
-                                    $('#external_cost').html(details[19].cost);
-                                }
-                                else{
-                                    $('#vehicle_external').hide();
-                                    $('#final_external').hide();
-                                    $('#vehicle_internal').show();
-                                    $('#final_internal').show();
-                                    $('#vehicle_number').html(details[1]);
-                                    $('#vehicle_name').html(details[2]); 
-                                    $('#driver').html(details[3]);
-                                }
-
-                                $('#appl_name').html(details[4]);
-                                $('#appl_dept').html(details[5]);
-                                $('#appl_email').html(details[6]);
-                                $('#devisional_head').html(details[7]);
-                                $('#approved_by').html(details[8]);
-                                $('#approved_at').html(details[9]); 
-                                $('#expected_start_date_time').html(details[10]);  
-                                $('#expected_end_date_time').html(details[11]);                            
-                                   
-                                $('#confirm_by').html(details[12]);
-                                $('#confirm_at').html(details[13]);
-
-                                $('#confirm_remarks').html(details[0].confirmation_remarks);
-                                
-                                $('#confirmed_start_date_time').html(details[14] );
-                                $('#confirmed_end_date_time').html(details[15] ); 
-                                //new Date(Date.parse(details[0].confirmed_end_date_time))
-                                $('#real_start_date_time').html(details[16]);
-                                $('#real_end_date_time').html(details[17]);
-                                $('#driver_completed_at').html(details[18]);
-
-                                $('#driver_remarks').html(details[0].driver_remarks);
-                                $('#real_distance').html(details[0].real_distance);
-                                console.log(details[19]);
-                                
-                                
+                                $.confirm({
+                                    title: 'Journey!', //Confirm
+                                    content:
+                                    "<h3>Applicant - "+ event.applicant +"</h3>"+
+                                    "<h3>Status - "+ event.status +"</h3>"+
+                                    "<h4>Place - "+ details[0].places_to_be_visited+"</h3>" + 
+                                    "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:mm:SS') + "</h4>" +
+                                    "<h4>End - "+ event.end.format('YYYY-MM-DD HH:mm:SS') +"</h4>"+
+                                    "<h4>Vehicle - "+ details[1] +"</h4>"+
+                                    "<h4>Driver - "+ details[3] +"</h4>",
+                                    buttons: {
+                                        somethingElse: {
+                                            text: 'OK',
+                                            btnClass: 'btn-blue',
+                                            keys: ['enter', 'shift'],
+                                            action: function(){
+                                            }
+                                        }
+                                    }
+                                });  
                             }
                         });
-                        $('#modal').modal('toggle');
+                       // $('#modal').modal('toggle');
                     },
                     eventLimit: 2,
                     eventRender: function(event, element) {
