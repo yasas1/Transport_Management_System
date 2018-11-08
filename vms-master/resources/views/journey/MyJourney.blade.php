@@ -49,8 +49,15 @@
                         @if($journey->vehical_id == null)
                             <td>External Vehicle</td>
                         @endif
-                        <td>{{$journey->expected_start_date_time->toDayDateTimeString()}}</td>
-                        <td>{{$journey->expected_end_date_time->toDayDateTimeString()}}</td>
+                        @if($journey->expected_start_date_time == null)
+                            <td>{{$journey->real_start_date_time->toDayDateTimeString()}}</td>
+                            <td>{{$journey->real_end_date_time->toDayDateTimeString()}}</td>
+                        
+                        @endif
+                        @if($journey->expected_start_date_time != null)
+                            <td>{{$journey->expected_start_date_time->toDayDateTimeString()}}</td>
+                            <td>{{$journey->expected_end_date_time->toDayDateTimeString()}}</td>
+                        @endif
                         <td>{{$journey->applicant->emp_surname}}</td>
 
                         <td width="200px">
@@ -155,6 +162,7 @@
                                             <dt>Approximate Distance</dt>
                                             <dd>{{$journey->expected_distance.' km'}}</dd>
                                         </dl>
+                                        @if($journey->expected_start_date_time != null)
                                         <dl class="dl-horizontal">
                                             <h4>Expected Date and Time Range</h4>
                                             <dt>Start Date/ Time</dt>
@@ -164,7 +172,7 @@
                                             <dt>Journey Duration</dt>
                                             <dd>{{$journey->expected_end_date_time->diffInHours($journey->expected_start_date_time)}} hours</dd>
                                         </dl>
-
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="row">
@@ -174,8 +182,10 @@
                                             <h4>Approval</h4>
                                             <dt>Approved By</dt>
                                             <dd>{{$journey->approvedBy->emp_title.' '.$journey->approvedBy->emp_initials.'. '.$journey->approvedBy->emp_surname}}</dd>
+                                            @if($journey->approved_at != null)
                                             <dt>Approved At</dt>
                                             <dd>{{$journey->approved_at->toDayDateTimeString()}}</dd>
+                                            @endif
                                             <dt>Remarks</dt>
                                             <dd>{{$journey->approval_remarks}}</dd>
                                         </dl>
@@ -503,6 +513,19 @@
                     color : "#778899"
                 }); 
             }
+            if(value.expected_start_date_time == null){
+                qEvent.push({ 
+                    title : value.places_to_be_visited, // need place as the title
+                    start : value.real_start_date_time,
+                    end : value.real_end_date_time,
+                    id :  value.id, 
+                    applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                    vehical_id : value.vehical_id,
+                    borderColor: 'black',
+                    status: value.status,
+                    color : journey_colors[value.vehical_id]
+                }); 
+            }
         });
     });
 
@@ -642,15 +665,17 @@
                     eventClick: function(event, element) {
                         //$('#myModal').modal('toggle');
                         var moment = $('#calendar').fullCalendar('getDate');
+                        //console.log(event.id );
 
                         $.ajax({
                             url: '/journey/clickMyJourneys/{id}',
                             type: 'GET',
                             data: { id: event.id },
                             success: function(data)
-                            {
+                            {      
+                                //console.log(data);                         
                                 var details = JSON.parse(data);
-                                
+                                console.log(details);
                                 $('#journeyid').val(details[0].id);
                                 $('#purpose').html(details[0].purpose);
                                 $('#places_to_be_visited').html(details[0].places_to_be_visited);
