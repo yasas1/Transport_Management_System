@@ -166,6 +166,10 @@ class User extends Authenticatable
 
         return $this->checkPrivilege('Journey','View Completed Journeys');
     }
+
+    public function canViewMyJourneys(){
+        return $this->checkPrivilege('Journey','View My Journey Requests');
+    }
     
     /**
      * @return bool
