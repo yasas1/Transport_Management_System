@@ -395,7 +395,7 @@ class JourneyController extends Controller
     {     
         $journey = new Journey;
         //$journey->applicant_id = '000004';
-       $journey->applicant_id = Auth::user()->emp_id;
+        $journey->applicant_id = Auth::user()->emp_id;
         $journey->vehical_id = $request->vehical_id;
         if ($vehicle = Vehical::whereId($request->vehical_id)->first()){
             $journey->driver_id = $vehicle->driver->id;
@@ -723,8 +723,7 @@ class JourneyController extends Controller
             //return $otherDivHeadsJourneys;
 
             return view('journey.requests',compact('journeys','longDisJourneys','otherDivHeadsJourneys'));
-        }
-         
+        }    
         // return Auth::user();
         
         $journeys = Journey::notApproved(); 
