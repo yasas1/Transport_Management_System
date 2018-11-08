@@ -132,15 +132,15 @@ class JourneyHistoryController extends Controller
             
         // }
 
-        if($journey->expected_start_date_time==NULL){
-            $exp_start = NULL;
-            $exp_end = NULL;
-        }
-        else{
-            $exp_start = $journey->expected_start_date_time->toDayDateTimeString();
-            $exp_end = $journey->expected_end_date_time->toDayDateTimeString();
+        // if($journey->expected_start_date_time==NULL){
+        //     $exp_start = NULL;
+        //     $exp_end = NULL;
+        // }
+        // else{
+        //     $exp_start = $journey->expected_start_date_time->toDayDateTimeString();
+        //     $exp_end = $journey->expected_end_date_time->toDayDateTimeString();
   
-        }
+        // }
 
         // if($journey->real_start_date_time==NULL){
         //     $real_start = NULL;
@@ -153,8 +153,8 @@ class JourneyHistoryController extends Controller
         // }   
         
         $data = json_encode(array(
-            $journey , $vehicle_num ,$vehicle_name ,$driver ,$applicant_name , $applicant_dept, $applicant_email, $devisional_head,
-            $exp_start,$exp_end
+            $journey , $vehicle_num ,$vehicle_name ,$driver ,$applicant_name , $applicant_dept, $applicant_email,
+            $devisional_head,
             
         ));
         return response($data);

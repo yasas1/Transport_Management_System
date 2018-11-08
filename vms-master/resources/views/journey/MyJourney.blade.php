@@ -114,6 +114,13 @@
                                                 <span class="label label-success pull-right">Confirmed</span>
                                                 <span class="label label-success pull-right">Completed</span>
                                             @endif
+                                            @if($journey->journey_status_id == 7)
+                                                <span class="label label-info pull-right">Cancelled</span>
+                                            
+                                            @endif
+                                            @if($journey->journey_status_id == 8)
+                                                <span class="label label-info pull-right">Backlog</span>
+                                            @endif
                                         </h3>
                                     </div>
                                 </div>
@@ -159,8 +166,10 @@
                                             <dd>{{$journey->places_to_be_visited}}</dd>
                                             <dt>Number of Persons</dt>
                                             <dd>{{$journey->number_of_persons}}</dd>
-                                            <dt>Approximate Distance</dt>
+                                            @if($journey->expected_distance != null)
+                                            <dt>Expected Distance</dt>
                                             <dd>{{$journey->expected_distance.' km'}}</dd>
+                                            @endif
                                         </dl>
                                         @if($journey->expected_start_date_time != null)
                                         <dl class="dl-horizontal">
@@ -230,25 +239,28 @@
                                 </div>
 
                                 <div class="row">
-                                    @if($journey->vehical_id != null)
+                                    @if(($journey->vehical_id != null) &&( $journey->journey_status_id == 6 || $journey->vehical_id == 8))
                                         <div class="col-md-6">
                                             <dl class="dl-horizontal">
                                                 <h4>Final Details</h4>
-                                                @if($journey->vehical_id != null)
-                                                    @if($journey->driver_completed_at != null)
-                                                        <dt>Driver Filled At</dt>
-                                                        <dd>{{$journey->driver_completed_at->toDayDateTimeString()}}</dd>
-                                                    @endif
+                                                @if($journey->vehical_id != null && $journey->driver_completed_at != null)
+                                                    <dt>Driver Filled At</dt>
+                                                    <dd>{{$journey->driver_completed_at->toDayDateTimeString()}}</dd>
+                                                @endif
+                                                @if($journey->vehical_id != null && $journey->driver_remarks != null)
                                                     <dt>Driver Remarks</dt>
                                                     <dd>{{$journey->driver_remarks}}</dd>
                                                 @endif
+                                                
                                                 @if($journey->real_start_date_time != null)
+                                                    @if($journey->real_distance != null)
                                                     <dt>Approximate Distance</dt>
                                                     <dd>{{$journey->real_distance}}</dd>
+                                                    @endif
                                                     <dt>Start Time</dt>
-                                                    <dd>{{$journey->real_start_date_time}}</dd>
+                                                    <dd>{{$journey->real_start_date_time->toDayDateTimeString()}}</dd>
                                                     <dt>End Time</dt>
-                                                    <dd>{{$journey->real_end_date_time}}</dd>
+                                                    <dd>{{$journey->real_end_date_time->toDayDateTimeString()}}</dd>
                                                     <dt>Total Hours</dt>
                                                     <dd>{{$journey->real_start_date_time->diffInHours($journey->real_end_date_time)}} hours</dd>
                                                 @endif
@@ -701,10 +713,8 @@
                             type: 'GET',
                             data: { id: event.id },
                             success: function(data)
-                            {      
-                                //console.log(data);                         
+                            {                            
                                 var details = JSON.parse(data);
-
                                 $.confirm({
                                     title: 'Journey!', //Confirm
                                     content:
@@ -727,7 +737,6 @@
                                 });  
                             }
                         });
-                       // $('#modal').modal('toggle');
                     },
                     eventLimit: 2,
                     eventRender: function(event, element) {
