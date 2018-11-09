@@ -38,6 +38,17 @@ class BacklogJourneyController extends Controller
     
     }
 
+    public function createAprrovedBacklog(){
+        
+        $divHeads = Division::all();
+        $fundAlFroms = FundsAllocatedFrom::all();
+        $drivers = Driver::all()->pluck('fullName','id');
+        //$vehicles = Vehical::all()->pluck('fullName','id');
+        $vehicles = Vehical::all();
+        return view('journey.approveBacklog',compact('fundAlFroms','drivers','vehicles','divHeads'));
+    
+    }
+
     public function storeBacklog(Request $request){
         
         $this->validate($request , [
