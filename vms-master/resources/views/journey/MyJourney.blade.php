@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css')}}">
 @endsection
 
-@section('header', 'View Completed Journey Requests')
+@section('header', 'My Journey Requests')
 
 @section('description', 'Select a journey to view details.')
 
