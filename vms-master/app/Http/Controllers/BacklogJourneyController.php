@@ -108,10 +108,13 @@ class BacklogJourneyController extends Controller
             // $msg= 'Place -  '.$journey->places_to_be_visited.'  Start -  '.$journey->real_start_date_time.'  End -  '.$journey->real_end_date_time.'  ';
 
             // Mail::send(new ApprovedByMail($emailAddress,$msg));
-            
-        }    
 
-        $journey->journey_status_id = '8';
+            $journey->journey_status_id = '6';
+            
+        }
+        else{
+            $journey->journey_status_id = '8';
+        }    
 
         //return $journey; 
         $journey->save();
