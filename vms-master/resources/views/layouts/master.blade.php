@@ -223,7 +223,7 @@ desired effect
                             <li><a href="{{url('/journey/requests/completed')}}"><i class="fa fa-edit"></i> <span>JOURNEY HISTORY</span></a></li>
                         @endif
                         @if(Auth::user()->canViewCancelledJourneys())
-                            <li><a href="{{url('/journey/cancelled')}}"><i class="fa fa-edit"></i> <span>CANCELLED JOURNEYS</span></a></li>
+                            <li><a href="{{url('/journey/cancelled')}}"><i class="fa fa-edit"></i> <span>UNSUCCESSSFUL JOURNEYS</span></a></li>
                         @endif
                         @if(Auth::user()->canViewMyJourneys())
                         <li><a href="{{url('/journey/myjourneys')}}"><i class="fa fa-edit"></i> <span>MY JOURNEYS</span></a></li>

@@ -68,8 +68,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::post('/journey/store','JourneyController@store');
     Route::get('/journey/{id}/edit','JourneyController@edit');
     Route::patch('/journey/update/{id}','JourneyController@update');
-    Route::get('/journey/createBacklog','JourneyController@createBacklog');
-    Route::post('/journey/storeBacklog','JourneyController@storeBacklog'); 
+ 
     Route::get('/journey/myjourneys','JourneyHistoryController@index');  
 
     /*
@@ -119,10 +118,14 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/journey/readCompleted','JourneyController@readcompletedJourney');
 
             // For Backlog Calender views 
-    Route::get('/journey/readBcaklogJourney','JourneyController@readBcaklogJourney'); 
+    Route::get('/journey/createBacklog','BacklogJourneyController@createBacklog');
+    Route::get('/journey/readBcaklogJourney','BacklogJourneyController@readBcaklogJourney'); 
+    Route::get('/journey/ForCreateBacklogByVehicle/{id}','BacklogJourneyController@ForCreateBacklogByVehicle');
+    Route::get('/journey/readExternalBacklog','BacklogJourneyController@readExternalBacklog');
+    Route::post('/journey/storeBacklog','BacklogJourneyController@storeBacklog');
 
     Route::get('/journey/readExternalCompleted','JourneyController@readExternalCompleted');
-    Route::get('/journey/readExternalBacklog','JourneyController@readExternalBacklog');
+    
     
     Route::get('/journey/ForCompletedByVehicle/{id}','JourneyController@ForCompletedByVehicle');
     Route::get('/journey/ForConfirmationByVehicle/{id}','JourneyController@ForConfirmationByVehicle');
@@ -132,9 +135,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/journey/readConfirmed/{id}','JourneyController@ForOngingView');
     Route::get('/journey/readVehicleColor/','JourneyController@readVehicleColor'); 
     Route::get('/journey/ForCreateByVehicle/{id}','JourneyController@ForCreateByVehicle'); 
-    Route::get('/journey/ForCreateBacklogByVehicle/{id}','JourneyController@ForCreateBacklogByVehicle');
-
-
+    
     /*
      * My Journeys
      * */
