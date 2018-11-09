@@ -118,7 +118,8 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/journey/readCompleted','JourneyController@readcompletedJourney');
 
             // For Backlog Calender views 
-    Route::get('/journey/createBacklog','BacklogJourneyController@createBacklog');
+    Route::get('/journey/createBacklog','BacklogJourneyController@createBacklog'); 
+    Route::get('/journey/createAprrovedBacklog','BacklogJourneyController@createAprrovedBacklog');
     Route::get('/journey/readBcaklogJourney','BacklogJourneyController@readBcaklogJourney'); 
     Route::get('/journey/ForCreateBacklogByVehicle/{id}','BacklogJourneyController@ForCreateBacklogByVehicle');
     Route::get('/journey/readExternalBacklog','BacklogJourneyController@readExternalBacklog');

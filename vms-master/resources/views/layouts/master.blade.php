@@ -206,28 +206,39 @@ desired effect
                         @if(Auth::user()->canRequestJourney())
                             <li><a href="{{url('/journey/create')}}"><i class="fa fa-plus"></i> <span>NEW JOURNEY REQUEST</span></a></li>
                         @endif
+
                         <li><a href="{{url('/journey/createBacklog')}}"><i class="fa fa-plus"></i> <span>NEW BACKLOG JOURNEYS</span></a></li>
-                        @if(Auth::user()->canApproveJourney())
+
+                        @if(Auth::user()->canApproveJourney()) 
                             <li><a href="{{url('/journey/requests')}}"><i class="fa fa-edit"></i> <span>APPROVE REQUESTS (HEAD)</span></a></li>
                         @endif
+
+                        <li><a href="{{url('/journey/createAprrovedBacklog')}}"><i class="fa fa-edit"></i> <span>APPROVE BACKLOGS (HEAD)</span></a></li>
+
                         @if(Auth::user()->canConfirmJourney())
                             <li><a href="{{url('/journey/requests/notconfirmed')}}"><i class="fa fa-edit"></i> <span>CONFIRM REQUESTS (CLARK)</span></a></li>
                         @endif
+
                         @if(Auth::user()->canViewOngoingJourneys())
                             <li><a href="{{url('/journey/requests/confirmed')}}"><i class="fa fa-edit"></i> <span>ONGOING JOURNEYS</span></a></li>
                         @endif
+
                         @if(Auth::user()->canCompleteJourney())
                             <li><a href="{{url('/journey/requests/complete')}}"><i class="fa fa-edit"></i> <span>RUNNING CHART (Driver)</span></a></li>
                         @endif
+
                         @if(Auth::user()->canViewCompletedJourneys())
                             <li><a href="{{url('/journey/requests/completed')}}"><i class="fa fa-edit"></i> <span>JOURNEY HISTORY</span></a></li>
                         @endif
+
                         @if(Auth::user()->canViewCancelledJourneys())
                             <li><a href="{{url('/journey/cancelled')}}"><i class="fa fa-edit"></i> <span>UNSUCCESSSFUL JOURNEYS</span></a></li>
                         @endif
+
                         @if(Auth::user()->canViewMyJourneys())
                         <li><a href="{{url('/journey/myjourneys')}}"><i class="fa fa-edit"></i> <span>MY JOURNEYS</span></a></li>
                         @endif
+
                     </ul>
                 </li>
 
