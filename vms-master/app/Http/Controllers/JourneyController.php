@@ -29,6 +29,7 @@ use App\Mail\ApprovedByMail;
 class JourneyController extends Controller
 {
     protected $client;
+    
     public function __construct()
     {
         $client = new Google_Client();
