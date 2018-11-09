@@ -283,8 +283,6 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h3>Journey Request Confirmation                                   
-                                <span class="label label-success pull-right">Approved</span>
-                                <span class="label label-success pull-right">Confirmed</span>
                                 <span class="label label-success pull-right">Completed</span>                               
                             </h3>
                         </div>
@@ -340,7 +338,7 @@
                                 <dt>Approximate Distance  km</dt>
                                 <dd id="expected_distance">  </dd>
                             </dl>
-                            <dl class="dl-horizontal">
+                            <dl class="dl-horizontal" id="expect">
                                 <h4>Expected Date and Time Range</h4>
                                 <dt>Start Date/ Time</dt>
                                 <dd id="expected_start_date_time"></dd>
@@ -363,7 +361,7 @@
                             </dl>
                         </div>
                         <div class="col-md-6">
-                            <dl class="dl-horizontal">
+                            <dl class="dl-horizontal" id="confirmation">
                                 <h4>Confirmaion</h4>
                                 <dt>Confirmed By</dt>                              
                                 <dd id="confirm_by"></dd>
@@ -474,8 +472,9 @@
     });
 
     $.get("{{ URL::to('journey/readCompleted') }}",function(data){ 
-        $.each(data,function(i,value){                       
-            if(value.vehical_id != null){
+        $.each(data,function(i,value){   
+
+            if(value.vehical_id != null && value.expected_start_date_time != null){
                 qEvent.push({ 
                     title : value.places_to_be_visited, // need place as the title
                     start : value.expected_start_date_time,
@@ -501,7 +500,8 @@
                     color : "#778899"
                 }); 
             }
-            if(value.expected_start_date_time == null){
+
+            if(value.expected_start_date_time == null && value.vehical_id != null){
                 qEvent.push({ 
                     title : value.places_to_be_visited, // need place as the title
                     start : value.real_start_date_time,
@@ -514,6 +514,20 @@
                     color : journey_colors[value.vehical_id]
                 });    
             }
+            if(value.expected_start_date_time == null && value.vehical_id == null){
+                qEvent.push({ 
+                    title : value.places_to_be_visited, // need place as the title
+                    start : value.real_start_date_time,
+                    end : value.real_end_date_time,
+                    id :  value.id, 
+                    applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                    vehical_id : value.vehical_id,
+                    borderColor: 'black',
+                    status: value.status,
+                    color : "#778899"
+                });
+            }
+            
         });
     });
 
@@ -695,11 +709,26 @@
                                 $('#devisional_head').html(details[7]);
                                 $('#approved_by').html(details[8]);
                                 $('#approved_at').html(details[9]); 
-                                $('#expected_start_date_time').html(details[10]);  
-                                $('#expected_end_date_time').html(details[11]);                            
+
+                                if(details[10]==null){
+                                    $('#expect').hide();
+                                }
+                                else{
+                                    $('#expect').show();
+                                } 
+
+                                $('#expected_start_date_time').html(details[10]);   
+                                $('#expected_end_date_time').html(details[11]); 
+
+                                if(details[12]==null){
+                                    $('#confirmation').hide();
+                                }
+                                else{
+                                    $('#confirmation').show();
+                                }                           
                                    
                                 $('#confirm_by').html(details[12]);
-                                $('#confirm_at').html(details[13]);
+                                $('#confirm_at').html(details[13]);  
 
                                 $('#confirm_remarks').html(details[0].confirmation_remarks);
                                 

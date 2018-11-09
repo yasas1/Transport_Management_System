@@ -312,16 +312,29 @@ class JourneyController extends Controller
             $vehicle_num = NULL;
             $vehicle_name = NULL;
             $driver = NULL;
-            $driver_completed = NULL;
             $external = $journey->externalVehicle;
+
+            if($journey->driver_completed_at==NULL){
+                $driver_completed = NULL;
+            }
+            else{
+                $driver_completed = $journey->driver_completed_at->toDayDateTimeString();
+            }
         }
         else{
             $vehicle_num = $journey->vehical->registration_no;
             $vehicle_name = $journey->vehical->name;
             $driver = $journey->driver->getFullNameAttribute();
-            $driver_completed = $journey->driver_completed_at->toDayDateTimeString();
             $external = NULL;
+            if($journey->driver_completed_at==NULL){
+                $driver_completed = NULL;
+            }
+            else{
+                $driver_completed = $journey->driver_completed_at->toDayDateTimeString();
+            }
+           
         }
+
         $applicant_name = $journey->applicant->getFullNameAttribute();
         $applicant_dept = $journey->applicant->division->dept_name;
         $applicant_email = $journey->applicant->emp_email;
@@ -329,15 +342,37 @@ class JourneyController extends Controller
         $devisional_head = $journey->divisional_head->getFullNameAttribute();
         
         $approved_by = $journey->approvedBy->getFullNameAttribute();
-        $approved_at = $journey->approved_at->toDayDateTimeString();
 
-        $exp_start = $journey->expected_start_date_time->toDayDateTimeString();
-        $exp_end = $journey->expected_end_date_time->toDayDateTimeString();
+        if($journey->approved_at != NULL){
+            $approved_at = $journey->approved_at->toDayDateTimeString();
+        }
+        else{
+            $approved_at = NULL;
+        }
 
-        $confirmed_by = $journey->confirmedBy->getFullNameAttribute();
-        $confirmed_at = $journey->confirmed_at->toDayDateTimeString();
-        $confirmed_start = $journey->confirmed_start_date_time->toDayDateTimeString();
-        $confirmed_end = $journey->confirmed_end_date_time->toDayDateTimeString();
+        if($journey->expected_start_date_time != NULL){
+            $exp_start = $journey->expected_start_date_time->toDayDateTimeString();
+            $exp_end = $journey->expected_end_date_time->toDayDateTimeString();
+        }
+        else{
+            $exp_start = NULL;
+            $exp_end = NULL;
+        }
+
+        if($journey->confirmed_by != NULL){
+            $confirmed_by = $journey->confirmedBy->getFullNameAttribute();
+            $confirmed_at = $journey->confirmed_at->toDayDateTimeString();
+            $confirmed_start = $journey->confirmed_start_date_time->toDayDateTimeString();
+            $confirmed_end = $journey->confirmed_end_date_time->toDayDateTimeString();
+        }
+        else{
+            $confirmed_by = NULL;
+            $confirmed_at = NULL;
+            $confirmed_start = NULL;
+            $confirmed_end = NULL;
+        }
+
+        
 
         $real_start = $journey->real_start_date_time->toDayDateTimeString(); 
         $real_end = $journey->real_end_date_time->toDayDateTimeString(); 
