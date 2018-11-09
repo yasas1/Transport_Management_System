@@ -283,7 +283,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h3>Journey Request Confirmation                                   
-                                <span class="label label-success pull-right">Completed</span>                               
+                                <span class="label label-success pull-right">Completed</span>  
+                                <span class="label label-info pull-right" id="backlog_status"></span>                             
                             </h3>
                         </div>
                     </div>
@@ -335,7 +336,7 @@
                                 <dd id="places_to_be_visited"></dd>
                                 <dt>Number of Persons</dt>
                                 <dd id="number_of_persons"></dd>
-                                <dt>Approximate Distance  km</dt>
+                                <dt id="ex_distance">Approximate Distance  km</dt>
                                 <dd id="expected_distance">  </dd>
                             </dl>
                             <dl class="dl-horizontal" id="expect">
@@ -394,7 +395,7 @@
                                     <dt>Completed Remarks</dt>                               
                                     <dd id="completed_remarks"></dd>
                                 </div>
-                                <dt>Approximate Distance</dt>
+                                <dt >Approximate Distance</dt>
                                 {{-- {{$journey->real_distance}} --}}
                                 <dd id="real_distance"></dd>
                                 <dt>Start Time</dt>
@@ -683,6 +684,15 @@
                                 $('#expected_distance').html(details[0].expected_distance);
                                 $('#approval_remarks').html(details[0].approval_remarks);
 
+                                if(details[0].expected_distance==null){
+                                    $('#ex_distance').hide(); 
+                                    $('#backlog_status').html("Backlog");
+                                }
+                                else{
+                                    $('#ex_distance').show();
+                                    $('#backlog_status').html(""); 
+                                }
+
                                 if(details[0].vehical_id == null){
                                     $('#vehicle_internal').hide();
                                     $('#final_internal').hide();
@@ -711,7 +721,7 @@
                                 $('#approved_at').html(details[9]); 
 
                                 if(details[10]==null){
-                                    $('#expect').hide();
+                                    $('#expect').hide(); 
                                 }
                                 else{
                                     $('#expect').show();
