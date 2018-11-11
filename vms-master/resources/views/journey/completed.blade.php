@@ -49,8 +49,15 @@
                         @if($journey->vehical_id == null)
                             <td>External Vehicle</td>
                         @endif
-                        <td>{{$journey->expected_start_date_time->toDayDateTimeString()}}</td>
-                        <td>{{$journey->expected_end_date_time->toDayDateTimeString()}}</td>
+                        @if($journey->expected_start_date_time == null)
+                            <td>{{$journey->real_start_date_time->toDayDateTimeString()}}</td>
+                            <td>{{$journey->real_end_date_time->toDayDateTimeString()}}</td>
+                        
+                        @endif
+                        @if($journey->expected_start_date_time != null)
+                            <td>{{$journey->expected_start_date_time->toDayDateTimeString()}}</td>
+                            <td>{{$journey->expected_end_date_time->toDayDateTimeString()}}</td>
+                        @endif
                         <td>{{$journey->applicant->emp_surname}}</td>
 
                         <td width="200px">
@@ -155,6 +162,7 @@
                                             <dt>Approximate Distance</dt>
                                             <dd>{{$journey->expected_distance.' km'}}</dd>
                                         </dl>
+                                        @if($journey->expected_start_date_time !=null)
                                         <dl class="dl-horizontal">
                                             <h4>Expected Date and Time Range</h4>
                                             <dt>Start Date/ Time</dt>
@@ -164,7 +172,7 @@
                                             <dt>Journey Duration</dt>
                                             <dd>{{$journey->expected_end_date_time->diffInHours($journey->expected_start_date_time)}} hours</dd>
                                         </dl>
-
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="row">
@@ -173,13 +181,18 @@
                                             <h4>Approval</h4>
                                             <dt>Approved By</dt>
                                             <dd>{{$journey->approvedBy->emp_title.' '.$journey->approvedBy->emp_initials.'. '.$journey->approvedBy->emp_surname}}</dd>
+                                            @if($journey->approved_at !=null)
                                             <dt>Approved At</dt>
                                             <dd>{{$journey->approved_at->toDayDateTimeString()}}</dd>
+                                            @endif
+                                            @if($journey->approval_remarks !=null)
                                             <dt>Remarks</dt>
                                             <dd>{{$journey->approval_remarks}}</dd>
+                                            @endif
                                         </dl>
                                     </div>
                                     <div class="col-md-6">
+                                        @if($journey->confirmed_by != null )
                                         <dl class="dl-horizontal">
                                             <h4>Confirmaion</h4>
                                             <dt>Confirmed By</dt>
@@ -206,6 +219,7 @@
                                             </dd>
 
                                         </dl>
+                                        @endif
                                     </div>
                                 </div>
 
@@ -213,7 +227,7 @@
                                     <div class="col-md-6">
                                         <dl class="dl-horizontal">
                                             <h4>Final Details</h4>
-                                            @if($journey->vehical_id != null)
+                                            @if($journey->vehical_id != null && $journey->driver_completed_at !=null) 
                                                 <dt>Driver Filled At</dt>
                                                 <dd>{{$journey->driver_completed_at->toDayDateTimeString()}}</dd>
                                                 <dt>Driver Remarks</dt>
@@ -269,9 +283,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h3>Journey Request Confirmation                                   
-                                <span class="label label-success pull-right">Approved</span>
-                                <span class="label label-success pull-right">Confirmed</span>
-                                <span class="label label-success pull-right">Completed</span>                               
+                                <span class="label label-success pull-right">Completed</span>  
+                                <span class="label label-info pull-right" id="backlog_status"></span>                             
                             </h3>
                         </div>
                     </div>
@@ -323,10 +336,10 @@
                                 <dd id="places_to_be_visited"></dd>
                                 <dt>Number of Persons</dt>
                                 <dd id="number_of_persons"></dd>
-                                <dt>Approximate Distance  km</dt>
+                                <dt id="ex_distance">Approximate Distance  km</dt>
                                 <dd id="expected_distance">  </dd>
                             </dl>
-                            <dl class="dl-horizontal">
+                            <dl class="dl-horizontal" id="expect">
                                 <h4>Expected Date and Time Range</h4>
                                 <dt>Start Date/ Time</dt>
                                 <dd id="expected_start_date_time"></dd>
@@ -349,7 +362,7 @@
                             </dl>
                         </div>
                         <div class="col-md-6">
-                            <dl class="dl-horizontal">
+                            <dl class="dl-horizontal" id="confirmation">
                                 <h4>Confirmaion</h4>
                                 <dt>Confirmed By</dt>                              
                                 <dd id="confirm_by"></dd>
@@ -382,7 +395,7 @@
                                     <dt>Completed Remarks</dt>                               
                                     <dd id="completed_remarks"></dd>
                                 </div>
-                                <dt>Approximate Distance</dt>
+                                <dt >Approximate Distance</dt>
                                 {{-- {{$journey->real_distance}} --}}
                                 <dd id="real_distance"></dd>
                                 <dt>Start Time</dt>
@@ -460,8 +473,9 @@
     });
 
     $.get("{{ URL::to('journey/readCompleted') }}",function(data){ 
-        $.each(data,function(i,value){                       
-            if(value.vehical_id != null){
+        $.each(data,function(i,value){   
+
+            if(value.vehical_id != null && value.expected_start_date_time != null){
                 qEvent.push({ 
                     title : value.places_to_be_visited, // need place as the title
                     start : value.expected_start_date_time,
@@ -487,6 +501,34 @@
                     color : "#778899"
                 }); 
             }
+
+            if(value.expected_start_date_time == null && value.vehical_id != null){
+                qEvent.push({ 
+                    title : value.places_to_be_visited, // need place as the title
+                    start : value.real_start_date_time,
+                    end : value.real_end_date_time,
+                    id :  value.id, 
+                    applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                    vehical_id : value.vehical_id,
+                    borderColor: 'black',
+                    status: value.status,
+                    color : journey_colors[value.vehical_id]
+                });    
+            }
+            if(value.expected_start_date_time == null && value.vehical_id == null){
+                qEvent.push({ 
+                    title : value.places_to_be_visited, // need place as the title
+                    start : value.real_start_date_time,
+                    end : value.real_end_date_time,
+                    id :  value.id, 
+                    applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                    vehical_id : value.vehical_id,
+                    borderColor: 'black',
+                    status: value.status,
+                    color : "#778899"
+                });
+            }
+            
         });
     });
 
@@ -642,6 +684,15 @@
                                 $('#expected_distance').html(details[0].expected_distance);
                                 $('#approval_remarks').html(details[0].approval_remarks);
 
+                                if(details[0].expected_distance==null){
+                                    $('#ex_distance').hide(); 
+                                    $('#backlog_status').html("Backlog");
+                                }
+                                else{
+                                    $('#ex_distance').show();
+                                    $('#backlog_status').html(""); 
+                                }
+
                                 if(details[0].vehical_id == null){
                                     $('#vehicle_internal').hide();
                                     $('#final_internal').hide();
@@ -668,11 +719,26 @@
                                 $('#devisional_head').html(details[7]);
                                 $('#approved_by').html(details[8]);
                                 $('#approved_at').html(details[9]); 
-                                $('#expected_start_date_time').html(details[10]);  
-                                $('#expected_end_date_time').html(details[11]);                            
+
+                                if(details[10]==null){
+                                    $('#expect').hide(); 
+                                }
+                                else{
+                                    $('#expect').show();
+                                } 
+
+                                $('#expected_start_date_time').html(details[10]);   
+                                $('#expected_end_date_time').html(details[11]); 
+
+                                if(details[12]==null){
+                                    $('#confirmation').hide();
+                                }
+                                else{
+                                    $('#confirmation').show();
+                                }                           
                                    
                                 $('#confirm_by').html(details[12]);
-                                $('#confirm_at').html(details[13]);
+                                $('#confirm_at').html(details[13]);  
 
                                 $('#confirm_remarks').html(details[0].confirmation_remarks);
                                 

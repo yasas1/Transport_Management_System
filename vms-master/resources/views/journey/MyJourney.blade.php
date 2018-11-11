@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css')}}">
 @endsection
 
-@section('header', 'View Completed Journey Requests')
+@section('header', 'My Journey Requests')
 
 @section('description', 'Select a journey to view details.')
 
@@ -239,8 +239,9 @@
                                 </div>
 
                                 <div class="row">
-                                    @if(($journey->vehical_id != null) &&( $journey->journey_status_id == 6 || $journey->vehical_id == 8))
+                                    @if($journey->vehical_id != null || $journey->journey_status_id == 6 || $journey->vehical_id == 8)
                                         <div class="col-md-6">
+                                            @if($journey->journey_status_id != 4 && $journey->journey_status_id != 2)
                                             <dl class="dl-horizontal">
                                                 <h4>Final Details</h4>
                                                 @if($journey->vehical_id != null && $journey->driver_completed_at != null)
@@ -265,6 +266,7 @@
                                                     <dd>{{$journey->real_start_date_time->diffInHours($journey->real_end_date_time)}} hours</dd>
                                                 @endif
                                             </dl>
+                                            @endif
                                         </div>
                                     @endif
                                 </div>
