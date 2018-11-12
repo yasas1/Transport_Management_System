@@ -21,9 +21,9 @@
             <h2 class="box-title"> <strong> Backlog Journeys </strong> </h2>
         </div>
         @if($journeys)
-        <div class="box-body"  >
+        <div class="box-body" style=" height:700px; overflow: auto;" >
             
-            <table class="table" id="table" style=" height:700px; overflow: auto;" >
+            <table class="table" id="table"  >
                 <thead>
                 <tr>
                     <th>Applicant Name</th>
@@ -37,7 +37,7 @@
                 <tbody>
                 @foreach($journeys as $journey)
                     <tr>
-                        <td>{{$journey->applicant->emp_surname}}</td>
+                        <td>{{$journey->applicant->emp_title.' '.$journey->applicant->emp_initials.'. ' .$journey->applicant->emp_surname}}</td>
                         <td>{{$journey->applicant->division->dept_name}}</td>
                         @if($journey->vehical_id != null)
                             <td>{{$journey->vehical->fullname}}</td>
@@ -87,7 +87,7 @@
                                         <dl class="dl-horizontal">
                                             <h4>Applicant</h4>
                                             <dt>Name</dt>
-                                            <dd>{{$journey->applicant->emp_surname}}</dd>
+                                            <dd>{{$journey->applicant->emp_title.' '.$journey->applicant->emp_initials.'. ' .$journey->applicant->emp_surname}}</dd>
                                             <dt>Division</dt>
                                             <dd>{{$journey->applicant->division->dept_name}}</dd>
                                             <dt>Email</dt>
@@ -133,9 +133,9 @@
                                             <dt> Distance</dt>
                                             <dd>{{$journey->real_distance}}</dd>
                                             <dt>Start Time</dt>
-                                            <dd>{{$journey->real_start_date_time}}</dd>
+                                            <dd>{{$journey->real_start_date_time->toDayDateTimeString()}}</dd>
                                             <dt>End Time</dt>
-                                            <dd>{{$journey->real_end_date_time}}</dd>
+                                            <dd>{{$journey->real_end_date_time->toDayDateTimeString()}}</dd>
                                             <dt>Total Hours</dt>
                                             <dd>{{$journey->real_start_date_time->diffInHours($journey->real_end_date_time)}} hours</dd>
                                         </dl>
