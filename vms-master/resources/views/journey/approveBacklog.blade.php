@@ -141,10 +141,25 @@
                                         </dl>
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {!! Form::open(['method' => 'post','id'=>'formApproval{{$journey->id}}','action'=>['BacklogJourneyController@approvalBacklog',$journey->id]]) !!}
+                                        <div class="form-group">
+                                            <label for="remarks">Remarks</label>
+                                            {!! Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2' ]) !!}
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="submit" class="btn btn-success" name="submitType" value="Approve">
+                                    <button type="button" class="btn btn-danger" id="close" data-dismiss="modal">Close</button>
+                                        {!! Form::close() !!}
+                                </div> 
+
                             </div>
-                            <div class="modal-footer">
-                                <input type="button" class="btn btn-success" data-dismiss="modal"  value="OK">
-                            </div>
+                                                     
                         </div>
                     </div>
                 </div>

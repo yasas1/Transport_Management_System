@@ -184,4 +184,27 @@ class BacklogJourneyController extends Controller
         return response($journeys);
     }
 
+    public function approvalBacklog(Request $request, $id){
+
+        // $this->validate($request , [
+        //     'remarks' => 'required'
+            
+        // ]);    
+        $userlogid = Auth::user()->emp_id; 
+
+        if($journey = Journey::whereId($id)->first()){
+
+            $journey->approved_at = Carbon::now();
+            $journey->approved_by = $userlogid;
+            $journey->approval_remarks = $request->remarks; 
+
+            $journey->journey_status_id = '6';
+            $journey->update();
+            //return $journey;
+            return redirect()->back()->with(['success'=>'Journey request approved successfully !']);
+            
+        }
+
+    }
+
 }
