@@ -13,7 +13,8 @@
     @include('layouts.success')
     <div class="box box-primary" style="height: 450px; overflow: auto;" >
         <div class="box-header with-border">
-            <h3 class="box-title"> <strong> Cancelled Journey </strong> </h3>
+            <h3 class="box-title"> <strong> Cancelled Journey </strong> </h3> 
+            <p>Journeys that are cancelled according to other reasons <p>
         </div>
         <div class="box-body">
             @if($journeys)
@@ -33,7 +34,7 @@
                     <tbody>
                     @foreach($journeys as $journey)
                         <tr>
-                            <td>{{$journey->applicant->emp_surname}}</td>
+                            <td>{{$journey->applicant->emp_title.' '.$journey->applicant->emp_initials.'. ' .$journey->applicant->emp_surname}}</td>
                             <td>{{$journey->applicant->division->dept_name}}</td>        
                             @if($journey->vehical_id != null)
                                 <td>{{$journey->vehical->fullname}}</td>
@@ -72,6 +73,7 @@
     <div class="box box-primary" style="height: 450px; overflow: auto;" >
         <div class="box-header with-border">
             <h3 class="box-title"> <strong> Denied Journey </strong> </h3>
+            <p>Journeys that are rejected by Divissional head <p>
         </div>
         <div class="box-body">
             @if($DeniedJourneys)
@@ -91,7 +93,7 @@
                     <tbody>
                     @foreach($DeniedJourneys as $journey)
                         <tr>
-                            <td>{{$journey->applicant->emp_surname}}</td>
+                            <td>{{$journey->applicant->emp_title.' '.$journey->applicant->emp_initials.'. ' .$journey->applicant->emp_surname}}</td>
                             <td>{{$journey->applicant->division->dept_name}}</td>        
                             @if($journey->vehical_id != null)
                                 <td>{{$journey->vehical->fullname}}</td>
