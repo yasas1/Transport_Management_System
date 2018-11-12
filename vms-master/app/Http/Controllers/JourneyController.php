@@ -29,6 +29,7 @@ use App\Mail\ApprovedByMail;
 class JourneyController extends Controller
 {
     protected $client;
+    
     public function __construct()
     {
         $client = new Google_Client();
@@ -64,16 +65,7 @@ class JourneyController extends Controller
         return view('journey.create',compact('fundAlFroms','drivers','vehicles','divHeads','journeys','vehiclesButton'));
     
     } 
-    public function createBacklog(){
-        
-        $divHeads = Division::all();
-        $fundAlFroms = FundsAllocatedFrom::all();
-        $drivers = Driver::all()->pluck('fullName','id');
-        //$vehicles = Vehical::all()->pluck('fullName','id');
-        $vehicles = Vehical::all();
-        return view('journey.createBacklogJourney',compact('fundAlFroms','drivers','vehicles','divHeads'));
-    
-    }
+
     public function readJourney(){ 
             // for create journey calender view database2.table2 as db2'
         $journeys = DB::table('journey')
@@ -102,18 +94,6 @@ class JourneyController extends Controller
         ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
         ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
         ->where('vehical_id','=',NULL)->where('journey_status_id','=','6')
-        ->get();
-        
-        return response($journeys);
-    }
-
-    public function readExternalBacklog(){ 
-            // for Backlog journey calender view External vehicle journeys' 
-        $journeys = DB::table('journey')
-        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
-        ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
-        ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
-        ->where('vehical_id','=',NULL)->where('journey_status_id','=','8')
         ->get();
         
         return response($journeys);
@@ -176,18 +156,6 @@ class JourneyController extends Controller
         return response($journeys);
     }
 
-    public function ForCreateBacklogByVehicle(){ 
-        $vid = $_GET['id'];
-        //$journeys = Journey::journeyByVehicle($vid); 
-        $journeys = DB::table('journey')
-        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
-        ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
-        ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
-        ->where('vehical_id','=',$vid)->where('journey_status_id','=','8')
-        ->get();
-        return response($journeys);
-    }
-
     public function confirmationJourneys(){
             // for Confirmation journey calender view
         //$journeys = Journey::notConfirmed();
@@ -199,18 +167,6 @@ class JourneyController extends Controller
         ->get();
         return response($journeys);
         
-    }
-
-    public function readBcaklogJourney(){ 
-            // for creating Backlog journey calender view '
-        $journeys = DB::table('journey')
-        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
-        ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
-        ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
-        ->where('journey_status_id','=','8')
-        ->get();
-        
-        return response($journeys);
     }
 
     public function readcompletedJourney(){
@@ -242,6 +198,7 @@ class JourneyController extends Controller
         }
         
     }
+
     public function ForOngingView(){ 
         $journeyid = $_GET['id'];
         //$journeys = Journey::journeyByVehicle($vid); 
@@ -278,6 +235,7 @@ class JourneyController extends Controller
         ));
         return response($data);
     }
+
     public function readJourneyForCreate(){
         $id = $_GET['id'];
         $journey = Journey::whereId($id)->first(); 
@@ -354,16 +312,29 @@ class JourneyController extends Controller
             $vehicle_num = NULL;
             $vehicle_name = NULL;
             $driver = NULL;
-            $driver_completed = NULL;
             $external = $journey->externalVehicle;
+
+            if($journey->driver_completed_at==NULL){
+                $driver_completed = NULL;
+            }
+            else{
+                $driver_completed = $journey->driver_completed_at->toDayDateTimeString();
+            }
         }
         else{
             $vehicle_num = $journey->vehical->registration_no;
             $vehicle_name = $journey->vehical->name;
             $driver = $journey->driver->getFullNameAttribute();
-            $driver_completed = $journey->driver_completed_at->toDayDateTimeString();
             $external = NULL;
+            if($journey->driver_completed_at==NULL){
+                $driver_completed = NULL;
+            }
+            else{
+                $driver_completed = $journey->driver_completed_at->toDayDateTimeString();
+            }
+           
         }
+
         $applicant_name = $journey->applicant->getFullNameAttribute();
         $applicant_dept = $journey->applicant->division->dept_name;
         $applicant_email = $journey->applicant->emp_email;
@@ -371,15 +342,37 @@ class JourneyController extends Controller
         $devisional_head = $journey->divisional_head->getFullNameAttribute();
         
         $approved_by = $journey->approvedBy->getFullNameAttribute();
-        $approved_at = $journey->approved_at->toDayDateTimeString();
 
-        $exp_start = $journey->expected_start_date_time->toDayDateTimeString();
-        $exp_end = $journey->expected_end_date_time->toDayDateTimeString();
+        if($journey->approved_at != NULL){
+            $approved_at = $journey->approved_at->toDayDateTimeString();
+        }
+        else{
+            $approved_at = NULL;
+        }
 
-        $confirmed_by = $journey->confirmedBy->getFullNameAttribute();
-        $confirmed_at = $journey->confirmed_at->toDayDateTimeString();
-        $confirmed_start = $journey->confirmed_start_date_time->toDayDateTimeString();
-        $confirmed_end = $journey->confirmed_end_date_time->toDayDateTimeString();
+        if($journey->expected_start_date_time != NULL){
+            $exp_start = $journey->expected_start_date_time->toDayDateTimeString();
+            $exp_end = $journey->expected_end_date_time->toDayDateTimeString();
+        }
+        else{
+            $exp_start = NULL;
+            $exp_end = NULL;
+        }
+
+        if($journey->confirmed_by != NULL){
+            $confirmed_by = $journey->confirmedBy->getFullNameAttribute();
+            $confirmed_at = $journey->confirmed_at->toDayDateTimeString();
+            $confirmed_start = $journey->confirmed_start_date_time->toDayDateTimeString();
+            $confirmed_end = $journey->confirmed_end_date_time->toDayDateTimeString();
+        }
+        else{
+            $confirmed_by = NULL;
+            $confirmed_at = NULL;
+            $confirmed_start = NULL;
+            $confirmed_end = NULL;
+        }
+
+        
 
         $real_start = $journey->real_start_date_time->toDayDateTimeString(); 
         $real_end = $journey->real_end_date_time->toDayDateTimeString(); 
@@ -481,97 +474,6 @@ class JourneyController extends Controller
             return $e;
         }
             return redirect()->back()->with(['success'=>'Journey added successfully !']);
-    }
-
-    public function storeBacklog(Request $request){
-        
-        $this->validate($request , [
-            'applicant_id' => 'required',
-            'vehical_id' => 'required',
-            'time_range' => 'required',
-            'real_distance' => 'required',
-            'divisional_head_id' => 'required',
-            'purpose' => 'required', 
-            'funds_allocated_from_id' => 'required',
-        ]);
-        
-        $journey = new Journey;
-
-        $journey->applicant_id = $request->applicant_id;
-       
-        if($request->vehical_id != 0){
-            $journey->vehical_id = $request->vehical_id;
-            if($request->driver_id == NULL){
-                $vehicle = Vehical::whereId($request->vehical_id)->first();
-                $journey->driver_id = $vehicle->driver->id;
-            }
-            else{
-                $journey->driver_id = $request->driver_id;
-            }
-        }
-        else{
-            $journey->vehical_id = Null;
-            $journey->driver_id = NULL;
-        }
-
-        $string=$request->time_range;
-        $pos = strrpos($string, ' - ');
-        $first = substr($string, 0, $pos);
-        $second = substr($string, $pos + 3); 
-        if($real_start_date_time = Carbon::parse($first)){
-                $journey->real_start_date_time = $real_start_date_time;
-        }
-        if($real_end_date_time = Carbon::parse($second)){
-            $journey->real_end_date_time = $real_end_date_time;
-        }  
-
-        $journey->purpose = $request->purpose;
-        $journey->places_to_be_visited = $request->places_to_be_visited;
-        $journey->number_of_persons = $request->number_of_persons;
-        $journey->real_distance = $request->real_distance;
-
-        //check long distance
-        if($request->expected_distance>=150){
-            $journey->is_long_distance = 1;
-        }
-
-        $journey->funds_allocated_from_id = $request->funds_allocated_from_id;
-        $journey->divisional_head_id = $request->divisional_head_id;
-
-        $journey->approved_by = $request->approved_by;
-
-        if($request->approved_by != NULL){
-
-            $approvedID = $request->approved_by;
-
-                    /* Sending email -- send from webmaster email -- check after uploaded to sever */
-
-            // $emailAddress = Employee::where('emp_id','=',$approvedID)->first()->emp_email.'@ucsc.cmb.ac.lk';
-
-            //$emailAddress= 'ranawaka.y@gmail.com'; // for testing
-
-            // $msg= 'Place -  '.$journey->places_to_be_visited.'  Start -  '.$journey->real_start_date_time.'  End -  '.$journey->real_end_date_time.'  ';
-
-            // Mail::send(new ApprovedByMail($emailAddress,$msg));
-            
-        }    
-
-        $journey->journey_status_id = '8';
-
-        //return $journey; 
-        $journey->save();
-        
-        if($request->vehical_id == 0){
-            
-            $externalNew = new ExternalVehicle;       
-            $externalNew->company_name = $request->company_name ;               
-            $externalNew->cost = $request->cost ;                  
-            $externalNew->journey_id = $journey->id;              
-            $externalNew->save();
-
-        }
-        
-        return redirect()->back()->with(['success'=>'Backlog Journey added successfully !']);
     }
 
     public function cancel(Request $request){

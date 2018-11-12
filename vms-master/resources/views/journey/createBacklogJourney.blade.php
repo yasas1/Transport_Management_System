@@ -58,7 +58,7 @@
                     </div> 
                     @endif
 
-                    {!! Form::open(['method' => 'post','action'=>'JourneyController@storeBacklog','files'=>true]) !!}
+                    {!! Form::open(['method' => 'post','action'=>'BacklogJourneyController@storeBacklog','files'=>true]) !!}
                     {{-- storeBacklog --}}
                     <div class="row">
                         <div class="col-md-12">
@@ -277,6 +277,7 @@
         </div>
     </div>
     <div class="aletr alert-successs" id="aaa">aaaa</div>
+
 @endsection
 
 @section('scripts')
