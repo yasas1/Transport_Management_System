@@ -39,13 +39,18 @@ class BacklogJourneyController extends Controller
     }
 
     public function createAprrovedBacklog(){
-        
+
+        $journeys = Journey::where('journey_status_id','=','8')->get();
+
+        // $journeys = Journey::where('divisional_head_id','=',$userlogid)
+        //         ->where('journey_status_id','=','1')
+        //         ->where('is_long_distance', '=', '0')->get();
         $divHeads = Division::all();
         $fundAlFroms = FundsAllocatedFrom::all();
         $drivers = Driver::all()->pluck('fullName','id');
         //$vehicles = Vehical::all()->pluck('fullName','id');
         $vehicles = Vehical::all();
-        return view('journey.approveBacklog',compact('fundAlFroms','drivers','vehicles','divHeads'));
+        return view('journey.approveBacklog',compact('journeys','fundAlFroms','drivers','vehicles','divHeads'));
     
     }
 
