@@ -124,6 +124,8 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/journey/ForCreateBacklogByVehicle/{id}','BacklogJourneyController@ForCreateBacklogByVehicle');
     Route::get('/journey/readExternalBacklog','BacklogJourneyController@readExternalBacklog');
     Route::post('/journey/storeBacklog','BacklogJourneyController@storeBacklog');
+    Route::post('/journey/request/{id}/approvalBacklog','BacklogJourneyController@approvalBacklog');
+
 
     Route::get('/journey/readExternalCompleted','JourneyController@readExternalCompleted');
     

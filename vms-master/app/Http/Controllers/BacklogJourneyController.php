@@ -39,13 +39,13 @@ class BacklogJourneyController extends Controller
     }
 
     public function createAprrovedBacklog(){
-        
-        $divHeads = Division::all();
-        $fundAlFroms = FundsAllocatedFrom::all();
-        $drivers = Driver::all()->pluck('fullName','id');
-        //$vehicles = Vehical::all()->pluck('fullName','id');
-        $vehicles = Vehical::all();
-        return view('journey.approveBacklog',compact('fundAlFroms','drivers','vehicles','divHeads'));
+
+        $userlogid = Auth::user()->emp_id; 
+
+        $journeys = Journey::where('divisional_head_id','=',$userlogid)
+                ->where('journey_status_id','=','8')->get();
+
+        return view('journey.approveBacklog',compact('journeys'));
     
     }
 
@@ -177,6 +177,29 @@ class BacklogJourneyController extends Controller
         ->where('vehical_id','=',$vid)->where('journey_status_id','=','8')
         ->get();
         return response($journeys);
+    }
+
+    public function approvalBacklog(Request $request, $id){
+
+        // $this->validate($request , [
+        //     'remarks' => 'required'
+            
+        // ]);    
+        $userlogid = Auth::user()->emp_id; 
+
+        if($journey = Journey::whereId($id)->first()){
+
+            $journey->approved_at = Carbon::now();
+            $journey->approved_by = $userlogid;
+            $journey->approval_remarks = $request->remarks; 
+
+            $journey->journey_status_id = '6';
+            $journey->update();
+            //return $journey;
+            return redirect()->back()->with(['success'=>'Journey request approved successfully !']);
+            
+        }
+
     }
 
 }

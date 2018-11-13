@@ -121,7 +121,7 @@ class JourneyConfirmController extends Controller
         
         if($journey = Journey::whereId($id)->first()){
 
-            $journey->journey_status_id = "3";
+            $journey->journey_status_id = "5";
             $journey->update();
             return redirect()->back()->with(['success'=>'Journey request confirmation denied successfully!']);     
         }
