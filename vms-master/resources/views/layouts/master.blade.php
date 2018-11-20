@@ -228,15 +228,15 @@ desired effect
                         @endif
 
                         @if(Auth::user()->canViewCompletedJourneys())
-                            <li><a href="{{url('/journey/requests/completed')}}"><i class="fa fa-edit"></i> <span>JOURNEY HISTORY</span></a></li>
+                            <li><a href="{{url('/journey/requests/completed')}}"><i class="fa fa-eye"></i> <span>JOURNEY HISTORY</span></a></li>
+                        @endif          
+
+                        @if(Auth::user()->canViewMyJourneys())
+                        <li><a href="{{url('/journey/myjourneys')}}"><i class="fa fa-eye"></i> <span>MY JOURNEYS</span></a></li>
                         @endif
 
                         @if(Auth::user()->canViewCancelledJourneys())
-                            <li><a href="{{url('/journey/cancelled')}}"><i class="fa fa-edit"></i> <span>UNSUCCESSSFUL JOURNEYS</span></a></li>
-                        @endif
-
-                        @if(Auth::user()->canViewMyJourneys())
-                        <li><a href="{{url('/journey/myjourneys')}}"><i class="fa fa-edit"></i> <span>MY JOURNEYS</span></a></li>
+                            <li><a href="{{url('/journey/cancelled')}}"><i class="fa fa-eye"></i> <span>UNSUCCESSSFUL JOURNEYS</span></a></li>
                         @endif
 
                     </ul>
@@ -268,7 +268,18 @@ desired effect
                         <li><a href="{{url('/user/roles')}}"><i class="fa fa-edit"></i> <span>EDIT A ROLE</span></a></li>
                     </ul>
                 </li>
-                <li><a href="{{url('/vehicle/usage')}}"><i class="fa fa-bar-chart"></i> Vehicle Usage</a></li>
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-bar-chart"></i> <span>Vehicle Usage</span>
+                        <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{url('/vehicle/usage')}}"><i class="fa fa-eye"></i> Vehicle Usage</a></li>
+                    </ul>
+                    
+                </li>
             </ul>
             <!-- /.sidebar-menu -->
         </section>
