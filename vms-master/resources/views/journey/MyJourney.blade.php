@@ -18,7 +18,7 @@
     <div class="box box-primary">
    
         <div class="box-header with-border" >
-            <h3 class="box-title">Completed Journey List</h3>
+            <h3 class="box-title">My Journey Requests</h3>
         </div>
         @if($journeys)
                 <!-- for hide and view table content -->
