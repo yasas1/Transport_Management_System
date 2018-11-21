@@ -16,74 +16,77 @@
     <div class="row">
 
         <div class="col-md-6">
+
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        <span class="fa fa-road"></span> JOURENY</h3>
+                        <span class="fa fa-car"></span> VEHICLE</h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-xs-6 col-md-6">
-                          <a href="{{url('/journey/create')}}" class="btn btn-danger btn-lg" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/>New </a>
-                          <a href="{{url('/journey/requests')}}" class="btn btn-warning btn-lg" role="button"><span class="glyphicon glyphicon-pencil"></span> <br/>Approve</a>
-                          <a href="{{url('/journey/requests/notconfirmed')}}" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-ok"></span> <br/>Confirm</a>
-                         
-                         
+                        <div class="col-xs-12 col-md-12">
+                            <a href="{{url('/vehicle/create')}}" class="btn btn-danger " role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/> New </a>
+                            <a href="{{url('/vehicle/')}}" class="btn btn-warning " role="button"><span class="glyphicon glyphicon-folder-open"></span> <br/>View</a>
+                            <a href="{{url('/vehicle/')}}" class="btn btn-primary " role="button"><span class="glyphicon glyphicon-edit"></span> <br/>Edit</a> 
                         </div>
-                        <div class="col-xs-6 col-md-6">
-                            <a href="{{url('/journey/requests/confirmed')}}" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-indent-left"></span> <br/>Ongoing</a>
-                            <a href="{{url('/journey/requests/completed')}}" class="btn btn-info btn-lg" role="button"><span class="fa fa-folder"></span> <br/>History</a>
-                            <a href="{{url('/journey/myjourneys')}}" class="btn btn-success btn-lg" role="button"><span class="glyphicon glyphicon-user"></span> <br/>My Journey</a>
-                            
-                            {{-- <a href="#" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-tag"></span> <br/>Tags</a> --}}
-                        </div>
-                    </div>
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">
-                                <span class="glyphicon glyphicon-blackboard"></span> BACKLOG JOURENY</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-xs-6 col-md-6">
-                                    <a href="{{url('/journey/createBacklog')}}" class="btn btn-danger btn-lg " role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/> New  </a>                      
-                                </div>
-                                <div class="col-xs-6 col-md-6">     
-                                    <a href="{{url('/journey/createAprrovedBacklog')}}" class="btn btn-warning btn-lg " role="button"><span class="glyphicon glyphicon-pencil"></span> <br/> Approve </a>
-                                </div>
-                            </div> 
-                        </div>
-                    </div>       
+                    </div>                  
                 </div>
             </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="fa fa-user"></span> DRIVER</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <a href="{{url('/driver/create')}}" class="btn btn-danger " role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/> New </a>
+                            <a href="{{url('/driver/')}}" class="btn btn-warning " role="button"><span class="glyphicon glyphicon-folder-open"></span> <br/>View</a>
+                            <a href="{{url('/driver/')}}" class="btn btn-primary " role="button"><span class="glyphicon glyphicon-edit"></span> <br/>Edit</a>
+                        </div>
+                    </div>                  
+                </div>
+            </div>
+    
         </div>
 
         <div class="col-md-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        <span class="glyphicon glyphicon-bookmark"></span> BACKLOG JOURENY</h3>
+                        <span class="fa fa-road"></span> JOURENEY</h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-xs-6 col-md-6">
-                            <a href="#" class="btn btn-danger btn-lg" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/> New </a>
-                            <a href="#" class="btn btn-warning btn-lg" role="button"><span class="glyphicon glyphicon-bookmark"></span> <br/>Aprrove</a>
-                            <a href="#" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-signal"></span> <br/>Reports</a>
-                            <a href="#" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-comment"></span> <br/>Comments</a>
+                          <a href="{{url('/journey/create')}}" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/>New Journey </a>
+                          <a href="{{url('/journey/requests')}}" class="btn btn-warning " role="button"><span class="glyphicon glyphicon-pencil"></span> <br/>Approve</a>
+                          <a href="{{url('/journey/requests/notconfirmed')}}" class="btn btn-primary " role="button"><span class="glyphicon glyphicon-ok"></span> <br/>Confirm</a>
+                         
+                         
                         </div>
                         <div class="col-xs-6 col-md-6">
-                            <a href="#" class="btn btn-success btn-lg" role="button"><span class="glyphicon glyphicon-user"></span> <br/>Users</a>
-                            <a href="#" class="btn btn-info btn-lg" role="button"><span class="glyphicon glyphicon-file"></span> <br/>Notes</a>
-                            <a href="#" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-picture"></span> <br/>Photos</a>
-                            <a href="#" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-tag"></span> <br/>Tags</a>
+                            <a href="{{url('/journey/requests/confirmed')}}" class="btn btn-primary " role="button"><span class="glyphicon glyphicon-indent-left"></span> <br/>Ongoing</a>
+                            <a href="{{url('/journey/requests/completed')}}" class="btn btn-info " role="button"><span class="fa fa-folder"></span> <br/>History</a>
+                            <a href="{{url('/journey/myjourneys')}}" class="btn btn-success " role="button"><span class="glyphicon glyphicon-user"></span> <br/>My Journey</a>
+                            
+                            {{-- <a href="#" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-tag"></span> <br/>Tags</a> --}}
                         </div>
                     </div>
-                    <a href="http://www.jquery2dotnet.com/" class="btn btn-success btn-lg btn-block" role="button"><span class="glyphicon glyphicon-globe"></span> Website</a>
+                    
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <a href="{{url('/journey/createBacklog')}}" class="btn btn-danger  " role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/> New Backlog </a>                      
+                            <a href="{{url('/journey/createAprrovedBacklog')}}" class="btn btn-warning  " role="button"><span class="glyphicon glyphicon-pencil"></span> <br/> Approve Backlog </a>
+                        </div>
+                    </div> 
+                        
+                           
                 </div>
             </div>
         </div>
-
 
     </div>
 
