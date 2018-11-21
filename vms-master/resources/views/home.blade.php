@@ -6,12 +6,9 @@
     .panel-body .btn:not(.btn-block) { width:120px;margin-bottom:10px;}
 </style>
 
-
-
 @endsection
 
 @section('content')
-
 
     <div class="row">
 
@@ -60,7 +57,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-xs-6 col-md-6">
-                          <a href="{{url('/journey/create')}}" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/>New Journey </a>
+                          <a href="{{url('/journey/create')}}" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/>New  </a>
                           <a href="{{url('/journey/requests')}}" class="btn btn-warning " role="button"><span class="glyphicon glyphicon-pencil"></span> <br/>Approve</a>
                           <a href="{{url('/journey/requests/notconfirmed')}}" class="btn btn-primary " role="button"><span class="glyphicon glyphicon-ok"></span> <br/>Confirm</a>
                          
@@ -89,6 +86,63 @@
         </div>
 
     </div>
+    <div class="row"> 
 
+        <div class="col-md-6">
+
+            <div class="panel panel-primary">
+                
+                <div class="panel-body">
+
+                    <canvas id="doughnut-chart" width="800" height="450"></canvas>
+                                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+@endsection
+
+@section('scripts')
+
+<script>
+
+    var vehicle_colors = [];
+                    /*Get Journey color from db */
+        $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
+            
+            $.each(data,function(i,value){  
+                console.log(i);
+                //vehicle_colors[value.id]='#'+value.journey_color; // Journey colors for event
+            });
+            
+        });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script>
+
+    new Chart(document.getElementById("doughnut-chart"), {
+        type: 'doughnut',
+        data: {
+        labels: ["Africa", "Asia", "Europe", "Latin America"],
+        datasets: [
+            {
+            label: "Population (millions)",
+            backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+            data: [2478,5267,734,784]
+            }
+        ]
+        },
+        options: {
+        title: {
+            display: true,
+            text: 'Predicted world population (millions) in 2050'
+        }
+        }
+    });
+
+</script>
 
 @endsection

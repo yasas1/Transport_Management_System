@@ -23,6 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $vehiclesButton = Vehical::all();
         return view('home');
     }
 }
