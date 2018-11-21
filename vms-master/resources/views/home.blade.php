@@ -111,6 +111,11 @@
 
     var vehicles = {!! json_encode($vehicles->toArray()) !!}; 
 
+    var v1Count = {!! json_encode($v1Count) !!}; 
+    var v2Count = {!! json_encode($v2Count) !!}; 
+    var v3Count = {!! json_encode($v3Count) !!}; 
+    var externalCount = {!! json_encode($externalCount) !!};
+
     var vehicle_colors = [];
                     /*Get Journey color from db */
     $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
@@ -119,7 +124,7 @@
             console.log(value.journey_color);
             vehicle_colors[i]='#'+value.journey_color; // Journey colors for event
         });
-        console.log(vehicles[0].name);
+        console.log(externalCount);
     });
 
     new Chart(document.getElementById("doughnut-chart"), {
@@ -128,9 +133,9 @@
         labels: [vehicles[0].name,vehicles[1].name, vehicles[2].name, "External"],
         datasets: [
             {
-            label: "Population (millions)",
+            label: "Count",
             backgroundColor: ["#1E90FF", "#32CD32","#DA574D","#778899"],
-            data: [1478,2267,734,784]
+            data: [v1Count,v2Count,v3Count,externalCount]
             }
         ]
         },
