@@ -106,39 +106,38 @@
 
 @section('scripts')
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script>
+
+    var vehicles = {!! json_encode($vehicles->toArray()) !!}; 
 
     var vehicle_colors = [];
                     /*Get Journey color from db */
-        $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
-            
-            $.each(data,function(i,value){  
-                console.log(i);
-                //vehicle_colors[value.id]='#'+value.journey_color; // Journey colors for event
-            });
-            
+    $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
+        
+        $.each(data,function(i,value){  
+            console.log(value.journey_color);
+            vehicle_colors[i]='#'+value.journey_color; // Journey colors for event
         });
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-<script>
+        console.log(vehicles[0].name);
+    });
 
     new Chart(document.getElementById("doughnut-chart"), {
         type: 'doughnut',
         data: {
-        labels: ["Africa", "Asia", "Europe", "Latin America"],
+        labels: [vehicles[0].name,vehicles[1].name, vehicles[2].name, "External"],
         datasets: [
             {
             label: "Population (millions)",
-            backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-            data: [2478,5267,734,784]
+            backgroundColor: ["#1E90FF", "#32CD32","#DA574D","#778899"],
+            data: [1478,2267,734,784]
             }
         ]
         },
         options: {
         title: {
             display: true,
-            text: 'Predicted world population (millions) in 2050'
+            text: 'All Vehicle Usage for Journeys'
         }
         }
     });

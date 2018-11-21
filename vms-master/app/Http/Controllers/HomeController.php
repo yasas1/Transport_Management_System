@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Vehical;
+use App\Models\Journey;
+use App\Models\ExternalVehicle;
 
 class HomeController extends Controller
 {
@@ -23,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $vehiclesButton = Vehical::all();
-        return view('home');
+        $vehicles = Vehical::all();
+        return view('home',compact('vehicles'));
     }
 }
