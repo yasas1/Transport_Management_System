@@ -108,14 +108,11 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script>
-
     var vehicles = {!! json_encode($vehicles->toArray()) !!}; 
-
     var v1Count = {!! json_encode($v1Count) !!}; 
     var v2Count = {!! json_encode($v2Count) !!}; 
     var v3Count = {!! json_encode($v3Count) !!}; 
     var externalCount = {!! json_encode($externalCount) !!};
-
     var vehicle_colors = [];
                     /*Get Journey color from db */
     $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
@@ -126,7 +123,6 @@
         });
         console.log(externalCount);
     });
-
     new Chart(document.getElementById("doughnut-chart"), {
         type: 'doughnut',
         data: {
@@ -146,7 +142,6 @@
         }
         }
     });
-
 </script>
 
 @endsection
