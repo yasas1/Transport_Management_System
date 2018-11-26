@@ -108,14 +108,11 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script>
-
     var vehicles = {!! json_encode($vehicles->toArray()) !!}; 
-
     var v1Count = {!! json_encode($v1Count) !!}; 
     var v2Count = {!! json_encode($v2Count) !!}; 
     var v3Count = {!! json_encode($v3Count) !!}; 
     var externalCount = {!! json_encode($externalCount) !!};
-
     var vehicle_colors = [];
                     /*Get Journey color from db */
     $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
@@ -126,8 +123,12 @@
         });
         console.log(vehicle_colors[0]);
     });
+<<<<<<< HEAD
 
     var chart = new Chart(document.getElementById("doughnut-chart"), {
+=======
+    new Chart(document.getElementById("doughnut-chart"), {
+>>>>>>> 7f30ff2123f558a1a23e05f4412d8c47702fc3bd
         type: 'doughnut',
         // for (let index = 0; index < 100; index++) {
             
@@ -150,7 +151,6 @@
             }
         }
     });
-
 </script>
 
 @endsection
