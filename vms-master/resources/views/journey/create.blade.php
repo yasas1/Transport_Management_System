@@ -387,7 +387,7 @@
                         
         $(function () {
             var aaa;
-           $.ajax({
+            $.ajax({
                 method:'GET',
                 url:'{{url('/google/calenders')}}',
                 success:function (data) {
@@ -477,7 +477,7 @@
                         }
                     });
                 }
-            })
+            });
         });
         // var calendar = $('#calendar').fullCalendar('getCalendar');
         //

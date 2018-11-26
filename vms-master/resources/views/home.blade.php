@@ -119,8 +119,11 @@
     </div>
 
     <div class="row" > 
+            
+        <div class="col-md-1">
+        </div>
 
-        <div class="col-md-12">
+        <div class="col-md-10">
 
             <div class="panel panel-primary">
                 
@@ -140,8 +143,10 @@
                     <div id='calendar'></div>
                                     
                 </div>
-
             </div>
+        </div>
+
+        <div class="col-md-1">
         </div>
 
     </div>
@@ -317,178 +322,88 @@
     });
                     
     $(function () {
-        var aaa;
-        $.ajax({
-            method:'GET',
-            url:'{{url('/google/calenders')}}',
-            success:function (data) {
-                var eventSources = [];
+            var aaa;
+            $.ajax({
+                method:'GET',
+                url:'{{url('/google/calenders')}}',
+                success:function (data) {
+                    var eventSources = [];
 
-                $.each(data,function (i,item) {
-                    var event = {};
-                    event.id = i;
-                    event.googleCalendarId = item.id;
-                    event.color = item.backgroundColor;
-                    eventSources.push(event)
-                    $('#aaa').append(item.id);
-                });
-                aaa = eventSources;
-            },
-            error:function (err) {
-               // alert(err.toString());
-            },
-            complete:function () {             
-               //console.log(aaa);
-               $('#calendar').fullCalendar({
-                    selectable: true,
-                    contentHeight: 700,
-                    defaultView:'agendaWeek',
-                    defaultDate: $('#calendar').fullCalendar('today'),                        
-                    header: {
-                        left: 'prev,next today myCustomButton',
-                        center: 'title',
-                        right: 'month,agendaWeek,agendaDay'
-                    },
-                    googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',                   
-                    //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
+                    $.each(data,function (i,item) {
+                        var event = {};
+                        event.id = i;
+                        event.googleCalendarId = item.id;
+                        event.color = item.backgroundColor;
+                        eventSources.push(event)
+                        $('#aaa').append(item.id);
+                    });
+                    aaa = eventSources;
+                },
+                error:function (err) {
+                   // alert(err.toString());
+                },
+                complete:function () {             
+                   //console.log(aaa);
+                   $('#calendar').fullCalendar({
+                        selectable: true,
+                        contentHeight: 600,
+                        defaultView:'agendaWeek',
+                        defaultDate: $('#calendar').fullCalendar('today'),                        
+                        header: {
+                            left: 'prev,next today myCustomButton',
+                            center: 'title',
+                            right: 'month,agendaWeek,agendaDay'
+                        },
+                        googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',                   
+                        //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
 
-                    events:qEvent,
-                    eventSources: aaa,
-                    eventClick: function(event, element) {
-                        //console.log(event);
-                        var moment = $('#calendar').fullCalendar('getDate');
-                        
-                        $.ajax({
-                            url: '/journey/readJourneyForCreate/{id}',
-                            type: 'GET',
-                            data: { id: event.id },
-                            success: function(data)
-                            {
-                                var details = JSON.parse(data);
-                                
-                                //console.log(details[1]); 	
-                                $.confirm({
-                                    title: 'Journey!', //Confirm
-                                    content:"<h3>Place - "+ details[0].places_to_be_visited+"</h3>" + 
-                                    "<h4>Applicant - "+ event.applicant +"</h4>"+
-                                    "<h4>Status - "+ event.status +"</h4>"+
-                                    "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:mm:SS') + "</h4>" +
-                                    "<h4>End - "+ event.end.format('YYYY-MM-DD HH:mm:SS') +"</h4>"+
-                                    "<h4>Vehicle - "+ details[1] +"</h4>"+
-                                    "<h4 id='test'>Driver - "+ details[3] +"</h4>",
-                                    buttons: {
-                                        somethingElse: {
-                                            text: 'OK',
-                                            btnClass: 'btn-blue',
-                                            keys: ['enter', 'shift'],
-                                            action: function(){
+                        events:qEvent,
+                        eventSources: aaa,
+                        eventClick: function(event, element) {
+                            //console.log(event);
+                            var moment = $('#calendar').fullCalendar('getDate');
+                            
+                            $.ajax({
+                                url: '/journey/readJourneyForCreate/{id}',
+                                type: 'GET',
+                                data: { id: event.id },
+                                success: function(data)
+                                {
+                                    var details = JSON.parse(data);
+                                     	
+                                    $.confirm({
+                                        title: 'Journey!', //Confirm
+                                        content:"<h3>Place - "+ details[0].places_to_be_visited+"</h3>" + 
+                                        "<h4>Applicant - "+ event.applicant +"</h4>"+
+                                        "<h4>Status - "+ event.status +"</h4>"+
+                                        "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:mm:SS') + "</h4>" +
+                                        "<h4>End - "+ event.end.format('YYYY-MM-DD HH:mm:SS') +"</h4>"+
+                                        "<h4>Vehicle - "+ details[1] +"</h4>"+
+                                        "<h4 id='test'>Driver - "+ details[3] +"</h4>",
+                                        buttons: {
+                                            somethingElse: {
+                                                text: 'OK',
+                                                btnClass: 'btn-blue',
+                                                keys: ['enter', 'shift'],
+                                                action: function(){
+                                                }
                                             }
                                         }
-                                    }
-                                });
-                            
-                            }
-                        });                          
-                    },
-                    eventLimit: 2,
-                    eventRender: function(event, element) {
-                        element.find('.fc-title').append("<br/>" +event.applicant +"<br/>"+ event.status); 
-                    },
-                    dayClick: function(date) {
-                        //alert('clicked ' + date.format());
-                    },
-                    
-                });
-            }
-        })
-    });
-    
-</script>
-
-
-
-<script type="text/javascript">
-    
-    $(function () {
-
-        $('#dtp').daterangepicker({
-            "timePicker": true,
-            "linkedCalendars": false,
-            "showCustomRangeLabel": false,
-            "timePicker24Hour": true,
-            "minDate": moment(),
-            locale: {
-                format: 'MM/DD/YYYY HH:mm'
-            }
-        },function(start, end, label) {
-            
-            console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:mm') + ' to ' + end.format('YYYY-MM-DD HH:mm') + ' (predefined range: ' + label + ')');                 
-           /*
-            var vehicle_id = $('#vid').val();
-            if (vehicle_id=="") {
-                console.log(" vehicle should be selected!..");
-                $('#available').html('vehicle should be selected!..');
-                $('#dtp').val('');                                  
-            }
-            else{
-                $.get("{{ URL::to('journey/read') }}",function(data){ 
-                    //console.log( start.format('mm') );    
-                    $.each(data,function(i,value){
-                        
-                        var jStartDate = new Date( Date.parse(value.expected_start_date_time,"Y-m-d") );                           
-                        var jEndDate = new Date( Date.parse(value.expected_end_date_time,"Y-m-d") );   
-                        //console.log( jDate.getDate() );                                                      
-                        if(jStartDate.getFullYear() == start.format('YYYY') && jStartDate.getMonth()+1 == start.format('MM') && jStartDate.getDate() == start.format('DD') ){
-                            // console.log( start.format('YYYY') );;                             
-                            if(jStartDate.getHours() == start.format('HH') && jStartDate.getMinutes() == start.format('mm') ){
-                                console.log( 'check 1' );
-                                $('#available').html('Selected Vehicle is not available at time range');
-                                $('#vid').val('');
+                                    });
                                 
-                            }
-                            else if(jStartDate.getHours() <= start.format('HH') && jEndDate.getHours() >= start.format('HH') ){
-                                console.log( 'check 2' );
-                                $('#available').html('Selected Vehicle is not available at time range');
-                                $('#vid').val('');
-                            }
-                            else if(jStartDate.getHours() >= start.format('HH') && jStartDate.getHours() <= end.format('HH') ){
-                                console.log( 'check 3' );
-                                $('#available').html('Selected Vehicle is not available at time range');
-                                $('#vid').val('');
-                            }
-                            else{
-                                console.log( 'available' );
-                                $('#available').html('');
-                            }
-                            
-                        } 
-
+                                }
+                            });                          
+                        },
+                        eventLimit: 2,
+                        eventRender: function(event, element) {
+                            element.find('.fc-title').append("<br/>" +event.applicant +"<br/>"+ event.status); 
+                        }
                     });
-                });
-            } */
-            
+                }
+            });
         });
-    });
-
-    $('#txtDistance').on('keyup',function () {
-       var val = $(this).val();
-
-       if(parseInt(val)>=150){
-            $('#txtDistanceHelpBox').html('Director approval is required for long distance ( more than 150km ) journeys.');
-       }else {
-           $('#txtDistanceHelpBox').html('');
-       }
-
-    });
-
-    // $('#dtp').on('keyup change',function () {
-       
-    //     console.log( 'check change' );  
-
-    // });
-
+    
 </script>
-
 
 
 @endsection
