@@ -19,8 +19,10 @@
     </div>
 
     <div class="row">
-        @if(Auth::user()->canReadVehicle() || Auth::user()->canUpdateVehicle() ||Auth::user()->canCreateVehicle() ) 
-            <div class="col-md-6">          
+
+        <div class="col-md-6">
+
+            @if(Auth::user()->canReadVehicle() || Auth::user()->canUpdateVehicle() ||Auth::user()->canCreateVehicle() )          
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">
@@ -42,10 +44,10 @@
                         </div>                  
                     </div>
                 </div>        
-            </div>
-        @endif
-        @if(Auth::user()->canReadDriver() || Auth::user()->canCreateDriver() ||Auth::user()->canUpdateDriver() ) 
-            <div class="col-md-6">          
+                
+            @endif
+            @if(Auth::user()->canReadDriver() || Auth::user()->canCreateDriver() ||Auth::user()->canUpdateDriver() ) 
+                          
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">
@@ -67,10 +69,10 @@
                         </div>                  
                     </div>
                 </div>          
-            </div>
-        @endif
-
-        <div class="col-md-6">
+               
+            @endif
+    
+            
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -114,19 +116,16 @@
                             
                 </div>
             </div>
-        </div>
-
-    </div>
-
-    <div class="row" > 
             
-        <div class="col-md-1">
+
+            
+
         </div>
 
-        <div class="col-md-10">
+        <div class="col-md-6">
 
             <div class="panel panel-primary">
-                
+            
                 <div class="panel-body">
 
                     <div class="box-header with-border">
@@ -139,17 +138,17 @@
                         @endforeach
                         <button  class="external"  style="height:25px;width:65px;border: 1px solid #555555;border-radius: 5px; background-color:#778899;" >External</button> 
                     </div>
-                 
+                    
                     <div id='calendar'></div>
                                     
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-1">
         </div>
 
     </div>
+
+
 
     {{-- <div class="row"> 
 
@@ -186,40 +185,6 @@
             journey_colors[value.id]='#'+value.journey_color;
         });
     });      
-
-    $.get("{{ URL::to('journey/read') }}",function(data){ 
-        //console.log(data);
-        $.each(data,function(i,value){ 
-
-            if(value.vehical_id != null){
-                qEvent.push({ 
-                    title : value.places_to_be_visited, // need place as the title
-                    start : value.expected_start_date_time,
-                    end : value.expected_end_date_time,
-                    id :  value.id, 
-                    applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
-                    vehical_id : value.vehical_id,
-                    borderColor: 'black',
-                    status: value.status,
-                    color : journey_colors[value.vehical_id]
-                });    
-            } 
-            else{
-                qEvent.push({ 
-                    title : value.places_to_be_visited, // need place as the title
-                    start : value.expected_start_date_time,
-                    end : value.expected_end_date_time,
-                    id :  value.id, 
-                    applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
-                    vehical_id : value.vehical_id,
-                    borderColor: 'black',
-                    status: value.status,
-                    color : "#778899"
-                }); 
-            }               
-                       
-        });
-    });
 
     $(document).ready(function(){
 
@@ -320,88 +285,109 @@
         });
 
     });
-                    
+
     $(function () {
-            var aaa;
-            $.ajax({
-                method:'GET',
-                url:'{{url('/google/calenders')}}',
-                success:function (data) {
-                    var eventSources = [];
+       
+        $.ajax({
+            method:'GET',
+            url:'{{url('journey/read')}}',
+            success:function (data) {
+                
 
-                    $.each(data,function (i,item) {
-                        var event = {};
-                        event.id = i;
-                        event.googleCalendarId = item.id;
-                        event.color = item.backgroundColor;
-                        eventSources.push(event)
-                        $('#aaa').append(item.id);
-                    });
-                    aaa = eventSources;
-                },
-                error:function (err) {
-                   // alert(err.toString());
-                },
-                complete:function () {             
-                   //console.log(aaa);
-                   $('#calendar').fullCalendar({
-                        selectable: true,
-                        contentHeight: 600,
-                        defaultView:'agendaWeek',
-                        defaultDate: $('#calendar').fullCalendar('today'),                        
-                        header: {
-                            left: 'prev,next today myCustomButton',
-                            center: 'title',
-                            right: 'month,agendaWeek,agendaDay'
-                        },
-                        googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',                   
-                        //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
+                $.each(data,function(i,value){ 
 
-                        events:qEvent,
-                        eventSources: aaa,
-                        eventClick: function(event, element) {
-                            //console.log(event);
-                            var moment = $('#calendar').fullCalendar('getDate');
+                    if(value.vehical_id != null){
+                        qEvent.push({ 
+                            title : value.places_to_be_visited, // need place as the title
+                            start : value.expected_start_date_time,
+                            end : value.expected_end_date_time,
+                            id :  value.id, 
+                            applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                            vehical_id : value.vehical_id,
+                            borderColor: 'black',
+                            status: value.status,
+                            color : journey_colors[value.vehical_id]
+                        });    
+                    } 
+                    else{
+                        qEvent.push({ 
+                            title : value.places_to_be_visited, // need place as the title
+                            start : value.expected_start_date_time,
+                            end : value.expected_end_date_time,
+                            id :  value.id, 
+                            applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                            vehical_id : value.vehical_id,
+                            borderColor: 'black',
+                            status: value.status,
+                            color : "#778899"
+                        }); 
+                    }               
                             
-                            $.ajax({
-                                url: '/journey/readJourneyForCreate/{id}',
-                                type: 'GET',
-                                data: { id: event.id },
-                                success: function(data)
-                                {
-                                    var details = JSON.parse(data);
-                                     	
-                                    $.confirm({
-                                        title: 'Journey!', //Confirm
-                                        content:"<h3>Place - "+ details[0].places_to_be_visited+"</h3>" + 
-                                        "<h4>Applicant - "+ event.applicant +"</h4>"+
-                                        "<h4>Status - "+ event.status +"</h4>"+
-                                        "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:mm:SS') + "</h4>" +
-                                        "<h4>End - "+ event.end.format('YYYY-MM-DD HH:mm:SS') +"</h4>"+
-                                        "<h4>Vehicle - "+ details[1] +"</h4>"+
-                                        "<h4 id='test'>Driver - "+ details[3] +"</h4>",
-                                        buttons: {
-                                            somethingElse: {
-                                                text: 'OK',
-                                                btnClass: 'btn-blue',
-                                                keys: ['enter', 'shift'],
-                                                action: function(){
-                                                }
+                });
+                
+            },
+            error:function (err) {
+                // alert(err.toString());
+            },
+            complete:function () {             
+
+                $('#calendar').fullCalendar({
+                    selectable: true,
+                    defaultView:'agendaWeek',
+                    defaultDate: $('#calendar').fullCalendar('today'),                        
+                    header: {
+                        left: 'prev,next today myCustomButton',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                    },
+                    googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',                   
+                    //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
+
+                    events:qEvent,
+                    eventClick: function(event, element) {
+                        //console.log(event);
+                        var moment = $('#calendar').fullCalendar('getDate');
+                        
+                        $.ajax({
+                            url: '/journey/readJourneyForCreate/{id}',
+                            type: 'GET',
+                            data: { id: event.id },
+                            success: function(data)
+                            {
+                                var details = JSON.parse(data);
+                                    
+                                $.confirm({
+                                    title: 'Journey!', //Confirm
+                                    content:"<h3>Place - "+ details[0].places_to_be_visited+"</h3>" + 
+                                    "<h4>Applicant - "+ event.applicant +"</h4>"+
+                                    "<h4>Status - "+ event.status +"</h4>"+
+                                    "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:mm:SS') + "</h4>" +
+                                    "<h4>End - "+ event.end.format('YYYY-MM-DD HH:mm:SS') +"</h4>"+
+                                    "<h4>Vehicle - "+ details[1] +"</h4>"+
+                                    "<h4 id='test'>Driver - "+ details[3] +"</h4>",
+                                    buttons: {
+                                        somethingElse: {
+                                            text: 'OK',
+                                            btnClass: 'btn-blue',
+                                            keys: ['enter', 'shift'],
+                                            action: function(){
                                             }
                                         }
-                                    });
-                                
-                                }
-                            });                          
-                        },
-                        eventLimit: 2,
-                        eventRender: function(event, element) {
-                            element.find('.fc-title').append("<br/>" +event.applicant +"<br/>"+ event.status); 
-                        }
-                    });
-                }
-            });
+                                    }
+                                });
+                            
+                            }
+                        });                          
+                    },
+                    eventLimit: 2,
+                    eventRender: function(event, element) {
+                        element.find('.fc-title').append("<br/>" +event.applicant +"<br/>"+ event.status); 
+                    }
+                });               
+                
+            }
         });
+    });
     
 </script>
 
