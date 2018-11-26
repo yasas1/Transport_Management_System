@@ -118,22 +118,19 @@
 
     </div>
 
-    <div class="row"> 
-
-        {{-- <div class="col-md-1">
-        </div> --}}
+    <div class="row" > 
 
         <div class="col-md-12">
 
-            <div class="panel panel-primary" >
+            <div class="panel panel-primary">
                 
                 <div class="panel-body">
 
                     <div class="box-header with-border">
-                        <h3 class="box-title">Vehicle Calender</h3>
+                        <h2 class="box-title"> <b>Vehicle Calender</b></h2>
                     </div>
                     <div>   
-                        <button  class="all"  style="height:25px;width:35px;border: 1px solid #555555;border-radius: 5px;" >ALL</button> 
+                        <button  class="all"  style="height:25px;width:35px;border: 1px solid #555555;border-radius: 5px;" > <b>ALL</b> </button> 
                         @foreach ($vehicles as $vehicle)
                             <button class="vehiclebutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}" style="border: 1px solid #555555;border-radius: 5px;"> {{$vehicle->registration_no}} </button>   
                         @endforeach
@@ -146,8 +143,6 @@
 
             </div>
         </div>
-        {{-- <div class="col-md-1">
-        </div> --}}
 
     </div>
 
@@ -323,7 +318,7 @@
                     
     $(function () {
         var aaa;
-       $.ajax({
+        $.ajax({
             method:'GET',
             url:'{{url('/google/calenders')}}',
             success:function (data) {
@@ -346,6 +341,7 @@
                //console.log(aaa);
                $('#calendar').fullCalendar({
                     selectable: true,
+                    contentHeight: 700,
                     defaultView:'agendaWeek',
                     defaultDate: $('#calendar').fullCalendar('today'),                        
                     header: {
