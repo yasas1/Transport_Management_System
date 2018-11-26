@@ -152,6 +152,10 @@ desired effect
 
                 <li class="header">MENU</li>
 
+                <li>
+                    <a href="{{url('home')}}"><i class="glyphicon glyphicon-home"></i> <span>Home</span></a>     
+                </li>
+
                 <li class="treeview">
                     <a href="#"><i class="fa fa-car"></i> <span>VEHICLE</span>
                         <span class="pull-right-container">
@@ -171,7 +175,7 @@ desired effect
                         @endif
                     </ul>
                 </li>
-                @if(Auth::user()->canReadDriver() || Auth::user()->canCreateDriver() ||Auth::user()->canUpdateDriver() )
+                @if(Auth::user()->canReadDriver() || Auth::user()->canCreateDriver() ||Auth::user()->canUpdateDriver() ) 
                     <li class="treeview">
                         <a href="#"><i class="fa fa-user"></i> <span>DRIVER</span>
                             <span class="pull-right-container">
