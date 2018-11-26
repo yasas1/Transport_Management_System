@@ -155,26 +155,27 @@ desired effect
                 <li>
                     <a href="{{url('home')}}"><i class="glyphicon glyphicon-home"></i> <span>Home</span></a>     
                 </li>
+                @if(Auth::user()->canReadVehicle() || Auth::user()->canUpdateVehicle() ||Auth::user()->canCreateVehicle() ) 
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-car"></i> <span>VEHICLE</span>
+                            <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
 
-                <li class="treeview">
-                    <a href="#"><i class="fa fa-car"></i> <span>VEHICLE</span>
-                        <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        @if(Auth::user()->canReadVehicle())
-                            <li><a href="{{url('/vehicle/')}}"><i class="fa fa-eye"></i> <span>VIEW CURRENT VEHICLES</span></a></li>
-                        @endif
-                        @if(Auth::user()->canCreateVehicle())
-                                <li><a href="{{url('/vehicle/create')}}"><i class="fa fa-plus"></i> <span>CREATE NEW VEHICLE</span></a></li>
-                        @endif
-                        @if(Auth::user()->canUpdateVehicle())
-                                <li><a href="{{url('/vehicle/')}}"><i class="fa fa-edit"></i> <span>EDIT A VEHICLE</span></a></li>
-                        @endif
-                    </ul>
-                </li>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            @if(Auth::user()->canReadVehicle())
+                                <li><a href="{{url('/vehicle/')}}"><i class="fa fa-eye"></i> <span>VIEW CURRENT VEHICLES</span></a></li>
+                            @endif
+                            @if(Auth::user()->canCreateVehicle())
+                                    <li><a href="{{url('/vehicle/create')}}"><i class="fa fa-plus"></i> <span>CREATE NEW VEHICLE</span></a></li>
+                            @endif
+                            @if(Auth::user()->canUpdateVehicle())
+                                    <li><a href="{{url('/vehicle/')}}"><i class="fa fa-edit"></i> <span>EDIT A VEHICLE</span></a></li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
                 @if(Auth::user()->canReadDriver() || Auth::user()->canCreateDriver() ||Auth::user()->canUpdateDriver() ) 
                     <li class="treeview">
                         <a href="#"><i class="fa fa-user"></i> <span>DRIVER</span>
@@ -304,7 +305,7 @@ desired effect
         <section class="content container-fluid">
 
             @yield('content')
-
+            
         </section>
         <!-- /.content -->
     </div>
