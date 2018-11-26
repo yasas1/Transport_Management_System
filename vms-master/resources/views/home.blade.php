@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     
-                    <br>
+                    
                     <div class="row">
                         <div class="col-xs-12 col-md-12">
                             <a href="{{url('/journey/createBacklog')}}" class="btn btn-danger  " role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/> New Backlog </a>                      
@@ -124,26 +124,30 @@
             console.log(value.journey_color);
             vehicle_colors[i]='#'+value.journey_color; // Journey colors for event
         });
-        console.log(externalCount);
+        console.log(vehicle_colors[0]);
     });
 
-    new Chart(document.getElementById("doughnut-chart"), {
+    var chart = new Chart(document.getElementById("doughnut-chart"), {
         type: 'doughnut',
+        // for (let index = 0; index < 100; index++) {
+            
+            
+        // }
         data: {
-        labels: [vehicles[0].name,vehicles[1].name, vehicles[2].name, "External"],
-        datasets: [
-            {
-            label: "Count",
-            backgroundColor: ["#1E90FF", "#32CD32","#DA574D","#778899"],
-            data: [v1Count,v2Count,v3Count,externalCount]
-            }
-        ]
+            labels: [vehicles[0].name , vehicles[1].name , vehicles[2].name, "External"],
+            datasets: [
+                {
+                label: "Count",
+                backgroundColor: ["#1E90FF", "#32CD32","#DA574D","#778899"],
+                data: [v1Count,v2Count,v3Count,externalCount]
+                }
+            ]
         },
         options: {
-        title: {
-            display: true,
-            text: 'All Vehicle Usage for Journeys'
-        }
+            title: {
+                display: true,
+                text: 'All Vehicle Usage for Journeys'
+            }
         }
     });
 
