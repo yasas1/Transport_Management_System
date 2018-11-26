@@ -1,10 +1,13 @@
 @extends('layouts.master')
 
 @section('styles')
-<style>
-    /* body { padding-top:20px; } */
-    .panel-body .btn:not(.btn-block) { width:120px;margin-bottom:10px;}
-</style>
+    <style>
+        /* body { padding-top:20px; } */
+        .panel-body .btn:not(.btn-block) { width:120px;margin-bottom:10px;}
+    </style>
+
+    <link rel="stylesheet" href="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.css')}}">
+    <link rel="stylesheet" href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css')}}">
 
 @endsection
 
@@ -99,8 +102,7 @@
                                 <a href="{{url('/journey/myjourneys')}}" class="btn btn-success " role="button"><span class="glyphicon glyphicon-user"></span> <br/>My Journey</a>
                             @endif                                
                         </div>
-                    </div>
-                    
+                    </div>             
                     
                     <div class="row">
                         <div class="col-xs-12 col-md-12">
@@ -117,6 +119,35 @@
     </div>
 
     <div class="row"> 
+
+        {{-- <div class="col-md-1">
+        </div> --}}
+
+        <div class="col-md-12">
+
+            <div class="panel panel-primary" >
+                
+                <div class="panel-body">
+
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Vehicle Calender</h3>
+                    </div>
+                    <div>   
+                        <button  class="all"  style="height:25px;width:35px;border: 1px solid #555555;border-radius: 5px;" >ALL</button> 
+                        @foreach ($vehicles as $vehicle)
+                            <button class="vehiclebutton" value="{{$vehicle->id}}" id="v{{$vehicle->id}}" style="border: 1px solid #555555;border-radius: 5px;"> {{$vehicle->registration_no}} </button>   
+                        @endforeach
+                        <button  class="external"  style="height:25px;width:65px;border: 1px solid #555555;border-radius: 5px; background-color:#778899;" >External</button> 
+                    </div>
+                 
+                    <div id='calendar'></div>
+                                    
+                </div>
+
+            </div>
+        </div>
+        {{-- <div class="col-md-1">
+        </div> --}}
 
     </div>
 
@@ -139,6 +170,328 @@
 @endsection
 
 @section('scripts')
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js')}}"></script>
+<script src='{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/gcal.min.js')}}'></script>
+<script src="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+<script>
+         
+    var qEvent=[]; // for calender events
+    var journey_colors = [];///journey/readVehicle/             
+            // get Journet Color
+    $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
+        $.each(data,function(i,value){   
+            $('#v'+value.id).css('background-color','#'+value.journey_color); // For button color    
+            journey_colors[value.id]='#'+value.journey_color;
+        });
+    });      
+
+    $.get("{{ URL::to('journey/read') }}",function(data){ 
+        //console.log(data);
+        $.each(data,function(i,value){ 
+
+            if(value.vehical_id != null){
+                qEvent.push({ 
+                    title : value.places_to_be_visited, // need place as the title
+                    start : value.expected_start_date_time,
+                    end : value.expected_end_date_time,
+                    id :  value.id, 
+                    applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                    vehical_id : value.vehical_id,
+                    borderColor: 'black',
+                    status: value.status,
+                    color : journey_colors[value.vehical_id]
+                });    
+            } 
+            else{
+                qEvent.push({ 
+                    title : value.places_to_be_visited, // need place as the title
+                    start : value.expected_start_date_time,
+                    end : value.expected_end_date_time,
+                    id :  value.id, 
+                    applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                    vehical_id : value.vehical_id,
+                    borderColor: 'black',
+                    status: value.status,
+                    color : "#778899"
+                }); 
+            }               
+                       
+        });
+    });
+
+    $(document).ready(function(){
+
+            //$('.colorbutton').css('background','#7CFD03');
+        $(".vehiclebutton").click(function(evt){
+            var vid = $(this).attr("value");   // Vehivle_id from Vehicle_Button
+            //$(vid).css('background','#05DCB2');
+            qEvent=[];                       
+            $('#calendar').fullCalendar('removeEvents');
+            $.ajax({
+                url: '/journey/ForCreateByVehicle/{id}',
+                type: 'GET',
+                data: { id: vid },
+                success: function(data)
+                {
+                    console.log(data);              
+                    $(data).each(function (i,value) {                
+                        qEvent.push(
+                        { 
+                            title : value.places_to_be_visited,
+                            start : value.expected_start_date_time,
+                            end : value.expected_end_date_time,
+                            id :  value.id,         
+                            applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                             
+                            vehical_id : value.vehical_id,
+                            borderColor: 'black',
+                            status: value.status, 
+                            color :  journey_colors[value.vehical_id]                                                        
+                        });                       
+                    }); 
+                    //console.log(qEvent);
+                    $('#calendar').fullCalendar('addEventSource', qEvent);
+                    $('#calendar').fullCalendar('refetchEvents');  
+                }
+            });
+        });
+
+        $(".all").click(function(evt){
+            qEvent=[]; 
+            $('#calendar').fullCalendar('removeEvents');
+            $.get("{{ URL::to('journey/read') }}",function(data){ 
+                $.each(data,function(i,value){       
+                    if(value.vehical_id != null){
+                        qEvent.push({ 
+                            title : value.places_to_be_visited, // need place as the title
+                            start : value.expected_start_date_time,
+                            end : value.expected_end_date_time,
+                            id :  value.id, 
+                            applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                            vehical_id : value.vehical_id,
+                            borderColor: 'black',
+                            status: value.status,
+                            color : journey_colors[value.vehical_id]
+                        });    
+                    } 
+                    else{
+                        qEvent.push({ 
+                            title : value.places_to_be_visited, // need place as the title
+                            start : value.expected_start_date_time,
+                            end : value.expected_end_date_time,
+                            id :  value.id, 
+                            applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                            vehical_id : value.vehical_id,
+                            borderColor: 'black',
+                            status: value.status,
+                            color : "#778899"
+                        }); 
+                    }                 
+                });
+                $('#calendar').fullCalendar('addEventSource', qEvent);
+                $('#calendar').fullCalendar('refetchEvents');
+            });                      
+            
+        });
+
+        $(".external").click(function(evt){
+            qEvent=[]; 
+            $('#calendar').fullCalendar('removeEvents');
+            $.get("{{ URL::to('journey/readExternal') }}",function(data){
+                console.log(data); 
+                $.each(data,function(i,value){       
+                    qEvent.push(
+                    { 
+                        title : value.places_to_be_visited,
+                        start : value.expected_start_date_time,
+                        end : value.expected_end_date_time,
+                        id :  value.id,
+                        applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                      
+                        borderColor: 'black',
+                        status: value.status, 
+                        color :  "#778899"    
+                    });                  
+                });
+                $('#calendar').fullCalendar('addEventSource', qEvent);
+                $('#calendar').fullCalendar('refetchEvents');
+            });                      
+            
+        });
+
+    });
+                    
+    $(function () {
+        var aaa;
+       $.ajax({
+            method:'GET',
+            url:'{{url('/google/calenders')}}',
+            success:function (data) {
+                var eventSources = [];
+
+                $.each(data,function (i,item) {
+                    var event = {};
+                    event.id = i;
+                    event.googleCalendarId = item.id;
+                    event.color = item.backgroundColor;
+                    eventSources.push(event)
+                    $('#aaa').append(item.id);
+                });
+                aaa = eventSources;
+            },
+            error:function (err) {
+               // alert(err.toString());
+            },
+            complete:function () {             
+               //console.log(aaa);
+               $('#calendar').fullCalendar({
+                    selectable: true,
+                    defaultView:'agendaWeek',
+                    defaultDate: $('#calendar').fullCalendar('today'),                        
+                    header: {
+                        left: 'prev,next today myCustomButton',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                    },
+                    googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',                   
+                    //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
+
+                    events:qEvent,
+                    eventSources: aaa,
+                    eventClick: function(event, element) {
+                        //console.log(event);
+                        var moment = $('#calendar').fullCalendar('getDate');
+                        
+                        $.ajax({
+                            url: '/journey/readJourneyForCreate/{id}',
+                            type: 'GET',
+                            data: { id: event.id },
+                            success: function(data)
+                            {
+                                var details = JSON.parse(data);
+                                
+                                //console.log(details[1]); 	
+                                $.confirm({
+                                    title: 'Journey!', //Confirm
+                                    content:"<h3>Place - "+ details[0].places_to_be_visited+"</h3>" + 
+                                    "<h4>Applicant - "+ event.applicant +"</h4>"+
+                                    "<h4>Status - "+ event.status +"</h4>"+
+                                    "<h4>Start - "+ event.start.format('YYYY-MM-DD HH:mm:SS') + "</h4>" +
+                                    "<h4>End - "+ event.end.format('YYYY-MM-DD HH:mm:SS') +"</h4>"+
+                                    "<h4>Vehicle - "+ details[1] +"</h4>"+
+                                    "<h4 id='test'>Driver - "+ details[3] +"</h4>",
+                                    buttons: {
+                                        somethingElse: {
+                                            text: 'OK',
+                                            btnClass: 'btn-blue',
+                                            keys: ['enter', 'shift'],
+                                            action: function(){
+                                            }
+                                        }
+                                    }
+                                });
+                            
+                            }
+                        });                          
+                    },
+                    eventLimit: 2,
+                    eventRender: function(event, element) {
+                        element.find('.fc-title').append("<br/>" +event.applicant +"<br/>"+ event.status); 
+                    },
+                    dayClick: function(date) {
+                        //alert('clicked ' + date.format());
+                    },
+                    
+                });
+            }
+        })
+    });
+    
+</script>
+
+
+
+<script type="text/javascript">
+    
+    $(function () {
+
+        $('#dtp').daterangepicker({
+            "timePicker": true,
+            "linkedCalendars": false,
+            "showCustomRangeLabel": false,
+            "timePicker24Hour": true,
+            "minDate": moment(),
+            locale: {
+                format: 'MM/DD/YYYY HH:mm'
+            }
+        },function(start, end, label) {
+            
+            console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:mm') + ' to ' + end.format('YYYY-MM-DD HH:mm') + ' (predefined range: ' + label + ')');                 
+           /*
+            var vehicle_id = $('#vid').val();
+            if (vehicle_id=="") {
+                console.log(" vehicle should be selected!..");
+                $('#available').html('vehicle should be selected!..');
+                $('#dtp').val('');                                  
+            }
+            else{
+                $.get("{{ URL::to('journey/read') }}",function(data){ 
+                    //console.log( start.format('mm') );    
+                    $.each(data,function(i,value){
+                        
+                        var jStartDate = new Date( Date.parse(value.expected_start_date_time,"Y-m-d") );                           
+                        var jEndDate = new Date( Date.parse(value.expected_end_date_time,"Y-m-d") );   
+                        //console.log( jDate.getDate() );                                                      
+                        if(jStartDate.getFullYear() == start.format('YYYY') && jStartDate.getMonth()+1 == start.format('MM') && jStartDate.getDate() == start.format('DD') ){
+                            // console.log( start.format('YYYY') );;                             
+                            if(jStartDate.getHours() == start.format('HH') && jStartDate.getMinutes() == start.format('mm') ){
+                                console.log( 'check 1' );
+                                $('#available').html('Selected Vehicle is not available at time range');
+                                $('#vid').val('');
+                                
+                            }
+                            else if(jStartDate.getHours() <= start.format('HH') && jEndDate.getHours() >= start.format('HH') ){
+                                console.log( 'check 2' );
+                                $('#available').html('Selected Vehicle is not available at time range');
+                                $('#vid').val('');
+                            }
+                            else if(jStartDate.getHours() >= start.format('HH') && jStartDate.getHours() <= end.format('HH') ){
+                                console.log( 'check 3' );
+                                $('#available').html('Selected Vehicle is not available at time range');
+                                $('#vid').val('');
+                            }
+                            else{
+                                console.log( 'available' );
+                                $('#available').html('');
+                            }
+                            
+                        } 
+
+                    });
+                });
+            } */
+            
+        });
+    });
+
+    $('#txtDistance').on('keyup',function () {
+       var val = $(this).val();
+
+       if(parseInt(val)>=150){
+            $('#txtDistanceHelpBox').html('Director approval is required for long distance ( more than 150km ) journeys.');
+       }else {
+           $('#txtDistanceHelpBox').html('');
+       }
+
+    });
+
+    // $('#dtp').on('keyup change',function () {
+       
+    //     console.log( 'check change' );  
+
+    // });
+
+</script>
 
 
 
