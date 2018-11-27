@@ -3,10 +3,15 @@
 @section('title', 'VEHICLE MANAGEMENT SYSTEM | VEHICLE')
 
 @section('styles')
-    {{-- <link href="{{asset('css/bootstrap-toggle.min.css')}}" rel="stylesheet"> --}}
+<style>
+    #map{
+        height: 500px;
+        margin: 0 auto;
+    }
+</style>
 @endsection
 
-@section('header', 'View Backlog Journey')
+@section('header', 'View Map')
 
 @section('description', 'Select a journey request to approve.')
 
@@ -23,7 +28,7 @@
         
         <div class="box-body" style=" height:700px; overflow: auto;" >
             
-             
+             <div id="map"> </div>
             
         </div>
                
@@ -33,15 +38,28 @@
 @endsection
 
 @section('scripts')
-
-    <script src="{{asset('js/bootstrap-toggle.min.js')}}"></script>
-
-    <script async defer
- src="https://maps.googleapis.com/maps/api/js?client=YOUR_CLIENT_ID&v=quarterly&callback=initMap"></script>
-
     
     <script>
+
+        // $(document).ready(function(){
+
+        //     var map = new google.maps.Map(document.getElementById('map'), {
+        //             center: {lat: -34.397, lng: 150.644},
+        //             zoom: 8
+        //         });
+        // });
+        var map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 31.565600, lng: -110.249180},
+            zoom: 8
+        });
+      }
      
-    </script>
+    </script>  
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBImn3Uma343O6GuhhbBTvsdA6lMb8bd8s&callback=initMap"
+    type="text/javascript"></script>
+
 
 @endsection
