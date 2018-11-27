@@ -50,10 +50,6 @@ class JourneyController extends Controller
      //
     }
 
-    public function map()
-    {
-        return view('map.map');
-    }
 
     /**
      * Show the form for creating a new resource.

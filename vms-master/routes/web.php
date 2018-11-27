@@ -76,7 +76,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
      * */
     Route::get('/journey/requests','JourneyController@requests');
 
-    Route::get('/journey/map','JourneyController@map');
+    Route::get('/journey/map','MapController@map');
 
     /*
      * Show Cancelled Journey 
