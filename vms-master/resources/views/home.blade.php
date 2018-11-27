@@ -20,7 +20,7 @@
 
     <div class="row">
 
-        <div class="col-md-6">
+        <div class="col-md-5">
 
             @if(Auth::user()->canReadVehicle() || Auth::user()->canUpdateVehicle() ||Auth::user()->canCreateVehicle() )          
                 <div class="panel panel-primary">
@@ -122,7 +122,7 @@
 
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-7">
 
             <div class="panel panel-primary">
             
