@@ -281,7 +281,8 @@ desired effect
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{url('/vehicle/usage')}}"><i class="fa fa-eye"></i> Vehicle Usage</a></li>
+                        <li><a href="{{url('/vehicle/usage')}}"><i class="fa fa-eye"></i> Vehicle Usage</a></li> 
+                        <li><a href="{{url('/vehicle/addservicing')}}"><i class="fa fa-eye"></i> Servicing</a></li>
                     </ul>
                     
                 </li>

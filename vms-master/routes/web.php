@@ -181,6 +181,9 @@ Route::group(['middleware'=>['authenticate','active']],function (){
 
     /*Vehicle Usage*/
     Route::get('/vehicle/usage','VehicleUsageController@index');
+    Route::get('/vehicle/addservicing','VehicleUsageController@viewAddServicing');
+
+
 });
 
 Route::get('/log/{type}','UserController@login');
