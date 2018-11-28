@@ -108,16 +108,15 @@ class RoleController extends Controller
     }
 
     public function store(Request $request){
-        return $request;
-//        $this->validate($request,[
-//            'name'=>'required'
-//        ]);
-//
-//        if ($request->name){
-//            $role = new Role;
-//            $role->name = $request->name;
-//            $role->save();
-//        }
+       $this->validate($request,[
+           'name'=>'required'
+       ]);
+
+       if ($request->name){
+           $role = new Role;
+           $role->name = $request->name;
+           $role->save();
+       }
 
         if ($request->permissions){
             foreach ($request->permissions as $permission)

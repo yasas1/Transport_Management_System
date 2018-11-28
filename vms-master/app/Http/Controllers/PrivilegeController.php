@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 class PrivilegeController extends Controller
 {
     public function index(){
+        
         return view('role.index');
     }
 }

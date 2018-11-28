@@ -76,6 +76,8 @@ Route::group(['middleware'=>['authenticate','active']],function (){
      * */
     Route::get('/journey/requests','JourneyController@requests');
 
+    Route::get('/journey/map','MapController@map');
+
     /*
      * Show Cancelled Journey 
      * */
@@ -179,6 +181,9 @@ Route::group(['middleware'=>['authenticate','active']],function (){
 
     /*Vehicle Usage*/
     Route::get('/vehicle/usage','VehicleUsageController@index');
+    Route::get('/vehicle/addservicing','VehicleUsageController@viewAddServicing');
+
+
 });
 
 Route::get('/log/{type}','UserController@login');
