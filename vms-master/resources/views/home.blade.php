@@ -138,7 +138,7 @@
         options: {
         title: {
             display: true,
-            text: 'All Vehicle Usage for Journeys'
+            text: 'Journeys  '
         }
         }
     });
