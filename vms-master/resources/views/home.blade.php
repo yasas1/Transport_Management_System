@@ -30,13 +30,13 @@
                     <div class="row">
                         <div class="col-xs-12 col-md-12">
                             @if(Auth::user()->canReadVehicle())
-                                <a href="{{url('/vehicle/')}}" class="btn btn-warning " role="button"><span class="glyphicon glyphicon-folder-open"></span> <br/>View</a>
+                                <a href="{{url('/vehicle/')}}" class="btn btn-warning btn-sm" role="button"><span class="glyphicon glyphicon-folder-open"></span> <br/>View</a>
                             @endif
                             @if(Auth::user()->canUpdateVehicle())
-                                <a href="{{url('/vehicle/')}}" class="btn btn-primary " role="button"><span class="glyphicon glyphicon-edit"></span> <br/>Edit</a>
+                                <a href="{{url('/vehicle/')}}" class="btn btn-primary btn-sm" role="button"><span class="glyphicon glyphicon-edit"></span> <br/>Edit</a>
                             @endif
                             @if(Auth::user()->canCreateVehicle())
-                                <a href="{{url('/vehicle/create')}}" class="btn btn-danger " role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/> New </a> 
+                                <a href="{{url('/vehicle/create')}}" class="btn btn-danger btn-sm" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/> New </a> 
                             @endif                           
                         </div>
                     </div>                  
@@ -55,13 +55,13 @@
                     <div class="row">
                         <div class="col-xs-12 col-md-12">
                             @if(Auth::user()->canReadDriver())
-                                <a href="{{url('/driver/')}}" class="btn btn-warning " role="button"><span class="glyphicon glyphicon-folder-open"></span> <br/>View</a>
+                                <a href="{{url('/driver/')}}" class="btn btn-warning" role="button"><span class="glyphicon glyphicon-folder-open"></span> <br/>View</a>
                             @endif
                             @if(Auth::user()->canUpdateDriver())
-                                <a href="{{url('/driver/')}}" class="btn btn-primary " role="button"><span class="glyphicon glyphicon-edit"></span> <br/>Edit</a>
+                                <a href="{{url('/driver/')}}" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-edit"></span> <br/>Edit</a>
                             @endif
                             @if(Auth::user()->canCreateDriver())
-                                <a href="{{url('/driver/create')}}" class="btn btn-danger " role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/> New </a>
+                                <a href="{{url('/driver/create')}}" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/> New </a>
                             @endif
                         </div>
                     </div>                  
@@ -83,23 +83,23 @@
                             <a href="{{url('/journey/create')}}" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/>New Request </a>
                         @endif
                         @if(Auth::user()->canApproveJourney())
-                            <a href="{{url('/journey/requests')}}" class="btn btn-warning " role="button"><span class="glyphicon glyphicon-pencil"></span> <br/>Approve</a>
+                            <a href="{{url('/journey/requests')}}" class="btn btn-warning" role="button"><span class="glyphicon glyphicon-pencil"></span> <br/>Approve</a>
                         @endif
                         @if(Auth::user()->canConfirmJourney())
-                            <a href="{{url('/journey/requests/notconfirmed')}}" class="btn btn-primary " role="button"><span class="glyphicon glyphicon-ok"></span> <br/>Confirm</a> 
+                            <a href="{{url('/journey/requests/notconfirmed')}}" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-ok"></span> <br/>Confirm</a> 
                         @endif                         
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
                         @if(Auth::user()->canViewOngoingJourneys())
-                            <a href="{{url('/journey/requests/confirmed')}}" class="btn btn-primary " role="button"><span class="glyphicon glyphicon-indent-left"></span> <br/>Ongoing</a>
+                            <a href="{{url('/journey/requests/confirmed')}}" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-indent-left"></span> <br/>Ongoing</a>
                         @endif
                         @if(Auth::user()->canViewCompletedJourneys())
-                            <a href="{{url('/journey/requests/completed')}}" class="btn btn-info " role="button"><span class="fa fa-folder"></span> <br/>History</a>
+                            <a href="{{url('/journey/requests/completed')}}" class="btn btn-info" role="button"><span class="fa fa-folder"></span> <br/>History</a>
                         @endif
                         @if(Auth::user()->canViewMyJourneys())
-                            <a href="{{url('/journey/myjourneys')}}" class="btn btn-success " role="button"><span class="glyphicon glyphicon-user"></span> <br/>My Journey</a>
+                            <a href="{{url('/journey/myjourneys')}}" class="btn btn-success" role="button"><span class="glyphicon glyphicon-user"></span> <br/>My Journey</a>
                         @endif                                
                     </div>
                 </div>             
@@ -124,9 +124,9 @@
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
                        
-                        <a href="{{url('/user/roles')}}" class="btn btn-warning " role="button"><span class="glyphicon glyphicon-folder-open"></span> <br/>View</a>
-                        <a href="{{url('/user/roles')}}" class="btn btn-primary " role="button"><span class="glyphicon glyphicon-edit"></span> <br/>Edit</a>               
-                        <a href="{{url('/user/role/create')}}" class="btn btn-danger " role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/> New </a> 
+                        <a href="{{url('/user/roles')}}" class="btn btn-warning" role="button"><span class="glyphicon glyphicon-folder-open"></span> <br/>View</a>
+                        <a href="{{url('/user/roles')}}" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-edit"></span> <br/>Edit</a>               
+                        <a href="{{url('/user/role/create')}}" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/> New </a> 
                                                   
                     </div>
                 </div>                  
