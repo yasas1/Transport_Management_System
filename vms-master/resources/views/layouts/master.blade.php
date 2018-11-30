@@ -28,13 +28,16 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>  
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+          <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' 
+          integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
 
     @yield('styles')
 
@@ -153,7 +156,7 @@ desired effect
                 <li class="header">MENU</li>
 
                 <li>
-                    <a href="{{url('home')}}"><i class="glyphicon glyphicon-home"></i> <span>Home</span></a>     
+                    <a href="{{url('home')}}"><i class="glyphicon glyphicon-home"></i> <span>HOME</span></a>     
                 </li>
                 @if(Auth::user()->canReadVehicle() || Auth::user()->canUpdateVehicle() ||Auth::user()->canCreateVehicle() ) 
                     <li class="treeview">
@@ -282,7 +285,7 @@ desired effect
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{url('/vehicle/usage')}}"><i class="fa fa-eye"></i> Vehicle Usage</a></li> 
-                        <li><a href="{{url('/vehicle/addservicing')}}"><i class="fa fa-eye"></i> Servicing</a></li>
+                        <li><a href="{{url('/vehicle/addservicing')}}"><i class="fas fa-oil-can"></i> <span>&nbspSERVICING</span></a></li>
                     </ul>
                     
                 </li>
