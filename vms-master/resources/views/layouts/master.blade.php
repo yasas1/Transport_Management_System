@@ -313,7 +313,7 @@ desired effect
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                @yield('header')
+                <b> @yield('header') </b>
                 <small>@yield('description')</small>
             </h1>
         </section>

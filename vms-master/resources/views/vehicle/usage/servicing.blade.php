@@ -4,7 +4,7 @@
 
 @section('styles')
     {{-- <link href="{{asset('css/bootstrap-toggle.min.css')}}" rel="stylesheet"> --}}
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    {{-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
     
     <style> 
@@ -44,8 +44,8 @@
     
                     <h4><i class="fa fa-calendar"></i> Date </h4>
                                                         
-                    <div id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy">
-                        <input class="form-control" type="text" readonly />
+                    <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
+                        <input id="date" class="form-control" type="text" readonly />
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                     </div>
             
@@ -61,15 +61,7 @@
 
 @section('scripts')
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-{{-- <script src="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
-<script src="{{asset('bower_components/bootstrap-datepicker/bootstrap-datepicker.js')}}"></script> --}}
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
-
-
-
 
 <script>
 
@@ -78,23 +70,20 @@
         console.log(vid);
 
     });
-
-    // $('.datepicker').datepicker({
-    //     format: 'mm/dd/yyyy',
-    //     startDate: '-3d',
-    //     autoclose: true,
-    // });
-
-    
+ 
     $("#datepicker").datepicker({ 
         autoclose: true, 
         format: 'yyyy-mm-dd',
         todayHighlight: true
     }).datepicker('update', new Date());
-    
 
-    
+    $('.date').on('change',function () {
+        var x = $("#datepicker").data('datepicker').getFormattedDate('yyyy-mm-dd');
+        console.log(x);     
+    });  
+
    
+    
 
 </script>
 
