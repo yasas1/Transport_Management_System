@@ -70,10 +70,22 @@
                     {{Form::reset('CLEAR', ['class'=>'btn btn-warning'])}}
                 </div>  
             </div>
+            {!! Form::close() !!} <br>
 
-            {!! Form::close() !!}
+            <div class="col-md-offset-2"> 
+                <table class="table table-bordered table-striped table-condensed">
+                    <thead> 
+                        <tr> 
+                            <th> Vehicle </th>
+                            <th> Date </th>
+                            <th> Meter Reading</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
         </div>
-               
+       
     </div>
  
 @endsection
