@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Vehical;
+use App\Models\Service;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,7 +22,16 @@ class VehicleUsageController extends Controller
 
     public function storeServicing(Request $request){
 
-       return $request;
+        $service = new Service; 
+
+        $service->vehical_id = $request->vehical_id;
+        $service->date = $request->date;
+        $service->meter_reading = $request->meter_reading;
+
+        $service->save(); 
+
+        return redirect()->back()->with(['success'=>'Servicing added successfully !']);
+
     }
 
     public function readServicing(){

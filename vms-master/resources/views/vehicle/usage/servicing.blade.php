@@ -73,9 +73,9 @@
             {!! Form::close() !!} <br>
 
             <div class="col-md-offset-1"> 
-                <table class="table table-bordered table-hover table-striped">
-                    <thead>  
-                        <tr> 
+                <table class="table table-sm table-hover table-sm table-striped">
+                    <thead class="table-dark">  
+                        <tr > 
                             <th scope="col"> Vehicle </th>
                             <th scope="col"> Date </th>
                             <th scope="col"> Meter Reading</th>

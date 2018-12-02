@@ -547,18 +547,7 @@
                 console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:mm') + ' to ' + end.format('YYYY-MM-DD HH:mm') + ' (predefined range: ' + label + ')');                 
             });
         });
-        $('#txtDistance').on('keyup',function () {
-           var val = $(this).val();
-           if(parseInt(val)>=150){
-                $('#txtDistanceHelpBox').html('Director approval is required for long distance ( more than 150km ) journeys.');
-           }else {
-               $('#txtDistanceHelpBox').html('');
-           }
-        });
-        // $('#dtp').on('keyup change',function () {
-           
-        //     console.log( 'check change' );  
-        // });
+        
     </script>
 
 <script>
