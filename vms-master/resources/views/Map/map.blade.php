@@ -41,34 +41,25 @@
     
     <script>
 
+        // $(document).ready(function(){
+
+        //     var map = new google.maps.Map(document.getElementById('map'), {
+        //             center: {lat: -34.397, lng: 150.644},
+        //             zoom: 8
+        //         });
+        // });
         var map;
-        var marker;
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: 6.847278, lng:79.926605},
-                zoom: 10
-            });
-
-             marker = new google.maps.Marker({
-                map: map,
-                draggable: true,
-                animation: google.maps.Animation.DROP,
-                position: {lat: 6.847278, lng: 79.926605}
-            });
-            
-            //marker.addListener('click', toggleBounce);
-            
-
-        }
-
-        
-    
+            center: {lat: 31.565600, lng: -110.249180},
+            zoom: 8
+        });
+      }
      //AIzaSyBImn3Uma343O6GuhhbBTvsdA6lMb8bd8s
     </script>  
  
-    {{-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEUlmbMLmmJqhiNZZ8he1_muiSTRkWins&callback=initMap"
-    type="text/javascript"></script> --}}
-    
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBImn3Uma343O6GuhhbBTvsdA6lMb8bd8s&callback=initMap"
+    type="text/javascript"></script>
 
 
 @endsection
