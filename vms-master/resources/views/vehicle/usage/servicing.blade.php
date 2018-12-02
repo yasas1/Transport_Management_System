@@ -72,15 +72,18 @@
             </div>
             {!! Form::close() !!} <br>
 
-            <div class="col-md-offset-2"> 
-                <table class="table table-bordered table-striped table-condensed">
-                    <thead> 
+            <div class="col-md-offset-1"> 
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>  
                         <tr> 
-                            <th> Vehicle </th>
-                            <th> Date </th>
-                            <th> Meter Reading</th>
+                            <th scope="col"> Vehicle </th>
+                            <th scope="col"> Date </th>
+                            <th scope="col"> Meter Reading</th>
                         </tr>
                     </thead>
+                    <tbody id="servicing_info">
+
+                    </tbody>
                 </table>
             </div>
 
@@ -99,6 +102,30 @@
     $('#vid').on('change',function () {
         var vid = $(this).val();
         console.log(vid);
+
+        $.ajax({
+            url: '/vehicle/readServicing/{id}',
+            type: 'GET',
+            data: { id: vid },
+            success: function(data)
+            {
+                console.log(data);   
+                $('#servicing_info').empty();            
+                $(data).each(function (i,value) {                
+                    //servicing_info 
+                    var tr = $("<tr/>");
+                    tr.append($("<td/>",{
+                        text :value.vehicle_name+" ("+value.vehicle_reg+")"
+                    })).append($("<td/>",{
+                        text :value.date
+                    })).append($("<td/>",{
+                        text :value.meter_reading
+                    }))
+                    $('#servicing_info').append(tr);              
+                }); 
+               
+            }
+        });
 
     });
  
