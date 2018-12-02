@@ -263,7 +263,7 @@ class VehicleController extends Controller
                 }
             }
 
-            return redirect()->back()->with(['success'=>'New vehicle added successfully !']);
+            return redirect()->back()->with(['success'=>'Vehicle Updated Successfully !']);
         }
 
     }

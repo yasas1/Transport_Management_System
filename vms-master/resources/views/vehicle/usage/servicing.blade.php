@@ -43,7 +43,7 @@
                     <h4><i class="fa fa-calendar"></i> Date </h4>
                                                         
                     <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
-                        <input id="date" class="form-control" type="text" readonly />
+                        <input id="date" name="date" class="form-control" type="text" readonly />
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                     </div>
             
@@ -58,7 +58,7 @@
                     <h4><i class="fas fa-tachometer-alt"></i> Meter Reading </h4>  
     
                     <div style="width:300px">  
-                        {{Form::number('name', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Meter Reading'])}}                      
+                        {{Form::number('meter_reading', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Meter Reading'])}}                      
                     </div>                      
                 </div>   
             </div><br>
@@ -67,7 +67,7 @@
 
                 <div class="col-md-5"> 
                     {{Form::submit('SUBMIT', ['class'=>'btn btn-success pull-left'])}} &nbsp
-                    {{Form::reset('RESET', ['class'=>'btn btn-warning'])}}
+                    {{Form::reset('CLEAR', ['class'=>'btn btn-warning'])}}
                 </div>  
             </div>
 
