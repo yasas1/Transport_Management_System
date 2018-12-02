@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'User | DOOR KEY Management System')
+@section('title', 'User | Vehicle Management System')
 
 @section('styles')
 
@@ -27,7 +27,6 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Assigning new user module to {{$role->name}}</h3>
-                <a href="{{url('/user/roles')}}" class="btn btn-primary pull-right">Back</a>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -92,6 +91,7 @@
                     method:'GET',
                     url:url,
                     success: function (data) {
+                        console.log(data);
                         var html = '';
                         $(data).each(function (index,a) {
                             html+=  "<tr>\n" +
@@ -102,7 +102,7 @@
                         $('#tblPermissions').html(html);
                     },
                     error: function (data) {
-                        $('#tblPermissions').html(data.responseText);
+                        console.log(data);
                     }
                 })
             })

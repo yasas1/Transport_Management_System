@@ -643,7 +643,8 @@ class JourneyController extends Controller
         $otherDivHeadsJourneys = NULL;
         return view('journey.requests',compact('journeys','longDisJourneys','otherDivHeadsJourneys'));
     }
-    public function notConfirmedJourneys(){
+
+    public function notConfirmedJourneys(){ // view journey confirms view
         $drivers = Driver::all()->pluck('fullName','id');
         $vehicles = Vehical::all()->pluck('fullName','id');
         $vehicless = Vehical::all();
@@ -651,14 +652,16 @@ class JourneyController extends Controller
         $journeys = Journey::notConfirmed();
         return view('journey.confirms',compact('journeys','drivers','vehicles','vehicless','vehiclesForColor'));
     }
-    public function confirmedJourneys(){
+
+    public function confirmedJourneys(){  // view Ongoing Journeys
         $drivers = Driver::all()->pluck('fullName','id');
         //$vehicles = Vehical::all()->pluck('fullName','id');
         $vehicles = Vehical::all();
         $journeys = Journey::confirmed();
         return view('journey.confirmed',compact('journeys','drivers','vehicles'));
     }
-    public function completed(){
+
+    public function completed(){ // view Journey History {Completed journeys}
 
         if(Auth::user()->role_id == 4){
             $driverEmp = Auth::user()->emp_id;
@@ -680,6 +683,7 @@ class JourneyController extends Controller
         }
         
     }
+
     public function cancelledJourney(){
         
         $journeys = Journey::cancelled();
@@ -687,6 +691,7 @@ class JourneyController extends Controller
     
         return view('journey.cancelled',compact('journeys','DeniedJourneys'));
     }
+
     public function isDivisionalHead($id){
         
         if($divHeads=Division::where('head', '=', $id )->get()){

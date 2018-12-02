@@ -207,7 +207,7 @@
                     <div class="form-group">
                         <hr>
                         {{Form::submit('SEND JOURNEY REQUEST', ['class'=>'btn btn-success pull-left'])}}
-                        {{Form::reset('RESET', ['class'=>'btn btn-warning'])}}
+                        {{Form::reset('CLEAR', ['class'=>'btn btn-warning'])}}
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
                     {!! Form::close() !!}

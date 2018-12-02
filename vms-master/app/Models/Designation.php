@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 11 Mar 2018 13:23:29 +0000.
+ * Date: Fri, 18 May 2018 10:06:18 +0000.
  */
 
 namespace App\Models;
@@ -25,6 +25,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class Designation extends Eloquent
 {
+
     protected $connection = 'con_employee';
 
 	protected $table = 'designation';

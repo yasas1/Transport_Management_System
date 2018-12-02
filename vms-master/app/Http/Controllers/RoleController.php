@@ -8,236 +8,122 @@ use App\Models\Privilege;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
 
     public function index(){
-        if (Auth::user()->canReadRole()){
-            $roles = Role::all();
-            return view('role.index',compact('roles'));
-        }
-        return redirect('home');
+        $roles = Role::all();
+        return view('role.index',compact('roles'));
     }
 
     public function assignNewModule($id){
-
-        if (Auth::user()->canUpdateRole()){
-            $role = Role::whereId($id)->first();
-            $modules = Role::notAssignedmodules($id);
-            return view('role.assignNewModule',compact('role','modules'));
-        }
-        return redirect('home');
-
+        $role = Role::whereId($id)->first();
+        $modules = Role::notAssignedmodules($id);
+        return view('role.assignNewModule',compact('role','modules'));
     }
 
     public function getPermissionsByModuleId($id){
 
-
-        if (Auth::user()->canReadRole()){
-
-            if ($id !='' && $module = Module::whereId($id)->first()){
-                return response($module->permissions,'200');
-            }
-
-            return response('Not Found','501');
+        if ($id !='' && $module = Module::whereId($id)->first()){
+            return response($module->permissions,'200');
         }
 
-        return response('<h5 class="text-center text-danger">You Don\'t have permissions.</h5>','501');
-
+        return response('Not Found','501');
 
     }
 
     public function getPermissionsByModule(Request $request){
 
-        if (Auth::user()->canReadRole()){
-
-            if ($request->moduleId && $module = Module::whereId($request->moduleId)->first()){
-                return response($module->permissions,'200');
-            }
-
-            return response('Not Found','501');
-
+        if ($request->moduleId && $module = Module::whereId($request->moduleId)->first()){
+            return response($module->permissions,'200');
         }
 
-        return response('<h5 class="text-center text-danger">You Don\'t have permissions.</h5>','501');
-
-
+        return response('Not Found','501');
 
     }
 
     public function storeNewModule(Request $request){
 
-        if (Auth::user()->canUpdateRole()){
+        if($role = Role::whereId($request->role_id)->first()){
 
-            if($role = Role::whereId($request->role_id)->first()){
+            $privilege = new Privilege;
+            $privilege->module_id = $request->module_id;
+            $privilege->role_id = $request->role_id;
+            $privilege->save();
 
-                $privilege = new Privilege;
-                $privilege->module_id = $request->module_id;
-                $privilege->role_id = $request->role_id;
-                $privilege->save();
+            $privilege->permissions()->attach($request->permission_ids);
+            $privilege->update();
 
-                $privilege->permissions()->attach($request->permission_ids);
-                $privilege->update();
-
-                return redirect()->back()->with(['success'=>'User module assigned successfully!.']);
-
-            }
+            return redirect()->back()->with(['success'=>'User module assigned successfully!.']);
 
         }
 
-        return redirect('home');
 
     }
 
     public function editPerimssionsByModule($rId,$mId){
 
-        if (Auth::user()->canUpdateRole()){
-
-            if($rId!=''){
-                if($role = Role::whereId($rId)->first()){
-                    $permissions =  $role->privileges->where('module_id','=',$mId)->first()->permissions;
-                    $module = Module::whereId($mId)->first();
-                    return view('role.editPrivilegesByModule',compact('role','permissions','module'));
-                }
+        if($rId!=''){
+            if($role = Role::whereId($rId)->first()){
+                $permissions =  $role->privileges->where('module_id','=',$mId)->first()->permissions;
+                $module = Module::whereId($mId)->first();
+                return view('role.editPrivilegesByModule',compact('role','permissions','module'));
             }
-
         }
-
-        return redirect('home');
 
     }
 
     public function updatePermissionsByModule(Request $request){
 
-        if (Auth::user()->canUpdateRole()){
+        if($role = Role::whereId($request->role_id)->first()){
 
-            if($role = Role::whereId($request->role_id)->first()){
+            $privilege = Privilege::whereRoleId($request->role_id)->whereModuleId($request->module_id)->first();
+            $privilege->permissions()->detach();
+            $privilege->permissions()->attach($request->permission_ids);
+            $privilege->update();
 
-                $privilege = Privilege::whereRoleId($request->role_id)->whereModuleId($request->module_id)->first();
-                $privilege->permissions()->detach();
-                $privilege->permissions()->attach($request->permission_ids);
-                $privilege->update();
-
-                return redirect()->back()->with(['success'=>$privilege->module->name." module's permissions updated successfully!"]);
-
-            }
+            return redirect()->back()->with(['success'=>$privilege->module->name." module's permissions updated successfully!"]);
 
         }
-
-        return redirect('home');
 
     }
 
     public function deletePrivilege($id){
 
-        if (Auth::user()->canUpdateRole()){
-
-            if($privilege = Privilege::whereId($id)->first()){
-                $role = $privilege->role;
-                $module = $privilege->module;
-                $privilege->delete();
-                return redirect()->back()->with(['success'=>$module->name.' module deleted from '.$role->name.' successfully!.']);
-            }
-
-            return redirect()->back()->withErrors(['error'=>'Sorry. module cannot find !']);
-
+        if($privilege = Privilege::whereId($id)->first()){
+            $role = $privilege->role;
+            $module = $privilege->module;
+            $privilege->delete();
+            return redirect()->back()->with(['success'=>$module->name.' module deleted from '.$role->name.' successfully!.']);
         }
 
-        return redirect('home');
-
-
+        return redirect()->back()->withErrors(['error'=>'Sorry. module cannot find !']);
 
     }
 
     public function create(){
-
-        if (Auth::user()->canCreateRole()){
-
-            $modules = Module::all();
-            return view('role.create',compact('modules'));
-
-        }
-
-        return redirect('home');
-
+        $modules = Module::all();
+        return view('role.create',compact('modules'));
     }
 
     public function store(Request $request){
+       $this->validate($request,[
+           'name'=>'required'
+       ]);
 
-        if (Auth::user()->canCreateRole()){
+       if ($request->name){
+           $role = new Role;
+           $role->name = $request->name;
+           $role->save();
+       }
 
-            $this->validate($request,[
-                'name'=>'required|unique:role'
-            ]);
-
-            if ($request->name!=''){
-                $role = new Role;
-                $role->name = $request->name;
-                $role->save();
-
-                if($request->permissions){
-
-                    foreach ($request->permissions as $module => $permissions){
-                        if ($module = Module::where('name','=',$module)->first()){
-
-                            if($permissions){
-                                $privilege = new Privilege;
-                                $privilege->module_id = $module->id;
-                                $privilege->role_id = $role->id;
-                                $privilege->save();
-
-                                $privilege->permissions()->attach($permissions);
-                                $privilege->update();
-                            }
-
-                        }
-
-                    }
-
-                }
-
-                return redirect()->back()->with(['success'=>$role->name.' role created successfully!.']);
-            }
-
+        if ($request->permissions){
+            foreach ($request->permissions as $permission)
+            $privilege = new Privilege;
+            $privilege->module_id = $permission->module_id;
         }
 
-        return redirect('home');
-
-    }
-
-    public function deleteRole($id){
-
-        if (Auth::user()->canDeleteRole()){
-
-            if ($role = Role::where('id','=',$id)->first()){
-
-                if($role->name == 'User'){
-                    return redirect()->back()->withErrors('Role \'User\' cannot delete.');
-                }
-
-                if(count($role->users)==0){
-                    $role->delete();
-                    return redirect()->back()->with(['success'=>$role->name.' role deleted successfully!.']);
-                }elseif (count($role->users)>0){
-                    if($roleUser = Role::where('name','=','User')->first()){
-
-                        foreach ($role->users as $user){
-                            $user->role_id = $roleUser->id;
-                            $user->update();
-                        }
-
-                        $role->delete();
-
-                        return redirect()->back()->with(['success'=>'Role deleted successfully!.']);
-                    }
-                }
-            }
-
-        }
-
-        return redirect('home');
     }
 
 }

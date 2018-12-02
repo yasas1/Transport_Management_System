@@ -164,19 +164,15 @@
 
 
     {{-- <div class="row"> 
-
         <div class="col-md-6">
-
             <div class="panel panel-primary">
                 
                 <div class="panel-body">
-
                     <canvas id="doughnut-chart" width="800" height="450"></canvas>
                                     
                 </div>
             </div>
         </div>
-
     </div> --}}
 
 @endsection
@@ -198,9 +194,7 @@
             journey_colors[value.id]='#'+value.journey_color;
         });
     });      
-
     $(document).ready(function(){
-
             //$('.colorbutton').css('background','#7CFD03');
         $(".vehiclebutton").click(function(evt){
             var vid = $(this).attr("value");   // Vehivle_id from Vehicle_Button
@@ -234,7 +228,6 @@
                 }
             });
         });
-
         $(".all").click(function(evt){
             qEvent=[]; 
             $('#calendar').fullCalendar('removeEvents');
@@ -272,7 +265,6 @@
             });                      
             
         });
-
         $(".external").click(function(evt){
             qEvent=[]; 
             $('#calendar').fullCalendar('removeEvents');
@@ -296,9 +288,7 @@
             });                      
             
         });
-
     });
-
     $(function () {
        
         $.ajax({
@@ -306,9 +296,7 @@
             url:'{{url('journey/read')}}',
             success:function (data) {
                 
-
                 $.each(data,function(i,value){ 
-
                     if(value.vehical_id != null){
                         qEvent.push({ 
                             title : value.places_to_be_visited, // need place as the title
@@ -343,7 +331,6 @@
                 // alert(err.toString());
             },
             complete:function () {             
-
                 $('#calendar').fullCalendar({
                     selectable: true,
                     defaultView:'agendaWeek',
@@ -355,7 +342,6 @@
                     },
                     googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',                   
                     //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
-
                     events:qEvent,
                     eventClick: function(event, element) {
                         //console.log(event);
