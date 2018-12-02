@@ -16,26 +16,24 @@
 
 @section('header', 'Vehicle Servicing')
 
-
-
 @section('content')
     @include('layouts.errors')
     @include('layouts.success')
   
     <div class="box box-primary">
     
-        <div class="box-body"  >
+        <div class="box-body" style="height:560px" >
 
             <div class="row"> 
-
+                {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeServicing','files'=>true]) !!}
                 <div class="col-md-5"> 
 
-                    <h4><i class="fa fa-car"></i> Vehicle Required</h4>
+                    <h4><i class="fa fa-car"></i> Vehicle </h4>
     
                     <div style="width:300px">
-                        <div class="form-group">
-                            {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Select a Vehicle'])}}
-                        </div>
+                        
+                        {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Select a Vehicle'])}}
+                        
                     </div>
                     
                 </div>
@@ -51,8 +49,29 @@
             
                 </div>
 
-            </div>  
+            </div> 
+            
+            <div class="row"> 
 
+                <div class="col-md-5"> 
+
+                    <h4><i class="fas fa-tachometer-alt"></i> Meter Reading </h4>  
+    
+                    <div style="width:300px">  
+                        {{Form::number('name', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Meter Reading'])}}                      
+                    </div>                      
+                </div>   
+            </div><br>
+
+            <div class="row"> 
+
+                <div class="col-md-5"> 
+                    {{Form::submit('SUBMIT', ['class'=>'btn btn-success pull-left'])}} &nbsp
+                    {{Form::reset('RESET', ['class'=>'btn btn-warning'])}}
+                </div>  
+            </div>
+
+            {!! Form::close() !!}
         </div>
                
     </div>

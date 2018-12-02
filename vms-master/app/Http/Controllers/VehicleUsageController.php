@@ -18,5 +18,10 @@ class VehicleUsageController extends Controller
         return view('vehicle.usage.servicing',compact('vehicles'));
     }
 
+    public function storeServicing(Request $request){
+
+       return $request;
+    }
+
 
 }
