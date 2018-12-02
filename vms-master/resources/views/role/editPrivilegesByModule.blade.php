@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'User | DOOR KEY Management System')
+@section('title', 'User | Vehicle Management System')
 
 @section('styles')
 
@@ -27,7 +27,6 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Updating {{$module->name}} module's permissions assigned to {{$role->name}}</h3>
-                <a href="{{url('/user/roles')}}" class="btn btn-primary pull-right">Back</a>
             </div>
             <!-- /.box-header -->
             <!-- form start -->

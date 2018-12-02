@@ -138,7 +138,6 @@ class User extends Authenticatable
 
         return $this->checkPrivilege('Journey','Approve');
     }
-
     public function canApproveLongDistanceJourney(){
 
         return $this->checkPrivilege('Journey','Approve Long Distance Journey');
@@ -158,7 +157,6 @@ class User extends Authenticatable
 
         return $this->checkPrivilege('Journey','View Ongoing Journeys');
     }
-
     public function canViewCancelledJourneys(){
 
         return $this->checkPrivilege('Journey','View Cancelled Journeys');
@@ -172,70 +170,7 @@ class User extends Authenticatable
     public function canViewMyJourneys(){
         return $this->checkPrivilege('Journey','View My Journey Requests');
     }
-
-
-    public function division(){
-
-        if ($employee = Employee::where('emp_email','=',$this->email)->first()){
-
-            if($division = Division::where('dept_id','=',$employee->emp_divison_id)->first()){
-
-                return $division->dept_name;
-
-            }
-
-        }
-
-        return null;
-
-    }
-
-    public function designation(){
-
-        if ($employee = Employee::where('emp_email','=',$this->email)->first()){
-
-            if($division = Designation::where('desig_id','=',$employee->emp_designation)->first()){
-
-                return $division->des_name;
-
-            }
-
-        }
-
-        return null;
-    }
-
-    public function canViewUser(){
-
-        return $this->checkPrivilege('User','Read');
-    }
-
-    public function canUpdateUser(){
-
-        return $this->checkPrivilege('User','Update');
-    }
-
-    public function canCreateRole(){
-
-        return $this->checkPrivilege('Role','Create');
-    }
-
-    public function canReadRole(){
-
-        return $this->checkPrivilege('Role','Read');
-    }
-
-    public function canUpdateRole(){
-
-        return $this->checkPrivilege('Role','Update');
-    }
-
-    public function canDeleteRole(){
-
-        return $this->checkPrivilege('Role','Delete');
-    }
-
-
+    
     /**
      * @return bool
      */
