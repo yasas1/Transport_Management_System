@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'ROLE | VEHICLE MANAGEMENT SYSTEM')
+@section('title', 'ROLE | DOOR KEY MANAGEMENT SYSTEM')
 
 @section('styles')
 
@@ -22,6 +22,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Creating a role</h3>
+                <a href="{{url('/user/roles')}}" class="btn btn-primary pull-right">Back</a>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -52,8 +53,8 @@
                                         <td>{{$module->name}}</td>
                                         <td>|
                                             @foreach($module->permissions as $permission)
-                                                <input type='checkbox' name='permissions[{{$module->id}}][{{$permission->id}}]' value='{{$permission->id}}'>
-                                                {{$permission->name}} |
+                                                <input type='checkbox' name='permissions[{{$module->name}}][]' value='{{$permission->id}}'>
+                                                {{$permission->name}}|
                                             @endforeach
                                         </td>
                                     </tr>

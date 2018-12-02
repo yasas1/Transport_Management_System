@@ -23,8 +23,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class Service extends Eloquent
 {
-	protected $table = 'services';
-
 	public $timestamps = false;
 
 	protected $casts = [
@@ -32,9 +30,9 @@ class Service extends Eloquent
 		'meter_reading' => 'float'
 	];
 
-	// protected $dates = [
-	// 	'date'
-	// ];
+	protected $dates = [
+		'date'
+	];
 
 	protected $fillable = [
 		'vehical_id',

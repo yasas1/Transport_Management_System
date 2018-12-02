@@ -16,7 +16,7 @@ class Active
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->is_active == 1){
+        if(Auth::user()->employee->emp_state == 'active'){
             return $next($request);
         }
         Auth::logout();

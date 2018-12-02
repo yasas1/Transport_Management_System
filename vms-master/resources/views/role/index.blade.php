@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Privilege | Vehicle Management System')
+@section('title', 'Privilege | DOOR KEY Management System')
 
 @section('styles')
 
@@ -35,9 +35,13 @@
                                 <div class="box-header with-border">
                                     <h4 class="box-title">
                                         <a data-toggle="collapse" data-parent="#accordion" class="{{$counter==1?'':'collapsed '}}" href="#{{$role->id}}" aria-expanded="{{$counter==1?'true':'false '}}" class="">
-                                            {{$role->name}}
+                                            {{$role->name}} <i class="fa fa-angle-down"></i>
+
                                         </a>
                                     </h4>
+                                    @if($role->name!=='User')
+                                        <button class="btn btn-sm btn-danger pull-right btnDeleteRole" url="{{url('/user/role/'.$role->id.'/delete')}}"><i class="fa fa-trash"></i></button>
+                                    @endif
                                 </div>
                                 <div id="{{$role->id}}" class="panel-collapse collapse {{$counter==1?'in':''}}" aria-expanded="false" style="{{$counter==1?'':'height: 0px;'}}">
                                     <div class="box-body">
@@ -89,5 +93,29 @@
 @endsection
 
 @section('scripts')
+    <script>
+        $(function () {
+            $('.btnDeleteRole').on('click',function () {
+                url = $(this).attr('url');
+                $.confirm({
+                    title: 'Confirmation!',
+                    content: 'Are you sure you want to delete this role ? If there is user accounts assigned to this role, those account\'s role will be assigned to \"User\" role',
+                    buttons: {
+                        formSubmit: {
+                            text: 'Confirm',
+                            btnClass: 'btn-red',
+                            action: function () {
 
+                                window.location.replace(url);
+
+                            }
+                        },
+                        cancel: function () {
+                            //close
+                        },
+                    }
+                });
+            });
+        })
+    </script>
 @endsection

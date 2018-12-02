@@ -31,6 +31,9 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class User extends Eloquent
 {
+
+    protected $connection = 'mysql';
+
 	protected $casts = [
 		'role_id' => 'int',
 		'is_active' => 'int'
@@ -58,9 +61,14 @@ class User extends Eloquent
         'refresh_token'
 	];
 
-	public function role()
-	{
-		return $this->belongsTo(\App\Models\Role::class);
-	}
+    public function employee()
+    {
+        return $this->belongsTo(\App\Models\Employee::class,'emp_id','emp_id');
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(\App\Models\Role::class);
+    }
 
 }

@@ -398,8 +398,7 @@
 
             <div class="form-group">
                 {{Form::submit('Update', ['class'=>'btn btn-success'])}}
-                {{-- {{Form::submit('Back', ['class'=>'btn btn-warning'])}} --}}
-                <a href="{{ url('/vehicle/') }}" class="btn btn-warning" role="button">Back</a>
+                {{Form::submit('Back', ['class'=>'btn btn-warning'])}}
             </div>
             {!! Form::close() !!}
 
