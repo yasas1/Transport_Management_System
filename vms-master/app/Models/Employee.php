@@ -136,6 +136,10 @@ class Employee extends Eloquent
 	
     public function getFullNameAttribute(){
         return $this->emp_title.'. '.$this->emp_initials.'. '.$this->emp_surname;
+	}
+	
+	public function getShortNameAttribute(){
+        return $this->emp_title.'. '.$this->emp_initials.'. '.$this->emp_surname;
     }
 
     public function user()
