@@ -14,12 +14,22 @@ class Active
      * @param  \Closure  $next
      * @return mixed
      */
+    // public function handle($request, Closure $next)
+    // {
+    //     if(Auth::user()->is_active == 1){
+    //         return $next($request);
+    //     }
+    //     Auth::logout();
+    //     return redirect('login')->withErrors(['username' =>  'Your account has been disabled. Please Contact Admin.']);
+    // }
+
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->is_active == 1){
+        if(Auth::user()->employee->emp_state == 'active'){
             return $next($request);
         }
         Auth::logout();
         return redirect('login')->withErrors(['username' =>  'Your account has been disabled. Please Contact Admin.']);
     }
+    
 }
