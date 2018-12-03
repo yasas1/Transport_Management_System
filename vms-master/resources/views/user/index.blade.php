@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'User | Vehicle Management System')
+@section('title', 'Key Management | User')
 
 @section('styles')
 
@@ -15,7 +15,6 @@
     <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title">Current Users List</h3>
-            <a href="{{url('/user/create')}}" class="btn btn-success pull-right">Create New User</a>
         </div>
         <!-- /.box-header -->
         <!-- form start -->
@@ -27,10 +26,14 @@
                 <tr>
                     <th>Photo</th>
                     <th>User Name</th>
-                    <th>Role</th>
+                    <th>Designation</th>
+                    <th>Division</th>
                     <th>Email</th>
+                    <th>Role</th>
                     <th>Status of the account</th>
-                    <th width="20px"></th>
+                    @if(Auth::user()->canUpdateUser())
+                        <th width="20px"></th>
+                    @endif
                 </tr>
                 </thead>
                 <tbody>
@@ -39,16 +42,22 @@
                     @foreach($users as $user)
                         <tr>
                             <td>
-                                @if($user->avatar)
-                                    {!! '<img height="40px" src="'.$user->avatar.'" alt="">' !!}
+                                @if($user->user && $user->user->avatar)
+                                    {!! '<img height="40px" src="'.$user->user->avatar.'" alt="">' !!}
+                                @elseif($user->emp_gender === 'male')
+                                    <img height="40px" src="img/user/male.jpg" alt="">
+                                @elseif($user->emp_gender === 'female')
+                                    <img height="40px" src="img/user/female.jpg" alt="">
                                 @endif
                             </td>
-                            <td>{{$user->name?$user->name:'N/A'}}</td>
-                            <td>{{$user->role?$user->role->name:''}}</td>
-                            <td>{{$user->email?$user->email.'@ucsc.cmb.ac.lk':''}}</td>
+                            <td>{{$user?$user->shortName:'N/A'}}</td>
+                            <td>{{$user->designation?$user->designation->des_name:''}}</td>
+                            <td>{{$user->division?$user->division->dept_name:''}}</td>
+                            <td>{{$user->emp_email?$user->emp_email.'@ucsc.cmb.ac.lk':''}}</td>
+                            <td>{{$user->user?$user->user->role->name:'User'}}</td>
                             <td>
-                                @if($user->is_active)
-                                    @if($user->is_active=='1')
+                                @if($user->emp_state)
+                                    @if($user->emp_state=='active')
                                         {!! '<span class="badge bg-green">Active</span>' !!}
                                     @else
                                         {!! '<span class="badge bg-orange">Not Active</span>' !!}
@@ -56,7 +65,9 @@
                                 @endif
                             </td>
 
-                            <td><a href="{{url('/user/'.$user->id.'/edit')}}" class="btn btn-success">Edit</a></td>
+                            @if(Auth::user()->canUpdateUser())
+                                <td><a href="{{url('/user/'.$user->emp_id.'/edit')}}" class="btn btn-primary">Edit</a></td>
+                            @endif
 
                         </tr>
                     @endforeach
@@ -64,6 +75,8 @@
 
                 </tbody>
             </table>
+
+
         </div>
     </div>
 
@@ -71,10 +84,8 @@
 
 @section('scripts')
     <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+        $(document).ready(function() {
+            $('.table').DataTable();
+        } );
     </script>
 @endsection
