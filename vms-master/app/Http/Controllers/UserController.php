@@ -43,101 +43,143 @@ class UserController extends Controller
         $_SESSION['access_token'] = $access_token;
         $gEmail = str_replace('@ucsc.cmb.ac.lk','',$gUser->email);
 
-        if($user = User::whereEmail($gEmail)->first()){
+        if($employee = Employee::where('emp_email','=',$gEmail)->first()){
 
-            if($user->is_active==1){
+            if($employee->emp_state === 'active'){
 
-                $user->name = $gUser->name;
-                $user->avatar = $gUser->avatar;
-                $user->token = $gUser->token;
-                if($gUser->refreshToken){
-                    $user->refresh_token = $gUser->refreshToken;
+                if($user = User::where('emp_id','=',$employee->emp_id)->first()){
+                    $user->avatar = $gUser->avatar;
+                    $user->name = $gUser->name;
+                    $user->update();
+                    Auth::login($user,true);
+                    return redirect('/home');
+                }else{
+                    $user = new User;
+                    $user->emp_id = $employee->emp_id;
+                    $user->name = $gUser->name;
+                    $user->email = $gEmail;
+                    $user->avatar = $gUser->avatar;
+                    $user->token = $gUser->token;
+                    $user->password = str_random(10);
+                    $user->role_id = 5;
+                    $user->save();
+
+                    Auth::login($user,true);
+                    return redirect('/home');
                 }
-                if($gUser->refreshToken){
-                    $user->refresh_token = $gUser->refreshToken;
-                }
 
-                if($code =  $request->code){
-                    $user->access_token = $access_token['access_token'];
-                }
+            }elseif ($employee->emp_state === 'inactive'){
 
-                $user->update();
+                return redirect('/login')->withErrors(['Access denied. Your account has been deactivated. Please contact admin.']);
 
+            };
 
-                Auth::login($user,true);
-                return redirect('home');
-
-            }else{
-                return redirect('/login')->withErrors(['Your account has been disabled. Please contact Admin.']);
-            }
         }else{
-            return redirect('/login')->withErrors(['Access denied. Your email account doesn\'t match with our records. Please request a user account from admin.']);
+
+            return redirect('/login')->withErrors(['Access denied. Your gmail account doesn\'t match with our records. Please request a user account from admin.']);
+
         }
+//        if($user = User::whereEmail($gEmail)->first()){
+//
+//            if($user->is_active==1){
+//
+//                $user->name = $gUser->name;
+//                $user->avatar = $gUser->avatar;
+//                $user->token = $gUser->token;
+//                if($gUser->refreshToken){
+//                    $user->refresh_token = $gUser->refreshToken;
+//                }
+//                if($gUser->refreshToken){
+//                    $user->refresh_token = $gUser->refreshToken;
+//                }
+//
+//                if($code =  $request->code){
+//                    $user->access_token = $access_token['access_token'];
+//                }
+//
+//                $user->update();
+//
+//
+//                Auth::login($user,true);
+//                return redirect('home');
+//
+//            }else{
+//                return redirect('/login')->withErrors(['Your account has been disabled. Please contact Admin.']);
+//            }
+//        }else{
+//            return redirect('/login')->withErrors(['Access denied. Your email account doesn\'t match with our records. Please request a user account from admin.']);
+//        }
 
     }
 
     public function index(){
+        if(Auth::user()->canViewUser()){
 
-        $users = User::all();
-        return view('user.index',compact('users'));
-    }
+            $users = Employee::where('emp_email','!=','')->get();
+            return view('user.index',compact('users'));
 
-    public function create(){
-
-        $roles = Role::all()->pluck('name','id');
-        return view('user.create',compact('roles'));
-    }
-
-    public function store(Request $request){
-
-        $this->validate($request,[
-            'email'=>'required|min:3',
-            'is_active'=>'required',
-            'role_id'=>'required'
-        ]);
-
-        if(!User::whereEmail($request->email)->first()){
-
-            if($employee = Employee::where('emp_email','=',$request->email)->first()){
-
-                $user = new User;
-                $user->email = $request->email;
-                $user->password = str_random(10);
-                $user->role_id = $request->role_id;
-                $user->is_active = $request->is_active;
-                $user->save();
-
-                return redirect()->back()->with(['success'=>'User account created successfully!. User name and profile photo will be updated when user logged in first time.']);
-
-            }else{
-                return redirect()->back()->withErrors(['error'=>'Email does not belongs to any employee at UCSC. Please check the email again.']);
-            }
-
-        }else{
-            return redirect()->back()->withErrors(['error'=>'Email Already exists']);
         }
-
+        return redirect('home');
     }
 
     public function edit($id){
 
-        $user = User::whereId($id)->first();
-        $roles = Role::all()->pluck('name','id');
-        return view('user.edit',compact('user','roles'));
+        if(Auth::user()->canUpdateUser()){
+
+            if ($employee = Employee::where('emp_id','=',$id)->first()){
+
+                if ($user = User::where('emp_id','=',$employee->emp_id)->first()){
+
+                }else{
+                    $user = new User;
+                    $user->emp_id = $employee->emp_id;
+                    $user->role_id = 5;
+                    $user->email = $employee->emp_email;
+                    $user->password = str_random(10);
+                }
+
+                $roles = Role::all()->pluck('name','id');
+                return view('user.edit',compact('user','roles'));
+            }
+
+        }
+        return redirect('home');
 
 
     }
 
     public function update(Request $request){
 
-        $user = User::whereId($request->id)->first();
-        $user->role_id = $request->role_id;
-        $user->is_active = $request->is_active;
-        $user->update();
+        if(Auth::user()->canUpdateUser()){
 
-        return redirect()->back()->with(['success'=>'User account has been updated successfully!.']);
+            $this->validate($request,[
+                'emp_id'=>'required',
+                'role_id'=>'required'
+            ]);
 
+            if ($employee = Employee::where('emp_id','=',$request->emp_id)->first()){
 
+                if ($user = User::where('emp_id','=',$employee->emp_id)->first()){
+                    $user->emp_id = $employee->emp_id;
+                    $user->role_id = $request->role_id;
+                    $user->email = $employee->emp_email;
+                    $user->password = str_random(10);
+                    $user->update();
+                }else{
+                    $user = new User;
+                    $user->emp_id = $employee->emp_id;
+                    $user->role_id = $request->role_id;
+                    $user->email = $employee->emp_email;
+                    $user->password = str_random(10);
+                    $user->save();
+                }
+
+                return redirect()->back()->with(['success'=>'User account has been updated successfully!.']);
+
+            }
+
+        }
+        return redirect('home');
     }
 
     public function login($type){
