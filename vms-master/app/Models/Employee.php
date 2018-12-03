@@ -95,9 +95,36 @@ class Employee extends Eloquent
 		'emp_comment'
 	];
 
-	public function division(){
 
-        return $this->belongsTo(\App\Models\Division::class,'emp_divison_id','dept_id');
+    public static function divisionalHead($email){
+
+        if($employee = Employee::where('emp_email','=',$email)->first()){
+
+            if($division = \App\Models\Employee\Division::where('dept_id','=', $employee->emp_divison_id)->first()){
+
+                if ($division->head){
+
+                    if ($division->head == $employee->emp_id){
+//                    Directors Email is hardcoded because of data integrity of employee designation column
+                        return '000147';
+
+                    }else{
+                        return $division->head;
+                    }
+
+                }
+
+                return '000147';
+
+            }
+        }
+
+        return false;
+    }
+
+    public function division(){
+
+        return $this->belongsTo(\App\Models\Employee\Division::class,'emp_divison_id','dept_id');
 
     }
 
@@ -107,7 +134,21 @@ class Employee extends Eloquent
 
 	}
 	
-	public function getFullNameAttribute(){
-        return $this->emp_title.' '.$this->emp_initials.' '.$this->emp_surname;
+    public function getFullNameAttribute(){
+        return $this->emp_title.'. '.$this->emp_initials.'. '.$this->emp_surname;
+	}
+	
+	public function getShortNameAttribute(){
+        return $this->emp_title.'. '.$this->emp_initials.'. '.$this->emp_surname;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class,'emp_id','emp_id');
+    }
+
+    public function divHead()
+    {
+        return $this->division->devHead;
     }
 }

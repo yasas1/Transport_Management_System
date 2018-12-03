@@ -147,17 +147,14 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/journey/readMyJourney','JourneyHistoryController@readMyJourney');  
     Route::get('/journey/myJourneyByVehicle/{id}','JourneyHistoryController@myJourneyByVehicle');
     Route::get('/journey/myJourneyExternal','JourneyHistoryController@myJourneyExternal');
-    Route::get('/journey/clickMyJourneys/{id}','JourneyHistoryController@clickMyJourneys'); 
+    Route::get('/journey/clickMyJourneys/{id}','JourneyHistoryController@clickMyJourneys');
 
 
 
-    /*User Crud*/
-    Route::get('/users','UserController@index');
-    Route::get('/user/create','UserController@create');
-    Route::post('/user/store','UserController@store');
+    Route::get('/user/','UserController@index');
     Route::get('/user/{id}/edit','UserController@edit');
     Route::patch('/user/update','UserController@update');
-  
+
 
     /*Role Crud*/
     Route::get('/user/roles','RoleController@index');
@@ -179,13 +176,14 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/user/role/create','RoleController@create');
     Route::post('/user/role/store','RoleController@store');
 
+    Route::get('/user/role/{id}/delete','RoleController@deleteRole');
+
     /*Vehicle Usage*/
     Route::get('/vehicle/usage','VehicleUsageController@index');
     Route::get('/vehicle/addservicing','VehicleUsageController@viewAddServicing'); 
     Route::post('/vehicle/storeServicing','VehicleUsageController@storeServicing');
 
     Route::get('/vehicle/readServicing/{id}','VehicleUsageController@readServicing');
-
 
 });
 

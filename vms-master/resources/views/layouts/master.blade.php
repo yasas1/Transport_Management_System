@@ -250,31 +250,41 @@ desired effect
                     </ul>
                 </li>
 
-                <li class="treeview">
-                    <a href="#"><i class="fa fa-users"></i> <span>USER</span>
+                <li class="treeview
+                        {{
+                        url()->current() == url('/user')||
+                        url()->current() == url('/user/roles')||
+                        url()->current() == url('/user/role/create')||
+                        url()->current() == url('/user/role/create')?'active':''
+                        }}
+                        ">
+                    <a href="#"><i class="fa fa-user"></i> <span>USER MANAGEMENT</span>
                         <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
-
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{url('/users')}}"><i class="fa fa-eye"></i> <span>VIEW CURRENT USERS</span></a></li>
-                        <li><a href="{{url('/user/create')}}"><i class="fa fa-plus"></i> <span>CREATE NEW USER</span></a></li>
-                        <li><a href="{{url('/users')}}"><i class="fa fa-edit"></i> <span>EDIT A USER</span></a></li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#"><i class="fa fa-user-secret"></i> <span>ROLE</span>
-                        <span class="pull-right-container">
+                        <li class="{{url()->current() == url('/user')?'active':''}}"><a href="{{url('/user')}}"><i class="fa fa-eye"></i> <span>VIEW USERS</span></a></li>
+
+                        <li class="treeview
+                                {{
+                                url()->current() == url('/user/roles')||
+                                url()->current() == url('/user/role/create')?'active':''
+                                }}
+                                ">
+                            <a href="#"><i class="fa fa-user-secret"></i> <span>ROLE</span>
+                                <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
 
                         </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{url('/user/roles')}}"><i class="fa fa-eye"></i> <span>VIEW ROLES</span></a></li>
-                        <li><a href="{{url('/user/role/create')}}"><i class="fa fa-plus"></i> <span>CREATE NEW ROLE</span></a></li>
-                        <li><a href="{{url('/user/roles')}}"><i class="fa fa-edit"></i> <span>EDIT A ROLE</span></a></li>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="{{url()->current() == url('/user/roles')?'active':''}}"><a href="{{url('/user/roles')}}"><i class="fa fa-eye"></i> <span>VIEW ROLES</span></a></li>
+                                <li class="{{url()->current() == url('/user/role/create')?'active':''}}"><a href="{{url('/user/role/create')}}"><i class="fa fa-plus"></i> <span>CREATE NEW ROLE</span></a></li>
+                            </ul>
+                        </li>
                     </ul>
+
                 </li>
                 <li class="treeview">
                     <a href="#"><i class="fa fa-bar-chart"></i> <span>Vehicle Usage</span>
