@@ -3,8 +3,7 @@
 @section('title', 'VEHICLE MANAGEMENT SYSTEM | VEHICLE SERVICING')
 
 @section('styles')
-    {{-- <link href="{{asset('css/bootstrap-toggle.min.css')}}" rel="stylesheet"> --}}
-    {{-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> --}}
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
     
     <style> 
@@ -72,8 +71,9 @@
             </div>
             {!! Form::close() !!} <br>
 
-            <div class="col-md-offset-1"> 
-                <table class="table table-sm table-hover table-sm table-striped">
+            <div class="box box-primary" id="table_box">
+            
+                <table id="table" class="table table-sm table-hover table-sm table-striped">
                     <thead class="table-dark">  
                         <tr > 
                             <th scope="col"> Vehicle </th>
@@ -85,6 +85,7 @@
 
                     </tbody>
                 </table>
+            
             </div>
 
         </div>
@@ -138,13 +139,13 @@
     $('.date').on('change',function () {
         var x = $("#datepicker").data('datepicker').getFormattedDate('yyyy-mm-dd');
         console.log(x);     
-    });  
+    }); 
 
-   
-    
+    setTimeout(function() {
+        $('#successMessage').fadeOut('slow');       
+    }, 3000); 
 
 </script>
-
     
 
 @endsection

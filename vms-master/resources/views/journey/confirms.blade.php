@@ -803,7 +803,7 @@
     });
 
     setTimeout(function() {
-        $('#successMessage').fadeOut('fast');       
+        $('#successMessage').fadeOut('slow');       
     }, 10000);
 
 </script> 
