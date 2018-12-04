@@ -8,8 +8,15 @@
     
     <style> 
         label{margin-left: 20px;}
-        #datepicker{width:300px; margin: 0 20px 20px 20px;}
-        #datepicker > span:hover{cursor: pointer;color: blue;}
+        #datepicker{width:300px; }
+        #datepicker > span:hover{cursor: pointer;color: blue;} 
+
+        #from_date{width:300px; }
+        #from_date > span:hover{cursor: pointer;color: blue;}
+
+        #to_date{width:300px; }
+        #to_date > span:hover{cursor: pointer;color: blue;}
+
     </style>
 @endsection
 
@@ -36,30 +43,77 @@
                     </div>
                     
                 </div>
-    
-                <div class="col-md-5"> 
-    
-                    <h4><i class="fa fa-calendar"></i> Date </h4>
-                                                        
-                    <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
-                        <input id="date" name="date" class="form-control" type="text" readonly />
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                    </div>
+            </div> <br>
+
             
+                <div> 
+                    <h4><i class="fas fa-tachometer-alt"></i> Period </h4> 
                 </div>
 
-            </div> 
-            
-            <div class="row"> 
+                <div class="row">
+                    
+                    <div class="col-md-5"> 
+                        <h4><i class=""></i> From </h4> 
+
+                        <div id="from_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                            <input id="date" name="from" class="form-control" type="text" readonly />
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5"> 
+                        <h4><i class=""></i> To </h4> 
+
+                        <div id="to_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                            <input id="date" name="to" class="form-control" type="text" readonly />
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+            <br>
+
+            {{-- <div class="row">
+                <div class="col-md-5"> 
+                        <h4><i class="fas fa-tachometer-alt"></i> Licensing Authority </h4> 
+                        {{Form::text('vehical_id',null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Select a Vehicle'])}}
+                </div>
+
+            </div><br> --}}
+
+            <div class="row">
 
                 <div class="col-md-5"> 
 
-                    <h4><i class="fas fa-tachometer-alt"></i> Meter Reading </h4>  
+                    <h4> <i class="fas fa-check-double"></i> Vehicle Licence Number </h4>  
     
                     <div style="width:300px">  
-                        {{Form::number('meter_reading', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Meter Reading'])}}                      
+                        {{Form::number('licence_no', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Licence Number'])}}                      
                     </div>                      
-                </div>   
+                </div> 
+
+                <div class="col-md-5"> 
+
+                    <h4> <i class="fas fa-calendar-alt"></i> &nbsp Licence Date </h4>
+                                                        
+                    <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
+                        <input id="date" name="licence_date" class="form-control" type="text" readonly />
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    </div>
+                
+                </div>
+
+            </div><br>
+            
+            <div class="row"> 
+                <div class="col-md-5"> 
+                    <h4><i class="fa fa-money"></i> Amount </h4>  
+
+                    <div style="width:300px">  
+                        {{Form::number('amount', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Amount'])}}                      
+                    </div> 
+                </div>
+                  
             </div><br>
 
             <div class="row"> 
@@ -129,7 +183,44 @@
             }
         });
 
-    });
+    });  
+
+    $("#datepicker").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    }).datepicker('update', new Date());
+
+    $("#from_date").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    }).datepicker('update', new Date());
+
+    $("#to_date").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    }).datepicker('update', new Date());
+
+    $('#datepicker').on('change',function () {
+        var x = $("#datepicker").data('datepicker').getFormattedDate('yyyy-mm-dd');
+        console.log(x);     
+    }); 
+
+    $('#to_date').on('change',function () {
+        var x = $("#to_date").data('datepicker').getFormattedDate('yyyy-mm-dd');
+        console.log(x);     
+    }); 
+
+    $('#from_date').on('change',function () {
+        var x = $("#from_date").data('datepicker').getFormattedDate('yyyy-mm-dd');
+        console.log(x);     
+    }); 
+
+    setTimeout(function() {
+        $('#successMessage').fadeOut('slow');       
+    }, 3000); 
 
 </script>
     

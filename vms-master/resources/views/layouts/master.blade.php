@@ -302,7 +302,7 @@ desired effect
                 </li>
 
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-map-marker"></i> <span>Map</span>
+                    <a href="#"><i class="fas fa-map-marked"></i> <span>&nbsp Map</span>
                         <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
 

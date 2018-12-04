@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'ROLE | DOOR KEY MANAGEMENT SYSTEM')
+@section('title', 'ROLE | Vehicle MANAGEMENT SYSTEM')
 
 @section('styles')
 
