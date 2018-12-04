@@ -44,10 +44,14 @@ class VehicleUsageController extends Controller
         ->where('vehical_id','=',$vid)
         ->get();
 
-        return response($services);
-
-        
+        return response($services);   
      }
+
+    public function viewAnnualLicences(){
+
+        $vehicles = Vehical::all()->pluck('fullName','id');
+        return view('vehicle.usage.annualLicences',compact('vehicles'));
+    }
 
 
 }

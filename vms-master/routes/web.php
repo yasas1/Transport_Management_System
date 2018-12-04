@@ -180,10 +180,12 @@ Route::group(['middleware'=>['authenticate','active']],function (){
 
     /*Vehicle Usage*/
     Route::get('/vehicle/usage','VehicleUsageController@index');
+
     Route::get('/vehicle/addservicing','VehicleUsageController@viewAddServicing'); 
     Route::post('/vehicle/storeServicing','VehicleUsageController@storeServicing');
-
     Route::get('/vehicle/readServicing/{id}','VehicleUsageController@readServicing');
+
+    Route::get('/vehicle/annualLicences','VehicleUsageController@viewAnnualLicences');
 
 });
 

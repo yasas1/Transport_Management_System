@@ -296,6 +296,7 @@ desired effect
                     <ul class="treeview-menu">
                         <li><a href="{{url('/vehicle/usage')}}"><i class="fa fa-eye"></i> Vehicle Usage</a></li> 
                         <li><a href="{{url('/vehicle/addservicing')}}"><i class="fas fa-oil-can"></i> <span>&nbspSERVICING</span></a></li>
+                        <li><a href="{{url('/vehicle/annualLicences')}}"><i class="fas fa-list-alt"></i> <span>&nbsp Annual Licences</span></a></li>
                     </ul>
                     
                 </li>
