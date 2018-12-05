@@ -31,7 +31,7 @@
         <div class="box-body"  >
 
             <div class="row"> 
-                {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeServicing','files'=>true]) !!}
+                {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeAnnualLicenc','files'=>true]) !!}
                 <div class="col-md-5"> 
 
                     <h4><i class="fa fa-car"></i> Vehicle </h4>

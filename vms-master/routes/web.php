@@ -186,6 +186,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/vehicle/readServicing/{id}','VehicleUsageController@readServicing');
 
     Route::get('/vehicle/annualLicences','VehicleUsageController@viewAnnualLicences');
+    Route::post('/vehicle/storeAnnualLicenc','VehicleUsageController@storeAnnualLicenc');
 
 });
 

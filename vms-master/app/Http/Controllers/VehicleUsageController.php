@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Vehical;
 use App\Models\Service;
+use App\Models\AnnualLicence;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -51,6 +52,25 @@ class VehicleUsageController extends Controller
 
         $vehicles = Vehical::all()->pluck('fullName','id');
         return view('vehicle.usage.annualLicences',compact('vehicles'));
+    }
+
+    public function storeAnnualLicenc(Request $request){
+
+        return $request;
+
+        $annualLicence = new AnnualLicence; 
+
+        $annualLicence->vehical_id = $request->vehical_id;
+        $seannualLicencervice->from = $request->from;
+        $annualLicence->to = $request->to;
+        $annualLicence->licence_date = $request->licence_date;
+        $annualLicence->amount = $request->amount;
+        
+
+        $annualLicence->save(); 
+
+        return redirect()->back()->with(['success'=>'Vehicle Annual Licence added successfully !']);
+
     }
 
 
