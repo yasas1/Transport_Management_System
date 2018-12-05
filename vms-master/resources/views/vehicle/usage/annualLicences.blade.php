@@ -131,8 +131,11 @@
                     <thead class="table-dark">  
                         <tr > 
                             <th scope="col"> Vehicle </th>
-                            <th scope="col"> Date </th>
-                            <th scope="col"> Meter Reading</th>
+                            <th scope="col"> From </th>
+                            <th scope="col"> To</th>
+                            <th scope="col"> Vehicle Licence Number</th>
+                            <th scope="col"> Licence Date</th>
+                            <th scope="col"> Amount (Rs.)</th>
                         </tr>
                     </thead>
                     <tbody id="servicing_info">
@@ -160,7 +163,7 @@
         console.log(vid);
 
         $.ajax({
-            url: '/vehicle/readServicing/{id}',
+            url: '/vehicle/readAnnualLicenc/{id}',
             type: 'GET',
             data: { id: vid },
             success: function(data)
@@ -173,9 +176,15 @@
                     tr.append($("<td/>",{
                         text :value.vehicle_name+" ("+value.vehicle_reg+")"
                     })).append($("<td/>",{
-                        text :value.date
+                        text :value.from
                     })).append($("<td/>",{
-                        text :value.meter_reading
+                        text :value.to
+                    })).append($("<td/>",{
+                        text :value.licence_no
+                    })).append($("<td/>",{
+                        text :value.licence_date
+                    })).append($("<td/>",{
+                        text :value.amount
                     }))
                     $('#servicing_info').append(tr);              
                 }); 

@@ -56,13 +56,14 @@ class VehicleUsageController extends Controller
 
     public function storeAnnualLicenc(Request $request){
 
-        return $request;
+        //return $request;
 
         $annualLicence = new AnnualLicence; 
 
         $annualLicence->vehical_id = $request->vehical_id;
-        $seannualLicencervice->from = $request->from;
+        $annualLicence->from = $request->from;
         $annualLicence->to = $request->to;
+        $annualLicence->licence_no = $request->licence_no;
         $annualLicence->licence_date = $request->licence_date;
         $annualLicence->amount = $request->amount;
         
@@ -72,6 +73,19 @@ class VehicleUsageController extends Controller
         return redirect()->back()->with(['success'=>'Vehicle Annual Licence added successfully !']);
 
     }
+  
+    public function readAnnualLicenc(){
+
+        $vid = $_GET['id'];
+
+        $services = DB::table('annual_licences')
+        ->join('vehical', 'annual_licences.vehical_id', '=', 'vehical.id')
+        ->select('annual_licences.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
+        ->where('vehical_id','=',$vid)
+        ->get();
+
+        return response($services);   
+     }
 
 
 }
