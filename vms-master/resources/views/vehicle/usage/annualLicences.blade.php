@@ -191,26 +191,26 @@
             data: { id: vid },
             success: function(data)
             {
-                console.log(data);   
-                $('#servicing_info').empty();            
-                $(data).each(function (i,value) {                
-                    //servicing_info 
-                    var tr = $("<tr/>");
-                    tr.append($("<td/>",{
-                        text :value.vehicle_name+" ("+value.vehicle_reg+")"
-                    })).append($("<td/>",{
-                        text :value.from
-                    })).append($("<td/>",{
-                        text :value.to
-                    })).append($("<td/>",{
-                        text :value.licence_no
-                    })).append($("<td/>",{
-                        text :value.licence_date
-                    })).append($("<td/>",{
-                        text :value.amount
-                    }))
-                    $('#servicing_info').append(tr);              
-                }); 
+                //console.log(data);   
+                $('#servicing_info').empty().html(data);            
+                // $(data).each(function (i,value) {                
+                //     //servicing_info 
+                //     var tr = $("<tr/>");
+                //     tr.append($("<td/>",{
+                //         text :value.vehicle_name+" ("+value.vehicle_reg+")"
+                //     })).append($("<td/>",{
+                //         text :value.from
+                //     })).append($("<td/>",{
+                //         text :value.to
+                //     })).append($("<td/>",{
+                //         text :value.licence_no
+                //     })).append($("<td/>",{
+                //         text :value.licence_date
+                //     })).append($("<td/>",{
+                //         text :value.amount
+                //     }))
+                //     $('#servicing_info').append(tr);              
+                // }); 
                
             }
         });
