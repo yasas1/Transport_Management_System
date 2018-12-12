@@ -47,7 +47,7 @@
 
             
                 <div> 
-                    <h4><i class="fas fa-tachometer-alt"></i> Period </h4> 
+                    <h4><i class="fas fa-tachometer-alt"></i>&nbsp Period </h4> 
                 </div>
 
                 <div class="row">
@@ -88,7 +88,7 @@
 
                 <div class="col-md-3"> 
 
-                    <h4> <i class="fas fa-check-double"></i> Licensing Authority </h4>  
+                    <h4> <i class="glyphicon glyphicon-list-alt"></i>&nbsp Licensing Authority </h4>  
     
                     <div >  
                         {!! Form::text('licensing_authority',null,['class'=>'form-control','placeholder'=>'Licensing Authority' ]) !!}
@@ -105,7 +105,7 @@
 
                 <div class="col-md-3"> 
 
-                    <h4> <i class="fas fa-check-double"></i> Vehicle Licence Number </h4>  
+                    <h4> <i class="fas fa-check-double"></i>&nbsp Vehicle Licence Number </h4>  
     
                     <div>  
                         {{Form::number('licence_no', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Licence Number'])}}                      
@@ -130,7 +130,7 @@
             
             <div class="row"> 
                 <div class="col-md-3"> 
-                    <h4><i class="fa fa-money"></i> Amount </h4>  
+                    <h4><i class="fa fa-money"></i>&nbsp Amount </h4>  
 
                     <div>  
                         {{Form::number('amount', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Amount'])}}                      
@@ -221,19 +221,20 @@
         autoclose: true, 
         format: 'yyyy-mm-dd',
         todayHighlight: true
-    }).datepicker('update', new Date());
+    });
 
     $("#from_date").datepicker({ 
         autoclose: true, 
         format: 'yyyy-mm-dd',
         todayHighlight: true
-    }).datepicker('update', new Date());
+    });
+    //.datepicker('update', new Date())
 
     $("#to_date").datepicker({ 
         autoclose: true, 
         format: 'yyyy-mm-dd',
         todayHighlight: true
-    }).datepicker('update', new Date());
+    });
 
     $('#datepicker').on('change',function () {
         var x = $("#datepicker").data('datepicker').getFormattedDate('yyyy-mm-dd');
@@ -252,6 +253,10 @@
 
     setTimeout(function() {
         $('#successMessage').fadeOut('slow');       
+    }, 3000); 
+
+    setTimeout(function() {
+        $('#errorMessage').fadeOut('slow');       
     }, 3000); 
 
 </script>

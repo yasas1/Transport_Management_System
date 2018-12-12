@@ -56,13 +56,25 @@ class VehicleUsageController extends Controller
 
     public function storeAnnualLicenc(Request $request){
 
-        //return $request;
+        $request->validate([
+            'vehical_id' => 'required',
+            'from' => 'required',
+            'to' => 'required',
+            'licensing_authority' => 'required',
+            'licence_no' => 'required',
+            'licence_date' => 'required',
+            'amount' => 'required',
+
+        ]);
+
+        return $request;
 
         $annualLicence = new AnnualLicence; 
 
         $annualLicence->vehical_id = $request->vehical_id;
         $annualLicence->from = $request->from;
         $annualLicence->to = $request->to;
+        $annualLicence->licensing_authority = $request->licensing_authority;
         $annualLicence->licence_no = $request->licence_no;
         $annualLicence->licence_date = $request->licence_date;
         $annualLicence->amount = $request->amount;

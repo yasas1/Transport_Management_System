@@ -43,6 +43,7 @@ class AnnualLicence extends Eloquent
 		'vehical_id',
 		'from',
 		'to',
+		'licensing_authority',
 		'licence_date',
 		'licence_no',
 		'ammount'
