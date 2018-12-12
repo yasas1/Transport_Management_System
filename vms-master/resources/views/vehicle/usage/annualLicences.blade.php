@@ -11,10 +11,10 @@
         #datepicker{width:300px; }
         #datepicker > span:hover{cursor: pointer;color: blue;} 
 
-        #from_date{width:300px; }
+        /* #from_date{width:300px; } */
         #from_date > span:hover{cursor: pointer;color: blue;}
 
-        #to_date{width:300px; }
+        /* #to_date{width:300px; } */
         #to_date > span:hover{cursor: pointer;color: blue;}
 
     </style>
@@ -32,11 +32,11 @@
 
             <div class="row"> 
                 {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeAnnualLicenc','files'=>true]) !!}
-                <div class="col-md-5"> 
+                <div class="col-md-3"> 
 
                     <h4><i class="fa fa-car"></i> Vehicle </h4>
     
-                    <div style="width:300px">
+                    <div >
                         
                         {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Select a Vehicle'])}}
                         
@@ -52,7 +52,7 @@
 
                 <div class="row">
                     
-                    <div class="col-md-5"> 
+                    <div class="col-md-3"> 
                         <h4><i class=""></i> From </h4> 
 
                         <div id="from_date" class="input-group date" data-date-format="yyyy-mm-dd">
@@ -61,7 +61,10 @@
                         </div>
                     </div>
 
-                    <div class="col-md-5"> 
+                    <div class="col-md-2">
+                    </div>
+
+                    <div class="col-md-3"> 
                         <h4><i class=""></i> To </h4> 
 
                         <div id="to_date" class="input-group date" data-date-format="yyyy-mm-dd">
@@ -83,16 +86,36 @@
 
             <div class="row">
 
-                <div class="col-md-5"> 
+                <div class="col-md-3"> 
+
+                    <h4> <i class="fas fa-check-double"></i> Licensing Authority </h4>  
+    
+                    <div >  
+                        {!! Form::text('licensing_authority',null,['class'=>'form-control','placeholder'=>'Licensing Authority' ]) !!}
+                    </div> 
+
+                </div> 
+                
+                <div class="col-md-9">
+                </div>
+
+            </div><br>
+
+            <div class="row">
+
+                <div class="col-md-3"> 
 
                     <h4> <i class="fas fa-check-double"></i> Vehicle Licence Number </h4>  
     
-                    <div style="width:300px">  
+                    <div>  
                         {{Form::number('licence_no', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Licence Number'])}}                      
                     </div>                      
                 </div> 
 
-                <div class="col-md-5"> 
+                <div class="col-md-2">
+                    </div>
+
+                <div class="col-md-3"> 
 
                     <h4> <i class="fas fa-calendar-alt"></i> &nbsp Licence Date </h4>
                                                         
@@ -106,10 +129,10 @@
             </div><br>
             
             <div class="row"> 
-                <div class="col-md-5"> 
+                <div class="col-md-3"> 
                     <h4><i class="fa fa-money"></i> Amount </h4>  
 
-                    <div style="width:300px">  
+                    <div>  
                         {{Form::number('amount', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Amount'])}}                      
                     </div> 
                 </div>
