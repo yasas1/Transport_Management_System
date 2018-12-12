@@ -7,14 +7,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
     
     <style> 
-        label{margin-left: 20px;}
-        #datepicker{width:300px; }
+        /* #datepicker{width:300px; } */
         #datepicker > span:hover{cursor: pointer;color: blue;} 
 
-        /* #from_date{width:300px; } */
         #from_date > span:hover{cursor: pointer;color: blue;}
 
-        /* #to_date{width:300px; } */
         #to_date > span:hover{cursor: pointer;color: blue;}
 
     </style>
@@ -152,13 +149,13 @@
             
                 <table id="table" class="table table-sm table-hover table-sm table-striped">
                     <thead class="table-dark">  
-                        <tr > 
-                            <th scope="col"> Vehicle </th>
+                        <tr >                          
                             <th scope="col"> From </th>
                             <th scope="col"> To</th>
                             <th scope="col"> Vehicle Licence Number</th>
                             <th scope="col"> Licence Date</th>
                             <th scope="col"> Amount (Rs.)</th>
+                            <th scope="col"> Action </th>
                         </tr>
                     </thead>
                     <tbody id="servicing_info">
