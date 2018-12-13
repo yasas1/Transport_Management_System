@@ -151,7 +151,8 @@
                     <thead class="table-dark">  
                         <tr >                          
                             <th scope="col"> From </th>
-                            <th scope="col"> To</th>
+                            <th scope="col"> To</th> 
+                            <th scope="col"> Licensing Authority</th>
                             <th scope="col"> Vehicle Licence Number</th>
                             <th scope="col"> Licence Date</th>
                             <th scope="col"> Amount (Rs.)</th>
@@ -255,6 +256,12 @@
     setTimeout(function() {
         $('#errorMessage').fadeOut('slow');       
     }, 3000); 
+
+    $(document).on('click','#delete',function(e){
+        var id = $(this).data('id');
+        console.log(id);
+        
+    });
 
 </script>
     

@@ -67,7 +67,7 @@ class VehicleUsageController extends Controller
 
         ]);
 
-        return $request;
+        //return $request;
 
         $annualLicence = new AnnualLicence; 
 
@@ -99,6 +99,18 @@ class VehicleUsageController extends Controller
         return view('vehicle.usageList.annLicenceList',compact('licences'));
 
         return response($services);   
+     }
+
+     public function deleteAnnualLicenc(){
+
+        if($request->ajax()){
+
+            AnnualLicence::destroy($request->id);
+            return response(['message'=>'Annual Licence delete successfull']);
+
+        }
+
+           
      }
 
 
