@@ -14,13 +14,6 @@
 
         #to_date > span:hover{cursor: pointer;color: blue;}
 
-        #mi-modal
-        {   
-            
-            
-                 
-        }
-
     </style>
 @endsection
 
@@ -50,35 +43,33 @@
                 </div>
             </div> <br>
 
-            
-                <div> 
-                    <h4><i class="fas fa-tachometer-alt"></i>&nbsp Period </h4> 
-                </div>
+            <div> 
+                <h4><i class="fas fa-tachometer-alt"></i>&nbsp Period </h4> 
+            </div>
 
-                <div class="row">
-                    
-                    <div class="col-md-3"> 
-                        <h4><i class=""></i> From </h4> 
+            <div class="row">
+                
+                <div class="col-md-3"> 
+                    <h4><i class=""></i> From </h4> 
 
-                        <div id="from_date" class="input-group date" data-date-format="yyyy-mm-dd">
-                            <input id="date" name="from" class="form-control" type="text" readonly />
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2">
-                    </div>
-
-                    <div class="col-md-3"> 
-                        <h4><i class=""></i> To </h4> 
-
-                        <div id="to_date" class="input-group date" data-date-format="yyyy-mm-dd">
-                            <input id="date" name="to" class="form-control" type="text" readonly />
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                        </div>
+                    <div id="from_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                        <input id="date" name="from" class="form-control" type="text" readonly />
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                     </div>
                 </div>
 
+                <div class="col-md-2">
+                </div>
+
+                <div class="col-md-3"> 
+                    <h4><i class=""></i> To </h4> 
+
+                    <div id="to_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                        <input id="date" name="to" class="form-control" type="text" readonly />
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
             <br>
 
             {{-- <div class="row">
@@ -176,22 +167,44 @@
           
         </div>
 
-        {{-- Confirmation modal --}}
-    <div class="modal fade" id="mi-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            {{-- Delete Confirmation modal --}}
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <b> <h4 class="modal-title" id="title">Confirmation</h4> </b>
+                <b> <h3 class="modal-title" id="title">Confirmation</h3> </b>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                ...
+                <h4 class="modal-title" >Please Confirm Your Action</h4>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-danger" id="btn-confirm">Delete</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+            {{-- View modal --}}
+    <div class="modal fade" id="view-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <b> <h3 class="modal-title" id="view-title"></h3> </b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <h5 class="modal-title">Please Confirm Your Action</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-light text-dark" data-dismiss="modal">Close</button>
             </div>
             </div>
         </div>
@@ -251,11 +264,19 @@
         }
     });
 
+    $(document).on('click','#view',function(e){
+        var id = $(this).data('id');
+        console.log(id);
+
+        $("#view-modal").modal('show');
+
+    });
+
     $(document).on('click','#delete',function(e){
         var id = $(this).data('id');
         console.log(id);
 
-        $("#mi-modal").modal('show'); 
+        $("#delete-modal").modal('show'); 
     
         $("#btn-confirm").on("click", function(){
             console.log("confirmed ");

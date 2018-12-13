@@ -108,7 +108,7 @@ class VehicleUsageController extends Controller
 
         if($request->ajax()){
             
-            //AnnualLicence::destroy($request->id);
+            AnnualLicence::destroy($request->id);
             Session::flash('success', 'Annual Licence Deleted successfully !');
             return View::make('layouts/success');
         }
