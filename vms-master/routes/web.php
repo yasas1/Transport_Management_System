@@ -189,7 +189,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::post('/vehicle/storeAnnualLicenc','VehicleUsageController@storeAnnualLicenc');
     Route::get('/vehicle/readAnnualLicenc/{id}','VehicleUsageController@readAnnualLicenc');
     Route::post('/vehicle/deleteAnnualLicenc','VehicleUsageController@deleteAnnualLicenc');
-
+                                                                    
 });
 
 Route::get('/log/{type}','UserController@login');

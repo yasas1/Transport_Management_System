@@ -6,6 +6,7 @@ use App\Models\Service;
 use App\Models\AnnualLicence;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
@@ -101,11 +102,15 @@ class VehicleUsageController extends Controller
         return response($services);   
      }
 
-     public function deleteAnnualLicenc(){
+    public function deleteAnnualLicenc(Request $request){
+
+        return response(['message'=>'Annual Licence delete successfull']);
 
         if($request->ajax()){
 
-            AnnualLicence::destroy($request->id);
+            //return $request->id;
+
+           // AnnualLicence::destroy($request->id);
             return response(['message'=>'Annual Licence delete successfull']);
 
         }

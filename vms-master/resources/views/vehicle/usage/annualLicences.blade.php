@@ -215,6 +215,30 @@
 
     });  
 
+    $(document).on('click','#delete',function(e){
+        var id = $(this).data('id');
+        console.log(id);
+        // $.post('{{ URL::to("vehicle/deleteAnnualLicenc") }}',{id:id},function(data){
+        //     console.log(data);
+        // });
+
+        $.ajax({
+            url: 'vehicle/deleteAnnualLicenc',
+            type: 'POST',
+            data: { id: id },
+            success: function(data)
+            {
+                console.log(data);   
+            },
+            error: function(xhr, textStatus, error){
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
+            }
+        });
+        
+    });
+
     $("#datepicker").datepicker({ 
         autoclose: true, 
         format: 'yyyy-mm-dd',
@@ -256,12 +280,6 @@
     setTimeout(function() {
         $('#errorMessage').fadeOut('slow');       
     }, 3000); 
-
-    $(document).on('click','#delete',function(e){
-        var id = $(this).data('id');
-        console.log(id);
-        
-    });
 
 </script>
     
