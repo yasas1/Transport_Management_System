@@ -237,7 +237,8 @@
             {
                 console.log(data);   
                 $('div.flash-message').html(data); 
-                $('#servicing_info #'+id).remove();
+                $('tr#'+id).remove();
+                
             },
             error: function(xhr, textStatus, error){
                 console.log(xhr.statusText);

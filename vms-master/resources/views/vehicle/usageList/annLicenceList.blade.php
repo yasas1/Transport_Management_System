@@ -1,6 +1,6 @@
 @foreach ($licences as $licence)
 
-    <tr>        
+<tr id="{{$licence->id}}">        
         <td> {{$licence->from}} </td>
         <td> {{$licence->to}} </td> 
         <td> {{$licence->licensing_authority}} </td>
