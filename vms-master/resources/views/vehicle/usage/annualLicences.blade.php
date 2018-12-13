@@ -260,26 +260,27 @@
         $("#btn-confirm").on("click", function(){
             console.log("confirmed ");
             $("#mi-modal").modal('hide');
-        });
 
-        // $.ajax({
-        //     url:"{{ route('annLicence.delete')}}",
-        //     method: "POST",
-        //     data: { id: id },
-        //     success: function(data)
-        //     {
-        //         console.log(data);   
-        //         $('div.flash-message').html(data); 
-        //         $('tr#'+id).remove();
-                
-        //     },
-        //     error: function(xhr, textStatus, error){
-        //         console.log(xhr.statusText);
-        //         console.log(textStatus);
-        //         console.log(error);
-        //     }
-        // });
-        
+            $.ajax({
+                url:"{{ route('annLicence.delete')}}",
+                method: "POST",
+                data: { id: id },
+                success: function(data)
+                {
+                    console.log(data);   
+                    $('div.flash-message').html(data); 
+                    $('tr#'+id).remove();
+                    
+                },
+                error: function(xhr, textStatus, error){
+                    console.log(xhr.statusText);
+                    console.log(textStatus);
+                    console.log(error);
+                }
+            });
+
+        });
+ 
     });
 
     setTimeout(function() {
