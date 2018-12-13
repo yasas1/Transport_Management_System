@@ -16,11 +16,12 @@
 @section('content')
     @include('layouts.errors')
     @include('layouts.success')
+    <div class="flash-message"></div>
     <div class="box" >
         <div class="box-header with-border">
             <h3 class="box-title">Confirmation Pending Journey Requests List</h3>
         </div>
-        <div class="flash-message"></div>
+        
         <button onclick="tableViewFunction()" class="btn btn-info btn-sm">Table View</button> <br><br>
     </div> 
 
@@ -801,6 +802,9 @@
             $('div.flash-message').html(data);               
         });       
     });
+    setTimeout(function() {
+        $('div.flash-message').fadeOut('slow');       
+    }, 10000);
 
     setTimeout(function() {
         $('#successMessage').fadeOut('slow');       

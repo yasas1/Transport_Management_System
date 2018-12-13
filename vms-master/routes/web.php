@@ -188,7 +188,8 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/vehicle/annualLicences','VehicleUsageController@viewAnnualLicences');
     Route::post('/vehicle/storeAnnualLicenc','VehicleUsageController@storeAnnualLicenc');
     Route::get('/vehicle/readAnnualLicenc/{id}','VehicleUsageController@readAnnualLicenc');
-    Route::post('/vehicle/deleteAnnualLicenc','VehicleUsageController@deleteAnnualLicenc');
+    Route::post('/vehicle/deleteAnnualLicenc','VehicleUsageController@deleteAnnualLicenc')->name('annLicence.delete');
+
                                                                     
 });
 

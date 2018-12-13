@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Session;
+use View;
 
 class VehicleUsageController extends Controller
 {
@@ -100,23 +102,18 @@ class VehicleUsageController extends Controller
         return view('vehicle.usageList.annLicenceList',compact('licences'));
 
         return response($services);   
-     }
+    }
 
     public function deleteAnnualLicenc(Request $request){
 
-        return response(['message'=>'Annual Licence delete successfull']);
-
         if($request->ajax()){
-
             //return $request->id;
-
-           // AnnualLicence::destroy($request->id);
-            return response(['message'=>'Annual Licence delete successfull']);
-
+            // AnnualLicence::destroy($request->id);
+            Session::flash('success', 'Annual Licence Deleted successfully !');
+            return View::make('layouts/success');
         }
-
            
-     }
-
+    }
+    
 
 }

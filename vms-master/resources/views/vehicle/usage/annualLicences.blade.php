@@ -5,7 +5,7 @@
 @section('styles')
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
-    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <style> 
         /* #datepicker{width:300px; } */
         #datepicker > span:hover{cursor: pointer;color: blue;} 
@@ -22,6 +22,7 @@
 @section('content')
     @include('layouts.errors')
     @include('layouts.success')
+    <div class="flash-message"></div>
   
     <div class="box box-primary">
     
@@ -215,6 +216,12 @@
 
     });  
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     $(document).on('click','#delete',function(e){
         var id = $(this).data('id');
         console.log(id);
@@ -223,12 +230,14 @@
         // });
 
         $.ajax({
-            url: 'vehicle/deleteAnnualLicenc',
-            type: 'POST',
+            url:"{{ route('annLicence.delete')}}",
+            method: "POST",
             data: { id: id },
             success: function(data)
             {
                 console.log(data);   
+                $('div.flash-message').html(data); 
+                $('#servicing_info #'+id).remove();
             },
             error: function(xhr, textStatus, error){
                 console.log(xhr.statusText);
@@ -238,6 +247,14 @@
         });
         
     });
+
+    setTimeout(function() {
+        $('div.flash-message').fadeOut('slow');       
+    }, 10000);
+
+</script>
+
+<script>
 
     $("#datepicker").datepicker({ 
         autoclose: true, 
