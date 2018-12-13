@@ -14,6 +14,13 @@
 
         #to_date > span:hover{cursor: pointer;color: blue;}
 
+        #mi-modal
+        {   
+            
+            
+                 
+        }
+
     </style>
 @endsection
 
@@ -146,7 +153,7 @@
             </div>
             {!! Form::close() !!} <br>
 
-            <div class="box box-primary" id="table_box" style="height:400px; overflow: auto;">
+            <div class="box box-primary" id="table_box" style="height:400px; overflow: auto;" data-target="#exampleModalCenter">
             
                 <table id="table" class="table table-sm table-hover table-sm table-striped">
                     <thead class="table-dark">  
@@ -166,10 +173,32 @@
                 </table>
             
             </div>
-
+          
         </div>
+
+        {{-- Confirmation modal --}}
+    <div class="modal fade" id="mi-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <b> <h4 class="modal-title" id="title">Confirmation</h4> </b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="btn-confirm">Delete</button>
+            </div>
+            </div>
+        </div>
+    </div>
        
     </div>
+                    
  
 @endsection
 
@@ -225,27 +254,31 @@
     $(document).on('click','#delete',function(e){
         var id = $(this).data('id');
         console.log(id);
-        // $.post('{{ URL::to("vehicle/deleteAnnualLicenc") }}',{id:id},function(data){
-        //     console.log(data);
-        // });
 
-        $.ajax({
-            url:"{{ route('annLicence.delete')}}",
-            method: "POST",
-            data: { id: id },
-            success: function(data)
-            {
-                console.log(data);   
-                $('div.flash-message').html(data); 
-                $('tr#'+id).remove();
-                
-            },
-            error: function(xhr, textStatus, error){
-                console.log(xhr.statusText);
-                console.log(textStatus);
-                console.log(error);
-            }
+        $("#mi-modal").modal('show'); 
+    
+        $("#btn-confirm").on("click", function(){
+            console.log("confirmed ");
+            $("#mi-modal").modal('hide');
         });
+
+        // $.ajax({
+        //     url:"{{ route('annLicence.delete')}}",
+        //     method: "POST",
+        //     data: { id: id },
+        //     success: function(data)
+        //     {
+        //         console.log(data);   
+        //         $('div.flash-message').html(data); 
+        //         $('tr#'+id).remove();
+                
+        //     },
+        //     error: function(xhr, textStatus, error){
+        //         console.log(xhr.statusText);
+        //         console.log(textStatus);
+        //         console.log(error);
+        //     }
+        // });
         
     });
 
