@@ -222,6 +222,12 @@
 
 <script>
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     $('#vid').on('change',function () {
         var vid = $(this).val();
         console.log(vid);
@@ -258,15 +264,27 @@
 
     });  
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+    
 
     $(document).on('click','#view',function(e){
         var id = $(this).data('id');
         console.log(id);
+
+        $.ajax({
+            url: '/vehicle/viewAnnualLicenc/{id}',
+            type: 'GET',
+            data: { id: id },
+            success: function(data)
+            {
+                console.log(data);   
+                //$('#view-title').val(data.vehicle_name+" ("+data.vehicle_reg+")");
+
+                           
+                                
+                
+               
+            }
+        });
 
         $("#view-modal").modal('show');
 

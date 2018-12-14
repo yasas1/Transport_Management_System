@@ -100,8 +100,7 @@ class VehicleUsageController extends Controller
         ->get();
 
         return view('vehicle.usageList.annLicenceList',compact('licences'));
-
-        return response($services);   
+   
     }
 
     public function deleteAnnualLicenc(Request $request){
@@ -115,6 +114,22 @@ class VehicleUsageController extends Controller
         Session::flash('errors', 'Annual Licence Deleted successfully !');
         return View::make('layouts/errors');
            
+    }
+
+    public function viewAnnualLicenc(){
+
+        $id = $_GET['id'];
+
+        return $id;
+
+        $licences = DB::table('annual_licences')
+        ->join('vehical', 'annual_licences.vehical_id', '=', 'vehical.id') 
+        ->select('annual_licences.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
+        ->where('id','=',$id)
+        ->get();
+
+        return response($licences); 
+
     }
 
 
