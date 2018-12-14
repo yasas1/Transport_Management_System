@@ -202,21 +202,45 @@
 
                 <h4 class="modal-title" style="color:darkblue">Licence Period</h4>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <dl class="col-md-offset-1">
                             
-                            <dt >From</dt>
-                            <dd id="period-from"> </dd>
+                            <label >From - &nbsp</label>
+                            <label id="period-from"> </label>
                             
                         </dl>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <dl class="col-md-offset-1">
                             
-                            <dt>To</dt>
-                            <dd id="period-to"> </dd>
+                            <label>To - &nbsp</label>
+                            <label id="period-to"> </label>
                             
                         </dl>
+                    </div>
+                </div>
+                <h4 class="modal-title" style="color:darkblue">Licensing Authority</h4>
+                <div class="row">
+                    <div class="col-md-5">
+                        <dl class="col-md-offset-1">
+                            <label id="licensing_authority"> </label>                        
+                        </dl>
+                    </div>
+                   
+                </div>
+
+                
+                <div class="row">
+                    <div class="col-md-5">
+                        <h4 class="modal-title" style="color:darkblue">Licence Number</h4>
+                            
+                        <label class="col-md-offset-1" id="licence_no"> </label>                            
+                        
+                    </div>
+                    <div class="col-md-5">
+                        <h4 class="modal-title" style="color:darkblue">Licence Date</h4>
+                            
+                        <label class="col-md-offset-1" id="licence_date"> </label>                       
                     </div>
                 </div>
 
@@ -283,7 +307,7 @@
     });  
 
     
-
+           /* one licence view click event */
     $(document).on('click','#view',function(e){
         var id = $(this).data('id');
         console.log(id);
@@ -294,8 +318,13 @@
             data: { id: id },
             success: function(data)
             {
-                console.log(data[0]);   
+                console.log(data[0]);    
                 $('#view-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+"Annual Licence" );
+                $('#period-from').html(data[0].from );
+                $('#period-to').html(data[0].to ); 
+                $('#licensing_authority').html(data[0].licensing_authority );  
+                $('#licence_no').html(data[0].licence_no );
+                $('#licence_date').html(data[0].licence_date );
    
             },
             error: function(xhr, textStatus, error){
@@ -308,10 +337,12 @@
         $("#view-modal").modal('show');
 
     });
-
+            /* one licence delete click event */
     $(document).on('click','#delete',function(e){
         var id = $(this).data('id');
         console.log(id);
+
+
 
         $("#delete-modal").modal('show'); 
     
