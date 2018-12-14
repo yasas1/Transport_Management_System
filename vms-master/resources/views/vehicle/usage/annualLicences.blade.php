@@ -181,7 +181,7 @@
                 <h4 class="modal-title" >Please Confirm Your Action</h4>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary active" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-danger" id="btn-confirm">Delete</button>
             </div>
             </div>
@@ -200,11 +200,29 @@
             </div>
             <div class="modal-body">
 
-                <h5 class="modal-title">Please Confirm Your Action</h5>
+                <h4 class="modal-title" style="color:darkblue">Licence Period</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <dl class="col-md-offset-1">
+                            
+                            <dt >From</dt>
+                            <dd id="period-from"> </dd>
+                            
+                        </dl>
+                    </div>
+                    <div class="col-md-6">
+                        <dl class="col-md-offset-1">
+                            
+                            <dt>To</dt>
+                            <dd id="period-to"> </dd>
+                            
+                        </dl>
+                    </div>
+                </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-light text-dark" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary active" data-dismiss="modal">Close</button>
             </div>
             </div>
         </div>
@@ -276,13 +294,14 @@
             data: { id: id },
             success: function(data)
             {
-                console.log(data);   
-                //$('#view-title').val(data.vehicle_name+" ("+data.vehicle_reg+")");
-
-                           
-                                
-                
-               
+                console.log(data[0]);   
+                $('#view-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+"Annual Licence" );
+   
+            },
+            error: function(xhr, textStatus, error){
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
             }
         });
 

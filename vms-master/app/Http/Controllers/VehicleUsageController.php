@@ -120,12 +120,10 @@ class VehicleUsageController extends Controller
 
         $id = $_GET['id'];
 
-        return $id;
-
         $licences = DB::table('annual_licences')
         ->join('vehical', 'annual_licences.vehical_id', '=', 'vehical.id') 
         ->select('annual_licences.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
-        ->where('id','=',$id)
+        ->where('annual_licences.id','=',$id)
         ->get();
 
         return response($licences); 
