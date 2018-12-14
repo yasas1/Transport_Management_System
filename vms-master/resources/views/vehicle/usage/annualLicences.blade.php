@@ -183,9 +183,9 @@
 
                 {{-- {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeAnnualLicenc','files'=>true]) !!} --}}
 
-                <form action="{{ URL::to('/journey/request/confirmAjax')}}" method="POST" id="formConfirmationAjax">
+                <form action="{{ URL::to('/vehicle/annualLicence/update')}}" method="POST" id="edit_Licence">
                     {{csrf_field()}}
-                <input type="hidden" name="id" id="licence_id">
+                    <input type="hidden" name="id" id="licence_id">
                     
                 <div> 
                     <h4><i class="fas fa-tachometer-alt"></i>&nbsp Period </h4> 
@@ -193,7 +193,7 @@
     
                 <div class="row">
                     
-                    <div class="col-md-3"> 
+                    <div class="col-md-6"> 
                         <h4>From </h4> 
     
                         <div id="edit_from_date" class="input-group date" data-date-format="yyyy-mm-dd">
@@ -202,10 +202,9 @@
                         </div>
                     </div>
     
-                    <div class="col-md-2">
-                    </div>
+                    
     
-                    <div class="col-md-3"> 
+                    <div class="col-md-6"> 
                         <h4> To </h4> 
     
                         <div id="edit_to_date" class="input-group date" data-date-format="yyyy-mm-dd">
@@ -219,7 +218,7 @@
     
                 <div class="row">
     
-                    <div class="col-md-3"> 
+                    <div class="col-md-6"> 
     
                         <h4> <i class="glyphicon glyphicon-list-alt"></i>&nbsp Licensing Authority </h4>  
         
@@ -229,14 +228,14 @@
     
                     </div> 
                     
-                    <div class="col-md-9">
-                    </div>
+                    {{-- <div class="col-md-9">
+                    </div> --}}
     
                 </div><br>
     
                 <div class="row">
     
-                    <div class="col-md-3"> 
+                    <div class="col-md-6"> 
     
                         <h4> <i class="fas fa-check-double"></i>&nbsp Vehicle Licence Number </h4>  
         
@@ -245,10 +244,10 @@
                         </div>                      
                     </div> 
     
-                    <div class="col-md-2">
-                        </div>
+                    {{-- <div class="col-md-2">
+                        </div> --}}
     
-                    <div class="col-md-3"> 
+                    <div class="col-md-6"> 
     
                         <h4> <i class="fas fa-calendar-alt"></i> &nbsp Licence Date </h4>
                                                             
@@ -262,7 +261,7 @@
                 </div><br>
                 
                 <div class="row"> 
-                    <div class="col-md-3"> 
+                    <div class="col-md-6"> 
                         <h4><i class="fa fa-money"></i>&nbsp Amount </h4>  
     
                         <div>  
@@ -441,13 +440,17 @@
         var id = $(this).data('id');
         console.log(id);
 
+        $('#licence_id').val(id);
+
+           /* getting existing data to modal */
+
         $.ajax({
             url: '/vehicle/viewAnnualLicenc/{id}',
             type: 'GET',
             data: { id: id },
             success: function(data)
             {    
-                $('#edit-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+"Annual Licence Edit" );
+                $('#edit-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Annual Licence Editing" ); 
    
             },
             error: function(xhr, textStatus, error){
@@ -456,6 +459,18 @@
         });
 
         $("#edit-modal").modal('show');
+
+        $('#edit_Licence').on('submit',function(e){
+            e.preventDefault();
+            var data = $(this).serialize();
+            var url = $(this).attr('action');
+            $.post(url,data,function(data){
+                console.log(data);           
+                //$('#edit-modal').modal('hide');  
+                //$('div.flash-message').html(data);               
+            });       
+        });
+
 
     });
 
