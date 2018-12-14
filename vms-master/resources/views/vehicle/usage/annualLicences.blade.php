@@ -169,12 +169,33 @@
           
         </div>
 
+            {{-- Edit Confirmation modal --}}
+    <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="edit-title"></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 class="modal-title" >Please Confirm Your Action</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success active" id="update">Update</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
             {{-- Delete Confirmation modal --}}
     <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <b> <h3 class="modal-title" id="title">Confirmation</h3> </b>
+                <b> <h3 class="modal-title" id="delete-title">Confirmation</h3> </b>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -320,6 +341,30 @@
 
     });  
 
+
+        /* one licence edit click event */
+    $(document).on('click','#edit',function(e){
+        var id = $(this).data('id');
+        console.log(id);
+
+        $.ajax({
+            url: '/vehicle/viewAnnualLicenc/{id}',
+            type: 'GET',
+            data: { id: id },
+            success: function(data)
+            {    
+                $('#edit-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+"Annual Licence Edit" );
+   
+            },
+            error: function(xhr, textStatus, error){
+                console.log(xhr.statusText);
+            }
+        });
+
+        $("#edit-modal").modal('show');
+
+    });
+
     
            /* one licence view click event */
     $(document).on('click','#view',function(e){
@@ -332,7 +377,7 @@
             data: { id: id },
             success: function(data)
             {
-                console.log(data[0]);    
+                //console.log(data[0]);    
                 $('#view-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+"Annual Licence" );
                 $('#period-from').html(data[0].from );
                 $('#period-to').html(data[0].to ); 
@@ -387,6 +432,7 @@
  
     });
 
+        /* TIME OUT for success and error message session */
     setTimeout(function() {
         $('div.flash-message').fadeOut('slow');       
     }, 10000);
