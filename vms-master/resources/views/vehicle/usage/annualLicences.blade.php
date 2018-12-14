@@ -14,6 +14,8 @@
 
         #to_date > span:hover{cursor: pointer;color: blue;}
 
+        #view-title,#amount,#period-from,#period-to { font-weight:normal; }
+
     </style>
 @endsection
 
@@ -193,55 +195,67 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <b> <h3 class="modal-title" id="view-title"></h3> </b>
+
+                <i style="font-size:27px; color:darkblue;" class="fa fa-car"></i>&nbsp  <label class="modal-title" id="view-title" style="font-size:27px; color:darkblue;"> </label> 
+
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
 
-                <h4 class="modal-title" style="color:darkblue">Licence Period</h4>
+                <h3 class="modal-title" > <i class="fas fa-tachometer-alt"></i>&nbsp Licence Period</h3>
                 <div class="row">
-                    <div class="col-md-5">
-                        <dl class="col-md-offset-1">
+                    <div class="col-md-6">
+                        <dl class="col-md-offset-3">
                             
-                            <label >From - &nbsp</label>
-                            <label id="period-from"> </label>
+                            <label style="font-size:16px" >From: &nbsp</label>
+                            <label style="font-size:16px" id="period-from"> </label>
                             
                         </dl>
                     </div>
-                    <div class="col-md-5">
-                        <dl class="col-md-offset-1">
+                    <div class="col-md-6">
+                        <dl class="col-md-offset-3">
                             
-                            <label>To - &nbsp</label>
-                            <label id="period-to"> </label>
+                            <label style="font-size:16px">To: &nbsp</label>
+                            <label style="font-size:16px" id="period-to"> </label>
                             
                         </dl>
                     </div>
-                </div>
-                <h4 class="modal-title" style="color:darkblue">Licensing Authority</h4>
+                </div><br>
+                <h3 class="modal-title" > <i class="glyphicon glyphicon-list-alt"></i>&nbsp Licensing Authority</h3>
                 <div class="row">
-                    <div class="col-md-5">
-                        <dl class="col-md-offset-1">
-                            <label id="licensing_authority"> </label>                        
+                    <div class="col-md-6">
+                        <dl class="col-md-offset-3">
+                            <p style="font-size:16px" id="licensing_authority"> </p>                        
                         </dl>
                     </div>
                    
-                </div>
+                </div><br>
 
                 
                 <div class="row">
-                    <div class="col-md-5">
-                        <h4 class="modal-title" style="color:darkblue">Licence Number</h4>
+                    <div class="col-md-6">
+                        <h3 class="modal-title" > <i class="fas fa-check-double"></i>&nbsp Licence Number</h3>
                             
-                        <label class="col-md-offset-1" id="licence_no"> </label>                            
+                        <p style="font-size:16px" class="col-md-offset-3" id="licence_no"> </p>                            
                         
                     </div>
-                    <div class="col-md-5">
-                        <h4 class="modal-title" style="color:darkblue">Licence Date</h4>
+                    <div class="col-md-6">
+                        <h3 class="modal-title"> <i class="fas fa-calendar-alt"></i>&nbsp Licence Date</h3>
                             
-                        <label class="col-md-offset-1" id="licence_date"> </label>                       
+                        <p style="font-size:16px" class="col-md-offset-3" id="licence_date"> </p>                       
                     </div>
+                </div><br>
+
+                <h3 class="modal-title" > <i class="fa fa-money"></i>&nbsp Amount</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <dl class="col-md-offset-3">
+                           <b> Rs. </b><label style="font-size:16px" id="amount"> <label>                        
+                        </dl>
+                    </div>
+                   
                 </div>
 
             </div>
@@ -323,8 +337,9 @@
                 $('#period-from').html(data[0].from );
                 $('#period-to').html(data[0].to ); 
                 $('#licensing_authority').html(data[0].licensing_authority );  
-                $('#licence_no').html(data[0].licence_no );
-                $('#licence_date').html(data[0].licence_date );
+                $('#licence_no').html(data[0].licence_no);
+                $('#licence_date').html(data[0].licence_date);
+                $('#amount').html(data[0].amount);
    
             },
             error: function(xhr, textStatus, error){
