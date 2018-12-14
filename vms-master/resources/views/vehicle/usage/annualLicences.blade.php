@@ -180,10 +180,104 @@
                 </button>
             </div>
             <div class="modal-body">
-                <h4 class="modal-title" >Please Confirm Your Action</h4>
+
+                {{-- {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeAnnualLicenc','files'=>true]) !!} --}}
+
+                <form action="{{ URL::to('/journey/request/confirmAjax')}}" method="POST" id="formConfirmationAjax">
+                    {{csrf_field()}}
+                <input type="hidden" name="id" id="licence_id">
+                    
+                <div> 
+                    <h4><i class="fas fa-tachometer-alt"></i>&nbsp Period </h4> 
+                </div>
+    
+                <div class="row">
+                    
+                    <div class="col-md-3"> 
+                        <h4>From </h4> 
+    
+                        <div id="edit_from_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                            <input id="date" name="from" class="form-control" type="text" readonly />
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-2">
+                    </div>
+    
+                    <div class="col-md-3"> 
+                        <h4> To </h4> 
+    
+                        <div id="edit_to_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                            <input id="date" name="to" class="form-control" type="text" readonly />
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <br>
+    
+    
+                <div class="row">
+    
+                    <div class="col-md-3"> 
+    
+                        <h4> <i class="glyphicon glyphicon-list-alt"></i>&nbsp Licensing Authority </h4>  
+        
+                        <div >  
+                            {!! Form::text('licensing_authority',null,['class'=>'form-control','placeholder'=>'Licensing Authority' ]) !!}
+                        </div> 
+    
+                    </div> 
+                    
+                    <div class="col-md-9">
+                    </div>
+    
+                </div><br>
+    
+                <div class="row">
+    
+                    <div class="col-md-3"> 
+    
+                        <h4> <i class="fas fa-check-double"></i>&nbsp Vehicle Licence Number </h4>  
+        
+                        <div>  
+                            {{Form::number('licence_no', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Licence Number'])}}                      
+                        </div>                      
+                    </div> 
+    
+                    <div class="col-md-2">
+                        </div>
+    
+                    <div class="col-md-3"> 
+    
+                        <h4> <i class="fas fa-calendar-alt"></i> &nbsp Licence Date </h4>
+                                                            
+                        <div id="edit_lic_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                            <input id="date" name="licence_date" class="form-control" type="text" readonly />
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    
+                    </div>
+    
+                </div><br>
+                
+                <div class="row"> 
+                    <div class="col-md-3"> 
+                        <h4><i class="fa fa-money"></i>&nbsp Amount </h4>  
+    
+                        <div>  
+                            {{Form::number('amount', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Amount'])}}                      
+                        </div> 
+                    </div>
+                        
+                </div><br>
+            
+                        
+                
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-success active" id="update">Update</button>
+                {!! Form::close() !!} 
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
             </div>
@@ -460,20 +554,23 @@
         todayHighlight: true
     });
 
-    $('#datepicker').on('change',function () {
-        var x = $("#datepicker").data('datepicker').getFormattedDate('yyyy-mm-dd');
-        console.log(x);     
-    }); 
+    $("#edit_from_date").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    });
 
-    $('#to_date').on('change',function () {
-        var x = $("#to_date").data('datepicker').getFormattedDate('yyyy-mm-dd');
-        console.log(x);     
-    }); 
+    $("#edit_to_date").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    });
 
-    $('#from_date').on('change',function () {
-        var x = $("#from_date").data('datepicker').getFormattedDate('yyyy-mm-dd');
-        console.log(x);     
-    }); 
+    $("#edit_lic_date").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    });
 
     setTimeout(function() {
         $('#successMessage').fadeOut('slow');       
