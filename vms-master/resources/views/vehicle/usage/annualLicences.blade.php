@@ -197,7 +197,7 @@
                         <h4>From </h4> 
     
                         <div id="edit_from_date" class="input-group date" data-date-format="yyyy-mm-dd">
-                            <input id="date" name="from" class="form-control" type="text" readonly />
+                            <input id="edit_licFrom" name="from" class="form-control" type="text" readonly />
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                     </div>
@@ -208,7 +208,7 @@
                         <h4> To </h4> 
     
                         <div id="edit_to_date" class="input-group date" data-date-format="yyyy-mm-dd">
-                            <input id="date" name="to" class="form-control" type="text" readonly />
+                            <input id="edit_licTo" name="to" class="form-control" type="text" readonly />
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                     </div>
@@ -223,7 +223,7 @@
                         <h4> <i class="glyphicon glyphicon-list-alt"></i>&nbsp Licensing Authority </h4>  
         
                         <div >  
-                            {!! Form::text('licensing_authority',null,['class'=>'form-control','placeholder'=>'Licensing Authority' ]) !!}
+                            {!! Form::text('licensing_authority',null,['class'=>'form-control','id'=>'edit_licensing_authority','placeholder'=>'Licensing Authority' ]) !!}
                         </div> 
     
                     </div> 
@@ -240,7 +240,7 @@
                         <h4> <i class="fas fa-check-double"></i>&nbsp Vehicle Licence Number </h4>  
         
                         <div>  
-                            {{Form::number('licence_no', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Licence Number'])}}                      
+                            {{Form::number('licence_no', null,['class'=>'form-control ','id'=>'edit_licence_no','placeholder'=>'Enter Licence Number'])}}                      
                         </div>                      
                     </div> 
     
@@ -252,7 +252,7 @@
                         <h4> <i class="fas fa-calendar-alt"></i> &nbsp Licence Date </h4>
                                                             
                         <div id="edit_lic_date" class="input-group date" data-date-format="yyyy-mm-dd">
-                            <input id="date" name="licence_date" class="form-control" type="text" readonly />
+                            <input id="edit_licDate" name="licence_date" class="form-control" type="text" readonly />
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                     
@@ -265,7 +265,7 @@
                         <h4><i class="fa fa-money"></i>&nbsp Amount </h4>  
     
                         <div>  
-                            {{Form::number('amount', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Amount'])}}                      
+                            {{Form::number('amount', null,['class'=>'form-control ','id'=>'edit_amount','placeholder'=>'Amount'])}}                      
                         </div> 
                     </div>
                         
@@ -288,17 +288,17 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <b> <h3 class="modal-title" id="delete-title">Confirmation</h3> </b>
+                <b> <h3 class="modal-title" id="delete-title"></h3> </b>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <h4 class="modal-title" >Please Confirm Your Action</h4>
+                <h4 class="modal-title" >Please Confirm Your Delete Action</h4>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary active" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-danger" id="btn-confirm">Delete</button>
+                <button type="button" class="btn btn-primary active" data-dismiss="modal">Cancel</button>
             </div>
             </div>
         </div>
@@ -310,7 +310,7 @@
             <div class="modal-content">
             <div class="modal-header">
 
-                <i style="font-size:27px; color:darkblue;" class="fa fa-car"></i>&nbsp  <label class="modal-title" id="view-title" style="font-size:27px; color:darkblue;"> </label> 
+                <i style="font-size:25px; color:gray" class="fa fa-car"></i>&nbsp  <label class="modal-title" id="view-title" style="font-size:25px; color:gray;"> </label> 
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -318,13 +318,13 @@
             </div>
             <div class="modal-body">
 
-                <h3 class="modal-title" > <i class="fas fa-tachometer-alt"></i>&nbsp Licence Period</h3>
+                <h4 class="modal-title" > <i class="fas fa-tachometer-alt"></i>&nbsp Licence Period</h4>
                 <div class="row">
                     <div class="col-md-6">
                         <dl class="col-md-offset-3">
                             
-                            <label style="font-size:16px" >From: &nbsp</label>
-                            <label style="font-size:16px" id="period-from"> </label>
+                            <label style="font-size:15px" >From: &nbsp</label>
+                            <label style="font-size:15px" id="period-from"> </label>
                             
                         </dl>
                     </div>
@@ -337,7 +337,7 @@
                         </dl>
                     </div>
                 </div><br>
-                <h3 class="modal-title" > <i class="glyphicon glyphicon-list-alt"></i>&nbsp Licensing Authority</h3>
+                <h4 class="modal-title" > <i class="glyphicon glyphicon-list-alt"></i>&nbsp Licensing Authority</h4>
                 <div class="row">
                     <div class="col-md-6">
                         <dl class="col-md-offset-3">
@@ -350,19 +350,19 @@
                 
                 <div class="row">
                     <div class="col-md-6">
-                        <h3 class="modal-title" > <i class="fas fa-check-double"></i>&nbsp Licence Number</h3>
+                        <h4 class="modal-title" > <i class="fas fa-check-double"></i>&nbsp Licence Number</h4>
                             
                         <p style="font-size:16px" class="col-md-offset-3" id="licence_no"> </p>                            
                         
                     </div>
                     <div class="col-md-6">
-                        <h3 class="modal-title"> <i class="fas fa-calendar-alt"></i>&nbsp Licence Date</h3>
+                        <h4 class="modal-title"> <i class="fas fa-calendar-alt"></i>&nbsp Licence Date</h4>
                             
                         <p style="font-size:16px" class="col-md-offset-3" id="licence_date"> </p>                       
                     </div>
                 </div><br>
 
-                <h3 class="modal-title" > <i class="fa fa-money"></i>&nbsp Amount</h3>
+                <h4 class="modal-title" > <i class="fa fa-money"></i>&nbsp Amount</h4>
                 <div class="row">
                     <div class="col-md-6">
                         <dl class="col-md-offset-3">
@@ -450,7 +450,14 @@
             data: { id: id },
             success: function(data)
             {    
+                console.log(data);
                 $('#edit-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Annual Licence Editing" ); 
+                $('#edit_licFrom').val(data[0].from);
+                $('#edit_licTo').val(data[0].to);    licensing_authority
+                $('#edit_licDate').val(data[0].licence_date);
+                $('#edit_amount').val(data[0].amount);
+                $('#edit_licence_no').val(data[0].licence_no);
+                $('#edit_licensing_authority').val(data[0].licensing_authority);
    
             },
             error: function(xhr, textStatus, error){
@@ -511,7 +518,19 @@
         var id = $(this).data('id');
         console.log(id);
 
-
+        $.ajax({
+            url: '/vehicle/viewAnnualLicenc/{id}',
+            type: 'GET',
+            data: { id: id },
+            success: function(data)
+            {    
+                $('#delete-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Annual Licence Delete" ); 
+   
+            },
+            error: function(xhr, textStatus, error){
+                console.log(xhr.statusText);
+            }
+        });
 
         $("#delete-modal").modal('show'); 
     
