@@ -202,7 +202,20 @@ desired effect
                         </ul>
                     </li>
                 @endif
-                <li class="treeview">
+                <li class="treeview
+                        {{
+                        url()->current() == url('/journey/create')||
+                        url()->current() == url('/journey/requests')||
+                        url()->current() == url('/journey/createAprrovedBacklog')||
+                        url()->current() == url('/journey/requests/notconfirmed')||
+                        url()->current() == url('/journey/requests/complete')||
+                        url()->current() == url('/journey/requests/confirmed')||
+                        url()->current() == url('/journey/requests/completed')||
+                        url()->current() == url('/journey/cancelled')||
+                        url()->current() == url('/journey/myjourneys')||
+                        url()->current() == url('/journey/createBacklog')?'active':''
+                        }}
+                        ">
                     <a href="#"><i class="fa fa-road"></i> <span>JOURNEY</span>
                         <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
@@ -212,10 +225,10 @@ desired effect
                     <ul class="treeview-menu">
                     {{-- <li><a href="{{url('/journey/')}}"><i class="fa fa-eye"></i> <span>VIEW CURRENT JOURNEYS</span></a></li>--}}
                         @if(Auth::user()->canRequestJourney())
-                            <li><a href="{{url('/journey/create')}}"><i class="fa fa-plus"></i> <span>NEW JOURNEY REQUEST</span></a></li>
+                            <li class="{{url()->current() == url('/journey/create')?'active':''}}" ><a href="{{url('/journey/create')}}"><i class="fa fa-plus"></i> <span>NEW JOURNEY REQUEST</span></a></li>
                         @endif
 
-                        <li><a href="{{url('/journey/createBacklog')}}"><i class="fa fa-plus"></i> <span>NEW BACKLOG JOURNEYS</span></a></li>
+                        <li class="{{url()->current() == url('/journey/createBacklog')?'active':''}}"><a href="{{url('/journey/createBacklog')}}"><i class="fa fa-plus"></i> <span>NEW BACKLOG JOURNEYS</span></a></li>
 
                         @if(Auth::user()->canApproveJourney()) 
                             <li><a href="{{url('/journey/requests')}}"><i class="fa fa-edit"></i> <span>APPROVE REQUESTS (HEAD)</span></a></li>
@@ -224,27 +237,27 @@ desired effect
                         <li><a href="{{url('/journey/createAprrovedBacklog')}}"><i class="fa fa-edit"></i> <span>APPROVE BACKLOGS (HEAD)</span></a></li>
 
                         @if(Auth::user()->canConfirmJourney())
-                            <li><a href="{{url('/journey/requests/notconfirmed')}}"><i class="fa fa-edit"></i> <span>CONFIRM REQUESTS (CLARK)</span></a></li>
+                            <li  class="{{url()->current() == url('/journey/requests/notconfirmed')?'active':''}}"><a href="{{url('/journey/requests/notconfirmed')}}"><i class="fa fa-edit"></i> <span>CONFIRM REQUESTS (CLARK)</span></a></li>
                         @endif
 
                         @if(Auth::user()->canViewOngoingJourneys())
-                            <li><a href="{{url('/journey/requests/confirmed')}}"><i class="fa fa-edit"></i> <span>ONGOING JOURNEYS</span></a></li>
+                            <li class="{{url()->current() == url('/journey/requests/confirmed')?'active':''}}"><a href="{{url('/journey/requests/confirmed')}}"><i class="fa fa-edit"></i> <span>ONGOING JOURNEYS</span></a></li>
                         @endif
 
                         @if(Auth::user()->canCompleteJourney())
-                            <li><a href="{{url('/journey/requests/complete')}}"><i class="fa fa-edit"></i> <span>RUNNING CHART (Driver)</span></a></li>
+                            <li class="{{url()->current() == url('/journey/requests/complete')?'active':''}}"><a href="{{url('/journey/requests/complete')}}"><i class="fa fa-edit"></i> <span>RUNNING CHART (Driver)</span></a></li>
                         @endif
 
                         @if(Auth::user()->canViewCompletedJourneys())
-                            <li><a href="{{url('/journey/requests/completed')}}"><i class="fa fa-eye"></i> <span>JOURNEY HISTORY</span></a></li>
+                            <li class="{{url()->current() == url('/journey/requests/completed')?'active':''}}"><a href="{{url('/journey/requests/completed')}}"><i class="fa fa-eye"></i> <span>JOURNEY HISTORY</span></a></li>
                         @endif          
 
                         @if(Auth::user()->canViewMyJourneys())
-                        <li><a href="{{url('/journey/myjourneys')}}"><i class="fa fa-eye"></i> <span>MY JOURNEYS</span></a></li>
+                        <li class="{{url()->current() == url('/journey/myjourneys')?'active':''}}"><a href="{{url('/journey/myjourneys')}}"><i class="fa fa-eye"></i> <span>MY JOURNEYS</span></a></li>
                         @endif
 
                         @if(Auth::user()->canViewCancelledJourneys())
-                            <li><a href="{{url('/journey/cancelled')}}"><i class="fa fa-eye"></i> <span>UNSUCCESSSFUL JOURNEYS</span></a></li>
+                            <li class="{{url()->current() == url('/journey/cancelled')?'active':''}}"><a href="{{url('/journey/cancelled')}}"><i class="fa fa-eye"></i> <span>UNSUCCESSSFUL JOURNEYS</span></a></li>
                         @endif
 
                     </ul>
