@@ -16,7 +16,8 @@
 @section('content')
     @include('layouts.errors')
     @include('layouts.success')
-    <div class="flash-message"></div>
+    <div class="flash-message" id="flash-message"></div>
+
     <div class="box" >
         <div class="box-header with-border">
             <h3 class="box-title">Confirmation Pending Journey Requests List</h3>

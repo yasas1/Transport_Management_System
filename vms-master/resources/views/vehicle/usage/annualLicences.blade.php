@@ -24,7 +24,7 @@
 @section('content')
     @include('layouts.errors')
     @include('layouts.success')
-    <div class="flash-message"></div>
+    <div class="flash-message" id="flash-message" ></div>
   
     <div class="box box-primary">
     
@@ -474,7 +474,7 @@
             $.post(url,data,function(data){
                 console.log(data);           
                 $('#edit-modal').modal('hide');  
-                $('div.flash-message').html(data);               
+                $('#flash-message').html(data);              
             });       
         });
 
@@ -545,9 +545,10 @@
                 success: function(data)
                 {
                     console.log(data);   
-                    $('div.flash-message').html(data); 
+                    $('#flash-message').html(data); 
+    
                     $('tr#'+id).remove();
-                    
+                    $('#delete-modal').modal('hide');
                 },
                 error: function(xhr, textStatus, error){
                     console.log(xhr.statusText);
@@ -559,11 +560,6 @@
         });
  
     });
-
-        /* TIME OUT for success and error message session */
-    setTimeout(function() {
-        $('div.flash-message').fadeOut('slow');       
-    }, 10000);
 
 </script>
 
@@ -606,13 +602,6 @@
         todayHighlight: true
     });
 
-    setTimeout(function() {
-        $('#successMessage').fadeOut('slow');       
-    }, 3000); 
-
-    setTimeout(function() {
-        $('#errorMessage').fadeOut('slow');       
-    }, 3000); 
 
 </script>
     
