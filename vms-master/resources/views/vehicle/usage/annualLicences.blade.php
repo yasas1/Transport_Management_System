@@ -473,8 +473,8 @@
             var url = $(this).attr('action');
             $.post(url,data,function(data){
                 console.log(data);           
-                //$('#edit-modal').modal('hide');  
-                //$('div.flash-message').html(data);               
+                $('#edit-modal').modal('hide');  
+                $('div.flash-message').html(data);               
             });       
         });
 

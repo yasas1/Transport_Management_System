@@ -133,9 +133,20 @@ class VehicleUsageController extends Controller
     public function updateAnnualLicenc(Request $request){
         if($request->ajax()){ 
 
-            return $request;
+            if($annualLicence = AnnualLicence::find($request->id)){
 
-            if($licences = AnnualLicence::find($request->id)){
+                $annualLicence->from = $request->from;
+                $annualLicence->to = $request->to;
+                $annualLicence->licensing_authority = $request->licensing_authority;
+                $annualLicence->licence_no = $request->licence_no;
+                $annualLicence->licence_date = $request->licence_date;
+                $annualLicence->amount = $request->amount;
+                
+
+                $annualLicence->update(); 
+
+                Session::flash('success', 'Annual Licence Updated successfully !');
+                return View::make('layouts/success');
 
             }
         }
