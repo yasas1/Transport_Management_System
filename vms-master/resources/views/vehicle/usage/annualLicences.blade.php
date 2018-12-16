@@ -398,10 +398,8 @@
         }
     });
 
-    $('#vid').on('change',function () {
-        var vid = $(this).val();
-        console.log(vid);
-
+        /* read annual licence for given vehicle and display in the table */
+    function readAnnualLicenc(vid){ 
         $.ajax({
             url: '/vehicle/readAnnualLicenc/{id}',
             type: 'GET',
@@ -409,9 +407,9 @@
             success: function(data)
             {
                 //console.log(data);   
-                $('#servicing_info').empty().html(data);            
+                $('#servicing_info').empty().html(data);
                 // $(data).each(function (i,value) {                
-                //     //servicing_info 
+                
                 //     var tr = $("<tr/>");
                 //     tr.append($("<td/>",{
                 //         text :value.vehicle_name+" ("+value.vehicle_reg+")"
@@ -427,11 +425,17 @@
                 //         text :value.amount
                 //     }))
                 //     $('#servicing_info').append(tr);              
-                // }); 
-               
+                // });             
             }
         });
+    }
 
+
+    $('#vid').on('change',function () {
+        var vid = $(this).val();
+        console.log(vid);
+
+        readAnnualLicenc(vid);
     });  
 
 
@@ -439,6 +443,7 @@
     $(document).on('click','#edit',function(e){
         var id = $(this).data('id');
         console.log(id);
+        var vid;
 
         $('#licence_id').val(id);
 
@@ -451,6 +456,8 @@
             success: function(data)
             {    
                 console.log(data);
+                vid =data[0].vehical_id;
+
                 $('#edit-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Annual Licence Editing" ); 
                 $('#edit_licFrom').val(data[0].from);
                 $('#edit_licTo').val(data[0].to);    licensing_authority
@@ -474,7 +481,9 @@
             $.post(url,data,function(data){
                 console.log(data);           
                 $('#edit-modal').modal('hide');  
-                $('#flash-message').html(data);              
+                $('#flash-message').html(data);
+                    /* refresh data table in the view */
+                readAnnualLicenc(vid);              
             });       
         });
 
