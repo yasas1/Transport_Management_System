@@ -174,6 +174,7 @@
                             <th scope="col"> Vehicle Licence Number</th>
                             <th scope="col"> Licence Date</th>
                             <th scope="col"> Amount (Rs.)</th>
+                            <th scope="col"> Emisiion Test Details</th>
                             <th scope="col"> Action </th>
                         </tr>
                     </thead>
@@ -287,9 +288,19 @@
                     </div>
                         
                 </div><br>
-            
-                        
                 
+                <div class="row">
+                    <div class="col-md-6"> 
+    
+                        <h4> <i class="fas fa-award"></i>&nbsp Emission Test Details </h4>  
+        
+                        <div >  
+                            {!! Form::text('emission_test_details',null,['class'=>'form-control','id'=>'edit_emission_test_details' ]) !!}
+                        </div> 
+    
+                    </div> 
+                </div><br>
+                                     
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-success active" id="update">Update</button>
@@ -389,6 +400,16 @@
                    
                 </div>
 
+                <h4 class="modal-title" > <i class="fas fa-award"></i>&nbsp Emission Test Details</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <dl class="col-md-offset-3">
+                           <p style="font-size:16px" id="view_emission_test_details"> <p>                        
+                        </dl>
+                    </div>
+                   
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary active" data-dismiss="modal">Close</button>
@@ -481,7 +502,8 @@
                 $('#edit_licDate').val(data[0].licence_date);
                 $('#edit_amount').val(data[0].amount);
                 $('#edit_licence_no').val(data[0].licence_no);
-                $('#edit_licensing_authority').val(data[0].licensing_authority);
+                $('#edit_licensing_authority').val(data[0].licensing_authority); 
+                $('#edit_emission_test_details').val(data[0].emission_test_details);
    
             },
             error: function(xhr, textStatus, error){
@@ -526,7 +548,8 @@
                 $('#licensing_authority').html(data[0].licensing_authority );  
                 $('#licence_no').html(data[0].licence_no);
                 $('#licence_date').html(data[0].licence_date);
-                $('#amount').html(data[0].amount);
+                $('#amount').html(data[0].amount); 
+                $('#view_emission_test_details').html(data[0].emission_test_details);
    
             },
             error: function(xhr, textStatus, error){
