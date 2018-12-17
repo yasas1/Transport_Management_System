@@ -231,10 +231,10 @@ desired effect
                         <li class="{{url()->current() == url('/journey/createBacklog')?'active':''}}"><a href="{{url('/journey/createBacklog')}}"><i class="fa fa-plus"></i> <span>NEW BACKLOG JOURNEYS</span></a></li>
 
                         @if(Auth::user()->canApproveJourney()) 
-                            <li><a href="{{url('/journey/requests')}}"><i class="fa fa-edit"></i> <span>APPROVE REQUESTS (HEAD)</span></a></li>
+                            <li class="{{url()->current() == url('/journey/requests')?'active':''}}" ><a href="{{url('/journey/requests')}}"><i class="fa fa-edit"></i> <span>APPROVE REQUESTS (HEAD)</span></a></li>
                         @endif
 
-                        <li><a href="{{url('/journey/createAprrovedBacklog')}}"><i class="fa fa-edit"></i> <span>APPROVE BACKLOGS (HEAD)</span></a></li>
+                        <li class="{{url()->current() == url('/journey/createAprrovedBacklog')?'active':''}}" ><a href="{{url('/journey/createAprrovedBacklog')}}"><i class="fa fa-edit"></i> <span>APPROVE BACKLOGS (HEAD)</span></a></li>
 
                         @if(Auth::user()->canConfirmJourney())
                             <li  class="{{url()->current() == url('/journey/requests/notconfirmed')?'active':''}}"><a href="{{url('/journey/requests/notconfirmed')}}"><i class="fa fa-edit"></i> <span>CONFIRM REQUESTS (CLARK)</span></a></li>
@@ -299,7 +299,11 @@ desired effect
                     </ul>
 
                 </li>
-                <li class="treeview">
+                <li class="treeview {{
+                    url()->current() == url('/vehicle/usage')||
+                    url()->current() == url('/vehicle/addservicing')||
+                    url()->current() == url('/vehicle/annualLicences')?'active':''
+                    }} ">
                     <a href="#"><i class="fa fa-bar-chart"></i> <span>Vehicle Usage</span>
                         <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
@@ -307,9 +311,9 @@ desired effect
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{url('/vehicle/usage')}}"><i class="fa fa-eye"></i> Vehicle Usage</a></li> 
-                        <li><a href="{{url('/vehicle/addservicing')}}"><i class="fas fa-oil-can"></i> <span>&nbspSERVICING</span></a></li>
-                        <li><a href="{{url('/vehicle/annualLicences')}}"><i class="fas fa-list-alt"></i> <span>&nbsp Annual Licences</span></a></li>
+                        <li class="{{url()->current() == url('/vehicle/usage')?'active':''}}" ><a href="{{url('/vehicle/usage')}}"><i class="fa fa-eye"></i> Vehicle Usage</a></li> 
+                        <li class="{{url()->current() == url('/vehicle/addservicing')?'active':''}}" ><a href="{{url('/vehicle/addservicing')}}"><i class="fas fa-oil-can"></i> <span>&nbspSERVICING</span></a></li>
+                        <li class="{{url()->current() == url('/vehicle/annualLicences')?'active':''}}" ><a href="{{url('/vehicle/annualLicences')}}"><i class="fas fa-list-alt"></i> <span>&nbsp Annual Licences</span></a></li>
                     </ul>
                     
                 </li>
