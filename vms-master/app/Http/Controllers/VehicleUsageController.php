@@ -69,9 +69,7 @@ class VehicleUsageController extends Controller
             'amount' => 'required',
 
         ]);
-
         //return $request;
-
         $annualLicence = new AnnualLicence; 
 
         $annualLicence->vehical_id = $request->vehical_id;
@@ -81,7 +79,7 @@ class VehicleUsageController extends Controller
         $annualLicence->licence_no = $request->licence_no;
         $annualLicence->licence_date = $request->licence_date;
         $annualLicence->amount = $request->amount;
-        
+        $annualLicence->emission_test_details = $request->emission_test_details;
 
         $annualLicence->save(); 
 
@@ -135,12 +133,13 @@ class VehicleUsageController extends Controller
 
             if($annualLicence = AnnualLicence::find($request->id)){
 
-                $annualLicence->from = $request->from;
+                $annualLicence->from = $request->from; 
                 $annualLicence->to = $request->to;
                 $annualLicence->licensing_authority = $request->licensing_authority;
                 $annualLicence->licence_no = $request->licence_no;
                 $annualLicence->licence_date = $request->licence_date;
                 $annualLicence->amount = $request->amount;
+                $annualLicence->emission_test_details = $request->emission_test_details;
                 
 
                 $annualLicence->update(); 

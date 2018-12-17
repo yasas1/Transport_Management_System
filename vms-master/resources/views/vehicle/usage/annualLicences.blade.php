@@ -137,6 +137,23 @@
                   
             </div><br>
 
+            <div class="row">
+
+                <div class="col-md-3"> 
+
+                    <h4> <i class="fas fa-award"></i>&nbsp Emission Test Details </h4>  
+    
+                    <div >  
+                        {!! Form::text('emission_test_details',null,['class'=>'form-control','placeholder'=>'Emission Test Details' ]) !!}
+                    </div> 
+
+                </div> 
+                
+                <div class="col-md-9">
+                </div>
+
+            </div><br>
+
             <div class="row"> 
 
                 <div class="col-md-5"> 
