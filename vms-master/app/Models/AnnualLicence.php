@@ -46,11 +46,13 @@ class AnnualLicence extends Eloquent
 		'licensing_authority',
 		'licence_date',
 		'licence_no',
-		'ammount'
+		'ammount',
+		'emission_test_details',
+		'annual_licence_doc_id'
 	];
 
-	public function vehical()
+	public function annualLicenceDoc()
 	{
-		return $this->belongsTo(\App\Models\Vehical::class);
+		return $this->belongsTo(\App\Models\AnnualLicenceDoc::class);
 	}
 }

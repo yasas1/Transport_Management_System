@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use App\Models\Vehical;
 use App\Models\Service;
 use App\Models\AnnualLicence;
+use App\Models\AnnualLicenceDoc;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -80,6 +83,23 @@ class VehicleUsageController extends Controller
         $annualLicence->licence_date = $request->licence_date;
         $annualLicence->amount = $request->amount;
         $annualLicence->emission_test_details = $request->emission_test_details;
+
+        if ($request->hasFile('licence_file')) {
+
+            $licence_file = $request->file('licence_file');
+            $extension =  '.'.$licence_file->getClientOriginalExtension();
+            $oName = $licence_file->getClientOriginalName();
+            $name = $request->registration_no.md5($oName.Carbon::now()).$extension;
+
+            $path =  $licence_file->move('documents/licenceFile',$name);
+
+            $licence_file = new AnnualLicenceDoc;
+            $licence_file->path = $path;
+            $licence_file->name = $oName;
+            $licence_file->save();
+
+            $annualLicence->annualLicenceDoc()->associate($licence_file);
+        }
 
         $annualLicence->save(); 
 
