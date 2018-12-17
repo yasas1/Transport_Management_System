@@ -149,10 +149,21 @@
 
                 </div> 
                 
-                <div class="col-md-9">
+                <div class="col-md-3">
                 </div>
 
-            </div><br>
+                <div class="col-md-6">
+                    <h4> <i class="glyphicon glyphicon-upload"></i>&nbsp Annual Licence File Upload </h4>  
+
+                    <div>
+                        {{Form::file('licence_file',['class'=>'btn btn-default'])}}  
+                    
+                    </div> 
+                </div>
+
+            </div><br> 
+
+
 
             <div class="row"> 
 
