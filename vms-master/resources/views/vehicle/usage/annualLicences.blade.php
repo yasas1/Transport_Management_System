@@ -316,7 +316,7 @@
                         <div>
                             {{-- {{Form::file('licence_file',['class'=>'btn btn-default'])}}   --}}
 
-                            <input type="file" name="licence_file" class="btn btn-default">
+                            <input type="file" name="licence_file" class="btn btn-default" id="edit_file" >
                         
                         </div> 
                     </div>
@@ -327,7 +327,7 @@
             <div class="modal-footer">
                 <button type="submit" class="btn btn-success active" id="update">Update</button>
                 {!! Form::close() !!} 
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="close_edit" >Close</button>
             </div>
             </div>
         </div>
@@ -537,9 +537,8 @@
 
         $('#edit_Licence').on('submit',function(e){
             e.preventDefault();
-            var data = $(this).serialize();
+           // var data = $(this).serialize();
             var url = $(this).attr('action');
-            //data.append('file', document.getElementById('licence_file').files[0]);
 
             $.ajax({
                 url: url,
@@ -553,25 +552,22 @@
                     console.log(data);           
                     $('#edit-modal').modal('hide');  
                     $('#flash-message').html(data);
-                    
-    
+                        /* refresh data table in the view */
+                    readAnnualLicenc(vid);      
+                    $("#edit_file").val("");
                 },
                 error: function(xhr, textStatus, error){
                     console.log(xhr.statusText);
                 }
-            });
-            // $.post(url,data,function(data){
-            //     console.log(data);           
-            //     $('#edit-modal').modal('hide');  
-            //     $('#flash-message').html(data);
-            //         /* refresh data table in the view */
-            //     readAnnualLicenc(vid);              
-            // });       
+            });     
         });
 
 
     });
-
+        /* for clear previously selected file */
+    $('#close_edit').on('click',function(e){
+        $("#edit_file").val("");
+    });
     
            /* one licence view click event */
     $(document).on('click','#view',function(e){
