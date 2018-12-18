@@ -316,7 +316,8 @@
                         <div>
                             {{-- {{Form::file('licence_file',['class'=>'btn btn-default'])}}   --}}
 
-                            <input type="file" name="licence_file" class="btn btn-default" id="edit_file" >
+                            <input type="file" name="licence_file" class="btn btn-default" id="edit_file" > <br>
+                            <progress id='prog_edit' value="0" min="0" max="100"></progress>
                         
                         </div> 
                     </div>
@@ -429,8 +430,13 @@
                            <p style="font-size:16px" id="view_emission_test_details"> <p>                        
                         </dl>
                     </div>
+
+                    <a id ="pdf"><i class="fa fa-file-pdf-o"></i></a>
                    
                 </div>
+
+                <embed id="test" width="800px" height="2100px" />
+
 
             </div>
             <div class="modal-footer">
@@ -487,6 +493,35 @@
                 //     $('#servicing_info').append(tr);              
                 // });             
             }
+        });
+    }
+
+    $('#pdf').on('click',function(e){
+        e.preventDefault();
+        showAjaxPdf('documents/licenceFile/707ffd9771de94ff24d776ba6fc7d4b3.pdf');
+        
+    });
+
+    function showAjaxPdf(file_path)
+    {    
+        //window.location.href = file_path;
+        var file_path = file_path.replace(/\\/g,"/");
+        //var file_path = 'documents/licenceFile/707ffd9771de94ff24d776ba6fc7d4b3.pdf';
+        //9f6c7d32988603167c7cf539587a052a
+        $.ajax({
+            type: "POST",
+            data: 'file_path=' + file_path,
+            url: "/vehicle/annualLicence/test",
+            success: function(response)
+            {
+                console.log(response);
+                $('#test').val(response);
+
+            },
+            error: function(xhr, textStatus, error){
+                console.log(xhr.statusText);
+            }
+
         });
     }
 

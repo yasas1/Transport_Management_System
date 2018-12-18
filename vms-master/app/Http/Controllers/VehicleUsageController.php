@@ -150,6 +150,14 @@ class VehicleUsageController extends Controller
            
     }
 
+    public function postTest(Request $request)
+    {
+        
+        $file_path = $request->input('file_path');  
+        // return $file_path;
+        return response()->download($file_path);       
+    }
+
     public function viewAnnualLicenc(){
 
         $id = $_GET['id'];
