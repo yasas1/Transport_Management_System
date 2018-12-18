@@ -149,10 +149,10 @@
 
                 </div> 
                 
-                <div class="col-md-3">
+                <div class="col-md-2">
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <h4> <i class="glyphicon glyphicon-upload"></i>&nbsp Annual Licence File Upload </h4>  
 
                     <div>
@@ -212,7 +212,7 @@
 
                 {{-- {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeAnnualLicenc','files'=>true]) !!} --}}
 
-                <form action="{{ URL::to('/vehicle/annualLicence/update')}}" method="POST" id="edit_Licence">
+                <form action="{{ URL::to('/vehicle/annualLicence/update')}}" method="POST" id="edit_Licence" enctype="multipart/form-data">
                     {{csrf_field()}}
                     <input type="hidden" name="id" id="licence_id">
                     
@@ -308,8 +308,19 @@
                         <div >  
                             {!! Form::text('emission_test_details',null,['class'=>'form-control','id'=>'edit_emission_test_details' ]) !!}
                         </div> 
-    
                     </div> 
+
+                    <div class="col-md-6">
+                        <h4> <i class="glyphicon glyphicon-upload"></i>&nbsp Annual Licence File Upload </h4>  
+    
+                        <div>
+                            {{-- {{Form::file('licence_file',['class'=>'btn btn-default'])}}   --}}
+
+                            <input type="file" name="licence_file" class="btn btn-default">
+                        
+                        </div> 
+                    </div>
+
                 </div><br>
                                      
             </div>
@@ -528,13 +539,34 @@
             e.preventDefault();
             var data = $(this).serialize();
             var url = $(this).attr('action');
-            $.post(url,data,function(data){
-                console.log(data);           
-                $('#edit-modal').modal('hide');  
-                $('#flash-message').html(data);
-                    /* refresh data table in the view */
-                readAnnualLicenc(vid);              
-            });       
+            //data.append('file', document.getElementById('licence_file').files[0]);
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: new FormData(this),
+                cache:false,
+                contentType:false,
+                processData:false,
+                success: function(data)
+                {    
+                    console.log(data);           
+                    $('#edit-modal').modal('hide');  
+                    $('#flash-message').html(data);
+                    
+    
+                },
+                error: function(xhr, textStatus, error){
+                    console.log(xhr.statusText);
+                }
+            });
+            // $.post(url,data,function(data){
+            //     console.log(data);           
+            //     $('#edit-modal').modal('hide');  
+            //     $('#flash-message').html(data);
+            //         /* refresh data table in the view */
+            //     readAnnualLicenc(vid);              
+            // });       
         });
 
 

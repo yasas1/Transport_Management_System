@@ -14,8 +14,8 @@ class AnnualLicenceDoc extends Model
 		'path'
 	];
 
-	public function vehicals()
+	public function annualLicences()
 	{
-		return $this->hasMany(\App\Models\Vehical::class);
+		return $this->hasOne(\App\Models\AnnualLicence::class,'annual_licence_doc_id');
 	}
 }

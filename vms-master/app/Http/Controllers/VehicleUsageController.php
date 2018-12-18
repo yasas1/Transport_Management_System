@@ -160,6 +160,38 @@ class VehicleUsageController extends Controller
                 $annualLicence->licence_date = $request->licence_date;
                 $annualLicence->amount = $request->amount;
                 $annualLicence->emission_test_details = $request->emission_test_details;
+
+                if ($request->hasFile('licence_file')) {
+
+                    // return "fgsfg";
+
+                    $licence_file = $request->file('licence_file');
+                    $extension =  '.'.$licence_file->getClientOriginalExtension();
+                    $oName = $licence_file->getClientOriginalName();
+                    $name = md5($oName.Carbon::now()).$extension;
+    
+                    $path =  $licence_file->move('documents/licenceFile',$name);
+    
+                    if($annualLicence->annualLicenceDoc&&$licence_file = AnnualLicenceDoc::whereId($annualLicence->annualLicenceDoc->id)->first()){
+                        $licence_file->name = $oName;
+                        $licence_file->path = $path;
+                        $licence_file->update();
+                    }else{
+                        $licence_file = new AnnualLicenceDoc;
+                        $licence_file->path = $path;
+                        $licence_file->name = $oName;
+                        $licence_file->save();
+                    }
+    
+    
+                    if($annualLicence->annualLicenceDoc){
+                        $oldlicence_file = $annualLicence->annualLicenceDoc->path;
+                        if(file_exists($oldlicence_file)){
+                            unlink(public_path().'/'. $oldlicence_file);
+                        }
+                    }
+                    $annualLicence->annualLicenceDoc()->associate($licence_file);
+                }
                 
 
                 $annualLicence->update(); 
