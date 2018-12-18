@@ -431,11 +431,14 @@
                         </dl>
                     </div>
 
-                    <a id ="pdf"><i class="fa fa-file-pdf-o"></i></a>
+                    <a href="/documents/licenceFile/sample.pdf" download="/documents/licenceFile/sample.pdf" id ="download"> 
+                        <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-download">
+                            Download </i> </button>
+                    </a>
                    
                 </div>
 
-                <embed id="test" width="800px" height="2100px" />
+                
 
 
             </div>
