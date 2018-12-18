@@ -302,9 +302,7 @@
                 
                 <div class="row">
                     <div class="col-md-6"> 
-    
                         <h4> <i class="fas fa-award"></i>&nbsp Emission Test Details </h4>  
-        
                         <div >  
                             {!! Form::text('emission_test_details',null,['class'=>'form-control','id'=>'edit_emission_test_details' ]) !!}
                         </div> 
@@ -312,13 +310,8 @@
 
                     <div class="col-md-6">
                         <h4> <i class="glyphicon glyphicon-upload"></i>&nbsp Annual Licence File Upload </h4>  
-    
                         <div>
-                            {{-- {{Form::file('licence_file',['class'=>'btn btn-default'])}}   --}}
-
                             <input type="file" name="licence_file" class="btn btn-default" id="edit_file" > <br>
-                            <progress id='prog_edit' value="0" min="0" max="100"></progress>
-                        
                         </div> 
                     </div>
 
@@ -422,20 +415,22 @@
                     </div>
                    
                 </div>
-
-                <h4 class="modal-title" > <i class="fas fa-award"></i>&nbsp Emission Test Details</h4>
+            
                 <div class="row">
                     <div class="col-md-6">
+                        <h4 class="modal-title" > <i class="fas fa-award"></i>&nbsp Emission Test Details</h4>
                         <dl class="col-md-offset-3">
                            <p style="font-size:16px" id="view_emission_test_details"> <p>                        
                         </dl>
                     </div>
-
-                    <a href="/documents/licenceFile/sample.pdf" download="/documents/licenceFile/sample.pdf" id ="download"> 
-                        <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-download">
-                            Download </i> </button>
-                    </a>
-                   
+                    <div class="col-md-6">
+                        <h4 class="modal-title" > <i class="glyphicon glyphicon-download-alt"></i>&nbsp Annual Licence Document</h4>
+                        <a class="col-md-offset-3" href="/documents/licenceFile\9f6c7d32988603167c7cf539587a052a.PNG" download="dnf.PNG" id ="download"> 
+                            <button type="button" class="btn btn-success btn-md">
+                                <i class="glyphicon glyphicon-download">&nbsp Download </i>
+                            </button>
+                        </a>
+                    </div>
                 </div>
 
                 
@@ -466,7 +461,6 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
         /* read annual licence for given vehicle and display in the table */
     function readAnnualLicenc(vid){ 
         $.ajax({
@@ -499,43 +493,12 @@
         });
     }
 
-    $('#pdf').on('click',function(e){
-        e.preventDefault();
-        showAjaxPdf('documents/licenceFile/707ffd9771de94ff24d776ba6fc7d4b3.pdf');
-        
-    });
-
-    function showAjaxPdf(file_path)
-    {    
-        //window.location.href = file_path;
-        var file_path = file_path.replace(/\\/g,"/");
-        //var file_path = 'documents/licenceFile/707ffd9771de94ff24d776ba6fc7d4b3.pdf';
-        //9f6c7d32988603167c7cf539587a052a
-        $.ajax({
-            type: "POST",
-            data: 'file_path=' + file_path,
-            url: "/vehicle/annualLicence/test",
-            success: function(response)
-            {
-                console.log(response);
-                $('#test').val(response);
-
-            },
-            error: function(xhr, textStatus, error){
-                console.log(xhr.statusText);
-            }
-
-        });
-    }
-
-
     $('#vid').on('change',function () {
         var vid = $(this).val();
         console.log(vid);
 
         readAnnualLicenc(vid);
     });  
-
 
         /* one licence edit click event */
     $(document).on('click','#edit',function(e){
@@ -686,6 +649,39 @@
         });
  
     });
+
+</script>
+
+<script>
+
+    // $('#pdf').on('click',function(e){
+    //     e.preventDefault();
+    //     showAjaxPdf('documents/licenceFile/707ffd9771de94ff24d776ba6fc7d4b3.pdf');
+        
+    // });
+
+    // function showAjaxPdf(file_path)
+    // {    
+    //     //window.location.href = file_path;
+    //     var file_path = file_path.replace(/\\/g,"/");
+    //     //var file_path = 'documents/licenceFile/707ffd9771de94ff24d776ba6fc7d4b3.pdf';
+    //     //9f6c7d32988603167c7cf539587a052a
+    //     $.ajax({
+    //         type: "POST",
+    //         data: 'file_path=' + file_path,
+    //         url: "/vehicle/annualLicence/test",
+    //         success: function(response)
+    //         {
+    //             console.log(response);
+    //             $('#test').val(response);
+
+    //         },
+    //         error: function(xhr, textStatus, error){
+    //             console.log(xhr.statusText);
+    //         }
+
+    //     });
+    // }
 
 </script>
 
