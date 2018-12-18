@@ -123,13 +123,29 @@ class VehicleUsageController extends Controller
 
     public function deleteAnnualLicenc(Request $request){
 
-        if($request->ajax()){
+        if($request->ajax() && $annualLicence = AnnualLicence::find($request->id)  ){
             
-            AnnualLicence::destroy($request->id);
-            Session::flash('success', 'Annual Licence Deleted successfully !');
-            return View::make('layouts/success');
+            if($licence_doc_id = $annualLicence->annual_licence_doc_id){
+                // return $licence_doc_id;
+                
+                $oldlicence_file = $annualLicence->annualLicenceDoc->path;
+                if(file_exists($oldlicence_file)){
+                    unlink(public_path().'/'. $oldlicence_file);
+                }
+
+                $annualLicence->delete();
+
+                $licence_doc = AnnualLicenceDoc::whereId($licence_doc_id)->first();
+                $licence_doc->delete();
+
+                Session::flash('success', 'Annual Licence Deleted successfully !');
+                return View::make('layouts/success');
+
+            }
+                           
+            
         }
-        Session::flash('errors', 'Annual Licence Deleted successfully !');
+        Session::flash('errors', 'Annual Licence Deleted Error !');
         return View::make('layouts/errors');
            
     }
@@ -162,8 +178,6 @@ class VehicleUsageController extends Controller
                 $annualLicence->emission_test_details = $request->emission_test_details;
 
                 if ($request->hasFile('licence_file')) {
-
-                    // return "fgsfg";
 
                     $licence_file = $request->file('licence_file');
                     $extension =  '.'.$licence_file->getClientOriginalExtension();
