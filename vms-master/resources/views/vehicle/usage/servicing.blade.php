@@ -102,6 +102,7 @@
                             <th scope="col"> Meter Reading</th>
                             <th scope="col"> Details </th>
                             <th scope="col"> Cost (Rs.) </th>
+                            <th scope="col"> Action</th>
                         </tr>
                     </thead>
                     <tbody id="servicing_info">
@@ -134,19 +135,7 @@
             success: function(data)
             {
                 console.log(data);   
-                //$('#servicing_info').empty();            
-                $(data).each(function (i,value) {                
-                    //servicing_info 
-                    var tr = $("<tr/>");
-                    tr.append($("<td/>",{
-                        text :value.vehicle_name+" ("+value.vehicle_reg+")"
-                    })).append($("<td/>",{
-                        text :value.date
-                    })).append($("<td/>",{
-                        text :value.meter_reading
-                    }))
-                    $('#servicing_info').append(tr);              
-                }); 
+                $('#servicing_info').empty().html(data);           
                
             }
         });
@@ -158,11 +147,6 @@
         format: 'yyyy-mm-dd',
         todayHighlight: true
     });
-
-    $('.date').on('change',function () {
-        var x = $("#datepicker").data('datepicker').getFormattedDate('yyyy-mm-dd');
-        console.log(x);     
-    }); 
 
     setTimeout(function() {
         $('#successMessage').fadeOut('slow');       

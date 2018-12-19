@@ -1,17 +1,14 @@
-@foreach ($licences as $licence)
+@foreach ($services as $service)
 
-<tr id="{{$licence->id}}">        
-        <td> {{$licence->from}} </td>
-        <td> {{$licence->to}} </td> 
-        <td> {{$licence->licensing_authority}} </td>
-        <td> {{$licence->licence_no}} </td>
-        <td> {{$licence->licence_date}} </td>
-        <td> {{$licence->amount}} </td>
-        <td> {{$licence->emission_test_details}} </td>
+<tr id="{{$service->id}}">        
+        <td> {{$service->date}} </td>
+        <td> {{$service->meter_reading}} </td> 
+        <td> {{$service->details}} </td>
+        <td> {{$service->cost}} </td>
         <td> 
-            <a href="#" class="btn btn-success btn-sm" id="view" data-id="{{$licence->id}}"><i class="fa fa-eye"></i></a>
-            <a href="#" class="btn btn-warning btn-sm" id="edit" data-id="{{$licence->id}}"><i class="fa fa-edit"></i></a>
-            <a href="#" class="btn btn-danger btn-sm" id="delete" data-id="{{$licence->id}}"><i class="fa fa-trash"></i></a>
+            <a href="#" class="btn btn-success btn-sm" id="view" data-id="{{$service->id}}"><i class="fa fa-eye"></i></a>
+            <a href="#" class="btn btn-warning btn-sm" id="edit" data-id="{{$service->id}}"><i class="fa fa-edit"></i></a>
+            <a href="#" class="btn btn-danger btn-sm" id="delete" data-id="{{$service->id}}"><i class="fa fa-trash"></i></a>
         </td>
     </tr>
     

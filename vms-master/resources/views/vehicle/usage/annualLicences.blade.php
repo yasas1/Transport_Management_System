@@ -176,7 +176,7 @@
                             <th scope="col"> Action </th>
                         </tr>
                     </thead>
-                    <tbody id="servicing_info">
+                    <tbody id="licence_info">
 
                     </tbody>
                 </table>
@@ -454,7 +454,7 @@
             success: function(data)
             {
                 //console.log(data);   
-                $('#servicing_info').empty().html(data);
+                $('#licence_info').empty().html(data);
                 // $(data).each(function (i,value) {                
                 
                 //     var tr = $("<tr/>");
@@ -471,7 +471,7 @@
                 //     })).append($("<td/>",{
                 //         text :value.amount
                 //     }))
-                //     $('#servicing_info').append(tr);              
+                //     $('#licence_info').append(tr);              
                 // });             
             }
         });

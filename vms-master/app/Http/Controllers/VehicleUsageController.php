@@ -29,6 +29,14 @@ class VehicleUsageController extends Controller
 
     public function storeServicing(Request $request){
 
+        $request->validate([
+            'vehical_id' => 'required',
+            'date' => 'required',
+            'meter_reading' => 'required',
+            'details' => 'required',
+            'cost' => 'required',
+        ]);
+
         $service = new Service; 
 
         $service->vehical_id = $request->vehical_id;
@@ -54,8 +62,7 @@ class VehicleUsageController extends Controller
         ->get();
 
         return view('vehicle.usageList.serviceList',compact('services'));
-
-        return response($services);   
+  
     }
 
     public function viewAnnualLicences(){
