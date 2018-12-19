@@ -34,6 +34,8 @@ class VehicleUsageController extends Controller
         $service->vehical_id = $request->vehical_id;
         $service->date = $request->date;
         $service->meter_reading = $request->meter_reading;
+        $service->details = $request->details;
+        $service->cost = $request->cost;
 
         $service->save(); 
 
@@ -51,8 +53,10 @@ class VehicleUsageController extends Controller
         ->where('vehical_id','=',$vid)
         ->get();
 
+        return view('vehicle.usageList.serviceList',compact('services'));
+
         return response($services);   
-     }
+    }
 
     public function viewAnnualLicences(){
 

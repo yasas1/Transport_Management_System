@@ -21,7 +21,7 @@
   
     <div class="box box-primary">
     
-        <div class="box-body" style="height:560px" >
+        <div class="box-body">
 
             <div class="row"> 
                 {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeServicing','files'=>true]) !!}
@@ -92,14 +92,16 @@
             </div>
             {!! Form::close() !!} <br>
 
-            <div class="box box-primary" id="table_box">
+            <div class="box box-primary" id="table_box" style="height:400px; overflow: auto;" data-target="#exampleModalCenter">
             
-                <table id="table" class="table table-sm table-hover table-sm table-striped">
+                <table id="table" class="table table-sm table-hover table-sm table-striped"> 
+
                     <thead class="table-dark">  
                         <tr > 
-                            <th scope="col"> Vehicle </th>
                             <th scope="col"> Date </th>
                             <th scope="col"> Meter Reading</th>
+                            <th scope="col"> Details </th>
+                            <th scope="col"> Cost (Rs.) </th>
                         </tr>
                     </thead>
                     <tbody id="servicing_info">
@@ -132,7 +134,7 @@
             success: function(data)
             {
                 console.log(data);   
-                $('#servicing_info').empty();            
+                //$('#servicing_info').empty();            
                 $(data).each(function (i,value) {                
                     //servicing_info 
                     var tr = $("<tr/>");
