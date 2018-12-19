@@ -116,6 +116,80 @@
         </div>  
     </div>
 
+        {{-- Edit Confirmation modal --}}
+    <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="edit-title"></h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form action="{{ URL::to('/vehicle/annualLicence/update')}}" method="POST" id="edit_service">
+                        {{csrf_field()}}
+                        <input type="hidden" name="id" id="service_id">
+                                           
+                    <h4><i class="fa fa-calendar"></i>&nbsp Date </h4> 
+                    
+                    <div class="row">
+                        
+                        <div class="col-md-6"> 
+                            <div id="edit_sevdate" class="input-group date" data-date-format="yyyy-mm-dd">
+                                <input id="edit_date" name="date" class="form-control" type="text" readonly />
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                        </div>
+                          
+                    </div>
+                    <br>
+        
+                    <div class="row">
+        
+                        <div class="col-md-6"> 
+        
+                            <h4> <i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading </h4>  
+            
+                            <div>  
+                                {{Form::number('meter_reading', null,['class'=>'form-control ','id'=>'edit_meter_reading','placeholder'=>'Enter Licence Number'])}}                      
+                            </div>                      
+                        </div> 
+        
+                    </div><br>
+                    
+                    <div class="row"> 
+                        <div class="col-md-6"> 
+                            <h4><i class="fa fa-money"></i>&nbsp Cost </h4>  
+        
+                            <div>  
+                                {{Form::number('cost', null,['class'=>'form-control ','id'=>'edit_cost','placeholder'=>'Amount'])}}                      
+                            </div> 
+                        </div>
+                            
+                    </div><br>
+                    
+                    <div class="row">
+                        <div class="col-md-6"> 
+                            <h4> <i class="fas fa-award"></i>&nbsp Emission Test Details </h4>  
+                            <div >  
+                                {!! Form::text('details',null,['class'=>'form-control','id'=>'edit_details' ]) !!}
+                            </div> 
+                        </div> 
+
+                    </div><br>
+                                        
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success active" id="update">Update</button>
+                    {!! Form::close() !!} 
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="close_edit" >Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
         {{-- Delete Confirmation modal --}}
     <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -220,6 +294,12 @@
         todayHighlight: true
     });
 
+    $("#edit_sevdate").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    });
+
     setTimeout(function() {
         $('#successMessage').fadeOut('slow');       
     }, 3000); 
@@ -246,6 +326,62 @@
     $('#vid').on('change',function () {
         var vid = $(this).val();
         readServicing(vid);     
+
+    });
+
+    /* one licence edit click event */
+    $(document).on('click','#edit',function(e){
+        var id = $(this).data('id');
+        console.log(id);
+        var vid;
+
+        $('#service_id').val(id);
+           /* getting existing data to modal */
+
+        $.ajax({
+            url: '/vehicle/viewService/{id}',
+            type: 'GET',
+            data: { id: id },
+            success: function(data)
+            {    
+                console.log(data);
+                vid =data[0].vehical_id;
+
+                $('#edit-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Vehicle Servicing Editing" ); 
+                $('#edit_date').val(data[0].date);
+                $('#edit_meter_reading').val(data[0].meter_reading);
+                $('#edit_details').val(data[0].details);
+                $('#edit_cost').val(data[0].cost);
+   
+            },
+            error: function(xhr, textStatus, error){
+                console.log(xhr.statusText);
+            }
+        });
+
+        $("#edit-modal").modal('show');
+
+        $('#edit_Licence').on('submit',function(e){
+            e.preventDefault();
+            var url = $(this).attr('action');
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: new FormData(this),
+                success: function(data)
+                {    
+                    console.log(data);           
+                    $('#edit-modal').modal('hide');  
+                    $('#flash-message').html(data);
+                        /* refresh data table in the view */
+                    readAnnualLicenc(vid);      
+                },
+                error: function(xhr, textStatus, error){
+                    console.log(xhr.statusText);
+                }
+            });     
+        });
 
     });
 
@@ -280,10 +416,24 @@
 
     });
 
-    /* one service delete click event */
+        /* one service delete click event */
     $(document).on('click','#delete',function(e){
         var id = $(this).data('id');
         console.log(id);
+
+        $.ajax({
+            url: '/vehicle/viewService/{id}',
+            type: 'GET',
+            data: { id: id },
+            success: function(data)
+            {    
+                $('#delete-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Vehicle Service Delete" ); 
+   
+            },
+            error: function(xhr, textStatus, error){
+                console.log(xhr.statusText);
+            }
+        });
 
         $("#delete-modal").modal('show'); 
     
