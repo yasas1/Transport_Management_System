@@ -575,8 +575,14 @@
                 $('#amount').html(data[0].amount); 
                 $('#view_emission_test_details').html(data[0].emission_test_details);
 
-                $('#document_download').attr("href","/"+data[0].doc_path);
-                $('#document_download').attr("download","/"+data[0].doc_name);
+                if(data[0].annual_licence_doc_id == null){
+                    $('#document_view').hide(); 
+                }
+                else{
+                    $('#document_view').show();
+                    $('#document_download').attr("href","/"+data[0].doc_path);
+                    $('#document_download').attr("download","/"+data[0].doc_name);
+                }
    
             },
             error: function(xhr, textStatus, error){
