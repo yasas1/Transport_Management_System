@@ -414,7 +414,7 @@
                         <h4 class="modal-title" > <i class="glyphicon glyphicon-download-alt"></i>&nbsp Annual Licence Document</h4>
                         <a class="col-md-offset-3" href="" download="" id ="document_download"> 
                             <button type="button" class="btn btn-success btn-md">
-                                <i class="glyphicon glyphicon-download">&nbsp Download </i>
+                                <i class="glyphicon glyphicon-download-alt"></i>&nbsp <i id="doc_name"></i>
                             </button>
                         </a>
                     </div>
@@ -478,9 +478,8 @@
     }
 
     $('#vid').on('change',function () {
-        var vid = $(this).val();
-        console.log(vid);
-
+        var vid = $(this).val(); // get vehicle id
+     
         readAnnualLicenc(vid);
     });  
 
@@ -556,8 +555,7 @@
     
            /* one licence view click event */
     $(document).on('click','#view',function(e){
-        var id = $(this).data('id');
-        console.log(id);
+        var id = $(this).data('id'); //get annual licence id
 
         $.ajax({
             url: '/vehicle/viewAnnualLicenc/{id}',
@@ -565,7 +563,7 @@
             data: { id: id },
             success: function(data)
             {
-                console.log(data);    
+                    /* set values to html tag for view */  
                 $('#view-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+"Annual Licence" );
                 $('#period-from').html(data[0].from );
                 $('#period-to').html(data[0].to ); 
@@ -575,13 +573,15 @@
                 $('#amount').html(data[0].amount); 
                 $('#view_emission_test_details').html(data[0].emission_test_details);
 
+                    /* check that is there a document for licence */
                 if(data[0].annual_licence_doc_id == null){
-                    $('#document_view').hide(); 
+                    $('#document_view').hide(); //hide document download button
                 }
                 else{
-                    $('#document_view').show();
+                    $('#document_view').show(); //show document download button__(there is a document)
                     $('#document_download').attr("href","/"+data[0].doc_path);
-                    $('#document_download').attr("download","/"+data[0].doc_name);
+                    $('#document_download').attr("download",data[0].doc_name);
+                    $('#doc_name').html(data[0].doc_name);
                 }
    
             },
@@ -591,7 +591,7 @@
                 console.log(error);
             }
         });
-
+            //show view modal
         $("#view-modal").modal('show');
 
     });
