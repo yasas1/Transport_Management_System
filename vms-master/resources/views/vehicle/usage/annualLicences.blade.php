@@ -35,20 +35,15 @@
                 <div class="col-md-3"> 
 
                     <h4><i class="fa fa-car"></i> Vehicle </h4>
-    
-                    <div >
-                        
-                        {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Select a Vehicle'])}}
-                        
-                    </div>
-                    
+                    <div >                     
+                        {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Select a Vehicle'])}}                       
+                    </div>                   
                 </div>
             </div> <br>
 
             <div> 
                 <h4><i class="fas fa-tachometer-alt"></i>&nbsp Period </h4> 
             </div>
-
             <div class="row">
                 
                 <div class="col-md-3"> 
@@ -73,14 +68,6 @@
                 </div>
             </div>
             <br>
-
-            {{-- <div class="row">
-                <div class="col-md-5"> 
-                        <h4><i class="fas fa-tachometer-alt"></i> Licensing Authority </h4> 
-                        {{Form::text('vehical_id',null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Select a Vehicle'])}}
-                </div>
-
-            </div><br> --}}
 
             <div class="row">
 
@@ -423,18 +410,15 @@
                            <p style="font-size:16px" id="view_emission_test_details"> <p>                        
                         </dl>
                     </div>
-                    <div class="col-md-6">
+                    <div id="document_view" class="col-md-6">
                         <h4 class="modal-title" > <i class="glyphicon glyphicon-download-alt"></i>&nbsp Annual Licence Document</h4>
-                        <a class="col-md-offset-3" href="/documents/licenceFile\9f6c7d32988603167c7cf539587a052a.PNG" download="dnf.PNG" id ="download"> 
+                        <a class="col-md-offset-3" href="" download="" id ="document_download"> 
                             <button type="button" class="btn btn-success btn-md">
                                 <i class="glyphicon glyphicon-download">&nbsp Download </i>
                             </button>
                         </a>
                     </div>
                 </div>
-
-                
-
 
             </div>
             <div class="modal-footer">
@@ -581,7 +565,7 @@
             data: { id: id },
             success: function(data)
             {
-                //console.log(data[0]);    
+                console.log(data);    
                 $('#view-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+"Annual Licence" );
                 $('#period-from').html(data[0].from );
                 $('#period-to').html(data[0].to ); 
@@ -590,6 +574,9 @@
                 $('#licence_date').html(data[0].licence_date);
                 $('#amount').html(data[0].amount); 
                 $('#view_emission_test_details').html(data[0].emission_test_details);
+
+                $('#document_download').attr("href","/"+data[0].doc_path);
+                $('#document_download').attr("download","/"+data[0].doc_name);
    
             },
             error: function(xhr, textStatus, error){

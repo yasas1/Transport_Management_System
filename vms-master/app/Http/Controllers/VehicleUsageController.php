@@ -150,8 +150,7 @@ class VehicleUsageController extends Controller
            
     }
 
-    public function postTest(Request $request)
-    {
+    public function postTest(Request $request){
         
         $file_path = $request->input('file_path');  
         // return $file_path;
@@ -162,11 +161,24 @@ class VehicleUsageController extends Controller
 
         $id = $_GET['id'];
 
-        $licences = DB::table('annual_licences')
-        ->join('vehical', 'annual_licences.vehical_id', '=', 'vehical.id') 
-        ->select('annual_licences.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
-        ->where('annual_licences.id','=',$id)
-        ->get();
+        $annualLicence = AnnualLicence::find($id);
+
+        if($annualLicence->annual_licence_doc_id == null){
+            $licences = DB::table('annual_licences')
+            ->join('vehical', 'annual_licences.vehical_id', '=', 'vehical.id') 
+            ->select('annual_licences.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
+            ->where('annual_licences.id','=',$id)
+            ->get();       
+        }
+        else{
+            $licences = DB::table('annual_licences')
+            ->join('vehical', 'annual_licences.vehical_id', '=', 'vehical.id') 
+            ->join('annual_licence_doc', 'annual_licences.annual_licence_doc_id', '=', 'annual_licence_doc.id') 
+            ->select('annual_licences.*','annual_licence_doc.name as doc_name','annual_licence_doc.path as doc_path','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
+            ->where('annual_licences.id','=',$id)
+            ->get();
+            
+        }
 
         return response($licences); 
 
