@@ -65,6 +65,35 @@ class VehicleUsageController extends Controller
   
     }
 
+    public function viewService(){
+
+        $id = $_GET['id'];
+        
+        $service = DB::table('services')
+        ->join('vehical', 'services.vehical_id', '=', 'vehical.id')
+        ->select('services.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
+        ->where('services.id','=',$id)
+        ->get();       
+        
+
+        return response($service); 
+
+    }
+
+    public function deleteService(Request $request){
+
+        if($request->ajax() && $service = Service::find($request->id)){
+                            
+            $service->delete();
+
+            Session::flash('success', 'Vehicle Servicing Deleted successfully !');
+            return View::make('layouts/success');        
+        }
+        Session::flash('errors', 'Annual Licence Deleted Error !');
+        return View::make('layouts/errors');
+
+    }
+
     public function viewAnnualLicences(){
 
         $vehicles = Vehical::all()->pluck('fullName','id');

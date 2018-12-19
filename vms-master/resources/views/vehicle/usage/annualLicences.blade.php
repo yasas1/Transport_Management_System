@@ -184,6 +184,7 @@
             </div>
           
         </div>
+    </div>
 
             {{-- Edit Confirmation modal --}}
     <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true">
@@ -428,7 +429,7 @@
         </div>
     </div>
        
-    </div>
+    
                     
  
 @endsection
@@ -618,7 +619,6 @@
     
         $("#btn-confirm").on("click", function(){
             console.log("confirmed ");
-            $("#mi-modal").modal('hide');
 
             $.ajax({
                 url:"{{ route('annLicence.delete')}}",

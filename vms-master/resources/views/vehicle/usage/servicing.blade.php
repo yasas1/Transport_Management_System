@@ -18,6 +18,7 @@
 @section('content')
     @include('layouts.errors')
     @include('layouts.success')
+    <div class="flash-message" id="flash-message" ></div>
   
     <div class="box box-primary">
     
@@ -63,7 +64,7 @@
 
                 <div class="col-md-3"> 
 
-                    <h4><i class="fas fa-tachometer-alt"></i> Cost </h4>  
+                    <h4><i class="fa fa-money"></i> Cost </h4>  
     
                     <div>  
                         {{Form::number('cost', null,['class'=>'form-control ','placeholder'=>'Cost of Service'])}}                      
@@ -74,7 +75,7 @@
 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fas fa-tachometer-alt"></i> Deatils </h4>  
+                    <h4><i class="glyphicon glyphicon-list-alt"></i> Deatils </h4>  
     
                     <div>  
                         {!! Form::textarea('details',null,['class'=>'form-control','placeholder'=>'Service Details','rows'=>'2'  ]) !!}                      
@@ -112,8 +113,91 @@
             
             </div>
 
+        </div>  
+    </div>
+
+        {{-- Delete Confirmation modal --}}
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <b> <h3 class="modal-title" id="delete-title"></h3> </b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 class="modal-title" >Please Confirm Your Delete Action</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="delete-confirm">Delete</button>
+                <button type="button" class="btn btn-primary active" data-dismiss="modal">Cancel</button>
+            </div>
+            </div>
         </div>
-       
+    </div>
+
+    {{-- View modal --}}
+    <div class="modal fade" id="view-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+
+                <i style="font-size:25px; color:gray" class="fa fa-car"></i>&nbsp  <label class="modal-title" id="view-title" style="font-size:25px; color:gray;"> </label> 
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <h4 class="modal-title" > <i class="fa fa-calendar"></i>&nbsp Service Date</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <dl class="col-md-offset-3">
+                            
+                            <label style="font-size:15px" id="view_date"> </label>
+                            
+                        </dl>
+                    </div>
+                    
+                </div><br>
+                <h4 class="modal-title" > <i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <dl class="col-md-offset-3">
+                            <p style="font-size:16px" id="view_meter"> </p>                        
+                        </dl>
+                    </div>
+                   
+                </div><br>
+
+                <h4 class="modal-title" > <i class="fa fa-money"></i>&nbsp Cost</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <dl class="col-md-offset-3">
+                           <b> Rs. </b><label style="font-size:16px" id="view_cost"> <label>                        
+                        </dl>
+                    </div>
+                   
+                </div>
+            
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="modal-title" > <i class="fas fa-award"></i>&nbsp Service Details</h4>
+                        <dl class="col-md-offset-3">
+                           <p style="font-size:16px" id="view_details"> <p>                        
+                        </dl>
+                    </div>
+                    
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary active" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
     </div>
  
 @endsection
@@ -123,25 +207,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 
 <script>
-
-    $('#vid').on('change',function () {
-        var vid = $(this).val();
-        console.log(vid);
-
-        $.ajax({
-            url: '/vehicle/readServicing/{id}',
-            type: 'GET',
-            data: { id: vid },
-            success: function(data)
-            {
-                console.log(data);   
-                $('#servicing_info').empty().html(data);           
-               
-            }
-        });
-
+    
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
- 
+
     $("#datepicker").datepicker({ 
         autoclose: true, 
         format: 'yyyy-mm-dd',
@@ -151,8 +223,95 @@
     setTimeout(function() {
         $('#successMessage').fadeOut('slow');       
     }, 3000); 
+    
+</script>
 
+<script>
+
+    function readServicing(vid){ 
+        
+        $.ajax({
+            url: '/vehicle/readServicing/{id}',
+            type: 'GET',
+            data: { id: vid },
+            success: function(data)
+            {
+                //console.log(data);   
+                $('#servicing_info').empty().html(data);           
+               
+            }
+        });
+    }
+
+    $('#vid').on('change',function () {
+        var vid = $(this).val();
+        readServicing(vid);     
+
+    });
+
+        /* one service click view event */
+    $(document).on('click','#view',function(e){
+        var id = $(this).data('id'); //get annual licence id
+
+        $.ajax({
+            url: '/vehicle/viewService/{id}',
+            type: 'GET',
+            data: { id: id },
+            success: function(data)
+            {
+                console.log(data);
+                    /* set values to html tag for view */  
+                $('#view-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+" Vehicle Service" );
+                $('#view_date').html(data[0].date );
+                $('#view_meter').html(data[0].meter_reading ); 
+                $('#view_cost').html(data[0].cost );  
+                $('#view_details').html(data[0].details);
+                
+
+            },
+            error: function(xhr, textStatus, error){
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
+            }
+        });
+            //show view modal
+        $("#view-modal").modal('show');
+
+    });
+
+    /* one service delete click event */
+    $(document).on('click','#delete',function(e){
+        var id = $(this).data('id');
+        console.log(id);
+
+        $("#delete-modal").modal('show'); 
+    
+        $("#delete-confirm").on("click", function(){
+            console.log("confirmed ");
+
+            $.ajax({
+                url:"{{ route('service.delete')}}",
+                method: "POST",
+                data: { id: id },
+                success: function(data)
+                {
+                    console.log(data);   
+                    $('#flash-message').html(data); 
+    
+                    $('tr#'+id).remove();
+                    $('#delete-modal').modal('hide');
+                },
+                error: function(xhr, textStatus, error){
+                    console.log(xhr.statusText);
+                    console.log(textStatus);
+                    console.log(error);
+                }
+            });
+
+        });
+ 
+    });
 </script>
     
-
 @endsection
