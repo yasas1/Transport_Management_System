@@ -5,11 +5,12 @@
 @section('styles')
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
-    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <style> 
         /* label{margin-left: 20px;}
         #datepicker{ margin: 0 20px 20px 20px;} */
         #datepicker > span:hover{cursor: pointer;color: blue;}
+        #edit_sevdate > span:hover{cursor: pointer;color: blue;}
     </style>
 @endsection
 
@@ -116,7 +117,7 @@
         </div>  
     </div>
 
-        {{-- Edit Confirmation modal --}}
+        {{-- Edit modal --}}
     <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -128,7 +129,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <form action="{{ URL::to('/vehicle/annualLicence/update')}}" method="POST" id="edit_service">
+                    <form action="{{ URL::to('/vehicle/service/update')}}" method="POST" id="edit_service">
                         {{csrf_field()}}
                         <input type="hidden" name="id" id="service_id">
                                            
@@ -329,22 +330,20 @@
 
     });
 
-    /* one licence edit click event */
+        /* one service edit click event */
     $(document).on('click','#edit',function(e){
         var id = $(this).data('id');
         console.log(id);
         var vid;
-
         $('#service_id').val(id);
-           /* getting existing data to modal */
 
+           /* getting existing data to modal */
         $.ajax({
             url: '/vehicle/viewService/{id}',
             type: 'GET',
             data: { id: id },
             success: function(data)
             {    
-                console.log(data);
                 vid =data[0].vehical_id;
 
                 $('#edit-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Vehicle Servicing Editing" ); 
@@ -361,21 +360,21 @@
 
         $("#edit-modal").modal('show');
 
-        $('#edit_Licence').on('submit',function(e){
+        $('#edit_service').on('submit',function(e){
             e.preventDefault();
             var url = $(this).attr('action');
-
+            var data = $(this).serialize();
             $.ajax({
                 url: url,
                 type: 'POST',
-                data: new FormData(this),
+                data: data,//new FormData(this),
                 success: function(data)
                 {    
                     console.log(data);           
                     $('#edit-modal').modal('hide');  
                     $('#flash-message').html(data);
                         /* refresh data table in the view */
-                    readAnnualLicenc(vid);      
+                    readServicing(vid);      
                 },
                 error: function(xhr, textStatus, error){
                     console.log(xhr.statusText);

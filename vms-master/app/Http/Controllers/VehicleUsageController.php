@@ -94,6 +94,14 @@ class VehicleUsageController extends Controller
 
     }
 
+    public function updateService(Request $request){
+        if($request->ajax() && $service = Service::find($request->id)){ 
+
+            return $service;
+        }
+
+    }
+
     public function viewAnnualLicences(){
 
         $vehicles = Vehical::all()->pluck('fullName','id');

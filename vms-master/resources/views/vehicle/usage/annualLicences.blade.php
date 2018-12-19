@@ -547,8 +547,8 @@
             });     
         });
 
-
     });
+    
         /* for clear previously selected file */
     $('#close_edit').on('click',function(e){
         $("#edit_file").val("");

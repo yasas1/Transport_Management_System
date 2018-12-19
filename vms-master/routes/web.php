@@ -185,7 +185,8 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::post('/vehicle/storeServicing','VehicleUsageController@storeServicing');
     Route::get('/vehicle/readServicing/{id}','VehicleUsageController@readServicing');
     Route::post('/vehicle/service','VehicleUsageController@deleteService')->name('service.delete'); 
-    Route::get('/vehicle/viewService/{id}','VehicleUsageController@viewService'); 
+    Route::get('/vehicle/viewService/{id}','VehicleUsageController@viewService');  
+    Route::post('/vehicle/service/update','VehicleUsageController@updateService');
 
     Route::get('/vehicle/annualLicences','VehicleUsageController@viewAnnualLicences');
     Route::post('/vehicle/storeAnnualLicenc','VehicleUsageController@storeAnnualLicenc');
