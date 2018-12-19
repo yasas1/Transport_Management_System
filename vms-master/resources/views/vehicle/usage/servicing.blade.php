@@ -7,8 +7,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
     
     <style> 
-        label{margin-left: 20px;}
-        #datepicker{width:300px; margin: 0 20px 20px 20px;}
+        /* label{margin-left: 20px;}
+        #datepicker{ margin: 0 20px 20px 20px;} */
         #datepicker > span:hover{cursor: pointer;color: blue;}
     </style>
 @endsection
@@ -25,19 +25,16 @@
 
             <div class="row"> 
                 {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeServicing','files'=>true]) !!}
-                <div class="col-md-5"> 
+                <div class="col-md-3"> 
 
                     <h4><i class="fa fa-car"></i> Vehicle </h4>
-    
-                    <div style="width:300px">
-                        
+                    <div>             
                         {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Select a Vehicle'])}}
-                        
-                    </div>
-                    
+                    </div>                  
                 </div>
+                <div class="col-md-2"> </div>
     
-                <div class="col-md-5"> 
+                <div class="col-md-3"> 
     
                     <h4><i class="fa fa-calendar"></i> Date </h4>
                                                         
@@ -46,17 +43,17 @@
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                     </div>
             
-                </div>
+                </div> 
 
-            </div> 
+            </div> <br>
             
             <div class="row"> 
 
-                <div class="col-md-5"> 
+                <div class="col-md-3"> 
 
                     <h4><i class="fas fa-tachometer-alt"></i> Meter Reading </h4>  
     
-                    <div style="width:300px">  
+                    <div>  
                         {{Form::number('meter_reading', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Meter Reading'])}}                      
                     </div>                      
                 </div>   
@@ -64,7 +61,31 @@
 
             <div class="row"> 
 
-                <div class="col-md-5"> 
+                <div class="col-md-3"> 
+
+                    <h4><i class="fas fa-tachometer-alt"></i> Cost </h4>  
+    
+                    <div>  
+                        {{Form::number('cost', null,['class'=>'form-control ','placeholder'=>'Cost of Service'])}}                      
+                    </div>                      
+                </div>
+
+                <div class="col-md-2"> </div>
+
+                <div class="col-md-4"> 
+
+                    <h4><i class="fas fa-tachometer-alt"></i> Deatils </h4>  
+    
+                    <div>  
+                        {!! Form::textarea('details',null,['class'=>'form-control','placeholder'=>'Service Details','rows'=>'2'  ]) !!}                      
+                    </div>                      
+                </div> 
+
+            </div><br>
+
+            <div class="row"> 
+
+                <div class="col-md-4"> 
                     {{Form::submit('SUBMIT', ['class'=>'btn btn-success pull-left'])}} &nbsp
                     {{Form::reset('CLEAR', ['class'=>'btn btn-warning'])}}
                 </div>  
@@ -134,7 +155,7 @@
         autoclose: true, 
         format: 'yyyy-mm-dd',
         todayHighlight: true
-    }).datepicker('update', new Date());
+    });
 
     $('.date').on('change',function () {
         var x = $("#datepicker").data('datepicker').getFormattedDate('yyyy-mm-dd');

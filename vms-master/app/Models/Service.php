@@ -39,7 +39,9 @@ class Service extends Eloquent
 	protected $fillable = [
 		'vehical_id',
 		'date',
-		'meter_reading'
+		'meter_reading',
+		'details',
+		'cost'
 	];
 
 	public function vehical()
