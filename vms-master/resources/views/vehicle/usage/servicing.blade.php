@@ -462,5 +462,20 @@
  
     });
 </script>
+
+<script>
+
+    $(document).ready(function() {
+
+        $.get("{{ URL::to('/vehicle/serivceNotification/') }}",function(data){ 
+        
+           console.log(data);
+        
+        });
+
+    });
+
+
+</script>
     
 @endsection

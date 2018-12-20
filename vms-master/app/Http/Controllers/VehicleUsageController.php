@@ -24,7 +24,29 @@ class VehicleUsageController extends Controller
 
     public function viewAddServicing(){
         $vehicles = Vehical::all()->pluck('fullName','id');
+
         return view('vehicle.usage.servicing',compact('vehicles'));
+    }
+
+    public function serivceNotification(){
+        //$services = Service::orderBy('id', 'desc')->get()->groupBy('vehical_id');
+
+        $services = DB::table('services')
+        ->select( 'vehical_id')
+        ->latest()
+        //->groupBy('vehical_id')
+        ->first();
+
+        
+        /*->join('vehical', 'services.vehical_id', '=', 'vehical.id')
+        ->select('services.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
+        ->get(); 
+        ->latest()
+                ->first();
+
+        */
+
+        return $services;
     }
 
     public function storeServicing(Request $request){
