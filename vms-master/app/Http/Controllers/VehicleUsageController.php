@@ -96,8 +96,16 @@ class VehicleUsageController extends Controller
 
     public function updateService(Request $request){
         if($request->ajax() && $service = Service::find($request->id)){ 
+            
+            $service->date = $request->date;
+            $service->meter_reading = $request->meter_reading;
+            $service->details = $request->details;
+            $service->cost = $request->cost;
 
-            return $service;
+            $service->update();
+
+            Session::flash('success', 'Vehicle Service Updated successfully !');
+            return View::make('layouts/success');
         }
 
     }
