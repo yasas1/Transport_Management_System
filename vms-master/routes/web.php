@@ -203,7 +203,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
 
 
         /*Vehicle Tyres*/
-    Route::get('/vehicle/accidents','VehicleUsageController@viewVehicleLicence');
+    Route::get('/vehicle/accidents','VehicleUsageController@viewVehicleAccidents');
 
 
 

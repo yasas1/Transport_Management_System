@@ -9,7 +9,7 @@
     <style> 
         /* label{margin-left: 20px;}
         #datepicker{ margin: 0 20px 20px 20px;} */
-        #datepicker > span:hover{cursor: pointer;color: blue;}
+        #date > span:hover{cursor: pointer;color: blue;}
         #edit_sevdate > span:hover{cursor: pointer;color: blue;}
     </style>
 @endsection
@@ -26,7 +26,7 @@
         <div class="box-body">
 
             <div class="row"> 
-                {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeServicing','files'=>true]) !!}
+                {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeAccidents','files'=>true]) !!}
                 <div class="col-md-3"> 
 
                     <h4><i class="fa fa-car"></i> Vehicles </h4>
@@ -40,7 +40,7 @@
     
                     <h4><i class="fa fa-calendar"></i> Date </h4>
                                                         
-                    <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
+                    <div id="date" class="input-group date" data-date-format="yyyy-mm-dd">
                         <input id="date" name="date" class="form-control" type="text" readonly />
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                     </div>
@@ -123,6 +123,26 @@
 @section('scripts')
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+
+<script>
+    
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $("#date").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    });
+
+    setTimeout(function() {
+        $('#successMessage').fadeOut('slow');       
+    }, 3000); 
+    
+</script>
 
 
     
