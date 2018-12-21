@@ -29,7 +29,7 @@
                 {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeAccidents','files'=>true]) !!}
                 <div class="col-md-3"> 
 
-                    <h4><i class="fa fa-car"></i> Vehicles </h4>
+                    <h4><i class="fas fa-car-crash"></i> Vehicles </h4>
                     <div>             
                         {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Select a Vehicle'])}}
                     </div>                  

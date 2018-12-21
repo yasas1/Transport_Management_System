@@ -315,7 +315,7 @@ desired effect
                         <li class="{{url()->current() == url('/vehicle/usage')?'active':''}}" ><a href="{{url('/vehicle/usage')}}"><i class="fa fa-eye"></i> Vehicle Usage</a></li> 
                         <li class="{{url()->current() == url('/vehicle/addservicing')?'active':''}}" ><a href="{{url('/vehicle/addservicing')}}"><i class="fas fa-oil-can"></i> <span>&nbspSERVICING</span></a></li>
                         <li class="{{url()->current() == url('/vehicle/annualLicences')?'active':''}}" ><a href="{{url('/vehicle/annualLicences')}}"><i class="fas fa-list-alt"></i> <span>&nbsp Annual Licences</span></a></li>
-                        <li class="{{url()->current() == url('/vehicle/accidents')?'active':''}}" ><a href="{{url('/vehicle/accidents')}}"><i class="fas fa-list-alt"></i> <span>&nbsp Accidents</span></a></li>
+                        <li class="{{url()->current() == url('/vehicle/accidents')?'active':''}}" ><a href="{{url('/vehicle/accidents')}}"><i class="fas fa-car-crash"></i> <span>&nbsp Accidents</span></a></li>
                     </ul>
                     
                 </li>
