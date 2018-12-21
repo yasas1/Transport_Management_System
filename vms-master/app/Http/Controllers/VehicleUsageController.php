@@ -300,5 +300,13 @@ class VehicleUsageController extends Controller
         }
     }
 
+    public function viewVehicleLicence(){
+
+        $vehicles = Vehical::all()->pluck('fullName','id');
+
+        return view('vehicle.usage.accidents',compact('vehicles'));
+
+    }
+
 
 }

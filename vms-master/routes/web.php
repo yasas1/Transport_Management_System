@@ -181,6 +181,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     /*Vehicle Usage*/
     Route::get('/vehicle/usage','VehicleUsageController@index');
 
+        /*Vehicle service*/
     Route::get('/vehicle/addservicing','VehicleUsageController@viewAddServicing'); 
     Route::post('/vehicle/storeServicing','VehicleUsageController@storeServicing');
     Route::get('/vehicle/readServicing/{id}','VehicleUsageController@readServicing');
@@ -189,6 +190,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::post('/vehicle/service/update','VehicleUsageController@updateService');
     Route::get('/vehicle/serivceNotification/','VehicleUsageController@serivceNotification');
 
+        /*Vehicle annual licence*/
     Route::get('/vehicle/annualLicences','VehicleUsageController@viewAnnualLicences');
     Route::post('/vehicle/storeAnnualLicenc','VehicleUsageController@storeAnnualLicenc');
     Route::get('/vehicle/readAnnualLicenc/{id}','VehicleUsageController@readAnnualLicenc'); 
@@ -196,6 +198,14 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/vehicle/viewAnnualLicenc/{id}','VehicleUsageController@viewAnnualLicenc'); 
     Route::post('/vehicle/annualLicence/update','VehicleUsageController@updateAnnualLicenc');
     Route::post('/vehicle/annualLicence/test','VehicleUsageController@postTest');
+
+    /*Vehicle Tyres*/
+
+
+        /*Vehicle Tyres*/
+    Route::get('/vehicle/accidents','VehicleUsageController@viewVehicleLicence');
+
+
 
 
                                                                     
