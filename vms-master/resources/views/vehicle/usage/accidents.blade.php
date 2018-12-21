@@ -53,10 +53,10 @@
 
                 <div class="col-md-3"> 
 
-                    <h4><i class="fas fa-tachometer-alt"></i> Meter Reading </h4>  
+                    <h4><i class="fas fa-map-marker-alt"></i> Place</h4>  
     
                     <div>  
-                        {{Form::number('meter_reading', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Meter Reading'])}}                      
+                        {!! Form::text('place',null,['class'=>'form-control','placeholder'=>'Place' ]) !!}                      
                     </div>                      
                 </div>   
             </div><br>
@@ -65,10 +65,10 @@
 
                 <div class="col-md-3"> 
 
-                    <h4><i class="fa fa-money"></i> Cost </h4>  
+                    <h4><i class="fa fa-money"></i> Driver </h4>  
     
                     <div>  
-                        {{Form::number('cost', null,['class'=>'form-control ','placeholder'=>'Cost of Service'])}}                      
+                        {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','placeholder'=>'Select Driver'])}}                     
                     </div>                      
                 </div>
 
@@ -76,10 +76,23 @@
 
                 <div class="col-md-4"> 
 
-                    <h4><i class="glyphicon glyphicon-list-alt"></i> Deatils </h4>  
+                    <h4><i class="fas fa-shield-alt"></i> Police Station where Entry Lodged </h4>  
     
                     <div>  
-                        {!! Form::textarea('details',null,['class'=>'form-control','placeholder'=>'Service Details','rows'=>'2'  ]) !!}                      
+                        {!! Form::text('police_station',null,['class'=>'form-control','placeholder'=>'Police Station ','rows'=>'2'  ]) !!}                      
+                    </div>                      
+                </div> 
+
+            </div><br>
+
+            <div class="row"> 
+
+                <div class="col-md-4"> 
+
+                    <h4><i class="fas fa-shield-alt"></i> Description of Damage</h4>  
+    
+                    <div>  
+                        {!! Form::textarea('description_of_damage',null,['class'=>'form-control','placeholder'=>'Description','rows'=>'2'  ]) !!}                      
                     </div>                      
                 </div> 
 

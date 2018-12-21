@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Vehical;
 use App\Models\Service;
+use App\Models\Driver;
 use App\Models\AnnualLicence;
 use App\Models\AnnualLicenceDoc;
 use Illuminate\Support\Carbon;
@@ -119,6 +120,7 @@ class VehicleUsageController extends Controller
 
     public function viewAnnualLicences(){
 
+        $vehicles = Vehical::all()->pluck('fullName','id');
         $vehicles = Vehical::all()->pluck('fullName','id');
         return view('vehicle.usage.annualLicences',compact('vehicles'));
     }
@@ -302,9 +304,10 @@ class VehicleUsageController extends Controller
 
     public function viewVehicleAccidents(){
 
-        $vehicles = Vehical::all()->pluck('fullName','id');
+        $vehicles = Vehical::all()->pluck('fullName','id'); 
+        $drivers = Driver::all()->pluck('fullName','id');
 
-        return view('vehicle.usage.accidents',compact('vehicles'));
+        return view('vehicle.usage.accidents',compact('vehicles','drivers'));
 
     }
 
