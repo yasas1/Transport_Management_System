@@ -9,8 +9,8 @@
     <style> 
         /* label{margin-left: 20px;}
         #datepicker{ margin: 0 20px 20px 20px;} */
-        #date > span:hover{cursor: pointer;color: blue;}
-        #edit_sevdate > span:hover{cursor: pointer;color: blue;}
+        #date, > span:hover{cursor: pointer;color: blue;}
+        #recovery_date > span:hover{cursor: pointer;color: blue;}
     </style>
 @endsection
 
@@ -27,31 +27,33 @@
 
             <div class="row"> 
                 {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeAccidents','files'=>true]) !!}
-                <div class="col-md-3"> 
 
-                    <h4><i class="fas fa-car-crash"></i> Vehicles </h4>
+                <div class="col-md-4"> 
+
+                    <h4><i class="fas fa-car-crash"></i> Vehicle </h4>
                     <div>             
                         {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Select a Vehicle'])}}
                     </div>                  
-                </div>
-                <div class="col-md-2"> </div>
-    
-                <div class="col-md-3"> 
-    
+                </div>        
+
+            </div> <br>
+          
+            <div class="row">
+                
+                <div class="col-md-4"> 
+
                     <h4><i class="fa fa-calendar"></i> Date </h4>
                                                         
                     <div id="date" class="input-group date" data-date-format="yyyy-mm-dd">
-                        <input id="date" name="date" class="form-control" type="text" readonly />
+                        <input name="date" class="form-control" type="text" readonly />
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                     </div>
             
                 </div> 
 
-            </div> <br>
-            
-            <div class="row"> 
+                <div class="col-md-2"> </div>
 
-                <div class="col-md-3"> 
+                <div class="col-md-4"> 
 
                     <h4><i class="fas fa-map-marker-alt"></i> Place</h4>  
     
@@ -63,9 +65,9 @@
 
             <div class="row"> 
 
-                <div class="col-md-3"> 
+                <div class="col-md-4"> 
 
-                    <h4><i class="fa fa-money"></i> Driver </h4>  
+                    <h4><i class="fa fa-user"></i> Driver </h4>  
     
                     <div>  
                         {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','placeholder'=>'Select Driver'])}}                     
@@ -89,6 +91,19 @@
 
                 <div class="col-md-4"> 
 
+                    <h4><i class="fa fa-drivers-license"></i> Action Taken Against Driver</h4>  
+    
+                    <div>  
+                        {!! Form::textarea('action_taken_against_driver',null,['class'=>'form-control','placeholder'=>'Action Taken Against Driver','rows'=>'2'  ]) !!}                      
+                    </div>                      
+                </div> 
+    
+            </div><br>
+
+            <div class="row"> 
+
+                <div class="col-md-4"> 
+
                     <h4><i class="fas fa-shield-alt"></i> Description of Damage</h4>  
     
                     <div>  
@@ -101,7 +116,34 @@
             <div class="row"> 
 
                 <div class="col-md-4"> 
-                    {{Form::submit('SUBMIT', ['class'=>'btn btn-success pull-left'])}} &nbsp
+
+                    <h4><i class="fa fa-user"></i> Cost of Repaire </h4>  
+    
+                    <div>  
+                        {{Form::number('cost_of_repaire', null,['class'=>'form-control ','placeholder'=>'Cost of Repaire'])}}                     
+                    </div>                      
+                </div>
+
+                <div class="col-md-2"> </div>
+
+                <div class="col-md-4"> 
+
+                    <h4><i class="fa fa-calendar"></i> Date of Recovery </h4>  
+    
+                    <div>  
+                        <div id="recovery_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                            <input name="date_of_recovery" class="form-control" type="text" readonly />
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>                     
+                    </div>                      
+                </div> 
+    
+            </div><br>
+
+            <div class="row"> 
+
+                <div class="col-md-4"> 
+                    {{Form::submit('SUBMIT', ['class'=>'btn btn-success pull-left'])}} &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
                     {{Form::reset('CLEAR', ['class'=>'btn btn-warning'])}}
                 </div>  
             </div>
@@ -149,7 +191,12 @@
         autoclose: true, 
         format: 'yyyy-mm-dd',
         todayHighlight: true
-    });
+    }); 
+    $("#recovery_date").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    }); 
 
     setTimeout(function() {
         $('#successMessage').fadeOut('slow');       
