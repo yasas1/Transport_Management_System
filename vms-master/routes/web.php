@@ -202,9 +202,10 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     /*Vehicle Tyres*/
 
 
-        /*Vehicle Tyres*/
+        /*Vehicle Accidents*/ 
     Route::get('/vehicle/accidents','VehicleUsageController@viewVehicleAccidents'); 
     Route::post('/vehicle/storeAccidents','VehicleUsageController@storeAccidents');
+    Route::get('/vehicle/readVehicleAccidents/{id}','VehicleUsageController@readVehicleAccidents'); 
                                                                     
 });
 
