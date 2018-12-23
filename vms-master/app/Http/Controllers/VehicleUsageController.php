@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Vehical;
 use App\Models\Service;
+use App\Models\Accident;
 use App\Models\Driver;
 use App\Models\AnnualLicence;
 use App\Models\AnnualLicenceDoc;
@@ -46,17 +47,21 @@ class VehicleUsageController extends Controller
             'cost' => 'required',
         ]);
 
-        $service = new Service; 
+        $accident = new Accident; 
 
-        $service->vehical_id = $request->vehical_id;
-        $service->date = $request->date;
-        $service->meter_reading = $request->meter_reading;
-        $service->details = $request->details;
-        $service->cost = $request->cost;
+        $accident->vehical_id = $request->vehical_id;
+        $accident->date = $request->date;
+        $accident->place = $request->place;
+        $accident->description_of_damage = $request->description_of_damage;
+        $accident->cost_of_repaire = $request->cost_of_repaire;
+        $accident->date_of_recovery = $request->date_of_recovery;
+        $accident->action_taken_against_driver = $request->action_taken_against_driver;
+        $accident->police_station = $request->police_station;
+        $accident->driver_id = $request->driver_id;
 
-        $service->save(); 
+        $accident->save(); 
 
-        return redirect()->back()->with(['success'=>'Servicing added successfully !']);
+        return redirect()->back()->with(['success'=>'Vehicle Accident added successfully !']);
 
     }
 
@@ -318,7 +323,28 @@ class VehicleUsageController extends Controller
 
     public function storeAccidents(Request $request){
 
-        return $request;
+        $request->validate([
+            'vehical_id' => 'required',
+            'date' => 'required',
+            'place' => 'required',
+            'description_of_damage' => 'required',
+            'cost_of_repaire' => 'required',
+            'action_taken_against_driver' => 'required',
+            'driver_id' => 'required',
+            
+        ]);
+
+        $service = new Service; 
+
+        $service->vehical_id = $request->vehical_id;
+        $service->date = $request->date;
+        $service->meter_reading = $request->meter_reading;
+        $service->details = $request->details;
+        $service->cost = $request->cost;
+
+        $service->save(); 
+
+        return redirect()->back()->with(['success'=>'Servicing added successfully !']);
         
 
     }
