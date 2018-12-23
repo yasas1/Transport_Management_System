@@ -76,5 +76,10 @@ class Driver extends Eloquent
 
     public function getFullNameAttribute(){
         return $this->title->name.' '.$this->initials.$this->surname;
-    }
+	}
+	
+	public function accidents()
+	{
+		return $this->hasMany(\App\Models\Accident::class);
+	}
 }

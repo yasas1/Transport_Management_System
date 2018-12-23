@@ -34,20 +34,31 @@ class Accident extends Eloquent
 	];
 
 	protected $dates = [
-		'date_of_recovery'
+		'date_of_recovery',
+		'date'
 	];
 
 	protected $fillable = [
 		'vehical_id',
+		'date',
+		'place',
 		'description_of_damage',
 		'cost_of_repaire',
 		'date_of_recovery',
 		'action_taken_against_driver',
-		'file_no'
+		'file_no',
+		'police_station',
+		'driver_id'
+
 	];
 
 	public function vehical()
 	{
 		return $this->belongsTo(\App\Models\Vehical::class);
+	}
+
+	public function driver()
+	{
+		return $this->belongsTo(\App\Models\Driver::class);
 	}
 }

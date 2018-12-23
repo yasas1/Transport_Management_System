@@ -22,6 +22,7 @@ class VehicleUsageController extends Controller
     public function index(){
         return view('vehicle.usage.index');
     }
+            /* -------------- Service ------------------------- */
 
     public function viewAddServicing(){
         $vehicles = Vehical::all()->pluck('fullName','id');
@@ -117,6 +118,8 @@ class VehicleUsageController extends Controller
         }
 
     }
+    
+            /* -------------- Annual Licence ------------------------- */
 
     public function viewAnnualLicences(){
 
@@ -301,6 +304,8 @@ class VehicleUsageController extends Controller
             }
         }
     }
+
+            /* -------------- Accidents ------------------------- */
 
     public function viewVehicleAccidents(){
 
