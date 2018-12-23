@@ -156,9 +156,9 @@
                     <thead class="table-dark">  
                         <tr > 
                             <th scope="col"> Date </th>
-                            <th scope="col"> Meter Reading</th>
-                            <th scope="col"> Details </th>
-                            <th scope="col"> Cost (Rs.) </th>
+                            <th scope="col"> Place </th>
+                            <th scope="col"> Driver </th>
+                            <th scope="col"> Description </th>
                             <th scope="col"> Action</th>
                         </tr>
                     </thead>
@@ -170,6 +170,27 @@
             </div>
 
         </div>  
+    </div>
+
+            {{-- Delete Confirmation modal --}}
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <b> <h3 class="modal-title" id="delete-title"></h3> </b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 class="modal-title" >Please Confirm Your Delete Action</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btn-confirm">Delete</button>
+                <button type="button" class="btn btn-primary active" data-dismiss="modal">Cancel</button>
+            </div>
+            </div>
+        </div>
     </div>
 
  
@@ -202,6 +223,69 @@
         $('#successMessage').fadeOut('slow');       
     }, 3000); 
     
+</script>
+
+<script>
+
+function readAnnualLicenc(vid){ 
+    $.ajax({
+        url: '/vehicle/readVehicleAccidents/{id}',
+        type: 'GET',
+        data: { id: vid },
+        success: function(data)
+        {
+            console.log(data);   
+            //$('#licence_info').empty().html(data);            
+        }
+    });
+    }
+
+// $(document).on('click','#delete',function(e){
+//         var id = $(this).data('id');
+//         console.log(id);
+
+//         $.ajax({
+//             url: '/vehicle/viewAnnualLicenc/{id}',
+//             type: 'GET',
+//             data: { id: id },
+//             success: function(data)
+//             {    
+//                 $('#delete-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Annual Licence Delete" ); 
+   
+//             },
+//             error: function(xhr, textStatus, error){
+//                 console.log(xhr.statusText);
+//             }
+//         });
+
+//         $("#delete-modal").modal('show'); 
+    
+//         $("#btn-confirm").on("click", function(){
+//             console.log("confirmed ");
+
+//             $.ajax({
+//                 url:"{{ route('annLicence.delete')}}",
+//                 method: "POST",
+//                 data: { id: id },
+//                 success: function(data)
+//                 {
+//                     console.log(data);   
+//                     $('#flash-message').html(data); 
+    
+//                     $('tr#'+id).remove();
+//                     $('#delete-modal').modal('hide');
+//                 },
+//                 error: function(xhr, textStatus, error){
+//                     console.log(xhr.statusText);
+//                     console.log(textStatus);
+//                     console.log(error);
+//                 }
+//             });
+
+//         });
+ 
+//     });
+
 </script>
 
 

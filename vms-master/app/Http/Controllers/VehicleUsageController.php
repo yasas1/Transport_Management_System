@@ -349,5 +349,20 @@ class VehicleUsageController extends Controller
 
     }
 
+    public function readVehicleAccidents(){
+
+        $vid = $_GET['id'];
+
+        $accidents = DB::table('accidents')
+        ->join('vehical', 'accidents.vehical_id', '=', 'vehical.id') 
+        ->join('driver', 'accidents.driver_id', '=', 'driver.id') 
+        ->select('accidents.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg','driver.firstname as firstname','driver.surname as surname')
+        ->where('vehical_id','=',$vid)
+        ->get();
+
+        return $accidents;
+        //return view('vehicle.usageList.annLicenceList',compact('accidents'));
+    }
+
 
 }
