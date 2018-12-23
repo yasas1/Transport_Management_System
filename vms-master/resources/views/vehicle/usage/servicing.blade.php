@@ -27,7 +27,7 @@
 
             <div class="row"> 
                 {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeServicing','files'=>true]) !!}
-                <div class="col-md-3"> 
+                <div class="col-md-4"> 
 
                     <h4><i class="fa fa-car"></i> Vehicle </h4>
                     <div>             
@@ -36,7 +36,13 @@
                 </div>
                 <div class="col-md-2"> </div>
     
-                <div class="col-md-3"> 
+                
+
+            </div> <br>
+
+            <div class="row"> 
+
+                <div class="col-md-4"> 
     
                     <h4><i class="fa fa-calendar"></i> Date </h4>
                                                         
@@ -45,13 +51,13 @@
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                     </div>
             
-                </div> 
-
-            </div> <br>
+                </div>                 
+                
+            </div><br>
             
             <div class="row"> 
 
-                <div class="col-md-3"> 
+                <div class="col-md-4"> 
 
                     <h4><i class="fas fa-tachometer-alt"></i> Meter Reading </h4>  
     
@@ -63,7 +69,7 @@
 
             <div class="row"> 
 
-                <div class="col-md-3"> 
+                <div class="col-md-4"> 
 
                     <h4><i class="fa fa-money"></i> Cost </h4>  
     

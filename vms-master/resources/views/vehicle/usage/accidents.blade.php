@@ -30,7 +30,7 @@
 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fas fa-car-crash"></i> Vehicle </h4>
+                    <h4><i class="fas fa-car-crash"></i>&nbsp Vehicle </h4>
                     <div>             
                         {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Select a Vehicle'])}}
                     </div>                  
@@ -42,7 +42,7 @@
                 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fa fa-calendar"></i> Date </h4>
+                    <h4><i class="fa fa-calendar"></i>&nbsp Date </h4>
                                                         
                     <div id="date" class="input-group date" data-date-format="yyyy-mm-dd">
                         <input name="date" class="form-control" type="text" readonly />
@@ -55,7 +55,7 @@
 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fas fa-map-marker-alt"></i> Place</h4>  
+                    <h4><i class="fas fa-map-marker-alt"></i>&nbsp Place</h4>  
     
                     <div>  
                         {!! Form::text('place',null,['class'=>'form-control','placeholder'=>'Place' ]) !!}                      
@@ -67,7 +67,7 @@
 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fa fa-user"></i> Driver </h4>  
+                    <h4><i class="fa fa-user"></i>&nbsp Driver </h4>  
     
                     <div>  
                         {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','placeholder'=>'Select Driver'])}}                     
@@ -78,7 +78,7 @@
 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fas fa-shield-alt"></i> Police Station where Entry Lodged </h4>  
+                    <h4><i class="fas fa-shield-alt"></i>&nbsp Police Station where Entry Lodged </h4>  
     
                     <div>  
                         {!! Form::text('police_station',null,['class'=>'form-control','placeholder'=>'Police Station ','rows'=>'2'  ]) !!}                      
@@ -91,7 +91,7 @@
 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fa fa-drivers-license"></i> Action Taken Against Driver</h4>  
+                    <h4><i class="fa fa-drivers-license"></i>&nbsp Action Taken Against Driver</h4>  
     
                     <div>  
                         {!! Form::textarea('action_taken_against_driver',null,['class'=>'form-control','placeholder'=>'Action Taken Against Driver','rows'=>'2'  ]) !!}                      
@@ -104,7 +104,7 @@
 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fas fa-shield-alt"></i> Description of Damage</h4>  
+                    <h4><i class="fas fa-file-alt"></i>&nbsp  Description of Damage</h4>  
     
                     <div>  
                         {!! Form::textarea('description_of_damage',null,['class'=>'form-control','placeholder'=>'Description','rows'=>'2'  ]) !!}                      
@@ -117,7 +117,7 @@
 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fa fa-user"></i> Cost of Repaire </h4>  
+                    <h4><i class="fa fa-user"></i>&nbsp Cost of Repaire </h4>  
     
                     <div>  
                         {{Form::number('cost_of_repaire', null,['class'=>'form-control ','placeholder'=>'Cost of Repaire'])}}                     
@@ -128,7 +128,7 @@
 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fa fa-calendar"></i> Date of Recovery </h4>  
+                    <h4><i class="fa fa-calendar"></i>&nbsp Date of Recovery </h4>  
     
                     <div>  
                         <div id="recovery_date" class="input-group date" data-date-format="yyyy-mm-dd">
