@@ -47,21 +47,17 @@ class VehicleUsageController extends Controller
             'cost' => 'required',
         ]);
 
-        $accident = new Accident; 
+        $service = new Service; 
 
-        $accident->vehical_id = $request->vehical_id;
-        $accident->date = $request->date;
-        $accident->place = $request->place;
-        $accident->description_of_damage = $request->description_of_damage;
-        $accident->cost_of_repaire = $request->cost_of_repaire;
-        $accident->date_of_recovery = $request->date_of_recovery;
-        $accident->action_taken_against_driver = $request->action_taken_against_driver;
-        $accident->police_station = $request->police_station;
-        $accident->driver_id = $request->driver_id;
+        $service->vehical_id = $request->vehical_id;
+        $service->date = $request->date;
+        $service->meter_reading = $request->meter_reading;
+        $service->details = $request->details;
+        $service->cost = $request->cost;
 
-        $accident->save(); 
+        $service->save(); 
 
-        return redirect()->back()->with(['success'=>'Vehicle Accident added successfully !']);
+        return redirect()->back()->with(['success'=>'Servicing added successfully !']);
 
     }
 
@@ -334,17 +330,21 @@ class VehicleUsageController extends Controller
             
         ]);
 
-        $service = new Service; 
+        $accident = new Accident; 
 
-        $service->vehical_id = $request->vehical_id;
-        $service->date = $request->date;
-        $service->meter_reading = $request->meter_reading;
-        $service->details = $request->details;
-        $service->cost = $request->cost;
+        $accident->vehical_id = $request->vehical_id;
+        $accident->date = $request->date;
+        $accident->place = $request->place;
+        $accident->description_of_damage = $request->description_of_damage;
+        $accident->cost_of_repaire = $request->cost_of_repaire;
+        $accident->date_of_recovery = $request->date_of_recovery;
+        $accident->action_taken_against_driver = $request->action_taken_against_driver;
+        $accident->police_station = $request->police_station;
+        $accident->driver_id = $request->driver_id;
 
-        $service->save(); 
+        $accident->save(); 
 
-        return redirect()->back()->with(['success'=>'Servicing added successfully !']);
+        return redirect()->back()->with(['success'=>'Vehicle Accident added successfully !']);
         
 
     }
