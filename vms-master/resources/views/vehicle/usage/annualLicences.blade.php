@@ -13,6 +13,7 @@
         #from_date > span:hover{cursor: pointer;color: blue;}
 
         #to_date > span:hover{cursor: pointer;color: blue;}
+        #edit_lic_date > span:hover{cursor: pointer;color: blue;} 
 
         #view-title,#amount,#period-from,#period-to { font-weight:normal; }
 

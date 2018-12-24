@@ -190,7 +190,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::post('/vehicle/service/update','VehicleUsageController@updateService');
     Route::get('/vehicle/serivceNotification/','VehicleUsageController@serivceNotification');
 
-        /*Vehicle annual licence*/
+        /* Vehicle annual licence */
     Route::get('/vehicle/annualLicences','VehicleUsageController@viewAnnualLicences');
     Route::post('/vehicle/storeAnnualLicenc','VehicleUsageController@storeAnnualLicenc');
     Route::get('/vehicle/readAnnualLicenc/{id}','VehicleUsageController@readAnnualLicenc'); 
@@ -199,16 +199,17 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::post('/vehicle/annualLicence/update','VehicleUsageController@updateAnnualLicenc');
     Route::post('/vehicle/annualLicence/test','VehicleUsageController@postTest');
 
-        /*Vehicle Tyres*/
-
-
-        /*Vehicle Accidents*/ 
+        /* Vehicle Accidents */ 
     Route::get('/vehicle/accidents','VehicleUsageController@viewVehicleAccidents'); 
     Route::post('/vehicle/storeAccidents','VehicleUsageController@storeAccidents'); 
     Route::get('/vehicle/readVehicleAccidents/{id}','VehicleUsageController@readVehicleAccidents'); 
     Route::get('/vehicle/viewAccident/{id}','VehicleUsageController@viewAccident'); 
     Route::post('/vehicle/deleteAccident','VehicleUsageController@deleteAccident')->name('accident.delete'); 
-    Route::post('/vehicle/accident/update','VehicleUsageController@updateAccident');
+    Route::post('/vehicle/accident/update','VehicleUsageController@updateAccident'); 
+
+        /* Vehicle Repairs */
+    Route::get('/vehicle/repairs','VehicleUsageController@viewRepairsPage'); 
+    Route::post('/vehicle/storeRepairs','VehicleUsageController@storeRepairs'); 
                                                                     
 });
 
