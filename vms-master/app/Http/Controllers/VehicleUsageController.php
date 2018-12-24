@@ -431,6 +431,17 @@ class VehicleUsageController extends Controller
 
     public function storeRepairs(Request $request){  
 
+        $request->validate([
+            'vehical_id' => 'required',
+            'workshop_in_date' => 'required',
+            'meter_reading_out' => 'required',
+            'executed_at' => 'required',
+            'authorized_by' => 'required',
+            'invoice_no' => 'required',
+            'invoice_date' => 'required',
+            
+        ]);
+
         $repaire = new Repaire; 
 
         $repaire->vehical_id = $request->vehical_id;
@@ -448,6 +459,19 @@ class VehicleUsageController extends Controller
         $repaire->save(); 
 
         return redirect()->back()->with(['success'=>'Vehicle Repair added successfully !']);
+    }
+
+    public function readVehicleRepairs(){
+
+        $vid = $_GET['id'];
+
+        $repaires = DB::table('repaires')
+        ->join('vehical', 'repaires.vehical_id', '=', 'vehical.id') // join vehicle for get vehicle name
+        ->select('repaires.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
+        ->where('vehical_id','=',$vid)
+        ->get();
+
+        return view('vehicle.usageList.repairList',compact('repaires'));
     }
 
 }

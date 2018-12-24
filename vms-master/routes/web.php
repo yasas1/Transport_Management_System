@@ -210,6 +210,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
         /* Vehicle Repairs */
     Route::get('/vehicle/repairs','VehicleUsageController@viewRepairsPage'); 
     Route::post('/vehicle/storeRepairs','VehicleUsageController@storeRepairs'); 
+    Route::get('/vehicle/readVehicleRepairs/{id}','VehicleUsageController@readVehicleRepairs'); 
                                                                     
 });
 

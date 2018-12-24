@@ -183,10 +183,11 @@
 
                     <thead class="table-dark">  
                         <tr > 
-                            <th scope="col"> Date </th>
-                            <th scope="col"> Place </th>
-                            <th scope="col"> Driver </th>
-                            <th scope="col"> Description </th>
+                            <th scope="col"> In Date </th>
+                            <th scope="col"> Out Date </th>
+                            <th scope="col"> Authorized by </th>
+                            <th scope="col"> Executed at (workshop) </th>
+                            <th scope="col"> Cost </th>
                             <th scope="col"> Action</th>
                         </tr>
                     </thead>
@@ -207,6 +208,26 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 
 <script>
+
+    function readRepairs(vid){     
+        $.ajax({
+            url: '/vehicle/readVehicleRepairs/{id}',
+            type: 'GET',
+            data: { id: vid },
+            success: function(data)
+            {
+                //console.log(data);   
+                $('#repair_info').empty().html(data);
+                          
+            }
+        });
+    }
+
+    $('#vid').on('change',function () {
+        var vid = $(this).val(); // get vehicle id
+     
+        readRepairs(vid);
+    }); 
 
 </script>
 
