@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Vehical;
 use App\Models\Service;
 use App\Models\Accident;
-use App\Models\Driver;
+use App\Models\Repaire;
+use App\Models\Driver; 
 use App\Models\AnnualLicence;
 use App\Models\AnnualLicenceDoc;
 use Illuminate\Support\Carbon;
@@ -428,9 +429,25 @@ class VehicleUsageController extends Controller
 
     }
 
-    public function storeRepairs(Request $request){
+    public function storeRepairs(Request $request){  
 
-        return $request;
+        $repaire = new Repaire; 
+
+        $repaire->vehical_id = $request->vehical_id;
+        $repaire->workshop_in_date = $request->workshop_in_date;
+        $repaire->workshop_out_date = $request->workshop_out_date;
+        $repaire->meter_reading_in = $request->meter_reading_in;
+        $repaire->meter_reading_out = $request->meter_reading_out;
+        $repaire->works_and_parts = $request->works_and_parts;
+        $repaire->invoice_no = $request->invoice_no;
+        $repaire->invoice_date = $request->invoice_date;
+        $repaire->authorized_by = $request->authorized_by;
+        $repaire->executed_at = $request->executed_at;
+        $repaire->cost = $request->cost;
+
+        $repaire->save(); 
+
+        return redirect()->back()->with(['success'=>'Vehicle Repair added successfully !']);
     }
 
 }

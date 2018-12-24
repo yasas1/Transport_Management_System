@@ -44,7 +44,7 @@
                 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fas fa-calendar-alt"></i>&nbsp Workshop In Date </h4>
+                    <h4><i class="far fa-calendar"></i>&nbsp Workshop In Date </h4>
                                                         
                     <div id="in_date" class="input-group date" data-date-format="yyyy-mm-dd">
                         <input name="workshop_in_date" class="form-control" type="text" readonly />
@@ -57,7 +57,7 @@
 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fas fa-calendar-alt"></i>&nbsp Workshop Out Date </h4>
+                    <h4><i class="far fa-calendar"></i>&nbsp Workshop Out Date </h4>
                                                     
                     <div id="out_date" class="input-group date" data-date-format="yyyy-mm-dd">
                         <input name="workshop_out_date" class="form-control" type="text" readonly />
@@ -110,7 +110,7 @@
                     <h4> <i class="fas fa-calculator"></i> &nbsp Invoice No.</h4>
                                                         
                     <div>  
-                        {{Form::number('meter_reading_in', null,['class'=>'form-control ','placeholder'=>'Invoice No.'])}}                     
+                        {{Form::number('invoice_no', null,['class'=>'form-control ','placeholder'=>'Invoice No.'])}}                     
                     </div>
             
                 </div> 
@@ -157,7 +157,7 @@
 
                 <div class="col-md-4"> 
 
-                    <h4> <i class="fas fa-place-of-worship"></i> nbsp Executed at (workshop)  </h4> 
+                    <h4> <i class="fas fa-place-of-worship"></i> &nbsp Executed at (workshop)  </h4> 
                                                         
                     <div>  
                         {!! Form::text('executed_at',null,['class'=>'form-control','placeholder'=>'Executed at ' ]) !!}                    

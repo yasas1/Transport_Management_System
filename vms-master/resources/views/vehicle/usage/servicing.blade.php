@@ -71,7 +71,7 @@
 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fa fa-money"></i> Cost </h4>  
+                    <h4><i class="fas fa-comments-dollar"></i> Cost </h4>  
     
                     <div>  
                         {{Form::number('cost', null,['class'=>'form-control ','placeholder'=>'Cost of Service'])}}                      

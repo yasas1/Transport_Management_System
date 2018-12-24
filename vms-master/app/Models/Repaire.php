@@ -34,15 +34,22 @@ class Repaire extends Eloquent
 	];
 
 	protected $dates = [
-		'date'
+		'workshop_in_date',
+		'workshop_out_date',
+		'invoice_date'
 	];
 
 	protected $fillable = [
 		'vehical_id',
-		'job_no',
-		'date',
+		'workshop_in_date',
+		'workshop_out_date',
+		'meter_reading_in',
+		'meter_reading_out',
+		'works_and_parts',
+		'invoice_no',
+		'invoice_date',
 		'authorized_by',
-		'executed_at',
+		'executed_at',	
 		'cost'
 	];
 
