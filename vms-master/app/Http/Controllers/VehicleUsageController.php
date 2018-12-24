@@ -472,6 +472,21 @@ class VehicleUsageController extends Controller
         ->get();
 
         return view('vehicle.usageList.repairList',compact('repaires'));
+    } 
+
+    public function viewRepair(){
+
+        $id = $_GET['id'];
+        
+        $repaire = DB::table('repaires')
+        ->join('vehical', 'repaires.vehical_id', '=', 'vehical.id') // join vehicle for get vehicle name
+        ->select('repaires.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
+        ->where('repaires.id','=',$id)
+        ->get();      
+        
+
+        return response($repaire);
+
     }
 
 }
