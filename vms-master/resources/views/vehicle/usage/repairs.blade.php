@@ -207,93 +207,107 @@
             <div class="modal-content">
                 <div class="modal-header">
 
-                    <i style="font-size:25px; color:gray" class="fa fa-car"></i>&nbsp  <label class="modal-title" id="view-title" style="font-size:25px; color:gray;"> </label> 
+                    <i style="font-size:25px; color:gray" class="fas fa-car"></i>&nbsp  <label class="modal-title" id="view-title" style="font-size:25px; color:gray;"> </label> 
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-
-                    <h4 class="modal-title" > <i class="fas fa-tachometer-alt"></i>&nbsp Licence Period</h4>
+                    <h4 class="modal-title" > <i class="far fa-calendar"></i>&nbsp Workshop Date</h4>
                     <div class="row">
                         <div class="col-md-6">
-                            <dl class="col-md-offset-3">
-                                
-                                <label style="font-size:15px" >From: &nbsp</label>
-                                <label style="font-size:15px" id="period-from"> </label>
-                                
+                            <h4 class="modal-title" > <i class="fa fa-mail-forward"></i>&nbsp In</h4>
+                            <dl class="col-md-offset-2">
+                                <label style="font-size:15px" id="view_workshop_in_date"> </label>                              
                             </dl>
                         </div>
                         <div class="col-md-6">
-                            <dl class="col-md-offset-3">
-                                
-                                <label style="font-size:16px">To: &nbsp</label>
-                                <label style="font-size:16px" id="period-to"> </label>
-                                
+                            <h4 class="modal-title" > <i class="fa fa-reply-all"></i>&nbsp Out</h4> 
+                            <dl class="col-md-offset-2">
+                                <label style="font-size:16px" id="view_workshop_out_date"> </label>                              
                             </dl>
                         </div>
                     </div><br>
-                    <h4 class="modal-title" > <i class="glyphicon glyphicon-list-alt"></i>&nbsp Licensing Authority</h4>
+                    
+                    <h4 class="modal-title" > <i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading</h4>
                     <div class="row">
+
                         <div class="col-md-6">
-                            <dl class="col-md-offset-3">
-                                <p style="font-size:16px" id="licensing_authority"> </p>                        
+                            <h4 class="modal-title" > <i class="fa fa-mail-forward"></i> &nbsp In</h4>
+                            <dl class="col-md-offset-2">
+                                <p style="font-size:16px" id="view_meter_reading_in"> in</p>                        
+                            </dl>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h4 class="modal-title" > <i class="fa fa-reply-all"></i> &nbsp Out</h4>
+                            <dl class="col-md-offset-2">
+                                <p style="font-size:16px" id="view_action_meter_reading_in"> out </p>                        
                             </dl>
                         </div>
                     
                     </div><br>
-
                     
                     <div class="row">
-                        <div class="col-md-6">
-                            <h4 class="modal-title" > <i class="fas fa-check-double"></i>&nbsp Licence Number</h4>
+                        <div class="col-md-8">
+                            <h4 class="modal-title" > <i class="fab fa-audible"></i>&nbsp Works Executed and Parts Used</h4>
                                 
-                            <p style="font-size:16px" class="col-md-offset-3" id="licence_no"> </p>                            
+                            <p style="font-size:16px" class="col-md-offset-2" id="view_works_and_parts"> Test</p>                            
                             
-                        </div>
-                        <div class="col-md-6">
-                            <h4 class="modal-title"> <i class="fas fa-calendar-alt"></i>&nbsp Licence Date</h4>
-                                
-                            <p style="font-size:16px" class="col-md-offset-3" id="licence_date"> </p>                       
-                        </div>
+                        </div>                       
                     </div><br>
 
-                    <h4 class="modal-title" > <i class="fa fa-money"></i>&nbsp Amount</h4>
                     <div class="row">
                         <div class="col-md-6">
-                            <dl class="col-md-offset-3">
-                            <b> Rs. </b><label style="font-size:16px" id="amount"> <label>                        
+                            <h4 class="modal-title" > <i class="fas fa-calculator"></i>&nbsp Invoice No</h4>
+                            <dl class="col-md-offset-2">
+                                <label style="font-size:16px" id="view_invoice_no"> <label>                        
                             </dl>
                         </div>
+
+                        <div class="col-md-6">
+                            <h4 class="modal-title" > <i class="fas fa-calendar-alt"></i>&nbsp Invoice Date</h4>
+                            <dl class="col-md-offset-2">
+                                <label style="font-size:15px" id="view_invoice_date"> </label>                              
+                            </dl>
+                        </div>
+                    </div>   
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="modal-title" > <i class="fas fa-user-shield"></i>&nbsp Authorized By</h4>
+                            <dl class="col-md-offset-2">
+                                <label style="font-size:16px" id="view_authorized_by"> <label>                        
+                            </dl>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h4 class="modal-title" > <i class="fas fa-place-of-worship"></i>&nbsp Executed At (workshop)</h4>
+                            <dl class="col-md-offset-2">
+                                <label style="font-size:15px" id="view_executed_at"> </label>                              
+                            </dl>
+                        </div>
+                     </div> 
                     
-                    </div>
-                
                     <div class="row">
                         <div class="col-md-6">
-                            <h4 class="modal-title" > <i class="fas fa-award"></i>&nbsp Emission Test Details</h4>
-                            <dl class="col-md-offset-3">
-                            <p style="font-size:16px" id="view_emission_test_details"> <p>                        
+                            <h4 class="modal-title" > <i class="fas fa-comments-dollar"></i>&nbsp Cost</h4>
+                            <dl class="col-md-offset-2">
+                                    <b> Rs. </b><label style="font-size:16px" id="view_cost"> <label>                        
                             </dl>
                         </div>
-                        <div id="document_view" class="col-md-6">
-                            <h4 class="modal-title" > <i class="glyphicon glyphicon-download-alt"></i>&nbsp Annual Licence Document</h4>
-                            <a class="col-md-offset-3" href="" download="" id ="document_download"> 
-                                <button type="button" class="btn btn-success btn-md">
-                                    <i class="glyphicon glyphicon-download-alt"></i>&nbsp <i id="doc_name"></i>
-                                </button>
-                            </a>
-                        </div>
-                    </div>
+                        
+                    </div><br>
 
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary active" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
-    </div> 
-  
+    </div>
 @endsection
 
 @section('scripts')
@@ -334,14 +348,17 @@
             {
                     /* set values to html tag for view */  
                 console.log(data);
-                $('#view-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+"Annual Licence" );
-                // $('#period-from').html(data[0].from );
-                // $('#period-to').html(data[0].to ); 
-                // $('#licensing_authority').html(data[0].licensing_authority );  
-                // $('#licence_no').html(data[0].licence_no);
-                // $('#licence_date').html(data[0].licence_date);
-                // $('#amount').html(data[0].amount); 
-                // $('#view_emission_test_details').html(data[0].emission_test_details);
+                $('#view-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+"Vehicle Repair" );
+                $('#view_workshop_in_date').html(data[0].workshop_in_date );
+                $('#view_workshop_out_date').html(data[0].workshop_out_date ); 
+                $('#view_meter_reading_in').html(data[0].meter_reading_in );  
+                $('#view_meter_reading_out').html(data[0].meter_reading_out);
+                $('#view_works_and_parts').html(data[0].works_and_parts);
+                $('#view_invoice_no').html(data[0].invoice_no); 
+                $('#view_invoice_date').html(data[0].invoice_date);
+                $('#view_authorized_by').html(data[0].authorized_by);
+                $('#view_executed_at').html(data[0].executed_at); 
+                $('#view_cost').html(data[0].cost); 
 
             },
             error: function(xhr, textStatus, error){
