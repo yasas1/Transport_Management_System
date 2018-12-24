@@ -9,7 +9,7 @@
     <style> 
         /* label{margin-left: 20px;}
         #datepicker{ margin: 0 20px 20px 20px;} */
-        #date, > span:hover{cursor: pointer;color: blue;}
+        #date > span:hover{cursor: pointer;color: blue;}
         #recovery_date > span:hover{cursor: pointer;color: blue;} 
         #edit_recovery_date > span:hover{cursor: pointer;color: blue;}
         #edit_date > span:hover{cursor: pointer;color: blue;}
@@ -119,7 +119,7 @@
 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fa fa-user"></i>&nbsp Cost of Repaire </h4>  
+                    <h4> <i class="fas fa-comments-dollar"></i> &nbsp Cost of Repaire </h4>  
     
                     <div>  
                         {{Form::number('cost_of_repaire', null,['class'=>'form-control ','placeholder'=>'Cost of Repaire'])}}                     

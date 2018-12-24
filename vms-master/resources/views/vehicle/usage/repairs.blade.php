@@ -7,12 +7,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style> 
-        /* label{margin-left: 20px;}
-        #datepicker{ margin: 0 20px 20px 20px;} */
-        #date, > span:hover{cursor: pointer;color: blue;}
-        #recovery_date > span:hover{cursor: pointer;color: blue;} 
-        #edit_recovery_date > span:hover{cursor: pointer;color: blue;}
-        #edit_date > span:hover{cursor: pointer;color: blue;}
+        #in_date > span:hover{cursor: pointer;color: blue;}
+        #out_date > span:hover{cursor: pointer;color: blue;} 
+        #invo_date > span:hover{cursor: pointer;color: blue;} 
+        /* #edit_in_date > span:hover{cursor: pointer;color: blue;}
+        #edit_out_date > span:hover{cursor: pointer;color: blue;}
+        #edit_invo_date > span:hover{cursor: pointer;color: blue;}  */
     </style>
 @endsection
 
@@ -44,10 +44,10 @@
                 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fa fa-calendar"></i>&nbsp Accident Date </h4>
+                    <h4><i class="fas fa-calendar-alt"></i>&nbsp Workshop In Date </h4>
                                                         
-                    <div id="date" class="input-group date" data-date-format="yyyy-mm-dd">
-                        <input name="date" class="form-control" type="text" readonly />
+                    <div id="in_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                        <input name="workshop_in_date" class="form-control" type="text" readonly />
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                     </div>
             
@@ -57,11 +57,74 @@
 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fas fa-map-marker-alt"></i>&nbsp Place</h4>  
+                    <h4><i class="fas fa-calendar-alt"></i>&nbsp Workshop Out Date </h4>
+                                                    
+                    <div id="out_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                        <input name="workshop_out_date" class="form-control" type="text" readonly />
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    </div>                     
+            </div>   
+            </div><br>
+
+            <div class="row">
+                
+                <div class="col-md-4"> 
+
+                    <h4><i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading In  </h4>
+                                                        
+                    <div>  
+                        {{Form::number('meter_reading_in', null,['class'=>'form-control ','placeholder'=>'Meter Reading In'])}}                     
+                    </div>
+            
+                </div> 
+
+                <div class="col-md-2"> </div>
+
+                <div class="col-md-4"> 
+
+                    <h4><i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading Out  </h4>
+                                                    
+                    <div>  
+                        {{Form::number('meter_reading_out', null,['class'=>'form-control ','placeholder'=>'Meter Reading Out '])}}                     
+                    </div>                   
+            </div>   
+            </div><br>
+
+            <div class="row"> 
+
+                <div class="col-md-4"> 
+
+                    <h4> <i class="fab fa-audible"></i> &nbsp Works And Parts Used </h4>  
     
                     <div>  
-                        {!! Form::text('place',null,['class'=>'form-control','placeholder'=>'Place' ]) !!}                      
+                        {!! Form::textarea('works_and_parts',null,['class'=>'form-control','placeholder'=>'Works And Parts Used','rows'=>'2' ]) !!}                     
                     </div>                      
+                </div> 
+
+            </div><br>
+
+            <div class="row">
+                
+                <div class="col-md-4"> 
+
+                    <h4> <i class="fas fa-calculator"></i> &nbsp Invoice No.</h4>
+                                                        
+                    <div>  
+                        {{Form::number('meter_reading_in', null,['class'=>'form-control ','placeholder'=>'Invoice No.'])}}                     
+                    </div>
+            
+                </div> 
+
+                <div class="col-md-2"> </div>
+
+                <div class="col-md-4"> 
+
+                    <h4> <i class="far fa-calendar"></i> &nbsp Invoice Date </h4>
+                                                    
+                    <div id="invo_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                        <input name="invoice_date" class="form-control" type="text" readonly />
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    </div>                     
                 </div>   
             </div><br>
 
@@ -69,67 +132,41 @@
 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fas fa-shield-alt"></i>&nbsp Police Station where Entry Lodged </h4>  
+                    <h4> <i class="fas fa-comments-dollar"></i> &nbsp Cost  </h4>  
     
                     <div>  
-                        {!! Form::text('police_station',null,['class'=>'form-control','placeholder'=>'Police Station ','rows'=>'2'  ]) !!}                      
+                        {{Form::number('cost', null,['class'=>'form-control ','placeholder'=>'Cost'])}}                     
                     </div>                      
                 </div> 
-
+        
             </div><br>
 
-            <div class="row"> 
-
+            <div class="row">
+                
                 <div class="col-md-4"> 
 
-                    <h4><i class="fa fa-drivers-license"></i>&nbsp Action Taken Against Driver</h4>  
-    
+                    <h4> <i class="fas fa-user-shield"></i> &nbsp Authorized by  </h4> 
+                                                        
                     <div>  
-                        {!! Form::textarea('action_taken_against_driver',null,['class'=>'form-control','placeholder'=>'Action Taken Against Driver','rows'=>'2'  ]) !!}                      
-                    </div>                      
-                </div> 
-    
-            </div><br>
-
-            <div class="row"> 
-
-                <div class="col-md-4"> 
-
-                    <h4><i class="fas fa-file-alt"></i>&nbsp  Description of Damage</h4>  
-    
-                    <div>  
-                        {!! Form::textarea('description_of_damage',null,['class'=>'form-control','placeholder'=>'Description','rows'=>'2'  ]) !!}                      
-                    </div>                      
-                </div> 
-
-            </div><br>
-
-            <div class="row"> 
-
-                <div class="col-md-4"> 
-
-                    <h4><i class="fa fa-user"></i>&nbsp Cost of Repaire </h4>  
-    
-                    <div>  
-                        {{Form::number('cost_of_repaire', null,['class'=>'form-control ','placeholder'=>'Cost of Repaire'])}}                     
-                    </div>                      
+                        {!! Form::text('authorized_by',null,['class'=>'form-control','placeholder'=>'Authorized by' ]) !!}                    
+                    </div>
+            
                 </div>
-
+                
                 <div class="col-md-2"> </div>
 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fa fa-calendar"></i>&nbsp Date of Recovery </h4>  
-    
+                    <h4> <i class="fas fa-place-of-worship"></i> nbsp Executed at (workshop)  </h4> 
+                                                        
                     <div>  
-                        <div id="recovery_date" class="input-group date" data-date-format="yyyy-mm-dd">
-                            <input name="date_of_recovery" class="form-control" type="text" readonly />
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                        </div>                     
-                    </div>                      
-                </div> 
-    
+                        {!! Form::text('executed_at',null,['class'=>'form-control','placeholder'=>'Executed at ' ]) !!}                    
+                    </div>
+                
+                </div>
+ 
             </div><br>
+
 
             <div class="row"> 
 
@@ -181,11 +218,21 @@
         }
     });
 
-    $("#date").datepicker({ 
+    $("#in_date").datepicker({ 
         autoclose: true, 
         format: 'yyyy-mm-dd',
         todayHighlight: true
-    });  
+    }); 
+    $("#out_date").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    }); 
+    $("#invo_date").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    });   
  
     
 </script>
