@@ -192,6 +192,91 @@
             </div>
         </div>
     </div>
+            {{-- View modal --}}
+    <div class="modal fade" id="view-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+
+                <i style="font-size:25px; color:gray" class="fa fa-car"></i>&nbsp  <label class="modal-title" id="view-title" style="font-size:25px; color:gray;"> </label> 
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <h4 class="modal-title" > <i class="fas fa-tachometer-alt"></i>&nbsp Licence Period</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <dl class="col-md-offset-3">
+                            
+                            <label style="font-size:15px" >From: &nbsp</label>
+                            <label style="font-size:15px" id="period-from"> </label>
+                            
+                        </dl>
+                    </div>
+                    <div class="col-md-6">
+                        <dl class="col-md-offset-3">
+                            
+                            <label style="font-size:16px">To: &nbsp</label>
+                            <label style="font-size:16px" id="period-to"> </label>
+                            
+                        </dl>
+                    </div>
+                </div><br>
+                <h4 class="modal-title" > <i class="glyphicon glyphicon-list-alt"></i>&nbsp Licensing Authority</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <dl class="col-md-offset-3">
+                            <p style="font-size:16px" id="licensing_authority"> </p>                        
+                        </dl>
+                    </div>
+                   
+                </div><br>
+
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="modal-title" > <i class="fas fa-check-double"></i>&nbsp Licence Number</h4>
+                            
+                        <p style="font-size:16px" class="col-md-offset-3" id="licence_no"> </p>                            
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="modal-title"> <i class="fas fa-calendar-alt"></i>&nbsp Licence Date</h4>
+                            
+                        <p style="font-size:16px" class="col-md-offset-3" id="licence_date"> </p>                       
+                    </div>
+                </div><br>
+
+                <h4 class="modal-title" > <i class="fa fa-money"></i>&nbsp Amount</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <dl class="col-md-offset-3">
+                           <b> Rs. </b><label style="font-size:16px" id="amount"> <label>                        
+                        </dl>
+                    </div>
+                   
+                </div>
+            
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="modal-title" > <i class="fas fa-award"></i>&nbsp Emission Test Details</h4>
+                        <dl class="col-md-offset-3">
+                           <p style="font-size:16px" id="view_emission_test_details"> <p>                        
+                        </dl>
+                    </div>
+                    
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary active" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+    </div>
 
  
 @endsection
@@ -202,70 +287,102 @@
 
 <script>
 
-function readAccidents(vid){ 
-    $.ajax({
-        url: '/vehicle/readVehicleAccidents/{id}',
-        type: 'GET',
-        data: { id: vid },
-        success: function(data)
-        {
-            //console.log(data);   
-            $('#accident_info').empty().html(data);            
-        }
-    });
-}
+    function readAccidents(vid){ 
+        $.ajax({
+            url: '/vehicle/readVehicleAccidents/{id}',
+            type: 'GET',
+            data: { id: vid },
+            success: function(data)
+            {
+                //console.log(data);   
+                $('#accident_info').empty().html(data);            
+            }
+        });
+    }
 
-$('#vid').on('change',function () {
-    var vid = $(this).val(); // get vehicle id
-    
-    readAccidents(vid);
-}); 
+    $('#vid').on('change',function () {
+        var vid = $(this).val(); // get vehicle id
+        
+        readAccidents(vid);
+    }); 
 
-// $(document).on('click','#delete',function(e){
-//         var id = $(this).data('id');
-//         console.log(id);
+    $(document).on('click','#view',function(e){
+        var id = $(this).data('id'); //get annual licence id
 
-//         $.ajax({
-//             url: '/vehicle/viewAnnualLicenc/{id}',
-//             type: 'GET',
-//             data: { id: id },
-//             success: function(data)
-//             {    
-//                 $('#delete-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Annual Licence Delete" ); 
+        $.ajax({
+            url: '/vehicle/viewAccident/{id}',
+            type: 'GET',
+            data: { id: id },
+            success: function(data)
+            {
+                    /* set values to html tag for view */  
+                console.log(data);
+                $('#view-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+"Annual Licence" );
+                // $('#period-from').html(data[0].from );
+                // $('#period-to').html(data[0].to ); 
+                // $('#licensing_authority').html(data[0].licensing_authority );  
+                // $('#licence_no').html(data[0].licence_no);
+                // $('#licence_date').html(data[0].licence_date);
+                // $('#amount').html(data[0].amount); 
+                // $('#view_emission_test_details').html(data[0].emission_test_details);
    
-//             },
-//             error: function(xhr, textStatus, error){
-//                 console.log(xhr.statusText);
-//             }
-//         });
+            },
+            error: function(xhr, textStatus, error){
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
+            }
+        });
+            //show view modal
+        $("#view-modal").modal('show');
 
-//         $("#delete-modal").modal('show'); 
+    });
+
+    // $(document).on('click','#delete',function(e){
+    //     var id = $(this).data('id');
+    //     console.log(id);
+
+    //     $.ajax({
+    //         url: '/vehicle/viewAnnualLicenc/{id}',
+    //         type: 'GET',
+    //         data: { id: id },
+    //         success: function(data)
+    //         {    
+    //             $('#delete-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Annual Licence Delete" ); 
+   
+    //         },
+    //         error: function(xhr, textStatus, error){
+    //             console.log(xhr.statusText);
+    //         }
+    //     });
+
+    //     $("#delete-modal").modal('show'); 
     
-//         $("#btn-confirm").on("click", function(){
-//             console.log("confirmed ");
+    //     $("#btn-confirm").on("click", function(){
+    //         console.log("confirmed ");
 
-//             $.ajax({
-//                 url:"{{ route('annLicence.delete')}}",
-//                 method: "POST",
-//                 data: { id: id },
-//                 success: function(data)
-//                 {
-//                     console.log(data);   
-//                     $('#flash-message').html(data); 
+    //         $.ajax({
+    //             url:"{{ route('annLicence.delete')}}",
+    //             method: "POST",
+    //             data: { id: id },
+    //             success: function(data)
+    //             {
+    //                 console.log(data);   
+    //                 $('#flash-message').html(data); 
     
-//                     $('tr#'+id).remove();
-//                     $('#delete-modal').modal('hide');
-//                 },
-//                 error: function(xhr, textStatus, error){
-//                     console.log(xhr.statusText);
-//                     console.log(textStatus);
-//                     console.log(error);
-//                 }
-//             });
+    //                 $('tr#'+id).remove();
+    //                 $('#delete-modal').modal('hide');
+    //             },
+    //             error: function(xhr, textStatus, error){
+    //                 console.log(xhr.statusText);
+    //                 console.log(textStatus);
+    //                 console.log(error);
+    //             }
+    //         });
 
-//         });
+    //     });
  
-//     });
+    // });
 
 </script>
 

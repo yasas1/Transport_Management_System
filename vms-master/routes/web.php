@@ -199,13 +199,14 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::post('/vehicle/annualLicence/update','VehicleUsageController@updateAnnualLicenc');
     Route::post('/vehicle/annualLicence/test','VehicleUsageController@postTest');
 
-    /*Vehicle Tyres*/
+        /*Vehicle Tyres*/
 
 
         /*Vehicle Accidents*/ 
     Route::get('/vehicle/accidents','VehicleUsageController@viewVehicleAccidents'); 
-    Route::post('/vehicle/storeAccidents','VehicleUsageController@storeAccidents');
+    Route::post('/vehicle/storeAccidents','VehicleUsageController@storeAccidents'); 
     Route::get('/vehicle/readVehicleAccidents/{id}','VehicleUsageController@readVehicleAccidents'); 
+    Route::get('/vehicle/viewAccident/{id}','VehicleUsageController@viewAccident'); 
                                                                     
 });
 

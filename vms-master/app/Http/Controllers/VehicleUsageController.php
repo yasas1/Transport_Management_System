@@ -354,15 +354,31 @@ class VehicleUsageController extends Controller
         $vid = $_GET['id'];
 
         $accidents = DB::table('accidents')
-        ->join('vehical', 'accidents.vehical_id', '=', 'vehical.id') 
-        ->join('driver', 'accidents.driver_id', '=', 'driver.id') 
-        ->join('title', 'driver.title_id', '=', 'title.id') 
+        ->join('vehical', 'accidents.vehical_id', '=', 'vehical.id') // join vehicle for get vehicle name
+        ->join('driver', 'accidents.driver_id', '=', 'driver.id') // join driver for get driver's name
+        ->join('title', 'driver.title_id', '=', 'title.id') // join title for get driver's title
         ->select('accidents.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg','driver.firstname as firstname','driver.surname as surname','title.name as title')
         ->where('vehical_id','=',$vid)
         ->get();
 
-        //return $accidents;
         return view('vehicle.usageList.accidentList',compact('accidents'));
+    }
+
+    public function viewAccident(){
+
+        $id = $_GET['id'];
+        
+        $accidents = DB::table('accidents')
+        ->join('vehical', 'accidents.vehical_id', '=', 'vehical.id') // join vehicle for get vehicle name
+        ->join('driver', 'accidents.driver_id', '=', 'driver.id') // join driver for get driver's name
+        ->join('title', 'driver.title_id', '=', 'title.id') // join title for get driver's title
+        ->select('accidents.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg','driver.firstname as firstname','driver.surname as surname','title.name as title')
+        ->where('accidents.id','=',$id)
+        ->get();      
+        
+
+        return response($accidents);
+
     }
 
 
