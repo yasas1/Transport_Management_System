@@ -162,7 +162,7 @@
                             <th scope="col"> Action</th>
                         </tr>
                     </thead>
-                    <tbody id="servicing_info">
+                    <tbody id="accident_info">
 
                     </tbody>
                 </table>
@@ -201,44 +201,25 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 
 <script>
-    
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
 
-    $("#date").datepicker({ 
-        autoclose: true, 
-        format: 'yyyy-mm-dd',
-        todayHighlight: true
-    }); 
-    $("#recovery_date").datepicker({ 
-        autoclose: true, 
-        format: 'yyyy-mm-dd',
-        todayHighlight: true
-    }); 
-
-    setTimeout(function() {
-        $('#successMessage').fadeOut('slow');       
-    }, 3000); 
-    
-</script>
-
-<script>
-
-function readAnnualLicenc(vid){ 
+function readAccidents(vid){ 
     $.ajax({
         url: '/vehicle/readVehicleAccidents/{id}',
         type: 'GET',
         data: { id: vid },
         success: function(data)
         {
-            console.log(data);   
-            //$('#licence_info').empty().html(data);            
+            //console.log(data);   
+            $('#accident_info').empty().html(data);            
         }
     });
-    }
+}
+
+$('#vid').on('change',function () {
+    var vid = $(this).val(); // get vehicle id
+    
+    readAccidents(vid);
+}); 
 
 // $(document).on('click','#delete',function(e){
 //         var id = $(this).data('id');
@@ -288,6 +269,29 @@ function readAnnualLicenc(vid){
 
 </script>
 
+<script>
+    
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
+    $("#date").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    }); 
+    $("#recovery_date").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    }); 
+
+    setTimeout(function() {
+        $('#successMessage').fadeOut('slow');       
+    }, 3000); 
+    
+</script>
     
 @endsection

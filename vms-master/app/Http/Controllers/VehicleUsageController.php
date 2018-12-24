@@ -356,12 +356,13 @@ class VehicleUsageController extends Controller
         $accidents = DB::table('accidents')
         ->join('vehical', 'accidents.vehical_id', '=', 'vehical.id') 
         ->join('driver', 'accidents.driver_id', '=', 'driver.id') 
-        ->select('accidents.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg','driver.firstname as firstname','driver.surname as surname')
+        ->join('title', 'driver.title_id', '=', 'title.id') 
+        ->select('accidents.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg','driver.firstname as firstname','driver.surname as surname','title.name as title')
         ->where('vehical_id','=',$vid)
         ->get();
 
-        return $accidents;
-        //return view('vehicle.usageList.annLicenceList',compact('accidents'));
+        //return $accidents;
+        return view('vehicle.usageList.accidentList',compact('accidents'));
     }
 
 
