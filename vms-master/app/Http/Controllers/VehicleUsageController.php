@@ -392,9 +392,32 @@ class VehicleUsageController extends Controller
             return View::make('layouts/success');
 
         }
-        Session::flash('errors', 'Annual Licence Deleted Error !');
+        Session::flash('errors', 'Vehicle Accident Deleted Error !');
         return View::make('layouts/errors');
     }
+    
+    public function updateAccident(Request $request){
 
+        return $request->id;
+
+        if($request->ajax() && $accident = Accident::find($request->id)){ 
+                      
+            $accident->date = $request->date;
+            $accident->place = $request->place;
+            $accident->description_of_damage = $request->description_of_damage;
+            $accident->cost_of_repaire = $request->cost_of_repaire;
+            $accident->date_of_recovery = $request->date_of_recovery;
+            $accident->action_taken_against_driver = $request->action_taken_against_driver;
+            $accident->police_station = $request->police_station;
+            $accident->driver_id = $request->driver_id;
+
+            $accident->update();
+
+            Session::flash('success', 'Vehicle Accident Updated successfully !');
+            return View::make('layouts/success');
+        }
+        Session::flash('errors', 'Vehicle Acciden Updating Error !');
+        return View::make('layouts/errors');
+    }
 
 }

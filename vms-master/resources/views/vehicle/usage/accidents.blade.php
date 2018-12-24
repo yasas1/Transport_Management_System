@@ -10,7 +10,9 @@
         /* label{margin-left: 20px;}
         #datepicker{ margin: 0 20px 20px 20px;} */
         #date, > span:hover{cursor: pointer;color: blue;}
-        #recovery_date > span:hover{cursor: pointer;color: blue;}
+        #recovery_date > span:hover{cursor: pointer;color: blue;} 
+        #edit_recovery_date > span:hover{cursor: pointer;color: blue;}
+        #edit_date > span:hover{cursor: pointer;color: blue;}
     </style>
 @endsection
 
@@ -283,8 +285,116 @@
             </div>
         </div>
     </div>
+            
+            {{-- Edit modal --}}
+    <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="edit-title"></h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
 
- 
+                    <form action="{{ URL::to('/vehicle/accident/update')}}" method="POST" id="edit_accident" enctype="multipart/form-data">
+                        {{csrf_field()}}
+                    <input type="hidden" name="id" id="accident_id">            
+    
+                    <div class="row">
+                    
+                        <div class="col-md-6"> 
+                            <h4 class="modal-title" > <i class="fas fa-calendar-alt"></i>&nbsp Accident Date</h4> 
+        
+                            <div id="edit_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                                <input id="edit_acDate" name="date" class="form-control" type="text" readonly />
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                        </div>                   
+        
+                        <div class="col-md-6"> 
+                            <h4 class="modal-title" > <i class="fas fa-map-marker-alt"></i>&nbsp Place</h4>
+                            {!! Form::text('place',null,['class'=>'form-control','id'=>'edit_place' ]) !!}
+                    
+                        </div>
+                    </div><br> <br>                   
+        
+                    <div class="row">
+        
+                        <div class="col-md-6"> 
+        
+                            <h4 class="modal-title" > <i class="fa fa-user"></i>&nbsp Driver</h4> 
+            
+                            <div >  
+                                {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','id'=>'edit_driver'])}}
+                            </div> 
+        
+                        </div> 
+
+                        <div class="col-md-6"> 
+                            <h4 class="modal-title" > <i class="fas fa-shield-alt"></i>&nbsp Police Station (Entry Lodged)</h4> 
+                            <div >  
+                                {!! Form::text('police_station',null,['class'=>'form-control','id'=>'edit_police_station','rows'=>'2'  ]) !!} 
+                            </div> 
+                        </div> 
+
+                    </div><br><br>
+
+                    <div class="row">                      
+
+                        <div class="col-md-6"> 
+        
+                            <h4 class="modal-title" > <i class="fa fa-drivers-license"></i>&nbsp Action Taken Against Driver</h4> 
+            
+                            <div>  
+                                {!! Form::textarea('action_taken_against_driver',null,['class'=>'form-control','id'=>'edit_action_taken_against_driver','rows'=>'2'  ]) !!}                      
+                            </div>                      
+                        </div> 
+
+                        <div class="col-md-6">
+                            <h4 class="modal-title" > <i class="fas fa-file-alt"></i>&nbsp Description of Damage</h4> 
+                            <div>
+                                {!! Form::textarea('description_of_damage',null,['class'=>'form-control','id'=>'edit_description_of_damage','rows'=>'2'  ]) !!}
+                            </div> 
+                        </div>
+    
+                    </div><br> <br>
+        
+                    <div class="row">
+        
+                        <div class="col-md-6"> 
+                            <h4 class="modal-title" > <i class="fa fa-money"></i>&nbsp Cost of Repaire</h4> 
+        
+                            <div>  
+                                {{Form::number('cost_of_repaire', null,['class'=>'form-control ','id'=>'edit_cost_of_repaire'])}}                      
+                            </div> 
+                        </div>
+        
+                        <div class="col-md-6"> 
+        
+                            <h4 class="modal-title" > <i class="fas fa-calendar-alt"></i>&nbsp Date of Recovery</h4>
+                                                                
+                            <div id="edit_recovery_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                                <input id="edit_date_of_recovery" name="date_of_recovery" class="form-control" type="text" readonly />
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                        
+                        </div>
+        
+                    </div><br>                                  
+                                        
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success active" id="update">Update</button>
+                    {!! Form::close() !!} 
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="close_edit" >Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('scripts')
@@ -391,6 +501,67 @@
  
     });
 
+    $(document).on('click','#edit',function(e){
+        var id = $(this).data('id');
+        console.log(id);
+        var vid;
+
+        $('#accident_id').val(id);
+        console.log(id);
+
+           /* getting existing data to modal */
+
+        $.ajax({
+            url: '/vehicle/viewAccident/{id}',
+            type: 'GET',
+            data: { id: id },
+            success: function(data)
+            {    
+                console.log(data);
+                vid =data[0].vehical_id;
+
+                $('#edit-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Vehicle Accident Editing" ); 
+                // $('#edit_licFrom').val(data[0].from);
+                // $('#edit_licTo').val(data[0].to);    licensing_authority
+                // $('#edit_licDate').val(data[0].licence_date);
+                // $('#edit_amount').val(data[0].amount);
+                // $('#edit_licence_no').val(data[0].licence_no);
+                // $('#edit_licensing_authority').val(data[0].licensing_authority); 
+                // $('#edit_emission_test_details').val(data[0].emission_test_details);
+   
+            },
+            error: function(xhr, textStatus, error){
+                console.log(xhr.statusText);
+            }
+        });
+
+        $("#edit-modal").modal('show');
+
+        $('#edit_Licence').on('submit',function(e){
+            e.preventDefault();
+            var data = $(this).serialize();
+            var url = $(this).attr('action');
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: data,
+                success: function(data)
+                {    
+                    console.log(data);           
+                    $('#edit-modal').modal('hide');  
+                    $('#flash-message').html(data);
+                        /* refresh data table in the view */
+                    readAccidents(vid);      
+                },
+                error: function(xhr, textStatus, error){
+                    console.log(xhr.statusText);
+                }
+            });     
+        });
+
+    });
+
 </script>
 
 <script>
@@ -405,8 +576,21 @@
         autoclose: true, 
         format: 'yyyy-mm-dd',
         todayHighlight: true
-    }); 
+    });  
+
     $("#recovery_date").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    }); 
+
+    $("#edit_date").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    });
+
+    $("#edit_recovery_date").datepicker({ 
         autoclose: true, 
         format: 'yyyy-mm-dd',
         todayHighlight: true
