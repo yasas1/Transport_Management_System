@@ -323,7 +323,7 @@
             {
                     /* set values to html tag for view */  
                 console.log(data);
-                $('#view-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+"Annual Licence" );
+                $('#view-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+" Vehicle Accident" );
                 $('#view_date').html(data[0].date );
                 $('#view_place').html(data[0].place );
                 $('#view_driver').html(data[0].title+" "+data[0].firstname+" "+data[0].surname ); 
@@ -345,51 +345,51 @@
 
     });
 
-    // $(document).on('click','#delete',function(e){
-    //     var id = $(this).data('id');
-    //     console.log(id);
+    $(document).on('click','#delete',function(e){
+        var id = $(this).data('id');
+        console.log(id);
 
-    //     $.ajax({
-    //         url: '/vehicle/viewAnnualLicenc/{id}',
-    //         type: 'GET',
-    //         data: { id: id },
-    //         success: function(data)
-    //         {    
-    //             $('#delete-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Annual Licence Delete" ); 
+        $.ajax({
+            url: '/vehicle/viewAccident/{id}',
+            type: 'GET',
+            data: { id: id },
+            success: function(data)
+            {    
+                $('#delete-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Vehicle Accident Delete" ); 
    
-    //         },
-    //         error: function(xhr, textStatus, error){
-    //             console.log(xhr.statusText);
-    //         }
-    //     });
+            },
+            error: function(xhr, textStatus, error){
+                console.log(xhr.statusText);
+            }
+        });
 
-    //     $("#delete-modal").modal('show'); 
+        $("#delete-modal").modal('show'); 
     
-    //     $("#btn-confirm").on("click", function(){
-    //         console.log("confirmed ");
+        $("#btn-confirm").on("click", function(){
+            console.log("confirmed ");
 
-    //         $.ajax({
-    //             url:"{{ route('annLicence.delete')}}",
-    //             method: "POST",
-    //             data: { id: id },
-    //             success: function(data)
-    //             {
-    //                 console.log(data);   
-    //                 $('#flash-message').html(data); 
+            $.ajax({
+                url:"{{ route('accident.delete')}}",
+                method: "POST",
+                data: { id: id },
+                success: function(data)
+                {
+                    console.log(data);   
+                    $('#flash-message').html(data); 
     
-    //                 $('tr#'+id).remove();
-    //                 $('#delete-modal').modal('hide');
-    //             },
-    //             error: function(xhr, textStatus, error){
-    //                 console.log(xhr.statusText);
-    //                 console.log(textStatus);
-    //                 console.log(error);
-    //             }
-    //         });
+                    $('tr#'+id).remove();
+                    $('#delete-modal').modal('hide');
+                },
+                error: function(xhr, textStatus, error){
+                    console.log(xhr.statusText);
+                    console.log(textStatus);
+                    console.log(error);
+                }
+            });
 
-    //     });
+        });
  
-    // });
+    });
 
 </script>
 

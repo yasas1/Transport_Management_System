@@ -381,5 +381,20 @@ class VehicleUsageController extends Controller
 
     }
 
+    public function deleteAccident(Request $request){
+
+
+        if($request->ajax() && $accident = Accident::find($request->id)  ){
+
+            $accident->delete();
+
+            Session::flash('success', 'Vehicle Accident Deleted successfully !');
+            return View::make('layouts/success');
+
+        }
+        Session::flash('errors', 'Annual Licence Deleted Error !');
+        return View::make('layouts/errors');
+    }
+
 
 }
