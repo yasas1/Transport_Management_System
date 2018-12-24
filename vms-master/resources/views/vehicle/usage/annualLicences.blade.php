@@ -163,7 +163,7 @@
             {!! Form::close() !!} <br>
 
             <h3 id="table_header"style="text-align:center;display: none;"> </h3> 
-            <div class="box box-primary" id="table_box" style="height:400px; overflow: auto;" data-target="#exampleModalCenter">
+            <div class="box box-primary" id="table_box" style="height:400px; overflow: auto; display: none;" data-target="#exampleModalCenter">
             
                 <table id="table" class="table table-sm table-hover table-sm table-striped">
                     <thead class="table-dark">  
@@ -485,12 +485,12 @@
         $('#table_header').show();
      
         readAnnualLicenc(vid);
+        $('#table_box').show();
     });  
 
         /* one licence edit click event */
     $(document).on('click','#edit',function(e){
         var id = $(this).data('id');
-        console.log(id);
         var vid;
 
         $('#licence_id').val(id);
@@ -503,7 +503,6 @@
             data: { id: id },
             success: function(data)
             {    
-                console.log(data);
                 vid =data[0].vehical_id;
 
                 $('#edit-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Annual Licence Editing" ); 
@@ -537,7 +536,7 @@
                 processData:false,
                 success: function(data)
                 {    
-                    console.log(data);           
+                    //console.log(data);           
                     $('#edit-modal').modal('hide');  
                     $('#flash-message').html(data);
                         /* refresh data table in the view */
@@ -602,7 +601,6 @@
             /* one licence delete click event */
     $(document).on('click','#delete',function(e){
         var id = $(this).data('id');
-        console.log(id);
 
         $.ajax({
             url: '/vehicle/viewAnnualLicenc/{id}',
@@ -621,15 +619,13 @@
         $("#delete-modal").modal('show'); 
     
         $("#btn-confirm").on("click", function(){
-            console.log("confirmed ");
 
             $.ajax({
                 url:"{{ route('annLicence.delete')}}",
                 method: "POST",
                 data: { id: id },
                 success: function(data)
-                {
-                    console.log(data);   
+                {   
                     $('#flash-message').html(data); 
     
                     $('tr#'+id).remove();

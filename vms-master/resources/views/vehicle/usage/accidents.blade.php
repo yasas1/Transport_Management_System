@@ -152,7 +152,7 @@
             {!! Form::close() !!} <br>
 
             <h3 id="table_header"style="text-align:center;display: none;"> </h3> 
-            <div class="box box-primary" id="table_box" style="height:400px; overflow: auto;" data-target="#exampleModalCenter">
+            <div class="box box-primary" id="table_box" style="height:400px; overflow: auto; display: none;" data-target="#exampleModalCenter">
             
                 <table id="table" class="table table-sm table-hover table-sm table-striped"> 
 
@@ -426,6 +426,7 @@
         $('#table_header').show();
         
         readAccidents(vid);
+        $('#table_box').show();
     }); 
 
     $(document).on('click','#view',function(e){
@@ -438,7 +439,6 @@
             success: function(data)
             {
                     /* set values to html tag for view */  
-                console.log(data);
                 $('#view-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+" Vehicle Accident" );
                 $('#view_date').html(data[0].date );
                 $('#view_place').html(data[0].place );
@@ -463,7 +463,6 @@
 
     $(document).on('click','#delete',function(e){
         var id = $(this).data('id');
-        console.log(id);
 
         $.ajax({
             url: '/vehicle/viewAccident/{id}',
@@ -509,14 +508,11 @@
 
     $(document).on('click','#edit',function(e){
         var id = $(this).data('id');
-        console.log(id);
         var vid;
 
         $('#accident_id').val(id);
-        console.log(id);
 
            /* getting existing data to modal */
-
         $.ajax({
             url: '/vehicle/viewAccident/{id}',
             type: 'GET',

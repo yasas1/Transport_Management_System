@@ -101,7 +101,7 @@
             {!! Form::close() !!} <br>
 
             <h3 id="table_header"style="text-align:center;display: none;"> </h3> 
-            <div class="box box-primary" id="table_box" style="height:400px; overflow: auto;" data-target="#exampleModalCenter">
+            <div class="box box-primary" id="table_box" style="height:400px; overflow: auto; display: none;" data-target="#exampleModalCenter">
             
                 <table id="table" class="table table-sm table-hover table-sm table-striped"> 
 
@@ -338,14 +338,14 @@
         $('#table_header').html('<i class="fa fa-car"></i>'+' '+vehicle+" Vehicle Servicing History");
         $('#table_header').show();
 
-        readServicing(vid);     
+        readServicing(vid); 
+        $('#table_box').show();    
 
     });
 
         /* one service edit click event */
     $(document).on('click','#edit',function(e){
         var id = $(this).data('id');
-        console.log(id);
         var vid;
         $('#service_id').val(id);
 
@@ -381,8 +381,7 @@
                 type: 'POST',
                 data: data,//new FormData(this),
                 success: function(data)
-                {    
-                    console.log(data);           
+                {             
                     $('#edit-modal').modal('hide');  
                     $('#flash-message').html(data);
                         /* refresh data table in the view */
@@ -406,7 +405,6 @@
             data: { id: id },
             success: function(data)
             {
-                console.log(data);
                     /* set values to html tag for view */  
                 $('#view-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+" Vehicle Service" );
                 $('#view_date').html(data[0].date );
@@ -430,7 +428,6 @@
         /* one service delete click event */
     $(document).on('click','#delete',function(e){
         var id = $(this).data('id');
-        console.log(id);
 
         $.ajax({
             url: '/vehicle/viewService/{id}',
