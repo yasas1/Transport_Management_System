@@ -42,7 +42,7 @@
                 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fa fa-calendar"></i>&nbsp Date </h4>
+                    <h4><i class="fa fa-calendar"></i>&nbsp Accident Date </h4>
                                                         
                     <div id="date" class="input-group date" data-date-format="yyyy-mm-dd">
                         <input name="date" class="form-control" type="text" readonly />
@@ -196,84 +196,90 @@
     <div class="modal fade" id="view-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-            <div class="modal-header">
+                <div class="modal-header">
 
-                <i style="font-size:25px; color:gray" class="fa fa-car"></i>&nbsp  <label class="modal-title" id="view-title" style="font-size:25px; color:gray;"> </label> 
+                    <i style="font-size:25px; color:gray" class="fa fa-car"></i>&nbsp  <label class="modal-title" id="view-title" style="font-size:25px; color:gray;"> </label> 
 
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-                <h4 class="modal-title" > <i class="fas fa-tachometer-alt"></i>&nbsp Licence Period</h4>
-                <div class="row">
-                    <div class="col-md-6">
-                        <dl class="col-md-offset-3">
-                            
-                            <label style="font-size:15px" >From: &nbsp</label>
-                            <label style="font-size:15px" id="period-from"> </label>
-                            
-                        </dl>
-                    </div>
-                    <div class="col-md-6">
-                        <dl class="col-md-offset-3">
-                            
-                            <label style="font-size:16px">To: &nbsp</label>
-                            <label style="font-size:16px" id="period-to"> </label>
-                            
-                        </dl>
-                    </div>
-                </div><br>
-                <h4 class="modal-title" > <i class="glyphicon glyphicon-list-alt"></i>&nbsp Licensing Authority</h4>
-                <div class="row">
-                    <div class="col-md-6">
-                        <dl class="col-md-offset-3">
-                            <p style="font-size:16px" id="licensing_authority"> </p>                        
-                        </dl>
-                    </div>
-                   
-                </div><br>
-
-                
-                <div class="row">
-                    <div class="col-md-6">
-                        <h4 class="modal-title" > <i class="fas fa-check-double"></i>&nbsp Licence Number</h4>
-                            
-                        <p style="font-size:16px" class="col-md-offset-3" id="licence_no"> </p>                            
-                        
-                    </div>
-                    <div class="col-md-6">
-                        <h4 class="modal-title"> <i class="fas fa-calendar-alt"></i>&nbsp Licence Date</h4>
-                            
-                        <p style="font-size:16px" class="col-md-offset-3" id="licence_date"> </p>                       
-                    </div>
-                </div><br>
-
-                <h4 class="modal-title" > <i class="fa fa-money"></i>&nbsp Amount</h4>
-                <div class="row">
-                    <div class="col-md-6">
-                        <dl class="col-md-offset-3">
-                           <b> Rs. </b><label style="font-size:16px" id="amount"> <label>                        
-                        </dl>
-                    </div>
-                   
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            
-                <div class="row">
-                    <div class="col-md-6">
-                        <h4 class="modal-title" > <i class="fas fa-award"></i>&nbsp Emission Test Details</h4>
-                        <dl class="col-md-offset-3">
-                           <p style="font-size:16px" id="view_emission_test_details"> <p>                        
-                        </dl>
-                    </div>
+                <div class="modal-body">
+                   
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="modal-title" > <i class="fas fa-calendar-alt"></i>&nbsp Accident Date</h4>
+                            <dl class="col-md-offset-2">
+                                <label style="font-size:15px" id="view_date"> </label>                              
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="modal-title" > <i class="fas fa-map-marker-alt"></i>&nbsp Place</h4>
+                            <dl class="col-md-offset-2">
+                                <label style="font-size:16px" id="view_place"> </label>                              
+                            </dl>
+                        </div>
+                    </div><br>
+                   
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <h4 class="modal-title" > <i class="fa fa-user"></i>&nbsp Driver</h4>
+                            <dl class="col-md-offset-2">
+                                <p style="font-size:16px" id="view_driver"> test</p>                        
+                            </dl>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h4 class="modal-title" > <i class="fa fa-drivers-license"></i>&nbsp Action Taken Against Driver</h4>
+                            <dl class="col-md-offset-2">
+                                <p style="font-size:16px" id="view_action_taken_against_driver"> test </p>                        
+                            </dl>
+                         </div>
                     
+                    </div><br>
+
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="modal-title" > <i class="fas fa-shield-alt"></i>&nbsp Police Station (Entry Lodged)</h4>
+                                
+                            <p style="font-size:16px" class="col-md-offset-2" id="view_police_station"> Test</p>                            
+                            
+                        </div>                       
+                    </div><br>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="modal-title" > <i class="fas fa-file-alt"></i>&nbsp Description of Damage</h4>
+                            <dl class="col-md-offset-2">
+                                <p style="font-size:16px" id="view_description_of_damage"> <p>                        
+                            </dl>
+                        </div>
+                        
+                    </div><br>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="modal-title" > <i class="fa fa-money"></i>&nbsp Cost of Repaire</h4>
+                            <dl class="col-md-offset-2">
+                                <b> Rs. </b><label style="font-size:16px" id="view_cost_of_repaire"> <label>                        
+                            </dl>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h4 class="modal-title" > <i class="fas fa-calendar-alt"></i>&nbsp Date of Recovery</h4>
+                            <dl class="col-md-offset-2">
+                                <label style="font-size:15px" id="view_date_of_recovery"> </label>                              
+                            </dl>
+                        </div>
+                    </div>                   
+
                 </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary active" data-dismiss="modal">Close</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary active" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
@@ -318,13 +324,14 @@
                     /* set values to html tag for view */  
                 console.log(data);
                 $('#view-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+"Annual Licence" );
-                // $('#period-from').html(data[0].from );
-                // $('#period-to').html(data[0].to ); 
-                // $('#licensing_authority').html(data[0].licensing_authority );  
-                // $('#licence_no').html(data[0].licence_no);
-                // $('#licence_date').html(data[0].licence_date);
-                // $('#amount').html(data[0].amount); 
-                // $('#view_emission_test_details').html(data[0].emission_test_details);
+                $('#view_date').html(data[0].date );
+                $('#view_place').html(data[0].place );
+                $('#view_driver').html(data[0].title+" "+data[0].firstname+" "+data[0].surname ); 
+                $('#view_action_taken_against_driver').html(data[0].action_taken_against_driver );  
+                $('#view_police_station').html(data[0].police_station);
+                $('#view_description_of_damage').html(data[0].description_of_damage);
+                $('#view_cost_of_repaire').html(data[0].cost_of_repaire); 
+                $('#view_date_of_recovery').html(data[0].date_of_recovery);
    
             },
             error: function(xhr, textStatus, error){
