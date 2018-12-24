@@ -200,7 +200,7 @@
             <div class="modal-content">
                 <div class="modal-header">
 
-                    <i style="font-size:25px; color:gray" class="fa fa-car"></i>&nbsp  <label class="modal-title" id="view-title" style="font-size:25px; color:gray;"> </label> 
+                    <i style="font-size:25px; color:gray" class="fas fa-car-crash"></i>&nbsp  <label class="modal-title" id="view-title" style="font-size:25px; color:gray;"> </label> 
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -296,6 +296,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+
                 <div class="modal-body">
 
                     <form action="{{ URL::to('/vehicle/accident/update')}}" method="POST" id="edit_accident" enctype="multipart/form-data">

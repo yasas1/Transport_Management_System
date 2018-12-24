@@ -418,4 +418,19 @@ class VehicleUsageController extends Controller
         return View::make('layouts/errors');
     }
 
+            /* -------------- Repaires ------------------------- */
+    
+    public function viewRepairsPage(){
+
+        $vehicles = Vehical::all()->pluck('fullName','id'); 
+
+        return view('vehicle.usage.repairs',compact('vehicles'));
+
+    }
+
+    public function storeRepairs(Request $request){
+
+        return $request;
+    }
+
 }
