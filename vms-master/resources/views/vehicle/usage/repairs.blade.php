@@ -177,8 +177,9 @@
             </div>
             {!! Form::close() !!} <br>
 
+            <h3 id="table_header"style="text-align:center;display: none;"> </h3> 
             <div class="box box-primary" id="table_box" style="height:400px; overflow: auto;" data-target="#exampleModalCenter">
-            
+                
                 <table id="table" class="table table-sm table-hover table-sm table-striped"> 
 
                     <thead class="table-dark">  
@@ -308,6 +309,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('scripts')
@@ -332,7 +334,11 @@
 
     $('#vid').on('change',function () {
         var vid = $(this).val(); // get vehicle id
-     
+        var vehicle = $( "#vid option:selected" ).text();
+        
+        $('#table_header').html('<i class="fa fa-car"></i>'+' '+vehicle+" Vehicle Repair History");
+        $('#table_header').show();
+
         readRepairs(vid);
     }); 
 
