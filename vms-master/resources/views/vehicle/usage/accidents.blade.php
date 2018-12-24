@@ -517,17 +517,17 @@
             data: { id: id },
             success: function(data)
             {    
-                console.log(data);
                 vid =data[0].vehical_id;
 
                 $('#edit-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Vehicle Accident Editing" ); 
-                // $('#edit_licFrom').val(data[0].from);
-                // $('#edit_licTo').val(data[0].to);    licensing_authority
-                // $('#edit_licDate').val(data[0].licence_date);
-                // $('#edit_amount').val(data[0].amount);
-                // $('#edit_licence_no').val(data[0].licence_no);
-                // $('#edit_licensing_authority').val(data[0].licensing_authority); 
-                // $('#edit_emission_test_details').val(data[0].emission_test_details);
+                $('#edit_acDate').val(data[0].date);
+                $('#edit_place').val(data[0].place);    
+                $('#edit_driver').val(data[0].driver_id);
+                $('#edit_police_station').val(data[0].police_station);
+                $('#edit_action_taken_against_driver').val(data[0].action_taken_against_driver);
+                $('#edit_description_of_damage').val(data[0].description_of_damage); 
+                $('#edit_cost_of_repaire').val(data[0].cost_of_repaire);
+                $('#edit_date_of_recovery').val(data[0].date_of_recovery);
    
             },
             error: function(xhr, textStatus, error){
@@ -537,7 +537,7 @@
 
         $("#edit-modal").modal('show');
 
-        $('#edit_Licence').on('submit',function(e){
+        $('#edit_accident').on('submit',function(e){
             e.preventDefault();
             var data = $(this).serialize();
             var url = $(this).attr('action');
@@ -547,8 +547,7 @@
                 type: 'POST',
                 data: data,
                 success: function(data)
-                {    
-                    console.log(data);           
+                {               
                     $('#edit-modal').modal('hide');  
                     $('#flash-message').html(data);
                         /* refresh data table in the view */

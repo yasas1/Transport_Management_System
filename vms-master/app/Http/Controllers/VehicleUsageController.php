@@ -396,12 +396,10 @@ class VehicleUsageController extends Controller
         return View::make('layouts/errors');
     }
     
-    public function updateAccident(Request $request){
-
-        return $request->id;
+    public function updateAccident(Request $request){       
 
         if($request->ajax() && $accident = Accident::find($request->id)){ 
-                      
+
             $accident->date = $request->date;
             $accident->place = $request->place;
             $accident->description_of_damage = $request->description_of_damage;
