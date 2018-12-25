@@ -10,9 +10,9 @@
         #in_date > span:hover{cursor: pointer;color: blue;}
         #out_date > span:hover{cursor: pointer;color: blue;} 
         #invo_date > span:hover{cursor: pointer;color: blue;} 
-        /* #edit_in_date > span:hover{cursor: pointer;color: blue;}
+        #edit_in_date > span:hover{cursor: pointer;color: blue;}
         #edit_out_date > span:hover{cursor: pointer;color: blue;}
-        #edit_invo_date > span:hover{cursor: pointer;color: blue;}  */
+        #edit_invo_date > span:hover{cursor: pointer;color: blue;} 
     </style>
 @endsection
 
@@ -314,6 +314,7 @@
     <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
+
                 <div class="modal-header">
                     <h3 class="modal-title" id="edit-title"></h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -323,9 +324,9 @@
 
                 <div class="modal-body">
 
-                    <form action="{{ URL::to('/vehicle/repair/update')}}" method="POST" id="edit_repaire">
+                    <form action="{{ URL::to('/vehicle/repair/update')}}" method="POST" id="edit_repaire" enctype="multipart/form-data">
                         {{csrf_field()}}
-                    <input type="hidden" name="id" id="accident_id">  
+                    <input type="hidden" name="id" id="repaire_id">  
                     
                     <div class="row">
                 
@@ -333,8 +334,8 @@
         
                             <h4><i class="far fa-calendar"></i>&nbsp Workshop In Date </h4>
                                                                 
-                            <div id="in_date" class="input-group date" data-date-format="yyyy-mm-dd">
-                                <input name="workshop_in_date" class="form-control" type="text" readonly />
+                            <div id="edit_in_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                                <input name="workshop_in_date" id="edit_workshop_in_date" class="form-control" type="text" readonly />
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                             </div>
                     
@@ -344,8 +345,8 @@
         
                             <h4><i class="far fa-calendar"></i>&nbsp Workshop Out Date </h4>
                                                             
-                            <div id="out_date" class="input-group date" data-date-format="yyyy-mm-dd">
-                                <input name="workshop_out_date" class="form-control" type="text" readonly />
+                            <div id="edit_out_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                                <input name="workshop_out_date" id="edit_workshop_out_date" class="form-control" type="text" readonly />
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                             </div> 
 
@@ -360,7 +361,7 @@
                             <h4><i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading In  </h4>
                                                                 
                             <div>  
-                                {{Form::number('meter_reading_in', null,['class'=>'form-control ','placeholder'=>'Meter Reading In'])}}                     
+                                {{Form::number('meter_reading_in', null,['class'=>'form-control ','id'=>'edit_meter_reading_in'])}}                     
                             </div>
                     
                         </div> 
@@ -370,7 +371,7 @@
                             <h4><i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading Out  </h4>
                                                             
                             <div>  
-                                {{Form::number('meter_reading_out', null,['class'=>'form-control ','placeholder'=>'Meter Reading Out '])}}                     
+                                {{Form::number('meter_reading_out', null,['class'=>'form-control ','id'=>'edit_meter_reading_out'])}}                     
                             </div> 
 
                         </div>   
@@ -383,7 +384,7 @@
                             <h4> <i class="fab fa-audible"></i> &nbsp Works And Parts Used </h4>  
             
                             <div>  
-                                {!! Form::textarea('works_and_parts',null,['class'=>'form-control','placeholder'=>'Works And Parts Used','rows'=>'2' ]) !!}                     
+                                {!! Form::textarea('works_and_parts',null,['class'=>'form-control','rows'=>'2','id'=>'edit_works_and_parts' ]) !!}                     
                             </div>                      
                         </div> 
         
@@ -396,7 +397,7 @@
                             <h4> <i class="fas fa-calculator"></i> &nbsp Invoice No.</h4>
                                                                 
                             <div>  
-                                {{Form::number('invoice_no', null,['class'=>'form-control ','placeholder'=>'Invoice No.'])}}                     
+                                {{Form::number('invoice_no', null,['class'=>'form-control','id'=>'edit_invoice_no'])}}                     
                             </div>
                     
                         </div> 
@@ -405,8 +406,8 @@
         
                             <h4> <i class="far fa-calendar"></i> &nbsp Invoice Date </h4>
                                                             
-                            <div id="invo_date" class="input-group date" data-date-format="yyyy-mm-dd">
-                                <input name="invoice_date" class="form-control" type="text" readonly />
+                            <div id="edit_invo_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                                <input name="invoice_date" id="edit_invoice_date" class="form-control" type="text" readonly />
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                             </div>                     
                         </div>  
@@ -420,7 +421,7 @@
                             <h4> <i class="fas fa-comments-dollar"></i> &nbsp Cost  </h4>  
             
                             <div>  
-                                {{Form::number('cost', null,['class'=>'form-control ','placeholder'=>'Cost'])}}                     
+                                {{Form::number('cost', null,['class'=>'form-control ','id'=>'edit_cost'])}}                     
                             </div>                      
                         </div> 
                 
@@ -433,7 +434,7 @@
                             <h4> <i class="fas fa-user-shield"></i> &nbsp Authorized by  </h4> 
                                                                 
                             <div>  
-                                {!! Form::text('authorized_by',null,['class'=>'form-control','placeholder'=>'Authorized by' ]) !!}                    
+                                {!! Form::text('authorized_by',null,['class'=>'form-control','id'=>'edit_authorized_by' ]) !!}                    
                             </div>
                     
                         </div>
@@ -445,7 +446,7 @@
                             <h4> <i class="fas fa-place-of-worship"></i> &nbsp Executed at (workshop)  </h4> 
                                                                 
                             <div>  
-                                {!! Form::text('executed_at',null,['class'=>'form-control','placeholder'=>'Executed at ' ]) !!}                    
+                                {!! Form::text('executed_at',null,['class'=>'form-control','id'=>'edit_executed_at' ]) !!}                    
                             </div>
                         
                         </div>
@@ -459,6 +460,7 @@
                     {!! Form::close() !!} 
                     <button type="button" class="btn btn-primary" data-dismiss="modal" id="close_edit" >Close</button>
                 </div>
+
             </div>
         </div>
     </div>
@@ -536,7 +538,7 @@
         var id = $(this).data('id');
         var vid;
 
-        $('#accident_id').val(id);
+        $('#repaire_id').val(id);
 
            /* getting existing data to modal */
         $.ajax({
@@ -547,17 +549,19 @@
             {    
                 vid =data[0].vehical_id;
 
+                console.log(data[0].workshop_in_date);
+
                 $('#edit-title').html('<i class="fas fa-car"></i>'+' '+data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Vehicle Repair Editing" ); 
-                $('#edit_workshop_in_date').html(data[0].workshop_in_date );
-                $('#edit_workshop_out_date').html(data[0].workshop_out_date ); 
-                $('#edit_meter_reading_in').html(data[0].meter_reading_in );  
-                $('#edit_meter_reading_out').html(data[0].meter_reading_out);
-                $('#edit_works_and_parts').html(data[0].works_and_parts);
-                $('#edit_invoice_no').html(data[0].invoice_no); 
-                $('#edit_invoice_date').html(data[0].invoice_date);
-                $('#edit_authorized_by').html(data[0].authorized_by);
-                $('#edit_executed_at').html(data[0].executed_at); 
-                $('#edit_cost').html(data[0].cost); 
+                $('#edit_workshop_in_date').val(data[0].workshop_in_date);
+                $('#edit_workshop_out_date').val(data[0].workshop_out_date); 
+                $('#edit_meter_reading_in').val(data[0].meter_reading_in);  
+                $('#edit_meter_reading_out').val(data[0].meter_reading_out);
+                $('#edit_works_and_parts').val(data[0].works_and_parts);
+                $('#edit_invoice_no').val(data[0].invoice_no); 
+                $('#edit_invoice_date').val(data[0].invoice_date);
+                $('#edit_authorized_by').val(data[0].authorized_by);
+                $('#edit_executed_at').val(data[0].executed_at); 
+                $('#edit_cost').val(data[0].cost); 
    
             },
             error: function(xhr, textStatus, error){
@@ -582,7 +586,7 @@
                     $('#edit-modal').modal('hide');  
                     $('#flash-message').html(data);
                         /* refresh data table in the view */
-                    readAccidents(vid);      
+                    readRepairs(vid);      
                 },
                 error: function(xhr, textStatus, error){
                     console.log(xhr.statusText);
@@ -617,6 +621,22 @@
         format: 'yyyy-mm-dd',
         todayHighlight: true
     });   
+
+    $("#edit_in_date").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    }); 
+    $("#edit_out_date").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    }); 
+    $("#edit_invo_date").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    }); 
  
     
 </script>
