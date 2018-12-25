@@ -429,19 +429,9 @@
     $(document).on('click','#delete',function(e){
         var id = $(this).data('id');
 
-        $.ajax({
-            url: '/vehicle/viewService/{id}',
-            type: 'GET',
-            data: { id: id },
-            success: function(data)
-            {    
-                $('#delete-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Vehicle Service Delete" ); 
-   
-            },
-            error: function(xhr, textStatus, error){
-                console.log(xhr.statusText);
-            }
-        });
+        var vehicle = $( "#vid option:selected" ).text();
+
+        $('#delete-title').html('<i class="fa fa-car"></i>'+' '+vehicle +" Vehicle Service Deleting" );
 
         $("#delete-modal").modal('show'); 
     

@@ -602,19 +602,9 @@
     $(document).on('click','#delete',function(e){
         var id = $(this).data('id');
 
-        $.ajax({
-            url: '/vehicle/viewAnnualLicenc/{id}',
-            type: 'GET',
-            data: { id: id },
-            success: function(data)
-            {    
-                $('#delete-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Annual Licence Delete" ); 
-   
-            },
-            error: function(xhr, textStatus, error){
-                console.log(xhr.statusText);
-            }
-        });
+        var vehicle = $( "#vid option:selected" ).text();
+
+        $('#delete-title').html('<i class="fa fa-car"></i>'+' '+vehicle +" Annual Licence Deleting" );
 
         $("#delete-modal").modal('show'); 
     

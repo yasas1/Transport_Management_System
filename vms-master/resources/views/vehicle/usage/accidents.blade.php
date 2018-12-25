@@ -464,19 +464,9 @@
     $(document).on('click','#delete',function(e){
         var id = $(this).data('id');
 
-        $.ajax({
-            url: '/vehicle/viewAccident/{id}',
-            type: 'GET',
-            data: { id: id },
-            success: function(data)
-            {    
-                $('#delete-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Vehicle Accident Delete" ); 
-   
-            },
-            error: function(xhr, textStatus, error){
-                console.log(xhr.statusText);
-            }
-        });
+        var vehicle = $( "#vid option:selected" ).text();
+
+        $('#delete-title').html('<i class="fas fa-car-crash"></i>'+' '+vehicle +" Vehicle Accident Deleting" );
 
         $("#delete-modal").modal('show'); 
     
