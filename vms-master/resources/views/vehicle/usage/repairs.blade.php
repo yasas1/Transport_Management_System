@@ -323,92 +323,135 @@
 
                 <div class="modal-body">
 
-                    <form action="{{ URL::to('/vehicle/repair/update')}}" method="POST" id="edit_repaire" enctype="multipart/form-data">
+                    <form action="{{ URL::to('/vehicle/repair/update')}}" method="POST" id="edit_repaire">
                         {{csrf_field()}}
-                    <input type="hidden" name="id" id="accident_id">            
-    
-                    <div class="row">
+                    <input type="hidden" name="id" id="accident_id">  
                     
+                    <div class="row">
+                
                         <div class="col-md-6"> 
-                            <h4 class="modal-title" > <i class="fas fa-calendar-alt"></i>&nbsp Accident Date</h4> 
         
-                            <div id="edit_date" class="input-group date" data-date-format="yyyy-mm-dd">
-                                <input id="edit_acDate" name="date" class="form-control" type="text" readonly />
+                            <h4><i class="far fa-calendar"></i>&nbsp Workshop In Date </h4>
+                                                                
+                            <div id="in_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                                <input name="workshop_in_date" class="form-control" type="text" readonly />
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                             </div>
-                        </div>                   
+                    
+                        </div> 
         
                         <div class="col-md-6"> 
-                            <h4 class="modal-title" > <i class="fas fa-map-marker-alt"></i>&nbsp Place</h4>
-                            {!! Form::text('place',null,['class'=>'form-control','id'=>'edit_place' ]) !!}
-                    
-                        </div>
-                    </div><br> <br>                   
+        
+                            <h4><i class="far fa-calendar"></i>&nbsp Workshop Out Date </h4>
+                                                            
+                            <div id="out_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                                <input name="workshop_out_date" class="form-control" type="text" readonly />
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div> 
+
+                        </div> 
+
+                    </div><br>
         
                     <div class="row">
-        
+                        
                         <div class="col-md-6"> 
         
-                            <h4 class="modal-title" > <i class="fa fa-user"></i>&nbsp Driver</h4> 
-            
-                            <div >  
-                                {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','id'=>'edit_driver'])}}
-                            </div> 
-        
+                            <h4><i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading In  </h4>
+                                                                
+                            <div>  
+                                {{Form::number('meter_reading_in', null,['class'=>'form-control ','placeholder'=>'Meter Reading In'])}}                     
+                            </div>
+                    
                         </div> 
-
-                        <div class="col-md-6"> 
-                            <h4 class="modal-title" > <i class="fas fa-shield-alt"></i>&nbsp Police Station (Entry Lodged)</h4> 
-                            <div >  
-                                {!! Form::text('police_station',null,['class'=>'form-control','id'=>'edit_police_station','rows'=>'2'  ]) !!} 
-                            </div> 
-                        </div> 
-
-                    </div><br><br>
-
-                    <div class="row">                      
-
+        
                         <div class="col-md-6"> 
         
-                            <h4 class="modal-title" > <i class="fa fa-drivers-license"></i>&nbsp Action Taken Against Driver</h4> 
+                            <h4><i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading Out  </h4>
+                                                            
+                            <div>  
+                                {{Form::number('meter_reading_out', null,['class'=>'form-control ','placeholder'=>'Meter Reading Out '])}}                     
+                            </div> 
+
+                        </div>   
+                    </div><br>
+        
+                    <div class="row"> 
+        
+                        <div class="col-md-6"> 
+        
+                            <h4> <i class="fab fa-audible"></i> &nbsp Works And Parts Used </h4>  
             
                             <div>  
-                                {!! Form::textarea('action_taken_against_driver',null,['class'=>'form-control','id'=>'edit_action_taken_against_driver','rows'=>'2'  ]) !!}                      
+                                {!! Form::textarea('works_and_parts',null,['class'=>'form-control','placeholder'=>'Works And Parts Used','rows'=>'2' ]) !!}                     
                             </div>                      
                         </div> 
-
-                        <div class="col-md-6">
-                            <h4 class="modal-title" > <i class="fas fa-file-alt"></i>&nbsp Description of Damage</h4> 
-                            <div>
-                                {!! Form::textarea('description_of_damage',null,['class'=>'form-control','id'=>'edit_description_of_damage','rows'=>'2'  ]) !!}
-                            </div> 
-                        </div>
-    
-                    </div><br> <br>
+        
+                    </div><br>
         
                     <div class="row">
-        
-                        <div class="col-md-6"> 
-                            <h4 class="modal-title" > <i class="fa fa-money"></i>&nbsp Cost of Repaire</h4> 
-        
-                            <div>  
-                                {{Form::number('cost_of_repaire', null,['class'=>'form-control ','id'=>'edit_cost_of_repaire'])}}                      
-                            </div> 
-                        </div>
-        
+                        
                         <div class="col-md-6"> 
         
-                            <h4 class="modal-title" > <i class="fas fa-calendar-alt"></i>&nbsp Date of Recovery</h4>
+                            <h4> <i class="fas fa-calculator"></i> &nbsp Invoice No.</h4>
                                                                 
-                            <div id="edit_recovery_date" class="input-group date" data-date-format="yyyy-mm-dd">
-                                <input id="edit_date_of_recovery" name="date_of_recovery" class="form-control" type="text" readonly />
+                            <div>  
+                                {{Form::number('invoice_no', null,['class'=>'form-control ','placeholder'=>'Invoice No.'])}}                     
+                            </div>
+                    
+                        </div> 
+        
+                        <div class="col-md-6"> 
+        
+                            <h4> <i class="far fa-calendar"></i> &nbsp Invoice Date </h4>
+                                                            
+                            <div id="invo_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                                <input name="invoice_date" class="form-control" type="text" readonly />
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>                     
+                        </div>  
+                         
+                    </div><br>
+        
+                    <div class="row"> 
+        
+                        <div class="col-md-6"> 
+        
+                            <h4> <i class="fas fa-comments-dollar"></i> &nbsp Cost  </h4>  
+            
+                            <div>  
+                                {{Form::number('cost', null,['class'=>'form-control ','placeholder'=>'Cost'])}}                     
+                            </div>                      
+                        </div> 
+                
+                    </div><br>
+        
+                    <div class="row">
+                        
+                        <div class="col-md-6"> 
+        
+                            <h4> <i class="fas fa-user-shield"></i> &nbsp Authorized by  </h4> 
+                                                                
+                            <div>  
+                                {!! Form::text('authorized_by',null,['class'=>'form-control','placeholder'=>'Authorized by' ]) !!}                    
+                            </div>
+                    
+                        </div>
+                        
+               
+        
+                        <div class="col-md-6"> 
+        
+                            <h4> <i class="fas fa-place-of-worship"></i> &nbsp Executed at (workshop)  </h4> 
+                                                                
+                            <div>  
+                                {!! Form::text('executed_at',null,['class'=>'form-control','placeholder'=>'Executed at ' ]) !!}                    
                             </div>
                         
                         </div>
-        
-                    </div><br>                                  
-                                        
+         
+                    </div><br>
+                                                                                              
                 </div>
 
                 <div class="modal-footer">
@@ -504,7 +547,7 @@
             {    
                 vid =data[0].vehical_id;
 
-                $('#edit-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Vehicle Accident Editing" ); 
+                $('#edit-title').html('<i class="fas fa-car"></i>'+' '+data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Vehicle Repair Editing" ); 
                 $('#edit_workshop_in_date').html(data[0].workshop_in_date );
                 $('#edit_workshop_out_date').html(data[0].workshop_out_date ); 
                 $('#edit_meter_reading_in').html(data[0].meter_reading_in );  
