@@ -212,6 +212,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::post('/vehicle/storeRepairs','VehicleUsageController@storeRepairs'); 
     Route::get('/vehicle/readVehicleRepairs/{id}','VehicleUsageController@readVehicleRepairs'); 
     Route::get('/vehicle/viewRepair/{id}','VehicleUsageController@viewRepair');
+    Route::post('/vehicle/repair/update','VehicleUsageController@updateRepair');
                                                                     
 });
 

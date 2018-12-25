@@ -489,4 +489,29 @@ class VehicleUsageController extends Controller
 
     }
 
+    public function updateRepair(Request $request){
+
+        return $request;
+
+        if($request->ajax() && $repaire = Repaire::find($request->id)){ 
+
+            // $accident->date = $request->date;
+            // $accident->place = $request->place;
+            // $accident->description_of_damage = $request->description_of_damage;
+            // $accident->cost_of_repaire = $request->cost_of_repaire;
+            // $accident->date_of_recovery = $request->date_of_recovery;
+            // $accident->action_taken_against_driver = $request->action_taken_against_driver;
+            // $accident->police_station = $request->police_station;
+            // $accident->driver_id = $request->driver_id;
+
+            // $request->update();
+
+            Session::flash('success', 'Vehicle Accident Updated successfully !');
+            return View::make('layouts/success');
+        }
+        Session::flash('errors', 'Vehicle Acciden Updating Error !');
+        return View::make('layouts/errors');
+
+    }
+
 }
