@@ -244,7 +244,7 @@
                         <div class="col-md-6">
                             <h4 class="modal-title" > <i class="fa fa-reply-all"></i> &nbsp Out</h4>
                             <dl class="col-md-offset-2">
-                                <p style="font-size:16px" id="view_action_meter_reading_in"> out </p>                        
+                                <p style="font-size:16px" id="view_meter_reading_out"> out </p>                        
                             </dl>
                         </div>
                     
@@ -479,8 +479,7 @@
             type: 'GET',
             data: { id: vid },
             success: function(data)
-            {
-                //console.log(data);   
+            {  
                 $('#repair_info').empty().html(data);
                           
             }
@@ -509,7 +508,6 @@
             success: function(data)
             {
                     /* set values to html tag for view */  
-                console.log(data);
                 $('#view-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+"Vehicle Repair" );
                 $('#view_workshop_in_date').html(data[0].workshop_in_date );
                 $('#view_workshop_out_date').html(data[0].workshop_out_date ); 
@@ -549,8 +547,6 @@
             {    
                 vid =data[0].vehical_id;
 
-                console.log(data[0].workshop_in_date);
-
                 $('#edit-title').html('<i class="fas fa-car"></i>'+' '+data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Vehicle Repair Editing" ); 
                 $('#edit_workshop_in_date').val(data[0].workshop_in_date);
                 $('#edit_workshop_out_date').val(data[0].workshop_out_date); 
@@ -581,8 +577,7 @@
                 type: 'POST',
                 data: data,
                 success: function(data)
-                {     
-                    console.log(data);          
+                {           
                     $('#edit-modal').modal('hide');  
                     $('#flash-message').html(data);
                         /* refresh data table in the view */

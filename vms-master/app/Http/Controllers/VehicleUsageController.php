@@ -491,22 +491,22 @@ class VehicleUsageController extends Controller
 
     public function updateRepair(Request $request){
 
-        return $request;
-
         if($request->ajax() && $repaire = Repaire::find($request->id)){ 
 
-            // $accident->date = $request->date;
-            // $accident->place = $request->place;
-            // $accident->description_of_damage = $request->description_of_damage;
-            // $accident->cost_of_repaire = $request->cost_of_repaire;
-            // $accident->date_of_recovery = $request->date_of_recovery;
-            // $accident->action_taken_against_driver = $request->action_taken_against_driver;
-            // $accident->police_station = $request->police_station;
-            // $accident->driver_id = $request->driver_id;
+            $repaire->workshop_in_date = $request->workshop_in_date;
+            $repaire->workshop_out_date = $request->workshop_out_date;
+            $repaire->meter_reading_in = $request->meter_reading_in;
+            $repaire->meter_reading_out = $request->meter_reading_out;
+            $repaire->works_and_parts = $request->works_and_parts;
+            $repaire->invoice_no = $request->invoice_no;
+            $repaire->invoice_date = $request->invoice_date;
+            $repaire->authorized_by = $request->authorized_by;
+            $repaire->executed_at = $request->executed_at;
+            $repaire->cost = $request->cost;
 
-            // $request->update();
+            $repaire->update();
 
-            Session::flash('success', 'Vehicle Accident Updated successfully !');
+            Session::flash('success', 'Vehicle Repair Updated successfully !');
             return View::make('layouts/success');
         }
         Session::flash('errors', 'Vehicle Acciden Updating Error !');
