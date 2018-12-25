@@ -384,7 +384,6 @@ class VehicleUsageController extends Controller
 
     public function deleteAccident(Request $request){
 
-
         if($request->ajax() && $accident = Accident::find($request->id)  ){
 
             $accident->delete();
@@ -489,6 +488,20 @@ class VehicleUsageController extends Controller
 
     }
 
+    public function deleteRepaire(Request $request){
+
+        if($request->ajax() && $repaire = Repaire::find($request->id)  ){
+
+            $repaire->delete();
+
+            Session::flash('success', 'Vehicle Repaire Deleted successfully !');
+            return View::make('layouts/success');
+
+        }
+        Session::flash('errors', 'Vehicle Repaire Deleted Error !');
+        return View::make('layouts/errors');
+    }
+
     public function updateRepair(Request $request){
 
         if($request->ajax() && $repaire = Repaire::find($request->id)){ 
@@ -509,7 +522,7 @@ class VehicleUsageController extends Controller
             Session::flash('success', 'Vehicle Repair Updated successfully !');
             return View::make('layouts/success');
         }
-        Session::flash('errors', 'Vehicle Acciden Updating Error !');
+        Session::flash('errors', 'Vehicle Repaire Updating Error !');
         return View::make('layouts/errors');
 
     }

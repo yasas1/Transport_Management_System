@@ -202,7 +202,7 @@
         </div>  
     </div>
 
-            {{---------   View modal  ----------}}
+            {{------------   View modal  --------------}}
     <div class="modal fade" id="view-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -310,7 +310,7 @@
         </div>
     </div>
 
-            {{---------   Edit modal  ----------}}
+            {{-------------  Edit modal  --------------}}
     <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -465,6 +465,27 @@
         </div>
     </div>
 
+            {{------------- Delete Confirmation modal -------------------}}
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <b> <h3 class="modal-title" id="delete-title"></h3> </b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 class="modal-title" >Please Confirm Your Delete Action</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btn-confirm">Delete</button>
+                <button type="button" class="btn btn-primary active" data-dismiss="modal">Cancel</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('scripts')
@@ -589,6 +610,37 @@
             });     
         });
 
+    });
+
+    $(document).on('click','#delete',function(e){
+        var id = $(this).data('id');
+
+        var vehicle = $( "#vid option:selected" ).text();
+
+        $('#delete-title').html('<i class="fas fa-car"></i>'+' '+vehicle +" Vehicle Repaire Deleting" );
+
+        $("#delete-modal").modal('show'); 
+    
+        $("#btn-confirm").on("click", function(){
+
+            $.ajax({
+                url:"{{ route('repaire.delete')}}",
+                method: "POST",
+                data: { id: id },
+                success: function(data)
+                {  
+                    $('#flash-message').html(data); 
+    
+                    $('tr#'+id).remove();
+                    $('#delete-modal').modal('hide');
+                },
+                error: function(xhr, textStatus, error){
+                    console.log(error);
+                }
+            });
+
+        });
+ 
     });
 
 </script>
