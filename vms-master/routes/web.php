@@ -226,6 +226,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/vehicle/viewTyrePositionChange/{id}','VehicleUsageController@viewTyrePositionChange'); 
     Route::post('/vehicle/tyrePositionChange/update','VehicleUsageController@updateTyrePositionChange');
     Route::post('/vehicle/deleteTyreReplacement','VehicleUsageController@deleteTyreReplacement')->name('tyreReplacement.delete'); 
+    Route::post('/vehicle/deleteTyrePositionChange','VehicleUsageController@deleteTyrePositionChange')->name('tyreReplacement.delete'); 
                                                                     
 });
 

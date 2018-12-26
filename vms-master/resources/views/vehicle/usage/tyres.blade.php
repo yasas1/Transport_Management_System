@@ -477,6 +477,27 @@
         </div>
     </div>
 
+    {{----------------------- Tyre Position Changing Delete Confirmation modal --------------------------}}
+    <div class="modal fade" id="posChange_delete_modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <b> <h3 class="modal-title" id="delete_posChange_title"></h3> </b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 class="modal-title" >Please Confirm Your Delete Action</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="posChange_delete_confirm"> <i class="fa fa-trash"></i>&nbsp Delete</button>
+                <button type="button" class="btn btn-primary active" data-dismiss="modal">Cancel</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
 
 @endsection
 
