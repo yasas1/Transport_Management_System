@@ -27,7 +27,7 @@
         </ul>
         <div class="tab-content">
 
-                            <!---------------- Tyre Replacement------------------->
+                <!---------------- Tyre Replacement------------------->
             <div class="active tab-pane" id="replacement">
 
                 <div class="row"> 
@@ -158,10 +158,10 @@
 
             </div> <!-- /.tab-Replacement -->
                         
-                            <!---------------- Tyre Position Change ------------------->
+                <!---------------- Tyre Position Change ------------------->
             <div class="tab-pane" id="positionChanges">
 
-                <div class="row"> 
+                <div class="row">                  
                     {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeTyrePositionChange']) !!}
                     <div class="col-md-4"> 
     
