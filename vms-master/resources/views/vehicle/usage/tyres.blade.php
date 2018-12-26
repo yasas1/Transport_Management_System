@@ -280,7 +280,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title" id="edit-title"></h3>
+                    <h3 class="modal-title" id="edit_replace_title"></h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -309,7 +309,7 @@
                             <h4><i class="fas fa-puzzle-piece"></i>&nbsp Position </h4>  
             
                             <div>  
-                                {!! Form::text('position',null,['class'=>'form-control','placeholder'=>'Position' ]) !!}                       
+                                {!! Form::text('position',null,['class'=>'form-control','placeholder'=>'Position','id'=>'edit_replace_position' ]) !!}                       
                             </div>
     
                         </div>
@@ -317,15 +317,13 @@
                     </div><br>
     
                     <div class="row"> 
-    
-                        
-        
+
                         <div class="col-md-6"> 
         
                             <h4> <i class="fas fa-arrows-alt-h"></i> &nbsp Size </h4>  
             
                             <div>  
-                                {!! Form::text('size',null,['class'=>'form-control','placeholder'=>'Size' ]) !!}                       
+                                {!! Form::text('size',null,['class'=>'form-control','placeholder'=>'Size','id'=>'edit_replace_size' ]) !!}                       
                             </div>                      
                         </div>
         
@@ -334,7 +332,7 @@
                             <h4><i class="fas fa-cube"></i> &nbsp Type </h4>  
             
                             <div>  
-                                {!! Form::text('type',null,['class'=>'form-control','placeholder'=>'Type' ]) !!}                      
+                                {!! Form::text('type',null,['class'=>'form-control','placeholder'=>'Type','id'=>'edit_replace_type' ]) !!}                      
                             </div>                      
                         </div> 
         
@@ -347,7 +345,7 @@
                             <h4><i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading </h4>  
             
                             <div>  
-                                {{Form::number('meter_reading', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Meter Reading'])}}                      
+                                {{Form::number('meter_reading', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Meter Reading','id'=>'edit_replace_meter_reading'])}}                      
                             </div>                      
                         </div>   
                     </div><br>
@@ -359,7 +357,7 @@
                             <h4> <i class="fas fa-align-justify"></i> &nbsp Remarks </h4>  
             
                             <div>  
-                                {!! Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2'  ]) !!}                      
+                                {!! Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2','id'=>'edit_replace_remarks'  ]) !!}                      
                             </div>                      
                         </div>  
     
@@ -459,14 +457,15 @@
             data: { id: id },
             success: function(data)
             {    
-                console.log(data); 
                 vid =data[0].vehical_id;
 
-                // $('#edit-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Vehicle Servicing Editing" ); 
-                // $('#edit_date_replace').val(data[0].date);
-                // $('#edit_meter_reading').val(data[0].meter_reading);
-                // $('#edit_details').val(data[0].details);
-                // $('#edit_cost').val(data[0].cost);
+                $('#edit_replace_title').html('<i class="fa fa-car"></i>'+' '+data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Tyre Replacement Editing" ); 
+                $('#edit_date_replace').val(data[0].date);
+                $('#edit_replace_position').val(data[0].position);
+                $('#edit_replace_meter_reading').val(data[0].meter_reading);
+                $('#edit_replace_size').val(data[0].size);
+                $('#edit_replace_type').val(data[0].type);
+                $('#edit_replace_remarks').val(data[0].remarks);
    
             },
             error: function(xhr, textStatus, error){
@@ -485,8 +484,7 @@
                 type: 'POST',
                 data: data,
                 success: function(data)
-                {     
-                    console.log(data);        
+                {           
                     $('#replacement_edit_modal').modal('hide');  
                     $('#flash-message').html(data);
                         /* refresh data table in the view */
@@ -511,6 +509,12 @@
     });
 
     $("#dateposition").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    });
+
+    $("#edit_replace_date").datepicker({ 
         autoclose: true, 
         format: 'yyyy-mm-dd',
         todayHighlight: true
