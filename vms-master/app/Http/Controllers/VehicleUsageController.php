@@ -707,5 +707,14 @@ class VehicleUsageController extends Controller
         return View::make('layouts/errors');
     }
 
+    /* ----------------- Fuel ------------------------- */
+
+    public function viewFuelPage(){
+
+        $vehicles = Vehical::all()->pluck('fullName','id'); 
+
+        return view('vehicle.usage.fuel',compact('vehicles'));
+
+    }
 
 }
