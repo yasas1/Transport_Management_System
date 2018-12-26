@@ -19,7 +19,7 @@
 
     @include('layouts.errors')
     @include('layouts.success')
-    <div class="flash-message" id="flash-message" ></div>
+    <div class="flash_message" id="flash_message" ></div>
 
     <div class="nav-tabs-custom">
 
@@ -367,7 +367,7 @@
                                         
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success active" id="update">Update</button>
+                    <button type="submit" class="btn btn-success active" id="update"><i class="glyphicon glyphicon-arrow-up"></i>&nbspUpdate</button>
                     {!! Form::close() !!} 
                     <button type="button" class="btn btn-primary" data-dismiss="modal" id="close_edit" >Close</button>
                 </div>
@@ -448,7 +448,7 @@
                    
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success active" id="update">Update</button>
+                    <button type="submit" class="btn btn-success active" id="update"> <i class="glyphicon glyphicon-arrow-up"></i>&nbsp Update</button>
                     {!! Form::close() !!} 
                     <button type="button" class="btn btn-primary" data-dismiss="modal" id="close_edit" >Close</button>
                 </div>
@@ -461,7 +461,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <b> <h3 class="modal-title" id="delete_replace_titl"></h3> </b>
+                <b> <h3 class="modal-title" id="delete_replace_title"></h3> </b>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -470,7 +470,7 @@
                 <h4 class="modal-title" >Please Confirm Your Delete Action</h4>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="replacement_delete_confirm">Delete</button>
+                <button type="button" class="btn btn-danger" id="replacement_delete_confirm"> <i class="fa fa-trash"></i>&nbsp Delete</button>
                 <button type="button" class="btn btn-primary active" data-dismiss="modal">Cancel</button>
             </div>
             </div>
@@ -591,7 +591,7 @@
                 success: function(data)
                 {           
                     $('#replacement_edit_modal').modal('hide');  
-                    $('#flash-message').html(data);
+                    $('#flash_message').html(data);
                         /* refresh data table in the view */
                     readTyreReplacement(vid);      
                 },
@@ -644,7 +644,7 @@
                 {          
                     console.log(data); 
                     $('#PositionChange_edit_modal').modal('hide');  
-                    $('#flash-message').html(data);
+                    $('#flash_message').html(data);
                         /* refresh data table in the view */
                     readTyrePositionChanges(vid);      
                 },
@@ -661,7 +661,7 @@
 
         var vehicle = $( "#vid_replacement option:selected" ).text();
 
-        $('#delete_replace_titl').html('<i class="fa fa-car"></i>'+' '+vehicle +" Vehicle Service Deleting" );
+        $('#delete_replace_title').html('<i class="fa fa-car"></i>'+' '+vehicle +" Vehicle Service Deleting" );
 
         $("#replacement_delete_modal").modal('show'); 
     
@@ -674,9 +674,9 @@
                 success: function(data)
                 {
                     console.log(data);   
-                    $('#flash-message').html(data); 
+                    $('#flash_message').html(data); 
     
-                    $('tr#'+id).remove();
+                    $('tr#replace'+id).remove();
                     $('#replacement_delete_modal').modal('hide');
                 },
                 error: function(xhr, textStatus, error){
@@ -687,6 +687,7 @@
         });
  
     });
+
 
 </script>
 

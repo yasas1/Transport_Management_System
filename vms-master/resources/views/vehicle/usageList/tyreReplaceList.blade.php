@@ -1,6 +1,6 @@
 @foreach ($tyreReplaces as $tyreReplace)
 
-<tr id="{{$tyreReplace->id}}">        
+<tr id="replace{{$tyreReplace->id}}">        
         <td> {{$tyreReplace->date}} </td>
         <td> {{$tyreReplace->position}} </td> 
         <td> {{$tyreReplace->size}} </td>
