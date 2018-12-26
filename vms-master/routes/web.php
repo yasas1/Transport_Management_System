@@ -141,9 +141,9 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/journey/readVehicleColor/','JourneyController@readVehicleColor'); 
     Route::get('/journey/ForCreateByVehicle/{id}','JourneyController@ForCreateByVehicle'); 
     
-    /*
-     * My Journeys
-     * */
+        /*
+        * My Journeys
+        * */
     Route::get('/journey/readMyJourney','JourneyHistoryController@readMyJourney');  
     Route::get('/journey/myJourneyByVehicle/{id}','JourneyHistoryController@myJourneyByVehicle');
     Route::get('/journey/myJourneyExternal','JourneyHistoryController@myJourneyExternal');
@@ -156,29 +156,29 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::patch('/user/update','UserController@update');
 
 
-    /*Role Crud*/
+        /*Role Crud*/
     Route::get('/user/roles','RoleController@index');
 
-    /*Assign new Module To  Existing Role*/
+        /*Assign new Module To  Existing Role*/
     Route::get('/user/role/{id}/module/assign','RoleController@assignNewModule');
     Route::post('/user/role/module/store','RoleController@storeNewModule');
 
     Route::get('/user/role/module/{id}/permissions','RoleController@getPermissionsByModuleId');
     Route::get('/user/role/module/permissions','RoleController@getPermissionsByModule');
 
-    /*Edit Module Assigned to Existing Role*/
+        /*Edit Module Assigned to Existing Role*/
     Route::get('/user/role/{rId}/module/{mId}/edit','RoleController@editPerimssionsByModule');
-    /*Update Module Assigned to Existing Role*/
+        /*Update Module Assigned to Existing Role*/
     Route::patch('/user/role/module/permissions/update','RoleController@updatePermissionsByModule');
-    /*Delete Module Assigned to Existing Role*/
+        /*Delete Module Assigned to Existing Role*/
     Route::get('/user/role/privilege/{id}/delete','RoleController@deletePrivilege');
-    /*Create new Role*/
+        /*Create new Role*/
     Route::get('/user/role/create','RoleController@create');
     Route::post('/user/role/store','RoleController@store');
 
     Route::get('/user/role/{id}/delete','RoleController@deleteRole');
 
-    /*Vehicle Usage*/
+        /*Vehicle Usage*/
     Route::get('/vehicle/usage','VehicleUsageController@index');
 
         /*Vehicle service*/
@@ -214,6 +214,9 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/vehicle/viewRepair/{id}','VehicleUsageController@viewRepair'); 
     Route::post('/vehicle/deleteRepaire','VehicleUsageController@deleteRepaire')->name('repaire.delete'); 
     Route::post('/vehicle/repair/update','VehicleUsageController@updateRepair');
+
+        /* Vehicle Repairs */
+    Route::get('/vehicle/tyres','VehicleUsageController@viewTyresPage'); 
                                                                     
 });
 

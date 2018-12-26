@@ -418,7 +418,7 @@ class VehicleUsageController extends Controller
         return View::make('layouts/errors');
     }
 
-            /* -------------- Repaires ------------------------- */
+            /*----------------- Repaires ------------------------- */
     
     public function viewRepairsPage(){
 
@@ -524,6 +524,16 @@ class VehicleUsageController extends Controller
         }
         Session::flash('errors', 'Vehicle Repaire Updating Error !');
         return View::make('layouts/errors');
+
+    }
+
+            /* ----------------- Tyres ------------------------- */
+    
+    public function viewTyresPage(){
+
+        $vehicles = Vehical::all()->pluck('fullName','id'); 
+
+        return view('vehicle.usage.tyres',compact('vehicles'));
 
     }
 
