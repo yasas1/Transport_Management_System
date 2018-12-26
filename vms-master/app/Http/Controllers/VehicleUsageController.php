@@ -537,4 +537,36 @@ class VehicleUsageController extends Controller
 
     }
 
+    public function storeTyreReplacement(Request $request){  
+
+        // $request->validate([
+        //     'vehical_id' => 'required',
+        //     'workshop_in_date' => 'required',
+        //     'meter_reading_out' => 'required',
+        //     'executed_at' => 'required',
+        //     'authorized_by' => 'required',
+        //     'invoice_no' => 'required',
+        //     'invoice_date' => 'required',
+            
+        // ]);
+
+        $repaire = new Repaire; 
+
+        $repaire->vehical_id = $request->vehical_id;
+        $repaire->workshop_in_date = $request->workshop_in_date;
+        $repaire->workshop_out_date = $request->workshop_out_date;
+        $repaire->meter_reading_in = $request->meter_reading_in;
+        $repaire->meter_reading_out = $request->meter_reading_out;
+        $repaire->works_and_parts = $request->works_and_parts;
+        $repaire->invoice_no = $request->invoice_no;
+        $repaire->invoice_date = $request->invoice_date;
+        $repaire->authorized_by = $request->authorized_by;
+        $repaire->executed_at = $request->executed_at;
+        $repaire->cost = $request->cost;
+
+        $repaire->save(); 
+
+        return redirect()->back()->with(['success'=>'Vehicle Repair added successfully !']);
+    }
+
 }

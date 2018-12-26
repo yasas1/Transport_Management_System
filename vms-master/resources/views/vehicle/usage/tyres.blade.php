@@ -21,88 +21,117 @@
         <div class="flash-message" id="flash-message" ></div>
 
         <ul class="nav nav-tabs">
-            <li class="active" id="tabReplacement"><a href="#replacement" data-toggle="tab"><b><i class="fa fa-circle-o-notch"></i>&nbsp Replacement</b></a></li>
+            <li class="active" id="tabReplacement"><a href="#replacement" data-toggle="tab"><b> <i class="fas fa-bullseye"></i> &nbsp Replacement</b></a></li>
             <li id="tabPositionChanges"><a href="#positionChanges" data-toggle="tab"> <b><i class="fas fa-ban"></i>&nbsp Position Changes</b> </a></li>
         </ul>
         <div class="tab-content">
 
             <div class="active tab-pane" id="replacement">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="number">Registration No <span class="text text-danger">*</span></label>
-                            {{Form::text('registration_no',null,['class'=>'form-control','placeholder'=>'Registration Number Of The Vehicle','required'])}}
-                        </div>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="count">Date of Registration</label>
-                            {{Form::date('date_of_registration',null,['class'=>'form-control','placeholder'=>'Date Of Registration'])}}
+                <div class="row"> 
+                        {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeTyreReplacement']) !!}
+                        <div class="col-md-4"> 
+        
+                            <h4><i class="fa fa-car"></i> Vehicle </h4>
+                            <div>             
+                                {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Select a Vehicle'])}}
+                            </div>                  
                         </div>
-                    </div>
-                </div>
+                        <div class="col-md-2"> </div>
+            
+                        
+        
+                    </div> <br>
+        
+                    <div class="row"> 
+        
+                        <div class="col-md-4"> 
+            
+                            <h4><i class="fa fa-calendar"></i> Date </h4>
+                                                                
+                            <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
+                                <input id="date" name="date" class="form-control" type="text" readonly />
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                    
+                        </div>                 
+                        
+                    </div><br>
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="make_and_type">Make and Type</label>
-                            {{Form::text('make_and_type',null,['class'=>'form-control','placeholder'=>'Make and Type','id'=>'txtMATOnReg'])}}
-                        </div>
-                    </div>
-                </div>
+                    <div class="row"> 
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="chassis_no">Chassis Number</label>
-                            {{Form::text('chassis_no',null,['class'=>'form-control','placeholder'=>'Chassis Number','id'=>'txtChassisNoOnReg'])}}
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="engine_no">Engine Number</label>
-                            {{Form::text('engine_no',null,['class'=>'form-control','placeholder'=>'Engine Number','id'=>'txtEngNoOnReg'])}}
-                        </div>
-                    </div>
-                </div>
+                        <div class="col-md-4"> 
+    
+                            <h4><i class="fas fa-comments-dollar"></i> Position </h4>  
+            
+                            <div>  
+                                {!! Form::text('position',null,['class'=>'form-control','placeholder'=>'Position' ]) !!}                       
+                            </div>
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="reg_book">Registration Book</label>
-                            {{Form::file('reg_book',['id'=>'regBookInput'])}}
                         </div>
+        
+                        <div class="col-md-4"> 
+        
+                            <h4><i class="fas fa-comments-dollar"></i> Size </h4>  
+            
+                            <div>  
+                                {!! Form::text('size',null,['class'=>'form-control','placeholder'=>'Size' ]) !!}                       
+                            </div>                      
+                        </div>
+        
+                        <div class="col-md-4"> 
+        
+                            <h4><i class="glyphicon glyphicon-list-alt"></i> Type </h4>  
+            
+                            <div>  
+                                {!! Form::text('type',null,['class'=>'form-control','placeholder'=>'Type' ]) !!}                      
+                            </div>                      
+                        </div> 
+        
+                    </div><br>
+                    
+                    <div class="row"> 
+        
+                        <div class="col-md-4"> 
+        
+                            <h4><i class="fas fa-tachometer-alt"></i> Meter Reading </h4>  
+            
+                            <div>  
+                                {{Form::number('meter_reading', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Meter Reading'])}}                      
+                            </div>                      
+                        </div>   
+                    </div><br>
+
+                    <div class="row"> 
+        
+                        <div class="col-md-4"> 
+        
+                            <h4><i class="fas fa-tachometer-alt"></i> Remarks </h4>  
+            
+                            <div>  
+                                {!! Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2'  ]) !!}                      
+                            </div>                      
+                        </div>  
+
+                    </div><br>
+
+                    <div class="row"> 
+        
+                        <div class="col-md-4"> 
+                            {{Form::submit('SUBMIT', ['class'=>'btn btn-success pull-left'])}} &nbsp
+                            {{Form::reset('CLEAR', ['class'=>'btn btn-warning'])}}
+                        </div>  
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="id_card">Vehicle Identity Cart</label>
-                            {{Form::file('id_card',['id'=>'idCardInput'])}}
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="documents">Other Documents</label>
-                            {{Form::file('documents[]',['id'=>'documentsInput','multiple'])}}
-                        </div>
-                        <div>
-                            <table class="table table-bordered">
-                                <tbody id="table">
-                                </tbody>
-                            </table>
-                        </div>
-                        <p id="file_preview"></p>
-                    </div>
-                </div>
+                    {!! Form::close() !!} <br>
+
+                
 
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <hr>
                             <div class="pull-right">
-                                <a href="#positionChanges" data-toggle="tab"><button class="btn btn-info" id="btnNextRegistration">POSITION CHANGE </button></a>
+                                <a href="#positionChanges" data-toggle="tab"><button class="btn btn-info" id="btnNextPositionChanges">POSITION CHANGE </button></a>
                             </div>
                         </div>
                     </div>
@@ -129,47 +158,18 @@
                 
                 </div>
 
-            </div><!-- /.tab-Replacement -->
+            </div> <!-- /.tab-Replacement -->
             
             <div class="tab-pane" id="positionChanges">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="count">Working Name </label>
-                            {{Form::text('name',null,['class'=>'form-control','placeholder'=>'Working Name Of The Vehicle'])}}
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="dept_no">Department Number</label>
-                            {{Form::text('dept_no',null,['class'=>'form-control','placeholder'=>'Department Number'])}}
-                        </div>
-                    </div>
-                </div>
+                
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="perchase_price">Purchase Price</label>
-                            {{Form::text('perchase_price',null,['class'=>'form-control','placeholder'=>'Purchase Price'])}}
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="date_of_perchase">Date of Purchase</label>
-                            {{Form::date('date_of_perchase',null,['class'=>'form-control','placeholder'=>'Date of Purchase'])}}
-                        </div>
-                    </div>
-                </div>
 
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <hr>
                             <div class="pull-left">
-                                <a href="#replacement" data-toggle="tab"><button class="btn btn-info" id="btnNextAcquisition">REPLACEMENT</button></a>
+                                <a href="#replacement" data-toggle="tab"><button class="btn btn-info" id="btnBackReplacement">REPLACEMENT</button></a>
                             </div>
                         </div>
                     </div>
@@ -233,9 +233,14 @@
 
     $(function () {
 
-        $('#btnNextRegistration').on('click',function () {
-            $('#tabRegistration').removeClass('active');
-            $('#tabAcquisition').addClass('active');
+        $('#btnNextPositionChanges').on('click',function () {
+            $('#tabReplacement').removeClass('active');
+            $('#tabPositionChanges').addClass('active');
+        });
+
+        $('#btnBackReplacement').on('click',function () {
+            $('#tabPositionChanges').removeClass('active');
+            $('#tabReplacement').addClass('active');
         });
 
     })
