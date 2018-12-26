@@ -15,10 +15,11 @@
 
 @section('content')
 
+    @include('layouts.errors')
+    @include('layouts.success')
+    <div class="flash-message" id="flash-message" ></div>
+
     <div class="nav-tabs-custom">
-        @include('layouts.errors')
-        @include('layouts.success')
-        <div class="flash-message" id="flash-message" ></div>
 
         <ul class="nav nav-tabs">
             <li class="active" id="tabReplacement"><a href="#replacement" data-toggle="tab"><b> <i class="fas fa-bullseye"></i> &nbsp Replacement</b></a></li>
@@ -32,7 +33,7 @@
                         {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeTyreReplacement']) !!}
                         <div class="col-md-4"> 
         
-                            <h4><i class="fa fa-car"></i> Vehicle </h4>
+                            <h4><i class="fa fa-car"></i>&nbsp Vehicle </h4>
                             <div>             
                                 {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Select a Vehicle'])}}
                             </div>                  
@@ -47,7 +48,7 @@
         
                         <div class="col-md-4"> 
             
-                            <h4><i class="fa fa-calendar"></i> Date </h4>
+                            <h4><i class="fa fa-calendar"></i>&nbsp Date </h4>
                                                                 
                             <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
                                 <input id="date" name="date" class="form-control" type="text" readonly />
@@ -62,7 +63,7 @@
 
                         <div class="col-md-4"> 
     
-                            <h4><i class="fas fa-comments-dollar"></i> Position </h4>  
+                            <h4><i class="fas fa-puzzle-piece"></i>&nbsp Position </h4>  
             
                             <div>  
                                 {!! Form::text('position',null,['class'=>'form-control','placeholder'=>'Position' ]) !!}                       
@@ -72,7 +73,7 @@
         
                         <div class="col-md-4"> 
         
-                            <h4><i class="fas fa-comments-dollar"></i> Size </h4>  
+                            <h4> <i class="fas fa-arrows-alt-h"></i> &nbsp Size </h4>  
             
                             <div>  
                                 {!! Form::text('size',null,['class'=>'form-control','placeholder'=>'Size' ]) !!}                       
@@ -81,7 +82,7 @@
         
                         <div class="col-md-4"> 
         
-                            <h4><i class="glyphicon glyphicon-list-alt"></i> Type </h4>  
+                            <h4><i class="fas fa-cube"></i> &nbsp Type </h4>  
             
                             <div>  
                                 {!! Form::text('type',null,['class'=>'form-control','placeholder'=>'Type' ]) !!}                      
@@ -94,7 +95,7 @@
         
                         <div class="col-md-4"> 
         
-                            <h4><i class="fas fa-tachometer-alt"></i> Meter Reading </h4>  
+                            <h4><i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading </h4>  
             
                             <div>  
                                 {{Form::number('meter_reading', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Meter Reading'])}}                      
@@ -106,7 +107,7 @@
         
                         <div class="col-md-4"> 
         
-                            <h4><i class="fas fa-tachometer-alt"></i> Remarks </h4>  
+                            <h4> <i class="fas fa-align-justify"></i> &nbsp Remarks </h4>  
             
                             <div>  
                                 {!! Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2'  ]) !!}                      
@@ -123,8 +124,6 @@
                         </div>  
                     </div>
                     {!! Form::close() !!} <br>
-
-                
 
                 <div class="row">
                     <div class="col-md-12">

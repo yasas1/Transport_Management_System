@@ -25,11 +25,13 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class TyreReplace extends Eloquent
 {
+	protected $table = 'tyre_replaces';
+
 	public $timestamps = false;
 
 	protected $casts = [
 		'vehical_id' => 'int',
-		'milometer_reading' => 'float'
+		'milometer_reading' => 'int'
 	];
 
 	protected $dates = [
@@ -40,7 +42,9 @@ class TyreReplace extends Eloquent
 		'vehical_id',
 		'date',
 		'position',
-		'milometer_reading',
+		'size',
+		'type',
+		'meter_reading',
 		'remarks'
 	];
 

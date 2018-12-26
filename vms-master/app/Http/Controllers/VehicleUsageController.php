@@ -5,6 +5,7 @@ use App\Models\Vehical;
 use App\Models\Service;
 use App\Models\Accident;
 use App\Models\Repaire;
+use App\Models\TyreReplace;
 use App\Models\Driver; 
 use App\Models\AnnualLicence;
 use App\Models\AnnualLicenceDoc;
@@ -539,34 +540,25 @@ class VehicleUsageController extends Controller
 
     public function storeTyreReplacement(Request $request){  
 
-        // $request->validate([
-        //     'vehical_id' => 'required',
-        //     'workshop_in_date' => 'required',
-        //     'meter_reading_out' => 'required',
-        //     'executed_at' => 'required',
-        //     'authorized_by' => 'required',
-        //     'invoice_no' => 'required',
-        //     'invoice_date' => 'required',
-            
-        // ]);
+        $request->validate([
+            'vehical_id' => 'required',
+            'position' => 'required',
+            'date' => 'required'
+        ]);
 
-        $repaire = new Repaire; 
+        $tyreReplace = new TyreReplace; 
 
-        $repaire->vehical_id = $request->vehical_id;
-        $repaire->workshop_in_date = $request->workshop_in_date;
-        $repaire->workshop_out_date = $request->workshop_out_date;
-        $repaire->meter_reading_in = $request->meter_reading_in;
-        $repaire->meter_reading_out = $request->meter_reading_out;
-        $repaire->works_and_parts = $request->works_and_parts;
-        $repaire->invoice_no = $request->invoice_no;
-        $repaire->invoice_date = $request->invoice_date;
-        $repaire->authorized_by = $request->authorized_by;
-        $repaire->executed_at = $request->executed_at;
-        $repaire->cost = $request->cost;
+        $tyreReplace->vehical_id = $request->vehical_id;
+        $tyreReplace->date = $request->date;
+        $tyreReplace->position = $request->position;
+        $tyreReplace->size = $request->size;
+        $tyreReplace->type = $request->type;
+        $tyreReplace->meter_reading = $request->meter_reading;
+        $tyreReplace->remarks = $request->remarks;
+       
+        $tyreReplace->save(); 
 
-        $repaire->save(); 
-
-        return redirect()->back()->with(['success'=>'Vehicle Repair added successfully !']);
+        return redirect()->back()->with(['success'=>'Tyre Replacement Added Successfully !']);
     }
 
 }
