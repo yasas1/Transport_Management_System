@@ -9,6 +9,7 @@
         #datepicker > span:hover{cursor: pointer;color: blue;}
         #dateposition > span:hover{cursor: pointer;color: blue;} 
         #edit_replace_date > span:hover{cursor: pointer;color: blue;} 
+        #edit_posChange_date > span:hover{cursor: pointer;color: blue;} 
     </style>
 @endsection
 
@@ -275,7 +276,7 @@
         <!-- /.tab-content -->
     </div>
 
-    {{-- Replacement Edit modal --}}
+        {{----------------------- Tyre Replacement Edit modal --------------------------}}
     <div class="modal fade" id="replacement_edit_modal" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -358,6 +359,85 @@
             
                             <div>  
                                 {!! Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2','id'=>'edit_replace_remarks'  ]) !!}                      
+                            </div>                      
+                        </div>  
+    
+                    </div><br>
+                                            
+                                        
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success active" id="update">Update</button>
+                    {!! Form::close() !!} 
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="close_edit" >Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        {{----------------------- Tyre Position changing Edit modal --------------------------}}
+    <div class="modal fade" id="replacement_edit_modal" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="edit_replace_title"></h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form action="{{ URL::to('/vehicle/tyreReplacement/update')}}" method="POST" id="replacement_edit_service">
+                        {{csrf_field()}}
+                    <input type="hidden" name="id" id="service_id">
+
+                    <div class="row"> 
+
+                        <div class="col-md-6"> 
+            
+                            <h4><i class="fa fa-calendar"></i>&nbsp Date </h4>
+                                                                
+                            <div id="edit_posChange_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                                <input id="edit_date_posChange" name="date" class="form-control" type="text" readonly />
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                    
+                        </div>
+                           
+                    </div><br>
+
+                    <div class="row"> 
+        
+                        <div class="col-md-6"> 
+
+                            <h4><i class="fas fa-puzzle-piece"></i>&nbsp Position </h4>  
+            
+                            <div>  
+                                {!! Form::text('position',null,['class'=>'form-control','placeholder'=>'Position','id'=>'edit_posChange_position' ]) !!}                       
+                            </div>
+    
+                        </div>
+                    
+                    <div class="row"> 
+        
+                        <div class="col-md-6"> 
+        
+                            <h4><i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading </h4>  
+            
+                            <div>  
+                                {{Form::number('meter_reading', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Meter Reading','id'=>'edit_posChange_meter_reading'])}}                      
+                            </div>                      
+                        </div>   
+                    </div><br>
+    
+                    <div class="row"> 
+        
+                        <div class="col-md-6"> 
+        
+                            <h4> <i class="fas fa-align-justify"></i> &nbsp Remarks </h4>  
+            
+                            <div>  
+                                {!! Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2','id'=>'edit_posChange_remarks'  ]) !!}                      
                             </div>                      
                         </div>  
     
@@ -515,6 +595,12 @@
     });
 
     $("#edit_replace_date").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    }); 
+
+    $("#edit_posChange_date").datepicker({ 
         autoclose: true, 
         format: 'yyyy-mm-dd',
         todayHighlight: true

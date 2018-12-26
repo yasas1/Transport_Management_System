@@ -358,7 +358,7 @@
             {    
                 vid =data[0].vehical_id;
 
-                $('#edit-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Vehicle Servicing Editing" ); 
+                $('#edit-title').html('<i class="fa fa-car"></i>'+' '+data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Vehicle Servicing Editing" ); 
                 $('#edit_date').val(data[0].date);
                 $('#edit_meter_reading').val(data[0].meter_reading);
                 $('#edit_details').val(data[0].details);
