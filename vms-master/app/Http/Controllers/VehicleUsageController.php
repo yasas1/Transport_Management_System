@@ -609,4 +609,35 @@ class VehicleUsageController extends Controller
         return view('vehicle.usageList.tyrePositionChangeList',compact('tyrePositionChanges'));
     }
 
+    public function viewTyreReplacement(){
+
+        $id = $_GET['id'];
+        
+        $tyreReplaces = DB::table('tyre_replaces')
+        ->join('vehical', 'tyre_replaces.vehical_id', '=', 'vehical.id') // join vehicle for get vehicle name
+        ->select('tyre_replaces.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
+        ->where('tyre_replaces.id','=',$id)
+        ->get();      
+        
+
+        return response($tyreReplaces);
+
+    }
+
+    public function updateTyreReplacement(Request $request){
+
+        if($request->ajax() && $tyreReplace = TyreReplace::find($request->id)){ 
+
+            return $tyreReplace;
+
+            $tyreReplace->update();
+
+            Session::flash('success', 'Vehicle Tyre Replacement Updated successfully !');
+            return View::make('layouts/success');
+        }
+        Session::flash('errors', 'Vehicle Tyre Replacement Updating Error !');
+        return View::make('layouts/errors');
+
+    }
+
 }

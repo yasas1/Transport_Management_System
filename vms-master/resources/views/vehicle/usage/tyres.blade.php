@@ -7,7 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style> 
         #datepicker > span:hover{cursor: pointer;color: blue;}
-        #dateposition > span:hover{cursor: pointer;color: blue;}
+        #dateposition > span:hover{cursor: pointer;color: blue;} 
+        #edit_replace_date > span:hover{cursor: pointer;color: blue;} 
     </style>
 @endsection
 
@@ -22,8 +23,8 @@
     <div class="nav-tabs-custom">
 
         <ul class="nav nav-tabs">
-            <li class="active" id="tabReplacement"><a href="#replacement" data-toggle="tab"><b> <i class="fas fa-bullseye"></i> &nbsp Replacement</b></a></li>
-            <li id="tabPositionChanges"><a href="#positionChanges" data-toggle="tab"> <b><i class="fas fa-ban"></i>&nbsp Position Changes</b> </a></li>
+            <li class="active" id="tabReplacement"><a style="font-size:17px" href="#replacement" data-toggle="tab"><i class="fas fa-bullseye"></i> &nbsp Replacement </a></li>
+            <li id="tabPositionChanges"><a style="font-size:17px"  href="#positionChanges" data-toggle="tab"> <i class="fas fa-ban"></i> &nbsp Position Changes </a></li>
         </ul>
         <div class="tab-content">
 
@@ -274,6 +275,107 @@
         <!-- /.tab-content -->
     </div>
 
+    {{-- Replacement Edit modal --}}
+    <div class="modal fade" id="replacement_edit_modal" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="edit-title"></h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form action="{{ URL::to('/vehicle/tyreReplacement/update')}}" method="POST" id="replacement_edit_service">
+                        {{csrf_field()}}
+                    <input type="hidden" name="id" id="service_id">
+
+                    <div class="row"> 
+
+                        <div class="col-md-6"> 
+            
+                            <h4><i class="fa fa-calendar"></i>&nbsp Date </h4>
+                                                                
+                            <div id="edit_replace_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                                <input id="edit_date_replace" name="date" class="form-control" type="text" readonly />
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                    
+                        </div>
+                        
+                        <div class="col-md-6"> 
+    
+                            <h4><i class="fas fa-puzzle-piece"></i>&nbsp Position </h4>  
+            
+                            <div>  
+                                {!! Form::text('position',null,['class'=>'form-control','placeholder'=>'Position' ]) !!}                       
+                            </div>
+    
+                        </div>
+                        
+                    </div><br>
+    
+                    <div class="row"> 
+    
+                        
+        
+                        <div class="col-md-6"> 
+        
+                            <h4> <i class="fas fa-arrows-alt-h"></i> &nbsp Size </h4>  
+            
+                            <div>  
+                                {!! Form::text('size',null,['class'=>'form-control','placeholder'=>'Size' ]) !!}                       
+                            </div>                      
+                        </div>
+        
+                        <div class="col-md-6"> 
+        
+                            <h4><i class="fas fa-cube"></i> &nbsp Type </h4>  
+            
+                            <div>  
+                                {!! Form::text('type',null,['class'=>'form-control','placeholder'=>'Type' ]) !!}                      
+                            </div>                      
+                        </div> 
+        
+                    </div><br>
+                    
+                    <div class="row"> 
+        
+                        <div class="col-md-6"> 
+        
+                            <h4><i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading </h4>  
+            
+                            <div>  
+                                {{Form::number('meter_reading', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Meter Reading'])}}                      
+                            </div>                      
+                        </div>   
+                    </div><br>
+    
+                    <div class="row"> 
+        
+                        <div class="col-md-6"> 
+        
+                            <h4> <i class="fas fa-align-justify"></i> &nbsp Remarks </h4>  
+            
+                            <div>  
+                                {!! Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2'  ]) !!}                      
+                            </div>                      
+                        </div>  
+    
+                    </div><br>
+                                            
+                                        
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success active" id="update">Update</button>
+                    {!! Form::close() !!} 
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="close_edit" >Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 @endsection
 
@@ -283,6 +385,13 @@
 <script src="{{asset('js/jscolor.js')}}"></script>
 
 <script>
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
 
     function readTyreReplacement(vid){ 
         
@@ -338,15 +447,62 @@
 
     });
 
+    $(document).on('click','#edit',function(e){
+        var id = $(this).data('id');
+        var vid;
+        $('#service_id').val(id);
+
+           /* getting existing data to modal */
+        $.ajax({
+            url: '/vehicle/viewTyreReplacement/{id}',
+            type: 'GET',
+            data: { id: id },
+            success: function(data)
+            {    
+                console.log(data); 
+                vid =data[0].vehical_id;
+
+                // $('#edit-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Vehicle Servicing Editing" ); 
+                // $('#edit_date_replace').val(data[0].date);
+                // $('#edit_meter_reading').val(data[0].meter_reading);
+                // $('#edit_details').val(data[0].details);
+                // $('#edit_cost').val(data[0].cost);
+   
+            },
+            error: function(xhr, textStatus, error){
+                console.log(xhr.statusText);
+            }
+        });
+
+        $("#replacement_edit_modal").modal('show');
+
+        $('#replacement_edit_service').on('submit',function(e){
+            e.preventDefault();
+            var url = $(this).attr('action');
+            var data = $(this).serialize();
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: data,
+                success: function(data)
+                {     
+                    console.log(data);        
+                    $('#replacement_edit_modal').modal('hide');  
+                    $('#flash-message').html(data);
+                        /* refresh data table in the view */
+                    readTyreReplacement(vid);      
+                },
+                error: function(xhr, textStatus, error){
+                    console.log(xhr.statusText);
+                }
+            });     
+        });
+
+    });
+
 </script>
 
 <script>
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
 
     $("#datepicker").datepicker({ 
         autoclose: true, 
