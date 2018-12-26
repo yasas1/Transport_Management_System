@@ -663,7 +663,6 @@
                 data: data,
                 success: function(data)
                 {          
-                    console.log(data); 
                     $('#PositionChange_edit_modal').modal('hide');  
                     $('#flash_message').html(data);
                         /* refresh data table in the view */
@@ -694,11 +693,41 @@
                 data: { id: id },
                 success: function(data)
                 {
-                    console.log(data);   
                     $('#flash_message').html(data); 
     
                     $('tr#replace'+id).remove();
                     $('#replacement_delete_modal').modal('hide');
+                },
+                error: function(xhr, textStatus, error){
+                    console.log(error);
+                }
+            });
+
+        });
+ 
+    });
+
+    $(document).on('click','#delete_posChange',function(e){
+        var id = $(this).data('id');
+
+        var vehicle = $( "#vid_position_changing option:selected" ).text();
+
+        $('#delete_posChange_title').html('<i class="fa fa-car"></i>'+' '+vehicle +" Vehicle Service Deleting" );
+
+        $("#posChange_delete_modal").modal('show'); 
+    
+        $("#posChange_delete_confirm").on("click", function(){
+
+            $.ajax({
+                url:"{{ route('posChange.delete')}}",
+                method: "POST",
+                data: { id: id },
+                success: function(data)
+                {   
+                    $('#flash_message').html(data); 
+    
+                    $('tr#posChange'+id).remove();
+                    $('#posChange_delete_modal').modal('hide');
                 },
                 error: function(xhr, textStatus, error){
                     console.log(error);

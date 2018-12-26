@@ -697,7 +697,7 @@ class VehicleUsageController extends Controller
 
         if($request->ajax() && $tyrePositionChange = TyrePositionChange::find($request->id)  ){
 
-            //$tyrePositionChange->delete();
+            $tyrePositionChange->delete();
 
             Session::flash('success', 'Vehicle Tyre Position Changing Deleted successfully !');
             return View::make('layouts/success');
