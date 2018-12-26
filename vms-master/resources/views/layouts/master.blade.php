@@ -303,6 +303,7 @@ desired effect
                     url()->current() == url('/vehicle/usage')|| 
                     url()->current() == url('/vehicle/addservicing')||
                     url()->current() == url('/vehicle/repairs')||
+                    url()->current() == url('/vehicle/tyres')||
                     url()->current() == url('/vehicle/accidents')||
                     url()->current() == url('/vehicle/annualLicences')?'active':''
                     }} ">
@@ -310,12 +311,13 @@ desired effect
                         <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
 
-                        </span>
+                        </span> 
                     </a>
                     <ul class="treeview-menu"> 
                         <li class="{{url()->current() == url('/vehicle/usage')?'active':''}}" ><a href="{{url('/vehicle/usage')}}"><i class="fa fa-eye"></i> VEHICLE USAGE</a></li> 
                         <li class="{{url()->current() == url('/vehicle/addservicing')?'active':''}}" ><a href="{{url('/vehicle/addservicing')}}"><i class="fas fa-oil-can"></i> <span>&nbsp SERVICING</span></a></li>
                         <li class="{{url()->current() == url('/vehicle/repairs')?'active':''}}" ><a href="{{url('/vehicle/repairs')}}"><i class="fa fa-wrench"></i><span>&nbsp REPAIRS</span></a></li>
+                        <li class="{{url()->current() == url('/vehicle/tyres')?'active':''}}" ><a href="{{url('/vehicle/tyres')}}"> <i class="fa fa-circle-o-notch"></i> <span>&nbsp TYRES</span></a></li>
                         <li class="{{url()->current() == url('/vehicle/annualLicences')?'active':''}}" ><a href="{{url('/vehicle/annualLicences')}}"><i class="fas fa-list-alt"></i> <span>&nbsp ANNUAL LICENCES</span></a></li>                       
                         <li class="{{url()->current() == url('/vehicle/accidents')?'active':''}}" ><a href="{{url('/vehicle/accidents')}}"><i class="fas fa-car-crash"></i><span>&nbsp ACCIDENTS</span></a></li>
                     </ul>
