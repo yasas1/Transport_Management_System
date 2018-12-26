@@ -288,9 +288,9 @@
                 </div>
                 <div class="modal-body">
 
-                    <form action="{{ URL::to('/vehicle/tyreReplacement/update')}}" method="POST" id="replacement_edit_service">
+                    <form action="{{ URL::to('/vehicle/tyreReplacement/update')}}" method="POST" id="replacement_edit">
                         {{csrf_field()}}
-                    <input type="hidden" name="id" id="service_id">
+                    <input type="hidden" name="id" id="replacement_id">
 
                     <div class="row"> 
 
@@ -376,7 +376,7 @@
     </div>
 
         {{----------------------- Tyre Position changing Edit modal --------------------------}}
-    <div class="modal fade" id="replacement_edit_modal" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="PositionChange_edit_modal" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -387,9 +387,9 @@
                 </div>
                 <div class="modal-body">
 
-                    <form action="{{ URL::to('/vehicle/tyreReplacement/update')}}" method="POST" id="replacement_edit_service">
+                    <form action="{{ URL::to('/vehicle/tyreReplacement/update')}}" method="POST" id="PositionChange_edit">
                         {{csrf_field()}}
-                    <input type="hidden" name="id" id="service_id">
+                    <input type="hidden" name="id" id="PositionChange_id">
 
                     <div class="row"> 
 
@@ -525,10 +525,10 @@
 
     });
 
-    $(document).on('click','#edit',function(e){
+    $(document).on('click','#edit_replace',function(e){
         var id = $(this).data('id');
         var vid;
-        $('#service_id').val(id);
+        $('#replacement_id').val(id);
 
            /* getting existing data to modal */
         $.ajax({
@@ -555,7 +555,7 @@
 
         $("#replacement_edit_modal").modal('show');
 
-        $('#replacement_edit_service').on('submit',function(e){
+        $('#replacement_edit).on('submit',function(e){
             e.preventDefault();
             var url = $(this).attr('action');
             var data = $(this).serialize();
@@ -566,6 +566,57 @@
                 success: function(data)
                 {           
                     $('#replacement_edit_modal').modal('hide');  
+                    $('#flash-message').html(data);
+                        /* refresh data table in the view */
+                    readTyreReplacement(vid);      
+                },
+                error: function(xhr, textStatus, error){
+                    console.log(xhr.statusText);
+                }
+            });     
+        });
+
+    });
+
+    $(document).on('click','#edit_posChange',function(e){
+        var id = $(this).data('id');
+        var vid;
+        $('#PositionChange_id').val(id);
+
+           /* getting existing data to modal */
+        $.ajax({
+            url: '/vehicle/viewTyrePositionChange/{id}',
+            type: 'GET',
+            data: { id: id },
+            success: function(data)
+            {    
+                vid =data[0].vehical_id;
+
+                $('#edit_replace_title').html('<i class="fa fa-car"></i>'+' '+data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Tyre Position Changed Edit" ); 
+                $('#edit_date_posChange').val(data[0].date);
+                $('#edit_posChange_position').val(data[0].position);
+                $('#edit_posChange_meter_reading').val(data[0].meter_reading);
+                $('#edit_posChange_remarks').val(data[0].remarks);
+   
+            },
+            error: function(xhr, textStatus, error){
+                console.log(xhr.statusText);
+            }
+        });
+
+        $("#PositionChange_edit_modal").modal('show');
+
+        $('#PositionChange_edit').on('submit',function(e){
+            e.preventDefault();
+            var url = $(this).attr('action');
+            var data = $(this).serialize();
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: data,
+                success: function(data)
+                {           
+                    $('#PositionChange_edit_modal').modal('hide');  
                     $('#flash-message').html(data);
                         /* refresh data table in the view */
                     readTyreReplacement(vid);      
