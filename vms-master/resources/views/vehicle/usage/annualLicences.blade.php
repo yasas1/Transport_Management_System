@@ -154,7 +154,7 @@
             <div class="row"> 
 
                 <div class="col-md-5"> 
-                    {{Form::submit('SUBMIT', ['class'=>'btn btn-success pull-left'])}} &nbsp
+                    <button type="submit" class="btn btn-success pull-left"> <i class="glyphicon glyphicon-arrow-up"></i>&nbsp SUBMIT </button>  &nbsp  
                     {{Form::reset('CLEAR', ['class'=>'btn btn-warning'])}}
                 </div>  
             </div>

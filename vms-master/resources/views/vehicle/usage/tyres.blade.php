@@ -117,18 +117,17 @@
                 <div class="row"> 
     
                     <div class="col-md-4"> 
-                        {{Form::submit('SUBMIT', ['class'=>'btn btn-success pull-left'])}} &nbsp
+                        <button type="submit" class="btn btn-success pull-left"> <i class="glyphicon glyphicon-arrow-up"></i>&nbsp SUBMIT </button>  &nbsp  &nbsp 
                         {{Form::reset('CLEAR', ['class'=>'btn btn-warning'])}}
                     </div>  
                 </div>
-                {!! Form::close() !!} <br>
+                {!! Form::close() !!} 
 
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group">
-                            <hr>
-                            <div class="pull-right">
-                                <a href="#positionChanges" data-toggle="tab"><button class="btn btn-info" id="btnNextPositionChanges">POSITION CHANGE </button></a>
+                        <div class="form-group"> <br>
+                            <div class="pull-left">
+                                <a href="#positionChanges" data-toggle="tab"><button class="btn btn-primary" id="btnNextPositionChanges"> <i class="fa fa-mail-forward"></i>&nbsp POSITION CHANGE </button></a>
                             </div>
                         </div>
                     </div>
@@ -229,7 +228,7 @@
                 <div class="row"> 
     
                     <div class="col-md-4"> 
-                        {{Form::submit('SUBMIT', ['class'=>'btn btn-success pull-left'])}} &nbsp
+                        <button type="submit" class="btn btn-success pull-left"> <i class="glyphicon glyphicon-arrow-up"></i>&nbsp SUBMIT </button>  &nbsp  &nbsp 
                         {{Form::reset('CLEAR', ['class'=>'btn btn-warning'])}}
                     </div>  
                 </div>
@@ -240,9 +239,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <hr>
                             <div class="pull-left">
-                                <a href="#replacement" data-toggle="tab"><button class="btn btn-info" id="btnBackReplacement">REPLACEMENT</button></a>
+                                <a href="#replacement" data-toggle="tab"><button class="btn btn-primary" id="btnBackReplacement"><i class="fas fa-reply"></i> &nbsp REPLACEMENT</button></a>
                             </div>
                         </div>
                     </div>
