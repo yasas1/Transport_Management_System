@@ -583,4 +583,17 @@ class VehicleUsageController extends Controller
         return redirect()->back()->with(['success'=>'Tyre Position Changing Added Successfully !']);
     }
 
+    public function readTyreReplacement(){
+
+        $vid = $_GET['id'];
+
+        $tyreReplaces = DB::table('tyre_replaces')
+        ->join('vehical', 'tyre_replaces.vehical_id', '=', 'vehical.id') // join vehicle for get vehicle name
+        ->select('tyre_replaces.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
+        ->where('vehical_id','=',$vid)
+        ->get();
+
+        return view('vehicle.usageList.tyreReplaceList',compact('tyreReplaces'));
+    }
+
 }

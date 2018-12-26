@@ -135,16 +135,17 @@
                 </div>
 
                 <h3 id="table_header_replacement"style="text-align:center;display: none;"> Table Title</h3> 
-                <div class="box box-primary" id="table_box" style="height:400px; overflow: auto; display: none;" data-target="#exampleModalCenter">
+                <div class="box box-primary" id="table_replacement" style="height:400px; overflow: auto; display: none;" data-target="#exampleModalCenter">
                 
                     <table id="table" class="table table-sm table-hover table-sm table-striped"> 
 
                         <thead class="table-dark">  
                             <tr > 
                                 <th scope="col"> Date </th>
-                                <th scope="col"> Meter Reading</th>
-                                <th scope="col"> Details </th>
-                                <th scope="col"> Cost (Rs.) </th>
+                                <th scope="col"> Position</th>
+                                <th scope="col"> size </th>
+                                <th scope="col"> type </th>
+                                <th scope="col"> Meter Reading </th>
                                 <th scope="col"> Action</th>
                             </tr>
                         </thead>
@@ -281,6 +282,37 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 <script src="{{asset('js/jscolor.js')}}"></script>
+
+<script>
+
+    function readTyreReplacement(vid){ 
+        
+        $.ajax({
+            url: '/vehicle/readTyreReplacement/{id}',
+            type: 'GET',
+            data: { id: vid },
+            success: function(data)
+            {
+                //console.log(data);   
+                $('#replacement_info').empty().html(data);           
+                
+            }
+        });
+    }
+
+    $('#vid').on('change',function () {
+        var vid = $(this).val();
+        var vehicle = $( "#vid option:selected" ).text();
+        
+        $('#table_header_replacement').html('<i class="fa fa-car"></i>'+' '+vehicle+" Vehicle Tyre Replacement History");
+        $('#table_header_replacement').show();
+
+        readTyreReplacement(vid); 
+        $('#table_replacement').show();    
+
+    });
+
+</script>
 
 <script>
 

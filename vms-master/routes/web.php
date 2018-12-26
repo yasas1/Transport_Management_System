@@ -218,7 +218,8 @@ Route::group(['middleware'=>['authenticate','active']],function (){
         /* Vehicle Repairs */
     Route::get('/vehicle/tyres','VehicleUsageController@viewTyresPage'); 
     Route::post('/vehicle/storeTyreReplacement','VehicleUsageController@storeTyreReplacement');
-    Route::post('/vehicle/storeTyrePositionChange','VehicleUsageController@storeTyrePositionChange');  
+    Route::post('/vehicle/storeTyrePositionChange','VehicleUsageController@storeTyrePositionChange');
+    Route::get('/vehicle/readTyreReplacement/{id}','VehicleUsageController@readTyreReplacement');   
                                                                     
 });
 
