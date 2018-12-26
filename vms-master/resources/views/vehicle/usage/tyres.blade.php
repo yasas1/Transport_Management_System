@@ -310,7 +310,7 @@
                             <h4><i class="fas fa-puzzle-piece"></i>&nbsp Position </h4>  
             
                             <div>  
-                                {!! Form::text('position',null,['class'=>'form-control','placeholder'=>'Position','id'=>'edit_replace_position' ]) !!}                       
+                                {!! Form::text('position',null,['class'=>'form-control','id'=>'edit_replace_position' ]) !!}                       
                             </div>
     
                         </div>
@@ -324,7 +324,7 @@
                             <h4> <i class="fas fa-arrows-alt-h"></i> &nbsp Size </h4>  
             
                             <div>  
-                                {!! Form::text('size',null,['class'=>'form-control','placeholder'=>'Size','id'=>'edit_replace_size' ]) !!}                       
+                                {!! Form::text('size',null,['class'=>'form-control','id'=>'edit_replace_size' ]) !!}                       
                             </div>                      
                         </div>
         
@@ -333,7 +333,7 @@
                             <h4><i class="fas fa-cube"></i> &nbsp Type </h4>  
             
                             <div>  
-                                {!! Form::text('type',null,['class'=>'form-control','placeholder'=>'Type','id'=>'edit_replace_type' ]) !!}                      
+                                {!! Form::text('type',null,['class'=>'form-control','id'=>'edit_replace_type' ]) !!}                      
                             </div>                      
                         </div> 
         
@@ -346,7 +346,7 @@
                             <h4><i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading </h4>  
             
                             <div>  
-                                {{Form::number('meter_reading', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Meter Reading','id'=>'edit_replace_meter_reading'])}}                      
+                                {{Form::number('meter_reading', null,['class'=>'form-control ','id'=>'edit_replace_meter_reading'])}}                      
                             </div>                      
                         </div>   
                     </div><br>
@@ -380,14 +380,14 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title" id="edit_replace_title"></h3>
+                    <h3 class="modal-title" id="edit_posChange_title"></h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
 
-                    <form action="{{ URL::to('/vehicle/tyreReplacement/update')}}" method="POST" id="PositionChange_edit">
+                    <form action="{{ URL::to('/vehicle/tyrePositionChange/update')}}" method="POST" id="PositionChange_edit">
                         {{csrf_field()}}
                     <input type="hidden" name="id" id="PositionChange_id">
 
@@ -413,10 +413,12 @@
                             <h4><i class="fas fa-puzzle-piece"></i>&nbsp Position </h4>  
             
                             <div>  
-                                {!! Form::text('position',null,['class'=>'form-control','placeholder'=>'Position','id'=>'edit_posChange_position' ]) !!}                       
+                                {!! Form::text('position',null,['class'=>'form-control','id'=>'edit_posChange_position' ]) !!}                       
                             </div>
     
                         </div>
+                        
+                    </div><br>
                     
                     <div class="row"> 
         
@@ -425,9 +427,10 @@
                             <h4><i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading </h4>  
             
                             <div>  
-                                {{Form::number('meter_reading', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Meter Reading','id'=>'edit_posChange_meter_reading'])}}                      
+                                {{Form::number('meter_reading', null,['class'=>'form-control ','id'=>'edit_posChange_meter_reading'])}}                      
                             </div>                      
-                        </div>   
+                        </div> 
+
                     </div><br>
     
                     <div class="row"> 
@@ -437,13 +440,12 @@
                             <h4> <i class="fas fa-align-justify"></i> &nbsp Remarks </h4>  
             
                             <div>  
-                                {!! Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2','id'=>'edit_posChange_remarks'  ]) !!}                      
+                                {!! Form::textarea('remarks',null,['class'=>'form-control','rows'=>'2','id'=>'edit_posChange_remarks'  ]) !!}                      
                             </div>                      
                         </div>  
     
                     </div><br>
-                                            
-                                        
+                   
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success active" id="update">Update</button>
@@ -555,7 +557,7 @@
 
         $("#replacement_edit_modal").modal('show');
 
-        $('#replacement_edit).on('submit',function(e){
+        $('#replacement_edit').on('submit',function(e){
             e.preventDefault();
             var url = $(this).attr('action');
             var data = $(this).serialize();
@@ -592,7 +594,7 @@
             {    
                 vid =data[0].vehical_id;
 
-                $('#edit_replace_title').html('<i class="fa fa-car"></i>'+' '+data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Tyre Position Changed Edit" ); 
+                $('#edit_posChange_title').html('<i class="fa fa-car"></i>'+' '+data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Tyre Position Changed Editing" ); 
                 $('#edit_date_posChange').val(data[0].date);
                 $('#edit_posChange_position').val(data[0].position);
                 $('#edit_posChange_meter_reading').val(data[0].meter_reading);
@@ -615,11 +617,12 @@
                 type: 'POST',
                 data: data,
                 success: function(data)
-                {           
+                {          
+                    console.log(data); 
                     $('#PositionChange_edit_modal').modal('hide');  
                     $('#flash-message').html(data);
                         /* refresh data table in the view */
-                    readTyreReplacement(vid);      
+                    readTyrePositionChanges(vid);      
                 },
                 error: function(xhr, textStatus, error){
                     console.log(xhr.statusText);

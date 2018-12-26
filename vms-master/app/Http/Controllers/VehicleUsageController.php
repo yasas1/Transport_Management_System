@@ -659,6 +659,25 @@ class VehicleUsageController extends Controller
         return response($tyreReplaces);
 
     }
-    
+
+    public function updateTyrePositionChange(Request $request){
+
+        if($request->ajax() && $tyrePositionChange = TyrePositionChange::find($request->id)){ 
+
+            $tyrePositionChange->date = $request->date;
+            $tyrePositionChange->position = $request->position;       
+            $tyrePositionChange->meter_reading = $request->meter_reading;
+            $tyrePositionChange->remarks = $request->remarks;
+
+            $tyrePositionChange->update();
+
+            Session::flash('success', 'Vehicle Tyre Position Changing Updated successfully !');
+            return View::make('layouts/success');
+        }
+        Session::flash('errors', 'Vehicle Tyre Position Changing Updating Error !');
+        return View::make('layouts/errors');
+
+    }
+
 
 }

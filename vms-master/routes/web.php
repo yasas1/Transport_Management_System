@@ -224,6 +224,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/vehicle/viewTyreReplacement/{id}','VehicleUsageController@viewTyreReplacement'); 
     Route::post('/vehicle/tyreReplacement/update','VehicleUsageController@updateTyreReplacement');
     Route::get('/vehicle/viewTyrePositionChange/{id}','VehicleUsageController@viewTyrePositionChange'); 
+    Route::post('/vehicle/tyrePositionChange/update','VehicleUsageController@updateTyrePositionChange');
                                                                     
 });
 
