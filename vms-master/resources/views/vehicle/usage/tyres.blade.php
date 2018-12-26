@@ -36,7 +36,7 @@
     
                         <h4><i class="fa fa-car"></i>&nbsp Vehicle </h4>
                         <div>             
-                            {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Select a Vehicle'])}}
+                            {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid_replacement','placeholder'=>'Select a Vehicle'])}}
                         </div>                  
                     </div>
                 
@@ -146,6 +146,7 @@
                                 <th scope="col"> size </th>
                                 <th scope="col"> type </th>
                                 <th scope="col"> Meter Reading </th>
+                                <th scope="col"> Remarks</th>
                                 <th scope="col"> Action</th>
                             </tr>
                         </thead>
@@ -167,7 +168,7 @@
     
                         <h4><i class="fa fa-car"></i>&nbsp Vehicle </h4>
                         <div>             
-                            {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Select a Vehicle'])}}
+                            {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid_position_changing','placeholder'=>'Select a Vehicle'])}}
                         </div>                  
                     </div>
                 
@@ -248,16 +249,16 @@
                 </div>
 
                 <h3 id="table_header_positionChanges"style="text-align:center;display: none;"> Table Title</h3> 
-                <div class="box box-primary" id="table_box" style="height:400px; overflow: auto; display: none;" data-target="#exampleModalCenter">
+                <div class="box box-primary" id="table_positionChanges" style="height:400px; overflow: auto; display: none;" data-target="#exampleModalCenter">
                 
                     <table id="table" class="table table-sm table-hover table-sm table-striped"> 
 
                         <thead class="table-dark">  
                             <tr > 
                                 <th scope="col"> Date </th>
+                                <th scope="col"> Position </th>
                                 <th scope="col"> Meter Reading</th>
-                                <th scope="col"> Details </th>
-                                <th scope="col"> Cost (Rs.) </th>
+                                <th scope="col"> Remarks</th>
                                 <th scope="col"> Action</th>
                             </tr>
                         </thead>
@@ -300,15 +301,42 @@
         });
     }
 
-    $('#vid').on('change',function () {
+    $('#vid_replacement').on('change',function () {
         var vid = $(this).val();
-        var vehicle = $( "#vid option:selected" ).text();
+        var vehicle = $( "#vid_replacement option:selected" ).text();
         
         $('#table_header_replacement').html('<i class="fa fa-car"></i>'+' '+vehicle+" Vehicle Tyre Replacement History");
         $('#table_header_replacement').show();
 
         readTyreReplacement(vid); 
         $('#table_replacement').show();    
+
+    });
+
+    function readTyrePositionChanges(vid){ 
+        
+        $.ajax({
+            url: '/vehicle/readTyrePositionChanges/{id}',
+            type: 'GET',
+            data: { id: vid },
+            success: function(data)
+            {
+                //console.log(data);   
+                $('#positionChange_info').empty().html(data);           
+                
+            }
+        });
+    }
+
+    $('#vid_position_changing').on('change',function () {
+        var vid = $(this).val();
+        var vehicle = $( "#vid_position_changing option:selected" ).text();
+        
+        $('#table_header_positionChanges').html('<i class="fa fa-car"></i>'+' '+vehicle+" Vehicle Tyre Position Changed History");
+        $('#table_header_positionChanges').show();
+
+        readTyrePositionChanges(vid); 
+        $('#table_positionChanges').show();    
 
     });
 

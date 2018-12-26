@@ -25,6 +25,8 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  */
 class TyrePositionChange extends Eloquent
 {
+	protected $table = 'tyre_position_changes';
+
 	public $timestamps = false;
 
 	protected $casts = [
