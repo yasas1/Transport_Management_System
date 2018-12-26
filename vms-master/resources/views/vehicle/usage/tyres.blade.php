@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style> 
         #datepicker > span:hover{cursor: pointer;color: blue;}
-        #edit_date > span:hover{cursor: pointer;color: blue;}
+        #dateposition > span:hover{cursor: pointer;color: blue;}
     </style>
 @endsection
 
@@ -27,103 +27,101 @@
         </ul>
         <div class="tab-content">
 
+                            <!---------------- Tyre Replacement------------------->
             <div class="active tab-pane" id="replacement">
 
                 <div class="row"> 
-                        {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeTyreReplacement']) !!}
-                        <div class="col-md-4"> 
-        
-                            <h4><i class="fa fa-car"></i>&nbsp Vehicle </h4>
-                            <div>             
-                                {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Select a Vehicle'])}}
-                            </div>                  
-                        </div>
-                        <div class="col-md-2"> </div>
-            
-                        
-        
-                    </div> <br>
-        
-                    <div class="row"> 
-        
-                        <div class="col-md-4"> 
-            
-                            <h4><i class="fa fa-calendar"></i>&nbsp Date </h4>
-                                                                
-                            <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
-                                <input id="date" name="date" class="form-control" type="text" readonly />
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                            </div>
-                    
-                        </div>                 
-                        
-                    </div><br>
-
-                    <div class="row"> 
-
-                        <div class="col-md-4"> 
+                    {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeTyreReplacement']) !!}
+                    <div class="col-md-4"> 
     
-                            <h4><i class="fas fa-puzzle-piece"></i>&nbsp Position </h4>  
-            
-                            <div>  
-                                {!! Form::text('position',null,['class'=>'form-control','placeholder'=>'Position' ]) !!}                       
-                            </div>
-
-                        </div>
-        
-                        <div class="col-md-4"> 
-        
-                            <h4> <i class="fas fa-arrows-alt-h"></i> &nbsp Size </h4>  
-            
-                            <div>  
-                                {!! Form::text('size',null,['class'=>'form-control','placeholder'=>'Size' ]) !!}                       
-                            </div>                      
-                        </div>
-        
-                        <div class="col-md-4"> 
-        
-                            <h4><i class="fas fa-cube"></i> &nbsp Type </h4>  
-            
-                            <div>  
-                                {!! Form::text('type',null,['class'=>'form-control','placeholder'=>'Type' ]) !!}                      
-                            </div>                      
-                        </div> 
-        
-                    </div><br>
-                    
-                    <div class="row"> 
-        
-                        <div class="col-md-4"> 
-        
-                            <h4><i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading </h4>  
-            
-                            <div>  
-                                {{Form::number('meter_reading', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Meter Reading'])}}                      
-                            </div>                      
-                        </div>   
-                    </div><br>
-
-                    <div class="row"> 
-        
-                        <div class="col-md-4"> 
-        
-                            <h4> <i class="fas fa-align-justify"></i> &nbsp Remarks </h4>  
-            
-                            <div>  
-                                {!! Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2'  ]) !!}                      
-                            </div>                      
-                        </div>  
-
-                    </div><br>
-
-                    <div class="row"> 
-        
-                        <div class="col-md-4"> 
-                            {{Form::submit('SUBMIT', ['class'=>'btn btn-success pull-left'])}} &nbsp
-                            {{Form::reset('CLEAR', ['class'=>'btn btn-warning'])}}
-                        </div>  
+                        <h4><i class="fa fa-car"></i>&nbsp Vehicle </h4>
+                        <div>             
+                            {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Select a Vehicle'])}}
+                        </div>                  
                     </div>
-                    {!! Form::close() !!} <br>
+                
+                </div> <br>
+    
+                <div class="row"> 
+    
+                    <div class="col-md-4"> 
+        
+                        <h4><i class="fa fa-calendar"></i>&nbsp Date </h4>
+                                                            
+                        <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
+                            <input id="date" name="date" class="form-control" type="text" readonly />
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                
+                    </div>                 
+                    
+                </div><br>
+
+                <div class="row"> 
+
+                    <div class="col-md-4"> 
+
+                        <h4><i class="fas fa-puzzle-piece"></i>&nbsp Position </h4>  
+        
+                        <div>  
+                            {!! Form::text('position',null,['class'=>'form-control','placeholder'=>'Position' ]) !!}                       
+                        </div>
+
+                    </div>
+    
+                    <div class="col-md-4"> 
+    
+                        <h4> <i class="fas fa-arrows-alt-h"></i> &nbsp Size </h4>  
+        
+                        <div>  
+                            {!! Form::text('size',null,['class'=>'form-control','placeholder'=>'Size' ]) !!}                       
+                        </div>                      
+                    </div>
+    
+                    <div class="col-md-4"> 
+    
+                        <h4><i class="fas fa-cube"></i> &nbsp Type </h4>  
+        
+                        <div>  
+                            {!! Form::text('type',null,['class'=>'form-control','placeholder'=>'Type' ]) !!}                      
+                        </div>                      
+                    </div> 
+    
+                </div><br>
+                
+                <div class="row"> 
+    
+                    <div class="col-md-4"> 
+    
+                        <h4><i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading </h4>  
+        
+                        <div>  
+                            {{Form::number('meter_reading', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Meter Reading'])}}                      
+                        </div>                      
+                    </div>   
+                </div><br>
+
+                <div class="row"> 
+    
+                    <div class="col-md-6"> 
+    
+                        <h4> <i class="fas fa-align-justify"></i> &nbsp Remarks </h4>  
+        
+                        <div>  
+                            {!! Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2'  ]) !!}                      
+                        </div>                      
+                    </div>  
+
+                </div><br>
+
+                <div class="row"> 
+    
+                    <div class="col-md-4"> 
+                        {{Form::submit('SUBMIT', ['class'=>'btn btn-success pull-left'])}} &nbsp
+                        {{Form::reset('CLEAR', ['class'=>'btn btn-warning'])}}
+                    </div>  
+                </div>
+                {!! Form::close() !!} <br>
 
                 <div class="row">
                     <div class="col-md-12">
@@ -158,8 +156,82 @@
                 </div>
 
             </div> <!-- /.tab-Replacement -->
-            
+                        
+                            <!---------------- Tyre Position Change ------------------->
             <div class="tab-pane" id="positionChanges">
+
+                <div class="row"> 
+                    {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeTyrePositionChange']) !!}
+                    <div class="col-md-4"> 
+    
+                        <h4><i class="fa fa-car"></i>&nbsp Vehicle </h4>
+                        <div>             
+                            {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Select a Vehicle'])}}
+                        </div>                  
+                    </div>
+                
+                </div> <br>
+    
+                <div class="row"> 
+    
+                    <div class="col-md-4"> 
+        
+                        <h4><i class="fa fa-calendar"></i>&nbsp Date </h4>
+                                                            
+                        <div id="dateposition" class="input-group date" data-date-format="yyyy-mm-dd">
+                            <input id="date_position" name="date" class="form-control" type="text" readonly />
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                
+                    </div> 
+
+                    <div class="col-md-2"> </div>
+                    
+                    <div class="col-md-4"> 
+
+                        <h4><i class="fas fa-puzzle-piece"></i>&nbsp Position </h4>  
+        
+                        <div>  
+                            {!! Form::text('position',null,['class'=>'form-control','placeholder'=>'Position' ]) !!}                       
+                        </div>
+
+                    </div>
+                    
+                </div><br>
+
+                <div class="row"> 
+    
+                    <div class="col-md-4"> 
+    
+                        <h4><i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading </h4>  
+        
+                        <div>  
+                            {{Form::number('meter_reading', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Meter Reading'])}}                      
+                        </div>                      
+                    </div>   
+                </div><br>
+
+                <div class="row"> 
+    
+                    <div class="col-md-6"> 
+    
+                        <h4> <i class="fas fa-align-justify"></i> &nbsp Remarks </h4>  
+        
+                        <div>  
+                            {!! Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2'  ]) !!}                      
+                        </div>                      
+                    </div>  
+
+                </div><br>
+
+                <div class="row"> 
+    
+                    <div class="col-md-4"> 
+                        {{Form::submit('SUBMIT', ['class'=>'btn btn-success pull-left'])}} &nbsp
+                        {{Form::reset('CLEAR', ['class'=>'btn btn-warning'])}}
+                    </div>  
+                </div>
+                {!! Form::close() !!} <br>
                 
 
 
@@ -224,7 +296,7 @@
         todayHighlight: true
     });
 
-    $("#edit_date").datepicker({ 
+    $("#dateposition").datepicker({ 
         autoclose: true, 
         format: 'yyyy-mm-dd',
         todayHighlight: true

@@ -6,6 +6,7 @@ use App\Models\Service;
 use App\Models\Accident;
 use App\Models\Repaire;
 use App\Models\TyreReplace;
+use App\Models\TyrePositionChange;
 use App\Models\Driver; 
 use App\Models\AnnualLicence;
 use App\Models\AnnualLicenceDoc;
@@ -437,8 +438,8 @@ class VehicleUsageController extends Controller
             'meter_reading_out' => 'required',
             'executed_at' => 'required',
             'authorized_by' => 'required',
-            'invoice_no' => 'required',
-            'invoice_date' => 'required',
+            // 'invoice_no' => 'required',
+            // 'invoice_date' => 'required',
             
         ]);
 
@@ -559,6 +560,27 @@ class VehicleUsageController extends Controller
         $tyreReplace->save(); 
 
         return redirect()->back()->with(['success'=>'Tyre Replacement Added Successfully !']);
+    }
+
+    public function storeTyrePositionChange(Request $request){  
+
+        $request->validate([
+            'vehical_id' => 'required',
+            'position' => 'required',
+            'date' => 'required'
+        ]);
+
+        $tyrePositionChange = new TyrePositionChange; 
+
+        $tyrePositionChange->vehical_id = $request->vehical_id;
+        $tyrePositionChange->date = $request->date;
+        $tyrePositionChange->position = $request->position;       
+        $tyrePositionChange->meter_reading = $request->meter_reading;
+        $tyrePositionChange->remarks = $request->remarks;
+       
+        $tyrePositionChange->save(); 
+
+        return redirect()->back()->with(['success'=>'Tyre Position Changing Added Successfully !']);
     }
 
 }

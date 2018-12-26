@@ -33,7 +33,7 @@
 
             <div class="row"> 
                 {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeAnnualLicenc','files'=>true]) !!}
-                <div class="col-md-3"> 
+                <div class="col-md-4"> 
 
                     <h4><i class="fa fa-car"></i> Vehicle </h4>
                     <div >                     
@@ -47,7 +47,7 @@
             </div>
             <div class="row">
                 
-                <div class="col-md-3"> 
+                <div class="col-md-4"> 
                     <h4><i class=""></i> From </h4> 
 
                     <div id="from_date" class="input-group date" data-date-format="yyyy-mm-dd">
@@ -59,7 +59,7 @@
                 <div class="col-md-2">
                 </div>
 
-                <div class="col-md-3"> 
+                <div class="col-md-4"> 
                     <h4><i class=""></i> To </h4> 
 
                     <div id="to_date" class="input-group date" data-date-format="yyyy-mm-dd">
@@ -72,7 +72,7 @@
 
             <div class="row">
 
-                <div class="col-md-3"> 
+                <div class="col-md-4"> 
 
                     <h4> <i class="glyphicon glyphicon-list-alt"></i>&nbsp Licensing Authority </h4>  
     
@@ -82,14 +82,12 @@
 
                 </div> 
                 
-                <div class="col-md-9">
-                </div>
 
             </div><br>
 
             <div class="row">
 
-                <div class="col-md-3"> 
+                <div class="col-md-4"> 
 
                     <h4> <i class="fas fa-check-double"></i>&nbsp Vehicle Licence Number </h4>  
     
@@ -101,7 +99,7 @@
                 <div class="col-md-2">
                     </div>
 
-                <div class="col-md-3"> 
+                <div class="col-md-4"> 
 
                     <h4> <i class="fas fa-calendar-alt"></i> &nbsp Licence Date </h4>
                                                         
@@ -115,7 +113,7 @@
             </div><br>
             
             <div class="row"> 
-                <div class="col-md-3"> 
+                <div class="col-md-4"> 
                     <h4><i class="fa fa-money"></i>&nbsp Amount </h4>  
 
                     <div>  
@@ -127,12 +125,12 @@
 
             <div class="row">
 
-                <div class="col-md-3"> 
+                <div class="col-md-4"> 
 
                     <h4> <i class="fas fa-award"></i>&nbsp Emission Test Details </h4>  
     
                     <div >  
-                        {!! Form::text('emission_test_details',null,['class'=>'form-control','placeholder'=>'Emission Test Details' ]) !!}
+                        {!! Form::textarea('emission_test_details',null,['class'=>'form-control','placeholder'=>'Emission Test Details','rows'=>'2' ]) !!}
                     </div> 
 
                 </div> 
@@ -140,7 +138,7 @@
                 <div class="col-md-2">
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <h4> <i class="glyphicon glyphicon-upload"></i>&nbsp Annual Licence File Upload </h4>  
 
                     <div>

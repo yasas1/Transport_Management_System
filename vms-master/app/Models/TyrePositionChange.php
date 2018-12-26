@@ -29,7 +29,7 @@ class TyrePositionChange extends Eloquent
 
 	protected $casts = [
 		'vehical_id' => 'int',
-		'milometer_reading' => 'float'
+		'meter_reading' => 'int'
 	];
 
 	protected $dates = [
@@ -40,7 +40,7 @@ class TyrePositionChange extends Eloquent
 		'vehical_id',
 		'date',
 		'position',
-		'milometer_reading',
+		'meter_reading',
 		'remarks'
 	];
 
