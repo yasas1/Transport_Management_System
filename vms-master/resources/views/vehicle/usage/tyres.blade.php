@@ -456,6 +456,27 @@
         </div>
     </div>
 
+        {{----------------------- Tyre Replacement Delete Confirmation modal --------------------------}}
+    <div class="modal fade" id="replacement_delete_modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <b> <h3 class="modal-title" id="delete_replace_titl"></h3> </b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 class="modal-title" >Please Confirm Your Delete Action</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="replacement_delete_confirm">Delete</button>
+                <button type="button" class="btn btn-primary active" data-dismiss="modal">Cancel</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
 
 @endsection
 
@@ -472,7 +493,6 @@
         }
     });
 
-
     function readTyreReplacement(vid){ 
         
         $.ajax({
@@ -488,6 +508,7 @@
         });
     }
 
+        /* View Tyre Replacement on the table*/
     $('#vid_replacement').on('change',function () {
         var vid = $(this).val();
         var vehicle = $( "#vid_replacement option:selected" ).text();
@@ -499,7 +520,7 @@
         $('#table_replacement').show();    
 
     });
-
+        
     function readTyrePositionChanges(vid){ 
         
         $.ajax({
@@ -515,6 +536,7 @@
         });
     }
 
+        /* View Tyre Position Changing on the table*/
     $('#vid_position_changing').on('change',function () {
         var vid = $(this).val();
         var vehicle = $( "#vid_position_changing option:selected" ).text();
@@ -527,6 +549,7 @@
 
     });
 
+        /* Editing Tyre Replacement */
     $(document).on('click','#edit_replace',function(e){
         var id = $(this).data('id');
         var vid;
@@ -580,6 +603,7 @@
 
     });
 
+        /* Editing Tyre Position Changing */
     $(document).on('click','#edit_posChange',function(e){
         var id = $(this).data('id');
         var vid;
@@ -630,6 +654,38 @@
             });     
         });
 
+    });
+
+    $(document).on('click','#delete_replace',function(e){
+        var id = $(this).data('id');
+
+        var vehicle = $( "#vid_replacement option:selected" ).text();
+
+        $('#delete_replace_titl').html('<i class="fa fa-car"></i>'+' '+vehicle +" Vehicle Service Deleting" );
+
+        $("#replacement_delete_modal").modal('show'); 
+    
+        $("#replacement_delete_confirm").on("click", function(){
+
+            $.ajax({
+                url:"{{ route('tyreReplacement.delete')}}",
+                method: "POST",
+                data: { id: id },
+                success: function(data)
+                {
+                    console.log(data);   
+                    $('#flash-message').html(data); 
+    
+                    $('tr#'+id).remove();
+                    $('#replacement_delete_modal').modal('hide');
+                },
+                error: function(xhr, textStatus, error){
+                    console.log(error);
+                }
+            });
+
+        });
+ 
     });
 
 </script>

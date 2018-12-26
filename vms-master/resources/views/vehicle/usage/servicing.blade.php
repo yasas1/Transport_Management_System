@@ -436,7 +436,6 @@
         $("#delete-modal").modal('show'); 
     
         $("#delete-confirm").on("click", function(){
-            console.log("confirmed ");
 
             $.ajax({
                 url:"{{ route('service.delete')}}",
@@ -444,15 +443,12 @@
                 data: { id: id },
                 success: function(data)
                 {
-                    console.log(data);   
                     $('#flash-message').html(data); 
     
                     $('tr#'+id).remove();
                     $('#delete-modal').modal('hide');
                 },
                 error: function(xhr, textStatus, error){
-                    console.log(xhr.statusText);
-                    console.log(textStatus);
                     console.log(error);
                 }
             });
