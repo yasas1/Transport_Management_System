@@ -58,17 +58,42 @@
                 </div>                 
                 
             </div><br>
+        
+            <h4 class="modal-title" > <i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading &nbsp (km)</h4>
+            <div class="row">
+
+                <div class="col-md-4">
+              
+                    <h4> <i class="fa fa-reply-all"></i> &nbsp Out</h4>
+                    <dl>
+                        {{Form::number('meter_reading_out', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Meter Reading Out'])}}                       
+                    </dl>
+
+                </div>
+
+                <div class="col-md-2"> </div>
+
+                <div class="col-md-4">
+
+                    <h4> <i class="fa fa-mail-forward"></i> &nbsp In</h4>
+                    <dl>
+                        {{Form::number('meter_reading_in', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Meter Reading Out'])}}                       
+                    </dl>
+
+                </div>
             
+            </div><br>
+
             <div class="row"> 
 
                 <div class="col-md-4"> 
-
-                    <h4><i class="fas fa-tachometer-alt"></i> Meter Reading </h4>  
     
-                    <div>  
-                        {{Form::number('meter_reading', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Meter Reading'])}}                      
-                    </div>                      
-                </div>   
+                    <h4><i class="fa fa-calendar"></i> Mileage &nbsp (km) </h4>
+                    
+                    <input id="mileage" name="mileage" class="form-control" type="text" readonly />
+            
+                </div>                 
+                    
             </div><br>
 
             <div class="row"> 
