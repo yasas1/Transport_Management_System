@@ -66,7 +66,7 @@
               
                     <h4> <i class="glyphicon glyphicon-log-out"></i> &nbsp Out</h4>
                     <dl>
-                        {{Form::number('meter_reading_out', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Meter Reading Out'])}}                       
+                        {{Form::number('meter_reading_out', null,['class'=>'form-control meterfields','id'=>'input_out','placeholder'=>'Meter Reading Out'])}}                       
                     </dl>
 
                 </div>
@@ -77,7 +77,7 @@
 
                     <h4> <i class="glyphicon glyphicon-log-in"></i> &nbsp In</h4>
                     <dl>
-                        {{Form::number('meter_reading_in', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Meter Reading Out'])}}                       
+                        {{Form::number('meter_reading_in', null,['class'=>'form-control meterfields','id'=>'input_in','placeholder'=>'Meter Reading Out'])}}                       
                     </dl>
 
                 </div>
@@ -90,7 +90,7 @@
     
                     <h4> <i class="glyphicon glyphicon-new-window"></i> Mileage &nbsp (km) </h4>
                     
-                    <input id="mileage" name="mileage" class="form-control" type="text" readonly />
+                    <input id="input_mileage" name="mileage" class="form-control" type="text" readonly />
             
                 </div>                 
                     
@@ -162,6 +162,17 @@
         autoclose: true, 
         format: 'yyyy-mm-dd',
         todayHighlight: true
+    });
+
+    $('#input_out, #input_in').keyup(function(){
+
+        var meter_out = $('#input_out').val();
+        var meter_in = $('#input_in').val();
+        var mileage= meter_in - meter_out ;
+
+        console.log(mileage);
+        $('#input_mileage').val(mileage);
+
     });
 
 </script>

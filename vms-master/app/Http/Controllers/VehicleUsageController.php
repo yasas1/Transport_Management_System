@@ -734,6 +734,8 @@ class VehicleUsageController extends Controller
         $request->validate([
             'vehical_id' => 'required',
             'driver_id' => 'required',
+            'meter_reading_out' => 'required',
+            'meter_reading_in' => 'required',
             
         ]);
 
