@@ -350,7 +350,7 @@ desired effect
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                <b> @yield('header') </b>
+                <b style="font-family:Trebuchet MS;"> @yield('header') </b>
                 <small>@yield('description')</small>
             </h1>
         </section>
