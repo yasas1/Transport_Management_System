@@ -232,6 +232,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/vehicle/fuelUsage','VehicleUsageController@viewFuelPage'); 
 
     Route::get('/vehicle/mileage','VehicleUsageController@viewMileagePage');
+    Route::post('/vehicle/storeVehicleMileage','VehicleUsageController@storeVehicleMileage');
                                                                     
 });
 

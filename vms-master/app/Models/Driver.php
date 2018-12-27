@@ -82,4 +82,9 @@ class Driver extends Eloquent
 	{
 		return $this->hasMany(\App\Models\Accident::class);
 	}
+
+	public function vehicleMileage()
+	{
+		return $this->hasMany(\App\Models\VehicleMileage::class);
+	}
 }
