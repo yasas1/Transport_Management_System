@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 use App\Models\Vehical;
 use App\Models\Service;
 use App\Models\Accident;
-use App\Models\Repaire;
+use App\Models\Repaire; 
 use App\Models\TyreReplace;
 use App\Models\TyrePositionChange;
+use App\Models\VehicleMileage;
 use App\Models\Driver; 
 use App\Models\AnnualLicence;
 use App\Models\AnnualLicenceDoc;
@@ -726,6 +727,30 @@ class VehicleUsageController extends Controller
 
         return view('vehicle.usage.vehicleMileage',compact('vehicles','drivers'));
 
+    }
+
+    public function storeVehicleMileage(Request $request){  
+
+        $request->validate([
+            'vehical_id' => 'required',
+            'driver_id' => 'required',
+            
+        ]);
+
+        $vehicleMileage = new VehicleMileage; 
+
+        $vehicleMileage->vehical_id = $request->vehical_id;
+        $vehicleMileage->driver_id = $request->driver_id;
+        $vehicleMileage->date = $request->date;
+        $vehicleMileage->meter_reading_out = $request->meter_reading_out;
+        $vehicleMileage->meter_reading_in = $request->meter_reading_in;
+        $vehicleMileage->mileage = $request->mileage;
+        $vehicleMileage->kilometer_per_liter = $request->kilometer_per_liter;
+        
+
+        $vehicleMileage->save(); 
+
+        return redirect()->back()->with(['success'=>'Vehicle Mileage added successfully !']);
     }
 
 }

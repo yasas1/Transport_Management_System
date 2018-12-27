@@ -23,7 +23,7 @@
         <div class="box-body">
 
             <div class="row"> 
-                {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeServicing','files'=>true]) !!}
+                {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeVehicleMileage']) !!}
                 <div class="col-md-4"> 
 
                     <h4><i class="fa fa-car"></i> Vehicle </h4>
@@ -64,7 +64,7 @@
 
                 <div class="col-md-4">
               
-                    <h4> <i class="fa fa-reply-all"></i> &nbsp Out</h4>
+                    <h4> <i class="glyphicon glyphicon-log-out"></i> &nbsp Out</h4>
                     <dl>
                         {{Form::number('meter_reading_out', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Meter Reading Out'])}}                       
                     </dl>
@@ -75,7 +75,7 @@
 
                 <div class="col-md-4">
 
-                    <h4> <i class="fa fa-mail-forward"></i> &nbsp In</h4>
+                    <h4> <i class="glyphicon glyphicon-log-in"></i> &nbsp In</h4>
                     <dl>
                         {{Form::number('meter_reading_in', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Meter Reading Out'])}}                       
                     </dl>
@@ -88,7 +88,7 @@
 
                 <div class="col-md-4"> 
     
-                    <h4><i class="fa fa-calendar"></i> Mileage &nbsp (km) </h4>
+                    <h4> <i class="glyphicon glyphicon-new-window"></i> Mileage &nbsp (km) </h4>
                     
                     <input id="mileage" name="mileage" class="form-control" type="text" readonly />
             
@@ -100,23 +100,12 @@
 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fas fa-comments-dollar"></i> Cost </h4>  
+                    <h4><i class="far fa-window-maximize"></i>&nbsp Kilometer Per Lliter </h4>  
     
                     <div>  
-                        {{Form::number('cost', null,['class'=>'form-control ','placeholder'=>'Cost of Service'])}}                      
+                        {{Form::number('kilometer_per_liter', null,['class'=>'form-control ','placeholder'=>'Kilometer Per Lliter'])}}                      
                     </div>                      
                 </div>
-
-                <div class="col-md-2"> </div>
-
-                <div class="col-md-4"> 
-
-                    <h4><i class="glyphicon glyphicon-list-alt"></i> Deatils </h4>  
-    
-                    <div>  
-                        {!! Form::textarea('details',null,['class'=>'form-control','placeholder'=>'Service Details','rows'=>'2'  ]) !!}                      
-                    </div>                      
-                </div> 
 
             </div><br>
 
