@@ -96,12 +96,16 @@
                 
             </div>
 
-            <br>   <br>       
+            <br>   <br>  
+            
+            <div class="col-md-12">
+                <span class="text-orange" id="alert_mileage"></span>
+            </div>
 
             <div class="row"> 
 
                 <div class="col-md-4"> 
-                    <button type="submit" class="btn btn-success pull-left"> <i class="glyphicon glyphicon-arrow-up"></i>&nbsp SUBMIT </button> &nbsp  
+                    <button type="submit" id="input_submit" class="btn btn-success pull-left"> <i class="glyphicon glyphicon-arrow-up"></i>&nbsp SUBMIT </button> &nbsp  
                     {{Form::reset('CLEAR', ['class'=>'btn btn-warning'])}}
                 </div>  
             </div>
@@ -144,16 +148,24 @@
     $("#datepicker").datepicker({ 
         autoclose: true, 
         format: 'yyyy-mm-dd',
-        todayHighlight: true
+        todayHighlight: true,
+       
     });
+
+    $('#vid').on('change', function(){
+        $('#input_date').val("");
+    });
+
+    var consumed;
+
+    // $( document ).ready(function() {
+       
+    // });
 
     $('#datepicker').on('change', function() {
        
        var date = $('#datepicker').datepicker('getFormattedDate');
-
        var vid = $('#vid').val();
-
-       console.log(vid);
 
        $.ajax({
             url: '/vehicle/getVehicleMileage/{id}',
@@ -161,20 +173,42 @@
             data: { vid: vid , date:date },
             success: function(data)
             {    
-                console.log(data[0].kilometer_per_liter);
-                console.log(data[0].mileage);
+                if(data.length != 0){
+                    consumed = parseFloat(data[0].mileage) / parseFloat(data[0].kilometer_per_liter);
 
-                var consumed = parseFloat(data[0].mileage) / parseFloat(data[0].kilometer_per_liter);
-
-                console.log(consumed.toFixed(2));
-
-                $('#input_consumed').val(consumed.toFixed(2));
+                    $('#input_consumed').val(consumed.toFixed(2));
+                    $('#alert_mileage').html("");
+                    $('#input_submit').prop('disabled', false);
+                }
+                else{
+                    consumed = null;
+                    $('#input_consumed').val(""); 
+                    $('#alert_mileage').html("There is no mileage entered for this vehicle and date");
+                    $("#input_submit").attr("disabled","disabled");
+                }
+                
             },
             error: function(xhr, textStatus, error){
                 console.log(xhr.statusText);
             }
         });
 
+
+    });
+
+    
+   // $('#input_in_tank_liter','#input_drawn').on('keyup', function() {
+    $('#input_in_tank_liter').add('#input_drawn').keyup(function(){
+        var input_in_tank_liter = parseFloat($('#input_in_tank_liter').val());
+        var input_drawn = parseFloat($('#input_drawn').val()); 
+
+        var in_tank_liter = input_in_tank_liter.toFixed(2) ;
+
+        var balance = (input_in_tank_liter +  input_drawn) - consumed.toFixed(2) ;
+
+        console.log(balance.toFixed(2));
+
+        $('#input_balance').val(balance.toFixed(2));
 
     });
 
