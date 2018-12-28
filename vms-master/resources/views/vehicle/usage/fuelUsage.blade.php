@@ -7,7 +7,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style> 
-        
+        #datepicker > span:hover{cursor: pointer;color: blue;}
     </style>
 @endsection
 
@@ -50,52 +50,53 @@
                 
             </div><br>
         
-            <h4 class="modal-title" > <i class="fas fa-tachometer-alt"></i>&nbsp Fuel Position</h4> <br>
-            <div class="row">
+            <h4> <i class="fas fa-gas-pump"></i>&nbsp Fuel Position</h4> 
+            
+            <div class="col-md-offset-1" class="row">
 
                 <div class="col-md-4">
-              
-                    <h4> <i class="glyphicon glyphicon-log-out"></i> &nbsp In Tank Liter</h4>
+            
+                    <h4> <i class="fa fa-archive"></i> &nbsp In Tank Liter</h4>
                     <dl>
-                        {{Form::number('in_tank_liter', null,['class'=>'form-control meterfields','id'=>'input_out','placeholder'=>'Meter Reading Out'])}}                       
+                        {{Form::number('in_tank_liter', null,['class'=>'form-control meterfields','step'=>'0.01','id'=>'input_in_tank_liter','placeholder'=>'In Tank Liter'])}}                       
                     </dl>
 
                 </div>
 
-                <div class="col-md-2"> </div>
+                <div class="col-md-1"> </div>
 
                 <div class="col-md-4">
 
-                    <h4> <i class="glyphicon glyphicon-log-in"></i> &nbsp Drawn</h4>
+                    <h4> <i class="fas fa-fill-drip"></i> &nbsp Drawn &nbsp(Liter)</h4> 
                     <dl>
-                        {{Form::number('drawn', null,['class'=>'form-control meterfields','id'=>'input_in','placeholder'=>'Meter Reading Out'])}}                       
+                        {{Form::number('drawn', null,['class'=>'form-control meterfields','id'=>'input_drawn','placeholder'=>'Drawn Liter'])}}                       
                     </dl>
 
                 </div>
             
             </div>
 
-            <div class="row"> 
+            <div class="col-md-offset-1" class="row"> 
 
                 <div class="col-md-4"> 
-                    <h4> <i class="glyphicon glyphicon-log-in"></i> &nbsp Drawn</h4>
+                    <h4> <i class="fa fa-gears"></i> &nbsp Consumed</h4>
                     <dl>
-                        {{Form::number('consumed', null,['class'=>'form-control meterfields','id'=>'input_in','placeholder'=>'Meter Reading Out'])}}                       
+                        {{Form::number('consumed', null,['class'=>'form-control meterfields','step'=>'0.01','id'=>'input_in','readonly' => 'true'])}}                       
                     </dl>
                 </div>
 
-                <div class="col-md-2"> </div>
+                <div class="col-md-1"> </div>
 
                 <div class="col-md-4"> 
-                    <h4> <i class="glyphicon glyphicon-log-in"></i> &nbsp Drawn</h4>
+                    <h4> <i class="fas fa-fill"></i> &nbsp Balance</h4>
                     <dl>
-                        {{Form::number('balance', null,['class'=>'form-control meterfields','id'=>'input_in','placeholder'=>'Meter Reading Out'])}}                       
+                        {{Form::number('balance', null,['class'=>'form-control meterfields','step'=>'0.01','id'=>'input_balance','readonly' => 'true'])}}                       
                     </dl>
                 </div> 
                 
-            </div><br>
+            </div>
 
-            
+            <br>   <br>       
 
             <div class="row"> 
 
@@ -138,6 +139,13 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 
+<script>
 
-    
+    $("#datepicker").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    });
+</script>
+
 @endsection
