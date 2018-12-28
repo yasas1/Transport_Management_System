@@ -103,7 +103,7 @@
                     <h4><i class="far fa-window-maximize"></i>&nbsp Kilometer Per Lliter </h4>  
     
                     <div>  
-                        {{Form::number('kilometer_per_liter', null,['class'=>'form-control ','placeholder'=>'Kilometer Per Lliter'])}}                      
+                        {{Form::number('kilometer_per_liter', null,['class'=>'form-control ','step'=>'0.01','placeholder'=>'Kilometer Per Lliter'])}}                      
                     </div>                      
                 </div>
 

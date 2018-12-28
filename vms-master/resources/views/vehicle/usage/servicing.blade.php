@@ -82,7 +82,7 @@
 
                 <div class="col-md-4"> 
 
-                    <h4><i class="glyphicon glyphicon-list-alt"></i> Deatils </h4>  
+                    <h4><i class="glyphicon glyphicon-list-alt"></i> Details </h4>  
     
                     <div>  
                         {!! Form::textarea('details',null,['class'=>'form-control','placeholder'=>'Service Details','rows'=>'2'  ]) !!}                      
