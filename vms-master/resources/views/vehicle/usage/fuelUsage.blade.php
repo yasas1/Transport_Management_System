@@ -42,7 +42,7 @@
                     <h4><i class="fa fa-calendar"></i> Date </h4>
                                                         
                     <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
-                        <input id="date" name="date" class="form-control" type="text" readonly />
+                        <input id="input_date" name="date" class="form-control" type="text" readonly />
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                     </div>
             
@@ -81,7 +81,7 @@
                 <div class="col-md-4"> 
                     <h4> <i class="fa fa-gears"></i> &nbsp Consumed</h4>
                     <dl>
-                        {{Form::number('consumed', null,['class'=>'form-control meterfields','step'=>'0.01','id'=>'input_in'])}}      <!-- ,'readonly' => 'true' -->                 
+                        {{Form::number('consumed', null,['class'=>'form-control meterfields','step'=>'0.01','id'=>'input_in','readonly' => 'true'])}}      <!-- ,'readonly' => 'true' -->                 
                     </dl>
                 </div>
 
@@ -90,7 +90,7 @@
                 <div class="col-md-4"> 
                     <h4> <i class="fas fa-fill"></i> &nbsp Balance</h4>
                     <dl>
-                        {{Form::number('balance', null,['class'=>'form-control meterfields','step'=>'0.01','id'=>'input_balance'])}}                       
+                        {{Form::number('balance', null,['class'=>'form-control meterfields','step'=>'0.01','id'=>'input_balance','readonly' => 'true'])}}                       
                     </dl>
                 </div> 
                 
@@ -146,6 +146,37 @@
         format: 'yyyy-mm-dd',
         todayHighlight: true
     });
+
+    $('#datepicker').on('change', function() {
+       
+       var date = $('#datepicker').datepicker('getFormattedDate');
+
+       var vid = $('#vid').val();
+
+       console.log(vid);
+
+       $.ajax({
+            url: '/vehicle/getVehicleMileage/{id}',
+            type: 'GET',
+            data: { vid: vid , date:date },
+            success: function(data)
+            {    
+                console.log(data);
+            },
+            error: function(xhr, textStatus, error){
+                console.log(xhr.statusText);
+            }
+        });
+
+
+    });
+
+</script>
+
+<script>
+
+    
+       
 </script>
 
 @endsection

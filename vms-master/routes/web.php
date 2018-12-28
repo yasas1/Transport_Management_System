@@ -230,11 +230,12 @@ Route::group(['middleware'=>['authenticate','active']],function (){
 
         /* Vehicle Fuel */
     Route::get('/vehicle/fuelUsage','VehicleUsageController@viewFuelPage'); 
-    Route::post('/vehicle/storeFuelUsage','VehicleUsageController@storeFuelUsage');
+    Route::post('/vehicle/storeFuelUsage','VehicleUsageController@storeFuelUsage'); 
+    Route::get('/vehicle/getVehicleMileage/{id}','VehicleUsageController@getVehicleMileage'); 
 
         /* Vehicle Mileage */
     Route::get('/vehicle/mileage','VehicleUsageController@viewMileagePage');
-    Route::post('/vehicle/storeVehicleMileage','VehicleUsageController@storeVehicleMileagefky');
+    Route::post('/vehicle/storeVehicleMileage','VehicleUsageController@storeVehicleMileage');
                                                                     
 });
 

@@ -739,9 +739,18 @@ class VehicleUsageController extends Controller
         $fuelUsage->balance = $request->balance;
         $fuelUsage->drawn = $request->drawn;        
 
-        $vehicleMileage->save(); 
+        $fuelUsage->save(); 
 
         return redirect()->back()->with(['success'=>'Vehicle Fuel Usage added successfully !']);
+    }
+
+    public function getVehicleMileage(){
+
+        $id = $_GET['vid'];
+        $date = $_GET['date'];
+
+        return $date;
+
     }
 
     /* ----------------- Vehicle Mileage ------------------------- */
