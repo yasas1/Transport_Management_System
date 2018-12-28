@@ -228,11 +228,13 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::post('/vehicle/deleteTyreReplacement','VehicleUsageController@deleteTyreReplacement')->name('tyreReplacement.delete'); 
     Route::post('/vehicle/deleteTyrePositionChange','VehicleUsageController@deleteTyrePositionChange')->name('posChange.delete'); 
 
-    /* Vehicle Fuel */
+        /* Vehicle Fuel */
     Route::get('/vehicle/fuelUsage','VehicleUsageController@viewFuelPage'); 
+    Route::post('/vehicle/storeFuelUsage','VehicleUsageController@storeFuelUsage');
 
+        /* Vehicle Mileage */
     Route::get('/vehicle/mileage','VehicleUsageController@viewMileagePage');
-    Route::post('/vehicle/storeVehicleMileage','VehicleUsageController@storeVehicleMileage');
+    Route::post('/vehicle/storeVehicleMileage','VehicleUsageController@storeVehicleMileagefky');
                                                                     
 });
 

@@ -714,8 +714,36 @@ class VehicleUsageController extends Controller
 
         $vehicles = Vehical::all()->pluck('fullName','id'); 
 
-        return view('vehicle.usage.fuel',compact('vehicles'));
+        return view('vehicle.usage.fuelUsage',compact('vehicles'));
 
+    }
+
+    public function storeFuelUsage(Request $request){  
+
+        return $request;
+
+        // $request->validate([
+        //     'vehical_id' => 'required',
+        //     'driver_id' => 'required',
+        //     'meter_reading_out' => 'required',
+        //     'meter_reading_in' => 'required',
+            
+        // ]);
+
+        // $vehicleMileage = new VehicleMileage; 
+
+        // $vehicleMileage->vehical_id = $request->vehical_id;
+        // $vehicleMileage->driver_id = $request->driver_id;
+        // $vehicleMileage->date = $request->date;
+        // $vehicleMileage->meter_reading_out = $request->meter_reading_out;
+        // $vehicleMileage->meter_reading_in = $request->meter_reading_in;
+        // $vehicleMileage->mileage = $request->mileage;
+        // $vehicleMileage->kilometer_per_liter = $request->kilometer_per_liter;
+        
+
+        // $vehicleMileage->save(); 
+
+        // return redirect()->back()->with(['success'=>'Vehicle Mileage added successfully !']);
     }
 
     /* ----------------- Vehicle Mileage ------------------------- */
