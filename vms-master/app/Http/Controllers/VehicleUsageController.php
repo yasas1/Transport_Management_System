@@ -8,6 +8,7 @@ use App\Models\Repaire;
 use App\Models\TyreReplace;
 use App\Models\TyrePositionChange;
 use App\Models\VehicleMileage;
+use App\Models\FuelUsage;
 use App\Models\Driver; 
 use App\Models\AnnualLicence;
 use App\Models\AnnualLicenceDoc;
@@ -720,30 +721,27 @@ class VehicleUsageController extends Controller
 
     public function storeFuelUsage(Request $request){  
 
-        return $request;
-
-        // $request->validate([
-        //     'vehical_id' => 'required',
-        //     'driver_id' => 'required',
-        //     'meter_reading_out' => 'required',
-        //     'meter_reading_in' => 'required',
+        $request->validate([
+            'vehical_id' => 'required',
+            'date' => 'required',
+            'in_tank_liter' => 'required',
+            'consumed' => 'required',
+            'balance' => 'required',
             
-        // ]);
+        ]);
 
-        // $vehicleMileage = new VehicleMileage; 
+        $fuelUsage = new FuelUsage; 
 
-        // $vehicleMileage->vehical_id = $request->vehical_id;
-        // $vehicleMileage->driver_id = $request->driver_id;
-        // $vehicleMileage->date = $request->date;
-        // $vehicleMileage->meter_reading_out = $request->meter_reading_out;
-        // $vehicleMileage->meter_reading_in = $request->meter_reading_in;
-        // $vehicleMileage->mileage = $request->mileage;
-        // $vehicleMileage->kilometer_per_liter = $request->kilometer_per_liter;
-        
+        $fuelUsage->vehical_id = $request->vehical_id;
+        $fuelUsage->date = $request->date;
+        $fuelUsage->in_tank_liter = $request->in_tank_liter;
+        $fuelUsage->consumed = $request->consumed;
+        $fuelUsage->balance = $request->balance;
+        $fuelUsage->drawn = $request->drawn;        
 
-        // $vehicleMileage->save(); 
+        $vehicleMileage->save(); 
 
-        // return redirect()->back()->with(['success'=>'Vehicle Mileage added successfully !']);
+        return redirect()->back()->with(['success'=>'Vehicle Fuel Usage added successfully !']);
     }
 
     /* ----------------- Vehicle Mileage ------------------------- */

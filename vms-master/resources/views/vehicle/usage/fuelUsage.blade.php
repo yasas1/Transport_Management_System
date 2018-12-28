@@ -81,7 +81,7 @@
                 <div class="col-md-4"> 
                     <h4> <i class="fa fa-gears"></i> &nbsp Consumed</h4>
                     <dl>
-                        {{Form::number('consumed', null,['class'=>'form-control meterfields','step'=>'0.01','id'=>'input_in','readonly' => 'true'])}}                       
+                        {{Form::number('consumed', null,['class'=>'form-control meterfields','step'=>'0.01','id'=>'input_in'])}}      <!-- ,'readonly' => 'true' -->                 
                     </dl>
                 </div>
 
@@ -90,7 +90,7 @@
                 <div class="col-md-4"> 
                     <h4> <i class="fas fa-fill"></i> &nbsp Balance</h4>
                     <dl>
-                        {{Form::number('balance', null,['class'=>'form-control meterfields','step'=>'0.01','id'=>'input_balance','readonly' => 'true'])}}                       
+                        {{Form::number('balance', null,['class'=>'form-control meterfields','step'=>'0.01','id'=>'input_balance'])}}                       
                     </dl>
                 </div> 
                 
