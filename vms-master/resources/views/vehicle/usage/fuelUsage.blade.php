@@ -81,7 +81,7 @@
                 <div class="col-md-4"> 
                     <h4> <i class="fa fa-gears"></i> &nbsp Consumed</h4>
                     <dl>
-                        {{Form::number('consumed', null,['class'=>'form-control meterfields','step'=>'0.01','id'=>'input_in','readonly' => 'true'])}}      <!-- ,'readonly' => 'true' -->                 
+                        {{Form::number('consumed', null,['class'=>'form-control meterfields','step'=>'0.01','id'=>'input_consumed','readonly' => 'true'])}}      <!-- ,'readonly' => 'true' -->                 
                     </dl>
                 </div>
 
@@ -161,7 +161,14 @@
             data: { vid: vid , date:date },
             success: function(data)
             {    
-                console.log(data);
+                console.log(data[0].kilometer_per_liter);
+                console.log(data[0].mileage);
+
+                var consumed = parseFloat(data[0].mileage) / parseFloat(data[0].kilometer_per_liter);
+
+                console.log(consumed.toFixed(2));
+
+                $('#input_consumed').val(consumed.toFixed(2));
             },
             error: function(xhr, textStatus, error){
                 console.log(xhr.statusText);

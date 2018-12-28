@@ -746,10 +746,16 @@ class VehicleUsageController extends Controller
 
     public function getVehicleMileage(){
 
-        $id = $_GET['vid'];
+        $vid = $_GET['vid'];
         $date = $_GET['date'];
 
-        return $date;
+        $tyreReplaces = DB::table('vehicle_mileage')
+        ->select('vehicle_mileage.kilometer_per_liter','vehicle_mileage.mileage')
+        ->where('vehicle_mileage.vehical_id','=',$vid)
+        ->where('vehicle_mileage.date','=',$date)
+        ->get();      
+        
+        return response($tyreReplaces);
 
     }
 
