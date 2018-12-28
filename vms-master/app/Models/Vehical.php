@@ -257,6 +257,11 @@ class Vehical extends Eloquent
 		return $this->hasMany(\App\Models\VehicleMileage::class);
 	}
 
+	public function fuelUsage()
+	{
+		return $this->hasMany(\App\Models\FuelUsage::class);
+	}
+
 	public function tyre_position_changes()
 	{
 		return $this->hasMany(\App\Models\TyrePositionChange::class);
