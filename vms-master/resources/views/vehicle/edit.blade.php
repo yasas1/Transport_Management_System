@@ -51,10 +51,20 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="journey_color">Journey Color</label>
+                <label for="journey_color">Journey Color :&nbsp</label>
                 <input name="journey_color" class="jscolor" value={{$vehicle->journey_color}}> 
                 
             </div>
+            <div class="form-group"> 
+
+                <label>Assign Driver <span class="text text-danger">*</span></label>
+
+                <div>  
+                    {{Form::select('driver_id',$drivers,null,['class'=>'form-control '])}}                     
+                </div>   
+
+            </div> <br>
+
             <div class="form-group">
                 <label for="number">Registration No <span class="text text-danger">*</span></label>
                 {{Form::text('registration_no',null,['class'=>'form-control','placeholder'=>'Registration Number Of The Vehicle','required'])}}

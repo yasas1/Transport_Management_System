@@ -116,6 +116,15 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label for="emp_id">Employee Number <span class="text text-danger">*</span></label>
+                                {{Form::number('emp_id',null,['class'=>'form-control','placeholder'=>'Employee Number','required'])}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 {{Form::submit('UPDATE', ['class'=>'btn btn-success'])}}
                                 {{Form::reset('RESET', ['class'=>'btn btn-warning'])}}
                             </div>

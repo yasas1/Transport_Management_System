@@ -183,10 +183,10 @@
                                             </button>
                                             <ul class="dropdown-menu">
                                                 @foreach($divHeads as $divHead)
-                                                    @if($divHead->head()->first()!='')
-                                                        <li class="cmbDivHead dropdown-item" data-value="{{$divHead->head()->first()->emp_id}}">
+                                                    @if($divHead->head !='')
+                                                        <li class="cmbDivHead dropdown-item" data-value="{{$divHead->head}}">
                                                         <span>
-                                                            {{$divHead->head()->first()->emp_initials.'. '.$divHead->head()->first()->emp_surname.' ( '.$divHead->dept_name.' )'}}
+                                                            {{$divHead->getHead()->first()->emp_initials.'. '.$divHead->getHead()->first()->emp_surname.' ( '.$divHead->dept_name.' )'}}
                                                         </span>
                                                         </li>
                                                     @endif
@@ -250,40 +250,6 @@
                 journey_colors[value.id]='#'+value.journey_color;
             });
         });      
-
-        $.get("{{ URL::to('journey/read') }}",function(data){ 
-            //console.log(data);
-            $.each(data,function(i,value){ 
-
-                if(value.vehical_id != null){
-                    qEvent.push({ 
-                        title : value.places_to_be_visited, // need place as the title
-                        start : value.expected_start_date_time,
-                        end : value.expected_end_date_time,
-                        id :  value.id, 
-                        applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
-                        vehical_id : value.vehical_id,
-                        borderColor: 'black',
-                        status: value.status,
-                        color : journey_colors[value.vehical_id]
-                    });    
-                } 
-                else{
-                    qEvent.push({ 
-                        title : value.places_to_be_visited, // need place as the title
-                        start : value.expected_start_date_time,
-                        end : value.expected_end_date_time,
-                        id :  value.id, 
-                        applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
-                        vehical_id : value.vehical_id,
-                        borderColor: 'black',
-                        status: value.status,
-                        color : "#778899"
-                    }); 
-                }               
-                           
-            });
-        });
 
         $(document).ready(function(){
 
@@ -386,22 +352,44 @@
         });
                         
         $(function () {
-            var aaa;
+
             $.ajax({
                 method:'GET',
-                url:'{{url('/google/calenders')}}',
+                url:'{{ URL::to('journey/read') }}',
                 success:function (data) {
-                    var eventSources = [];
 
-                    $.each(data,function (i,item) {
-                        var event = {};
-                        event.id = i;
-                        event.googleCalendarId = item.id;
-                        event.color = item.backgroundColor;
-                        eventSources.push(event)
-                        $('#aaa').append(item.id);
+                    $.each(data,function(i,value){ 
+
+                        if(value.vehical_id != null){
+                            qEvent.push({ 
+                                title : value.places_to_be_visited, // need place as the title
+                                start : value.expected_start_date_time,
+                                end : value.expected_end_date_time,
+                                id :  value.id, 
+                                applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                                vehical_id : value.vehical_id,
+                                borderColor: 'black',
+                                status: value.status,
+                                color : journey_colors[value.vehical_id]
+                            });    
+                        } 
+                        else{
+                            qEvent.push({ 
+                                title : value.places_to_be_visited, // need place as the title
+                                start : value.expected_start_date_time,
+                                end : value.expected_end_date_time,
+                                id :  value.id, 
+                                applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                                vehical_id : value.vehical_id,
+                                borderColor: 'black',
+                                status: value.status,
+                                color : "#778899"
+                            }); 
+                        }               
+                                
                     });
-                    aaa = eventSources;
+                    
+
                 },
                 error:function (err) {
                    // alert(err.toString());
@@ -421,7 +409,6 @@
                         //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
 
                         events:qEvent,
-                        eventSources: aaa,
                         eventClick: function(event, element) {
                             //console.log(event);
                             var moment = $('#calendar').fullCalendar('getDate');
@@ -467,7 +454,7 @@
                         },
                         selectConstraint: {
                             start: $.fullCalendar.moment().add(10, 'minutes'), //subtract
-                            end: $.fullCalendar.moment().startOf('year').add(1, 'year')
+                            end: $.fullCalendar.moment().startOf('year').add(2, 'year')
                         },
                         select: function(startDate, endDate) {                 
                             $('#myModal').modal('toggle');
