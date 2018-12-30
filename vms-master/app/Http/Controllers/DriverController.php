@@ -22,16 +22,17 @@ class DriverController extends Controller
 
     public function store(CreateDriverRequest $request){
 
-        /* $this->validate($request,[
+        $this->validate($request,[
             'title_id'=>'required',
             'firstname'=>'required',
             'surname'=>'required',
             'nic'=>'required',
             'licence_no'=>'required',
             'mobile'=>'required',
+            'emp_id'=>'required',
         ],[
             'title_id.required'=>'Driver title is required.'
-        ]); */
+        ]); 
 
         $driver = new Driver;
         $driver->title_id = $request->title_id;
@@ -42,6 +43,7 @@ class DriverController extends Controller
         $driver->licence_no = $request->licence_no;
         $driver->licence_expire_date = Carbon::parse($request->licence_expire_date);
         $driver->mobile = $request->mobile;
+        $driver->emp_id = $request->emp_id;
 
         $driver->save();
 
@@ -68,6 +70,8 @@ class DriverController extends Controller
             'nic'=>'required',
             'licence_no'=>'required',
             'mobile'=>'required',
+            'emp_id'=>'required',
+
         ],[
             'title_id.required'=>'Driver title is required.'
         ]);
@@ -82,6 +86,7 @@ class DriverController extends Controller
             $driver->licence_no = $request->licence_no;
             $driver->licence_expire_date = Carbon::parse($request->licence_expire_date);
             $driver->mobile = $request->mobile;
+            $driver->emp_id = $request->emp_id;
 
             $driver->save();
 

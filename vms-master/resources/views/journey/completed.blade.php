@@ -460,7 +460,7 @@
 <script>
 
     var qEvent=[];
-    journey_color = ['#000000','#EF5B5B','#2697F9','#14C5EF','#05DCB2'];
+    // journey_color = ['#000000','#EF5B5B','#2697F9','#14C5EF','#05DCB2'];
 
     var journey_colors = [];///journey/readVehicle/
     $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
@@ -472,65 +472,65 @@
         //console.log(journey_colors);
     });
 
-    $.get("{{ URL::to('journey/readCompleted') }}",function(data){ 
-        $.each(data,function(i,value){   
+    // $.get("{{ URL::to('journey/readCompleted') }}",function(data){ 
+    //     $.each(data,function(i,value){   
 
-            if(value.vehical_id != null && value.expected_start_date_time != null){
-                qEvent.push({ 
-                    title : value.places_to_be_visited, // need place as the title
-                    start : value.expected_start_date_time,
-                    end : value.expected_end_date_time,
-                    id :  value.id, 
-                    applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
-                    vehical_id : value.vehical_id,
-                    borderColor: 'black',
-                    status: value.status,
-                    color : journey_colors[value.vehical_id]
-                });    
-            } 
-            else{
-                qEvent.push({ 
-                    title : value.places_to_be_visited, // need place as the title
-                    start : value.expected_start_date_time,
-                    end : value.expected_end_date_time,
-                    id :  value.id, 
-                    applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
-                    vehical_id : value.vehical_id,
-                    borderColor: 'black',
-                    status: value.status,
-                    color : "#778899"
-                }); 
-            }
+    //         if(value.vehical_id != null && value.expected_start_date_time != null){
+    //             qEvent.push({ 
+    //                 title : value.places_to_be_visited, // need place as the title
+    //                 start : value.expected_start_date_time,
+    //                 end : value.expected_end_date_time,
+    //                 id :  value.id, 
+    //                 applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+    //                 vehical_id : value.vehical_id,
+    //                 borderColor: 'black',
+    //                 status: value.status,
+    //                 color : journey_colors[value.vehical_id]
+    //             });    
+    //         } 
+    //         else{
+    //             qEvent.push({ 
+    //                 title : value.places_to_be_visited, // need place as the title
+    //                 start : value.expected_start_date_time,
+    //                 end : value.expected_end_date_time,
+    //                 id :  value.id, 
+    //                 applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+    //                 vehical_id : value.vehical_id,
+    //                 borderColor: 'black',
+    //                 status: value.status,
+    //                 color : "#778899"
+    //             }); 
+    //         }
 
-            if(value.expected_start_date_time == null && value.vehical_id != null){
-                qEvent.push({ 
-                    title : value.places_to_be_visited, // need place as the title
-                    start : value.real_start_date_time,
-                    end : value.real_end_date_time,
-                    id :  value.id, 
-                    applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
-                    vehical_id : value.vehical_id,
-                    borderColor: 'black',
-                    status: value.status,
-                    color : journey_colors[value.vehical_id]
-                });    
-            }
-            if(value.expected_start_date_time == null && value.vehical_id == null){
-                qEvent.push({ 
-                    title : value.places_to_be_visited, // need place as the title
-                    start : value.real_start_date_time,
-                    end : value.real_end_date_time,
-                    id :  value.id, 
-                    applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
-                    vehical_id : value.vehical_id,
-                    borderColor: 'black',
-                    status: value.status,
-                    color : "#778899"
-                });
-            }
+    //         if(value.expected_start_date_time == null && value.vehical_id != null){
+    //             qEvent.push({ 
+    //                 title : value.places_to_be_visited, // need place as the title
+    //                 start : value.real_start_date_time,
+    //                 end : value.real_end_date_time,
+    //                 id :  value.id, 
+    //                 applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+    //                 vehical_id : value.vehical_id,
+    //                 borderColor: 'black',
+    //                 status: value.status,
+    //                 color : journey_colors[value.vehical_id]
+    //             });    
+    //         }
+    //         if(value.expected_start_date_time == null && value.vehical_id == null){
+    //             qEvent.push({ 
+    //                 title : value.places_to_be_visited, // need place as the title
+    //                 start : value.real_start_date_time,
+    //                 end : value.real_end_date_time,
+    //                 id :  value.id, 
+    //                 applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+    //                 vehical_id : value.vehical_id,
+    //                 borderColor: 'black',
+    //                 status: value.status,
+    //                 color : "#778899"
+    //             });
+    //         }
             
-        });
-    });
+    //     });
+    // });
 
     $(document).ready(function(){
         //$('.colorbutton').css('background','#7CFD03');
@@ -544,8 +544,7 @@
                 type: 'GET',
                 data: { id: vid },
                 success: function(data)
-                {
-                    //console.log(data);              
+                {            
                     $(data).each(function (i,value) {                
                         qEvent.push(                           { 
                             title : value.places_to_be_visited,
@@ -559,7 +558,7 @@
                             color :  journey_colors[value.vehical_id]                                
                         });                       
                     }); 
-                    //console.log(qEvent);
+
                     $('#calendar').fullCalendar('addEventSource', qEvent);
                     $('#calendar').fullCalendar('refetchEvents');  
                 }
@@ -627,23 +626,72 @@
         });
 
     });
-    //console.log(qEvent); 
+
     $(function () {
-        var aaa;
+
         $.ajax({
             method:'GET',
-            url:'{{url('/google/calenders')}}',
+            url:'{{ URL::to('journey/readCompleted') }}',
             success:function (data) {
-                var eventSources = [];
-                $.each(data,function (i,item) {
-                    var event = {};
-                    event.id = i;
-                    event.googleCalendarId = item.id;
-                    event.color = item.backgroundColor;
-                    eventSources.push(event)
-                        $('#aaa').append(item.id);
-                });
-                aaa = eventSources;
+
+                $.each(data,function(i,value){   
+
+                    if(value.vehical_id != null && value.expected_start_date_time != null){
+                        qEvent.push({ 
+                            title : value.places_to_be_visited, // need place as the title
+                            start : value.expected_start_date_time,
+                            end : value.expected_end_date_time,
+                            id :  value.id, 
+                            applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                            vehical_id : value.vehical_id,
+                            borderColor: 'black',
+                            status: value.status,
+                            color : journey_colors[value.vehical_id]
+                        });    
+                    } 
+                    else{
+                        qEvent.push({ 
+                            title : value.places_to_be_visited, // need place as the title
+                            start : value.expected_start_date_time,
+                            end : value.expected_end_date_time,
+                            id :  value.id, 
+                            applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                            vehical_id : value.vehical_id,
+                            borderColor: 'black',
+                            status: value.status,
+                            color : "#778899"
+                        }); 
+                    }
+
+                    if(value.expected_start_date_time == null && value.vehical_id != null){
+                        qEvent.push({ 
+                            title : value.places_to_be_visited, // need place as the title
+                            start : value.real_start_date_time,
+                            end : value.real_end_date_time,
+                            id :  value.id, 
+                            applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                            vehical_id : value.vehical_id,
+                            borderColor: 'black',
+                            status: value.status,
+                            color : journey_colors[value.vehical_id]
+                        });    
+                    }
+                    if(value.expected_start_date_time == null && value.vehical_id == null){
+                        qEvent.push({ 
+                            title : value.places_to_be_visited, // need place as the title
+                            start : value.real_start_date_time,
+                            end : value.real_end_date_time,
+                            id :  value.id, 
+                            applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                            vehical_id : value.vehical_id,
+                            borderColor: 'black',
+                            status: value.status,
+                            color : "#778899"
+                        });
+                    }
+
+                });               
+
             },
             error:function (err) {
                 // alert(err.toString());
@@ -658,13 +706,9 @@
                         center: 'title',
                         right: 'month,agendaWeek,agendaDay'
                     },
-                    googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',
-                    
-                        //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
 
-                    events:qEvent,                  
-
-                    eventSources: aaa,
+                    events:qEvent,
+                   
                     eventClick: function(event, element) {
                         //$('#myModal').modal('toggle');
                         var moment = $('#calendar').fullCalendar('getDate');

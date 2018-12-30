@@ -7,6 +7,7 @@ use App\Models\IdCard;
 use App\Models\Photo;
 use App\Models\RegBook;
 use App\Models\Vehical;
+use App\Models\Driver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +20,8 @@ class VehicleController extends Controller
     }
 
     public function create(){
-        return view('vehicle.create');
+        $drivers = Driver::all()->pluck('fullName','id');
+        return view('vehicle.create',compact('drivers'));
     }
 
     public function store(Request $request){
@@ -80,6 +82,7 @@ class VehicleController extends Controller
 
         }
         $vehicle->journey_color = $request->journey_color;
+        $vehicle->driver_id = $request->driver_id;
         $vehicle->registration_no = $request->registration_no;
         $vehicle->dept_no = $request->dept_no;
         $vehicle->date_of_registration = $request->date_of_registration;
@@ -154,8 +157,9 @@ class VehicleController extends Controller
     public function edit($id){
 
         if ($vehicle = Vehical::whereId($id)->first()){
+            $drivers = Driver::all()->pluck('fullName','id');
             $documents = $vehicle->documents()->get();
-            return view('vehicle.edit',compact('vehicle','documents'));
+            return view('vehicle.edit',compact('vehicle','documents','drivers'));
         }
 
         return redirect('home');
