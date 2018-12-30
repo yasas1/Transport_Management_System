@@ -498,21 +498,6 @@
         
     });
 
-    $.get("{{ URL::to('journey/confirmationJourneys') }}",function(data){ 
-        $.each(data,function(i,value){   
-            qEvent.push({ 
-                title : value.places_to_be_visited, // need place as the title
-                start : value.expected_start_date_time,
-                end : value.expected_end_date_time,
-                id :  value.id, 
-                applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
-                vehical_id : value.vehical_id,
-                borderColor: 'black',
-                status: value.status,
-                color : journey_colors[value.vehical_id]
-            });               
-        });
-    });
 
     $(document).ready(function(){
         //$('.colorbutton').css('background','#7CFD03');
@@ -526,8 +511,7 @@
                 type: 'GET',
                 data: { id: vid },
                 success: function(data)
-                {
-                    console.log(data);              
+                {          
                     $(data).each(function (i,value) {                
                         qEvent.push(
                         { 
@@ -581,21 +565,26 @@
 	});
    
     $(function () {
-        var aaa;
+        
         $.ajax({
             method:'GET',
-            url:'{{url('/google/calenders')}}',
+            url:'{{ URL::to('journey/confirmationJourneys') }}',
             success:function (data) {
-                var eventSources = [];
-                $.each(data,function (i,item) {
-                    var event = {};
-                    event.id = i;
-                    event.googleCalendarId = item.id;
-                    event.color = item.backgroundColor;
-                    eventSources.push(event)
-                        $('#aaa').append(item.id);
+
+                $.each(data,function(i,value){   
+                    qEvent.push({ 
+                        title : value.places_to_be_visited, // need place as the title
+                        start : value.expected_start_date_time,
+                        end : value.expected_end_date_time,
+                        id :  value.id, 
+                        applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
+                        vehical_id : value.vehical_id,
+                        borderColor: 'black',
+                        status: value.status,
+                        color : journey_colors[value.vehical_id]
+                    });               
                 });
-                aaa = eventSources;
+                
             },
             error:function (err) {
                // alert(err.toString());
@@ -612,11 +601,8 @@
                         center: 'title',
                         right: 'month,agendaWeek,agendaDay'
                     },
-                    googleCalendarApiKey: 'AIzaSyARu_beMvpDj95imxjje5NkAjrT7c3HluE',                 
-                    //googleCalendarId: 'cmb.ac.lk_vma77hchj6o7jfqnnsssgivkeo@group.calendar.google.com'
+            
                     events:qEvent,
-                                      
-                    eventSources: aaa,
 
                     eventClick: function(event, element) {
                         //console.log(event);                      
