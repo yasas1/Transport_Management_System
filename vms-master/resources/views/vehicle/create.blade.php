@@ -28,15 +28,23 @@
                     {{Form::file('photo',['id'=>'imgVehicleInput'])}}
                     <p class="help-block">Select a vehicle photo (max 500kb)</p>
                 </div>
-            </div>
-            <div class="box-header with-border">
-                <h3 class="box-title">Journey Color For Vehicle</h3>
-            </div>
+            </div> 
+            
             <div class="box-body">
+                <h4><i class="glyphicon glyphicon-th"></i>&nbsp Journey Color For Vehicle </h4>  
                 <div class="form-group">
                     <input name="journey_color" autocomplete="off" class="jscolor" value="2A6AD7">       
                 </div>
             </div>
+            <div class="box-body"> 
+
+                <h4><i class="fa fa-user"></i>&nbsp Assign Driver <span class="text text-danger">*</span> </h4>  
+
+                <div>  
+                    {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','placeholder'=>'Select Driver'])}}                     
+                </div>                      
+            </div> <br>
+
         </div>
     </div>
 
