@@ -261,7 +261,7 @@ desired effect
 
                     </ul>
                 </li>
-
+                
                 <li class="treeview
                         {{
                         url()->current() == url('/user')||
@@ -275,9 +275,10 @@ desired effect
                         <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
+                   
                     <ul class="treeview-menu">
                         <li class="{{url()->current() == url('/user')?'active':''}}"><a href="{{url('/user')}}"><i class="fa fa-eye"></i> <span>VIEW USERS</span></a></li>
-
+                    @if(Auth::user()->canReadRole() || Auth::user()->canCreateRole() )
                         <li class="treeview
                                 {{
                                 url()->current() == url('/user/roles')||
@@ -291,13 +292,19 @@ desired effect
                         </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li class="{{url()->current() == url('/user/roles')?'active':''}}"><a href="{{url('/user/roles')}}"><i class="fa fa-eye"></i> <span>VIEW ROLES</span></a></li>
-                                <li class="{{url()->current() == url('/user/role/create')?'active':''}}"><a href="{{url('/user/role/create')}}"><i class="fa fa-plus"></i> <span>CREATE NEW ROLE</span></a></li>
+                                @if(Auth::user()->canReadRole() )
+                                    <li class="{{url()->current() == url('/user/roles')?'active':''}}"><a href="{{url('/user/roles')}}"><i class="fa fa-eye"></i> <span>VIEW ROLES</span></a></li>
+                                @endif
+                                @if(Auth::user()->canCreateRole() )
+                                    <li class="{{url()->current() == url('/user/role/create')?'active':''}}"><a href="{{url('/user/role/create')}}"><i class="fa fa-plus"></i> <span>CREATE NEW ROLE</span></a></li>
+                                @endif
                             </ul>
                         </li>
+                    @endif
                     </ul>
 
                 </li>
+                
                 <li class="treeview {{
                     url()->current() == url('/vehicle/usage')|| 
                     url()->current() == url('/vehicle/addservicing')||
