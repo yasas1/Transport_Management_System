@@ -183,10 +183,10 @@
                                             </button>
                                             <ul class="dropdown-menu">
                                                 @foreach($divHeads as $divHead)
-                                                    @if($divHead->head()->first()!='')
-                                                        <li class="cmbDivHead dropdown-item" data-value="{{$divHead->head()->first()->emp_id}}">
+                                                    @if($divHead->head !='')
+                                                        <li class="cmbDivHead dropdown-item" data-value="{{$divHead->head}}">
                                                         <span>
-                                                            {{$divHead->head()->first()->emp_initials.'. '.$divHead->head()->first()->emp_surname.' ( '.$divHead->dept_name.' )'}}
+                                                            {{$divHead->getHead()->first()->emp_initials.'. '.$divHead->getHead()->first()->emp_surname.' ( '.$divHead->dept_name.' )'}}
                                                         </span>
                                                         </li>
                                                     @endif
