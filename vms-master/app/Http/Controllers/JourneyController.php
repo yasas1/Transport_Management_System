@@ -429,52 +429,52 @@ class JourneyController extends Controller
         $journey->funds_allocated_from_id = $request->funds_allocated_from_id;
         $journey->divisional_head_id = $request->divisional_head_id;
         $journey->save();      
-        try{
-            if (true) {
-                session_start();
-                $this->client->setAccessToken($_SESSION['access_token']);
-                $service = new Google_Service_Calendar($this->client);
-                $event = new Google_Service_Calendar_Event(array(
-                    'summary' => 'Google I/O 2015',
-                    'location' => '800 Howard St., San Francisco, CA 94103',
-                    'description' => 'A chance to hear more about Google\'s developer products.',
-                    'start' => array(
-                        'dateTime' => $first,
-                        'timeZone' => 'Asia/Colombo',
-                    ),
-                    'end' => array(
-                        'dateTime' => $second,
-                        'timeZone' => 'Asia/Colombo',
-                    ),
-                ));
-                $calendarId = 'cmb.ac.lk_ccip5rfck0q19ptlgbsii5e3sk@group.calendar.google.com';
-                $event = $service->events->insert($calendarId, $event);
-            } else {
-                $token = Auth::user()->token;
-                $this->client->setAccessToken($token);
-                $service = new Google_Service_Calendar($this->client);
-                $event = new Google_Service_Calendar_Event(array(
-                    'summary' => 'Google I/O 2015',
-                    'location' => '800 Howard St., San Francisco, CA 94103',
-                    'description' => 'A chance to hear more about Google\'s developer products.',
-                    'start' => array(
-                        'dateTime' => $first,
-                        'timeZone' => 'Asia/Colombo',
-                    ),
-                    'end' => array(
-                        'dateTime' => $second,
-                        'timeZone' => 'Asia/Colombo',
-                    ),
-                ));
-                $calendarId = 'cmb.ac.lk_ccip5rfck0q19ptlgbsii5e3sk@group.calendar.google.com';
-                $event = $service->events->insert($calendarId, $event);
-            }
-        }catch (Exception $e){
-            if($e->getMessage() === 'Undefined index: access_token'){
-                return redirect()->back()->withErrors(['Cannot Connect to Google Calender !']);
-            }
-            return $e;
-        }
+        // try{
+        //     if (true) {
+        //         session_start();
+        //         $this->client->setAccessToken($_SESSION['access_token']);
+        //         $service = new Google_Service_Calendar($this->client);
+        //         $event = new Google_Service_Calendar_Event(array(
+        //             'summary' => 'Google I/O 2015',
+        //             'location' => '800 Howard St., San Francisco, CA 94103',
+        //             'description' => 'A chance to hear more about Google\'s developer products.',
+        //             'start' => array(
+        //                 'dateTime' => $first,
+        //                 'timeZone' => 'Asia/Colombo',
+        //             ),
+        //             'end' => array(
+        //                 'dateTime' => $second,
+        //                 'timeZone' => 'Asia/Colombo',
+        //             ),
+        //         ));
+        //         $calendarId = 'cmb.ac.lk_ccip5rfck0q19ptlgbsii5e3sk@group.calendar.google.com';
+        //         $event = $service->events->insert($calendarId, $event);
+        //     } else {
+        //         $token = Auth::user()->token;
+        //         $this->client->setAccessToken($token);
+        //         $service = new Google_Service_Calendar($this->client);
+        //         $event = new Google_Service_Calendar_Event(array(
+        //             'summary' => 'Google I/O 2015',
+        //             'location' => '800 Howard St., San Francisco, CA 94103',
+        //             'description' => 'A chance to hear more about Google\'s developer products.',
+        //             'start' => array(
+        //                 'dateTime' => $first,
+        //                 'timeZone' => 'Asia/Colombo',
+        //             ),
+        //             'end' => array(
+        //                 'dateTime' => $second,
+        //                 'timeZone' => 'Asia/Colombo',
+        //             ),
+        //         ));
+        //         $calendarId = 'cmb.ac.lk_ccip5rfck0q19ptlgbsii5e3sk@group.calendar.google.com';
+        //         $event = $service->events->insert($calendarId, $event);
+        //     }
+        // }catch (Exception $e){
+        //     if($e->getMessage() === 'Undefined index: access_token'){
+        //         return redirect()->back()->withErrors(['Cannot Connect to Google Calender !']);
+        //     }
+        //     return $e;
+        // }
             return redirect()->back()->with(['success'=>'Journey added successfully !']);
     }
 
