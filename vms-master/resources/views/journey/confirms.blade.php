@@ -526,7 +526,7 @@
                             color :  journey_colors[value.vehical_id]                                                        
                         });                       
                     }); 
-                    //console.log(qEvent);
+
                     $('#calendar').fullCalendar('addEventSource', qEvent);
                     $('#calendar').fullCalendar('refetchEvents');  
                 }
