@@ -58,14 +58,18 @@ class JourneyController extends Controller
      */
     
     public function create(){
-        $journeys = Journey::all();
-        $divHeads = Division::all();
-        $fundAlFroms = FundsAllocatedFrom::all();
-        $drivers = Driver::all()->pluck('fullName','id');
-        $vehicles = Vehical::all()->pluck('fullName','id');
-        $vehiclesButton = Vehical::all();
-        return view('journey.create',compact('fundAlFroms','drivers','vehicles','divHeads','journeys','vehiclesButton'));
-    
+
+        if(Auth::user()->canRequestJourney()){
+            $journeys = Journey::all();
+            $divHeads = Division::all();
+            $fundAlFroms = FundsAllocatedFrom::all();
+            $drivers = Driver::all()->pluck('fullName','id');
+            $vehicles = Vehical::all()->pluck('fullName','id');
+            $vehiclesButton = Vehical::all();
+            return view('journey.create',compact('fundAlFroms','drivers','vehicles','divHeads','journeys','vehiclesButton'));
+
+        }
+        return redirect('home');
     } 
 
     public function readJourney(){ 
@@ -592,7 +596,46 @@ class JourneyController extends Controller
     }
     public function requests(){
             
-        $userlogid = Auth::user()->emp_id;      
+        $userlogid = Auth::user()->emp_id;   
+        
+        if(Auth::user()->canApproveJourney()){
+
+            if(Auth::user()->role_id == 1){
+                $journeys = Journey::notApproved(); 
+                $longDisJourneys = Journey::notApprovedLongDistance();
+                $otherDivHeadsJourneys = NULL;
+                return view('journey.requests',compact('journeys','longDisJourneys','otherDivHeadsJourneys'));
+            }
+            else if(Auth::user()->role_id == 2){
+                    // Code for particular divissional head requests for approve
+    
+                $journeys = Journey::where('divisional_head_id','=',$userlogid)
+                    ->where('journey_status_id','=','1')
+                    ->where('is_long_distance', '=', '0')->get();
+    
+                $longDisJourneys = NULL;
+    
+                $divHeads=Division::where('head', '!=', '' )->pluck('head'); 
+    
+                $otherDivHeadsJourneys = Journey::where('applicant_id','!=',$userlogid)
+                ->whereIn('applicant_id', $divHeads)
+                ->where('journey_status_id','=','1')
+                ->where('is_long_distance', '=', '0')->get();
+    
+                //return $otherDivHeadsJourneys;
+    
+                return view('journey.requests',compact('journeys','longDisJourneys','otherDivHeadsJourneys'));       
+            }    
+            // return Auth::user();
+            
+            $journeys = Journey::notApproved(); 
+            $longDisJourneys = NULL;
+            $otherDivHeadsJourneys = NULL;
+            return view('journey.requests',compact('journeys','longDisJourneys','otherDivHeadsJourneys'));    
+
+        }
+        
+        return redirect('home');
         
         //$userlogid = "000538"; //000140 for test
            /*         
@@ -610,38 +653,6 @@ class JourneyController extends Controller
             return view('journey.requests',compact('journeys','longDisJourneys'));
         }
           */
-        if(Auth::user()->role_id == 1){
-            $journeys = Journey::notApproved(); 
-            $longDisJourneys = Journey::notApprovedLongDistance();
-            $otherDivHeadsJourneys = NULL;
-            return view('journey.requests',compact('journeys','longDisJourneys','otherDivHeadsJourneys'));
-        }
-        else if(Auth::user()->role_id == 2){
-                // Code for particular divissional head requests for approve
-
-            $journeys = Journey::where('divisional_head_id','=',$userlogid)
-                ->where('journey_status_id','=','1')
-                ->where('is_long_distance', '=', '0')->get();
-
-            $longDisJourneys = NULL;
-
-            $divHeads=Division::where('head', '!=', '' )->pluck('head'); 
-
-            $otherDivHeadsJourneys = Journey::where('applicant_id','!=',$userlogid)
-            ->whereIn('applicant_id', $divHeads)
-            ->where('journey_status_id','=','1')
-            ->where('is_long_distance', '=', '0')->get();
-
-            //return $otherDivHeadsJourneys;
-
-            return view('journey.requests',compact('journeys','longDisJourneys','otherDivHeadsJourneys'));
-        }    
-        // return Auth::user();
-        
-        $journeys = Journey::notApproved(); 
-        $longDisJourneys = Journey::notApprovedLongDistance();
-        $otherDivHeadsJourneys = NULL;
-        return view('journey.requests',compact('journeys','longDisJourneys','otherDivHeadsJourneys'));
     }
 
     public function notConfirmedJourneys(){ // view journey confirms view

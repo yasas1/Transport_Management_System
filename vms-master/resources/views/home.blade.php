@@ -70,7 +70,6 @@
             
         @endif
 
-        
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">
@@ -115,23 +114,30 @@
             </div>
         </div>
 
+        @if(Auth::user()->canViewUser() || Auth::user()->canReadRole() ||Auth::user()->canCreateRole() ) 
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    <span class="fa fa-user-secret"></span> ROLE</h3>
+                    <span class="fa fa-user-secret"></span> USER MANAGEMENT</h3>
             </div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
-                       
-                        <a href="{{url('/user/roles')}}" class="btn btn-warning" role="button"><span class="glyphicon glyphicon-folder-open"></span> <br/>View</a>
-                        <a href="{{url('/user/roles')}}" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-edit"></span> <br/>Edit</a>               
-                        <a href="{{url('/user/role/create')}}" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/> New </a> 
+                        @if(Auth::user()->canViewUser() )
+                            <a href="{{url('/user')}}" class="btn btn-warning" role="button"><span class="glyphicon glyphicon-folder-open"></span> <br/>View Users</a>
+                        @endif
+                        @if(Auth::user()->canReadRole() )
+                            <a href="{{url('/user/roles')}}" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-edit"></span> <br/>View Roles</a>
+                        @endif
+                        @if(Auth::user()->canCreateRole() )    
+                            <a href="{{url('/user/role/create')}}" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/> Create Role </a> 
+                        @endif
                                                   
                     </div>
                 </div>                  
             </div>
         </div> 
+        @endif
 
     </div>
 
