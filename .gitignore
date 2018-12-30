@@ -1,2 +1,3 @@
 vms-master/config/database.php
 vms-master/resources/views/Map/map.blade.php
+vms-master/.env
