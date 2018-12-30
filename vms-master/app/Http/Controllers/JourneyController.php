@@ -634,7 +634,7 @@ class JourneyController extends Controller
             return view('journey.requests',compact('journeys','longDisJourneys','otherDivHeadsJourneys'));    
 
         }
-        
+
         return redirect('home');
         
         //$userlogid = "000538"; //000140 for test
@@ -656,42 +656,54 @@ class JourneyController extends Controller
     }
 
     public function notConfirmedJourneys(){ // view journey confirms view
-        $drivers = Driver::all()->pluck('fullName','id');
-        $vehicles = Vehical::all()->pluck('fullName','id');
-        $vehicless = Vehical::all();
-        $vehiclesForColor = Vehical::all(); // for vehicle color button {delete}
-        $journeys = Journey::notConfirmed();
-        return view('journey.confirms',compact('journeys','drivers','vehicles','vehicless','vehiclesForColor'));
+
+        if(Auth::user()->canConfirmJourney()){
+
+            $drivers = Driver::all()->pluck('fullName','id');
+            $vehicles = Vehical::all()->pluck('fullName','id');
+            $vehicless = Vehical::all();
+            $vehiclesForColor = Vehical::all(); // for vehicle color button {delete}
+            $journeys = Journey::notConfirmed();
+            return view('journey.confirms',compact('journeys','drivers','vehicles','vehicless','vehiclesForColor'));
+        }
+        return redirect('home');
     }
 
     public function confirmedJourneys(){  // view Ongoing Journeys
-        $drivers = Driver::all()->pluck('fullName','id');
-        //$vehicles = Vehical::all()->pluck('fullName','id');
-        $vehicles = Vehical::all();
-        $journeys = Journey::confirmed();
-        return view('journey.confirmed',compact('journeys','drivers','vehicles'));
+
+        if(Auth::user()->canViewOngoingJourneys()){
+
+            $drivers = Driver::all()->pluck('fullName','id');
+            //$vehicles = Vehical::all()->pluck('fullName','id');
+            $vehicles = Vehical::all();
+            $journeys = Journey::confirmed();
+            return view('journey.confirmed',compact('journeys','drivers','vehicles'));
+        }
+        return redirect('home');
     }
 
     public function completed(){ // view Journey History {Completed journeys}
 
-        if(Auth::user()->role_id == 4){
-            $driverEmp = Auth::user()->emp_id;
-            $driverId = Driver::where('emp_id','=',$driverEmp)->first()->id;
-            
-            $journeys = Journey::where('journey_status_id','=','6')
-            ->where('driver_id','=',$driverId)
-            ->get();
+        if(Auth::user()->canViewCompletedJourneys()){
 
-            //return $journeys;
-
-            $vehicles = Vehical::all(); // for vehicle color button {delete}
-            return view('journey.completed',compact('journeys','vehicles'));
+            if(Auth::user()->role_id == 4){
+                $driverEmp = Auth::user()->emp_id;
+                $driverId = Driver::where('emp_id','=',$driverEmp)->first()->id;
+                
+                $journeys = Journey::where('journey_status_id','=','6')
+                ->where('driver_id','=',$driverId)
+                ->get();
+    
+                $vehicles = Vehical::all(); // for vehicle color button {delete}
+                return view('journey.completed',compact('journeys','vehicles'));
+            }
+            else{
+                $journeys = Journey::completed();
+                $vehicles = Vehical::all(); // for vehicle color button {delete}
+                return view('journey.completed',compact('journeys','vehicles'));
+            }
         }
-        else{
-            $journeys = Journey::completed();
-            $vehicles = Vehical::all(); // for vehicle color button {delete}
-            return view('journey.completed',compact('journeys','vehicles'));
-        }
+        return redirect('home');
         
     }
 

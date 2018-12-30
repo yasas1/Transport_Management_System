@@ -26,14 +26,19 @@ class JourneyHistoryController extends Controller
 {
     public function index()
     {
-        $userid = Auth::user()->emp_id;
+        if(Auth::user()->canViewMyJourneys()){
+
+            $userid = Auth::user()->emp_id;
         
-        $journeys = Journey::where('applicant_id','=',$userid)->get();
+            $journeys = Journey::where('applicant_id','=',$userid)->get();
 
-        //return $journeys;
+            //return $journeys;
 
-        $vehicles = Vehical::all(); // for vehicle color button {delete}
-        return view('journey.MyJourney',compact('journeys','vehicles'));
+            $vehicles = Vehical::all(); // for vehicle color button {delete}
+            return view('journey.MyJourney',compact('journeys','vehicles'));
+
+        }
+        return redirect('home');
         
     }
 

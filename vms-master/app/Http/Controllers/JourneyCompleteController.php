@@ -14,14 +14,18 @@ class JourneyCompleteController extends Controller
 
     public function confirmedJourneys(){
 
-        $journeys = Journey::confirmed();
-        return view('journey.complete',compact('journeys'));
+        if(Auth::user()->canCompleteJourney()){
+
+            $journeys = Journey::confirmed();
+            return view('journey.complete',compact('journeys'));
+        }
+        return redirect('home');
 
     }
 
     public function complete(Request $request, $id){
 
-        if($journey = Journey::whereId($id)->first()){
+        if(Auth::user()->canCompleteJourney() && $journey = Journey::whereId($id)->first()){
 
             $journey->real_start_date_time = Carbon::parse($request->real_start_date_time);
             $journey->real_end_date_time = Carbon::parse($request->real_end_date_time);
@@ -49,7 +53,7 @@ class JourneyCompleteController extends Controller
                 return redirect()->back()->with(['success'=>'Journey completed successfully !']);
             }
         }
-
+        return redirect('home');
     }
 
 }
