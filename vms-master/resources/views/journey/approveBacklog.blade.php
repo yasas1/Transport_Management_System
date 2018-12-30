@@ -53,17 +53,16 @@
                     </tr>
                 @endforeach
                 </tbody>
-                {{-- <tfoot>
+                <tfoot>
                 <tr>
                     <th>Applicant Name</th>
                     <th>Applicant Division</th>
                     <th>Vehicle</th>
                     <th>Start Date / Time</th>
                     <th>End Date / Time</th>
-                    <th>Updated at</th>
                     <th width="200px">Actions</th>
                 </tr>
-                </tfoot> --}}
+                </tfoot>
             </table>
         
             @foreach($journeys as $journey)
@@ -91,7 +90,7 @@
                                             <dt>Division</dt>
                                             <dd>{{$journey->applicant->division->dept_name}}</dd>
                                             <dt>Email</dt>
-                                            <dd>{{$journey->applicant->emp_email}}</dd>
+                                            <dd>{{$journey->applicant->emp_email.'@ucsc.cmb.ac.lk'}}</dd>
                                         </dl>
                                         <dl class="dl-horizontal">
                                             <h4>Resources</h4>
