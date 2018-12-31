@@ -24,7 +24,7 @@ use Session;
 use View;
 
 use Mail;
-use App\Mail\ApprovedByMail;
+use App\Mail\JourneyRequestMail;
 
 class JourneyController extends Controller
 {
@@ -376,9 +376,7 @@ class JourneyController extends Controller
             $confirmed_at = NULL;
             $confirmed_start = NULL;
             $confirmed_end = NULL;
-        }
-
-        
+        }      
 
         $real_start = $journey->real_start_date_time->toDayDateTimeString(); 
         $real_end = $journey->real_end_date_time->toDayDateTimeString(); 
@@ -432,54 +430,18 @@ class JourneyController extends Controller
 
         $journey->funds_allocated_from_id = $request->funds_allocated_from_id;
         $journey->divisional_head_id = $request->divisional_head_id;
-        $journey->save();      
-        // try{
-        //     if (true) {
-        //         session_start();
-        //         $this->client->setAccessToken($_SESSION['access_token']);
-        //         $service = new Google_Service_Calendar($this->client);
-        //         $event = new Google_Service_Calendar_Event(array(
-        //             'summary' => 'Google I/O 2015',
-        //             'location' => '800 Howard St., San Francisco, CA 94103',
-        //             'description' => 'A chance to hear more about Google\'s developer products.',
-        //             'start' => array(
-        //                 'dateTime' => $first,
-        //                 'timeZone' => 'Asia/Colombo',
-        //             ),
-        //             'end' => array(
-        //                 'dateTime' => $second,
-        //                 'timeZone' => 'Asia/Colombo',
-        //             ),
-        //         ));
-        //         $calendarId = 'cmb.ac.lk_ccip5rfck0q19ptlgbsii5e3sk@group.calendar.google.com';
-        //         $event = $service->events->insert($calendarId, $event);
-        //     } else {
-        //         $token = Auth::user()->token;
-        //         $this->client->setAccessToken($token);
-        //         $service = new Google_Service_Calendar($this->client);
-        //         $event = new Google_Service_Calendar_Event(array(
-        //             'summary' => 'Google I/O 2015',
-        //             'location' => '800 Howard St., San Francisco, CA 94103',
-        //             'description' => 'A chance to hear more about Google\'s developer products.',
-        //             'start' => array(
-        //                 'dateTime' => $first,
-        //                 'timeZone' => 'Asia/Colombo',
-        //             ),
-        //             'end' => array(
-        //                 'dateTime' => $second,
-        //                 'timeZone' => 'Asia/Colombo',
-        //             ),
-        //         ));
-        //         $calendarId = 'cmb.ac.lk_ccip5rfck0q19ptlgbsii5e3sk@group.calendar.google.com';
-        //         $event = $service->events->insert($calendarId, $event);
-        //     }
-        // }catch (Exception $e){
-        //     if($e->getMessage() === 'Undefined index: access_token'){
-        //         return redirect()->back()->withErrors(['Cannot Connect to Google Calender !']);
-        //     }
-        //     return $e;
-        // }
-            return redirect()->back()->with(['success'=>'Journey added successfully !']);
+        //$journey->save();   
+
+        $devHead_id =$request->divisional_head_id;
+        
+        //$emailAddress = Employee::where('emp_id','=',$devHead_id)->first()->emp_email.'@ucsc.cmb.ac.lk';
+        $emailAddress= 'ranawaka.y@gmail.com'; //test
+
+        $msg= 'Place --  '.$journey->places_to_be_visited.' __ Start --  '.$journey->real_start_date_time.' __End --  '.$journey->real_end_date_time.' __Applicant -- '.$journey->applicant->emp_title.' '.$journey->applicant->emp_initials.'. '.$journey->applicant->emp_surname;
+
+        Mail::send(new JourneyRequestMail($emailAddress,$msg));
+
+        return redirect()->back()->with(['success'=>'Journey added successfully !']);
     }
 
     public function cancel(Request $request){

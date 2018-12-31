@@ -78,9 +78,12 @@
                             <p style="color:#666;font-size:14px;margin:0">Welcome!</p>
                             <p style="color:#666;font-size:14px;margin:0"> 
                                 This is to inform that you have a Journey request to approve as a devisional head.
-                            </p>
+                            </p> <br><br>
                             <p style="color:#000000;font-size:14px;margin:0"> 
                                 {{$msg}}
+                            </p><br><br>
+                            <p style="color:#666;font-size:14px;margin:0"> 
+                                Please pay your attention to request approval.
                             </p>
                             
                         </td>
@@ -91,7 +94,7 @@
                                 <tbody class="m_-7480336755895581727pin__body">
                                 <tr class="m_-7480336755895581727pin__row">
                                     <td class="m_-7480336755895581727pin__cell m_-7480336755895581727pin__cell--text" style="border-collapse:collapse;color:#000;font-size:18px;font-weight:700;letter-spacing:2px;min-width:160px;padding:0 16px;text-align:center">
-                                        <a class="btn" href="#">CLink</a>
+                                        <a class="btn" href="#">Link</a>
                                     </td>
                                 </tr>
                                 </tbody>
