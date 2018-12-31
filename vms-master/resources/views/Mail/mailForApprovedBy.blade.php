@@ -78,7 +78,7 @@
                             <p style="color:#666;font-size:14px;margin:0">Welcome!</p>
                             <p style="color:#666;font-size:14px;margin:0"> 
                                 This is to inform that you have been appointed as an approver of a recent backlog journey.
-                            </p>
+                            </p> <br>
                             <p style="color:#000000;font-size:14px;margin:0"> 
                                 {{$msg}}
                             </p>

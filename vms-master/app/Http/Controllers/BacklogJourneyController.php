@@ -118,7 +118,7 @@ class BacklogJourneyController extends Controller
 
             $emailAddress= 'ranawaka.y@gmail.com'; // for testing 
 
-            $msg= 'Place -  '.$journey->places_to_be_visited.'  Start -  '.$journey->real_start_date_time.'  End -  '.$journey->real_end_date_time.'  ';
+            $msg= 'Place --  '.$journey->places_to_be_visited.'<br> __ Start --  '.$journey->real_start_date_time.'  __End --  '.$journey->real_end_date_time.'  <br> Applicant -- '.$journey->applicant->emp_title.' '.$journey->applicant->emp_initials.'. '.$journey->applicant->emp_surname;
 
             Mail::send(new ApprovedByMail($emailAddress,$msg));
 
