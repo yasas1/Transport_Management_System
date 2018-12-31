@@ -36,7 +36,7 @@
                     <tbody>
                     @foreach($journeys as $journey)
                         <tr>
-                            <td>{{$journey->applicant->emp_surname}}</td>
+                            <td>{{$journey->applicant->emp_title.' '.$journey->applicant->emp_initials.'. '.$journey->applicant->emp_surname}}</td>
                             <td>{{$journey->applicant->division->dept_name}}</td>
                             @if($journey->vehical_id != null)
                             <td>{{$journey->vehical->fullname}}</td>

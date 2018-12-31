@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Session;
 use View;
+use Illuminate\Support\Facades\Auth;
 
 class JourneyConfirmController extends Controller
 {
@@ -66,7 +67,7 @@ class JourneyConfirmController extends Controller
             if($journey = Journey::find($request->id)){
 
                 $journey->confirmed_at = Carbon::now();
-                $journey->confirmed_by = '000004';
+                $journey->confirmed_by = Auth::user()->emp_id;
                 $journey->confirmation_remarks = $request->confirmation_remarks;
 
                 //return $request->vehical_id ;

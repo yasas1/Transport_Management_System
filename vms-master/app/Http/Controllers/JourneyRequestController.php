@@ -6,6 +6,7 @@ use App\Models\Journey;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class JourneyRequestController extends Controller
 {
@@ -20,7 +21,7 @@ class JourneyRequestController extends Controller
         if($journey = Journey::whereId($id)->first()){
 
             $journey->approved_at = Carbon::now();
-            $journey->approved_by = '000046';
+            $journey->approved_by = Auth::user()->emp_id;
             $journey->approval_remarks = $request->remarks; 
 
             if($request->is_approved == '1'){

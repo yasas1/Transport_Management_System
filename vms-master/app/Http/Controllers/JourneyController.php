@@ -424,9 +424,11 @@ class JourneyController extends Controller
             $journey->is_long_distance = 1;
         }
 
-        if(Auth::user()->role_id == 1){
-            $journey->journey_status_id = 2;
-        }
+        // if(Auth::user()->role_id == 1){
+        //     $journey->journey_status_id = 2;
+        //     $journey->approved_at = Carbon::now();
+        //     $journey->approved_by = Auth::user()->emp_id;
+        // }
 
         $journey->funds_allocated_from_id = $request->funds_allocated_from_id;
         $journey->divisional_head_id = $request->divisional_head_id;
@@ -439,7 +441,7 @@ class JourneyController extends Controller
 
         $msg= 'Place --  '.$journey->places_to_be_visited.' __ Start --  '.$journey->real_start_date_time.' __End --  '.$journey->real_end_date_time.' __Applicant -- '.$journey->applicant->emp_title.' '.$journey->applicant->emp_initials.'. '.$journey->applicant->emp_surname;
 
-        Mail::send(new JourneyRequestMail($emailAddress,$msg));
+        //Mail::send(new JourneyRequestMail($emailAddress,$msg));
 
         return redirect()->back()->with(['success'=>'Journey added successfully !']);
     }

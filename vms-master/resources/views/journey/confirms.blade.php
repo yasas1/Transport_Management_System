@@ -150,10 +150,14 @@
                                                 <h4>Approval</h4>
                                                 <dt>Approved By</dt>
                                                 <dd>{{$journey->approvedBy->emp_title.' '.$journey->approvedBy->emp_initials.'. '.$journey->approvedBy->emp_surname}}</dd>
+                                                @if($journey->approved_at !=null)
                                                 <dt>Approved At</dt>
                                                 <dd>{{$journey->approved_at->toDayDateTimeString()}}</dd>
+                                                @endif
+                                                @if($journey->approval_remarks!=null)
                                                 <dt>Remarks</dt>
                                                 <dd>{{$journey->approval_remarks}}</dd>
+                                                @endif
                                             </dl>
                                         </div>
                                     </div>

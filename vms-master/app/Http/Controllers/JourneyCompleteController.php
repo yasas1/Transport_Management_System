@@ -14,7 +14,16 @@ class JourneyCompleteController extends Controller
 
     public function confirmedJourneys(){
 
+        $userlogid = Auth::user()->emp_id;
+
         if(Auth::user()->canCompleteJourney()){
+
+            if(Auth::user()->role_id == 4){
+
+                $journeys = Journey::where('divisional_head_id','=',$userlogid)
+                    ->where('journey_status_id','=','14')->get();
+
+            }
 
             $journeys = Journey::confirmed();
             return view('journey.complete',compact('journeys'));
