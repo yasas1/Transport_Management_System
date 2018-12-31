@@ -65,7 +65,6 @@
                         <th>Vehicle</th>
                         <th>Start Date / Time</th>
                         <th>End Date / Time</th>
-                        <th>Updated at</th>
                         <th width="200px">Actions</th>
                     </tr>
                     </tfoot>
@@ -101,11 +100,11 @@
                                             <dl class="dl-horizontal">
                                                 <h4>Applicant</h4>
                                                 <dt>Name</dt>
-                                                <dd>{{$journey->applicant->emp_surname}}</dd>
+                                                <dd>{{$journey->applicant->emp_title.' '.$journey->applicant->emp_initials.'. '.$journey->applicant->emp_surname}}</dd>
                                                 <dt>Division</dt>
                                                 <dd>{{$journey->applicant->division->dept_name}}</dd>
                                                 <dt>Email</dt>
-                                                <dd>{{$journey->applicant->emp_email}}</dd>
+                                                <dd>{{$journey->applicant->emp_email.'@ucsc.cmb.ac.lk'}}</dd>
                                             </dl>
                                             <dl class="dl-horizontal">
                                                 <h4>Resources</h4>
@@ -636,7 +635,7 @@
 
                                 $('#appl_name').html(details[4]);
                                 $('#appl_dept').html(details[5]);
-                                $('#appl_email').html(details[6]); 
+                                $('#appl_email').html(details[6]+'@ucsc.cmb.ac.lk'); 
                                 $('#driver').html(details[3]);
                                 $('#vehicle_number').html(details[1]);
                                 $('#vehicle_name').html(details[2]);  

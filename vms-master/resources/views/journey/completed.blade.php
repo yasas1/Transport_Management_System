@@ -70,7 +70,6 @@
                     <th>Vehicle</th>
                     <th>Start Date / Time</th>
                     <th>End Date / Time</th>
-                    <th>Updated at</th>
                     <th width="200px">Actions</th>
                 </tr>
                 </tfoot>
@@ -121,11 +120,11 @@
                                         <dl class="dl-horizontal">
                                             <h4>Applicant</h4>
                                             <dt>Name</dt>
-                                            <dd>{{$journey->applicant->emp_surname}}</dd>
+                                            <dd>{{$journey->applicant->emp_title.' '.$journey->applicant->emp_initials.'. '.$journey->applicant->emp_surname}}</dd>
                                             <dt>Division</dt>
                                             <dd>{{$journey->applicant->division->dept_name}}</dd>
                                             <dt>Email</dt>
-                                            <dd>{{$journey->applicant->emp_email}}</dd>
+                                            <dd>{{$journey->applicant->emp_email.'@ucsc.cmb.ac.lk'}}</dd>
                                         </dl>
                                         <dl class="dl-horizontal">
                                             <h4>Resources</h4>
@@ -466,68 +465,8 @@
             $('#v'+value.id).css('background-color','#'+value.journey_color); // For button color       
             journey_colors[value.id]='#'+value.journey_color;
         });
-        //console.log(journey_colors);
+
     });
-
-    // $.get("{{ URL::to('journey/readCompleted') }}",function(data){ 
-    //     $.each(data,function(i,value){   
-
-    //         if(value.vehical_id != null && value.expected_start_date_time != null){
-    //             qEvent.push({ 
-    //                 title : value.places_to_be_visited, // need place as the title
-    //                 start : value.expected_start_date_time,
-    //                 end : value.expected_end_date_time,
-    //                 id :  value.id, 
-    //                 applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
-    //                 vehical_id : value.vehical_id,
-    //                 borderColor: 'black',
-    //                 status: value.status,
-    //                 color : journey_colors[value.vehical_id]
-    //             });    
-    //         } 
-    //         else{
-    //             qEvent.push({ 
-    //                 title : value.places_to_be_visited, // need place as the title
-    //                 start : value.expected_start_date_time,
-    //                 end : value.expected_end_date_time,
-    //                 id :  value.id, 
-    //                 applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
-    //                 vehical_id : value.vehical_id,
-    //                 borderColor: 'black',
-    //                 status: value.status,
-    //                 color : "#778899"
-    //             }); 
-    //         }
-
-    //         if(value.expected_start_date_time == null && value.vehical_id != null){
-    //             qEvent.push({ 
-    //                 title : value.places_to_be_visited, // need place as the title
-    //                 start : value.real_start_date_time,
-    //                 end : value.real_end_date_time,
-    //                 id :  value.id, 
-    //                 applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
-    //                 vehical_id : value.vehical_id,
-    //                 borderColor: 'black',
-    //                 status: value.status,
-    //                 color : journey_colors[value.vehical_id]
-    //             });    
-    //         }
-    //         if(value.expected_start_date_time == null && value.vehical_id == null){
-    //             qEvent.push({ 
-    //                 title : value.places_to_be_visited, // need place as the title
-    //                 start : value.real_start_date_time,
-    //                 end : value.real_end_date_time,
-    //                 id :  value.id, 
-    //                 applicant :value.emp_title+' '+value.emp_firstname+' '+value.emp_surname,                                                    
-    //                 vehical_id : value.vehical_id,
-    //                 borderColor: 'black',
-    //                 status: value.status,
-    //                 color : "#778899"
-    //             });
-    //         }
-            
-    //     });
-    // });
 
     $(document).ready(function(){
         //$('.colorbutton').css('background','#7CFD03');
@@ -756,7 +695,7 @@
 
                                 $('#appl_name').html(details[4]);
                                 $('#appl_dept').html(details[5]);
-                                $('#appl_email').html(details[6]);
+                                $('#appl_email').html(details[6]+'@ucsc.cmb.ac.lk');
                                 $('#devisional_head').html(details[7]);
                                 $('#approved_by').html(details[8]);
                                 $('#approved_at').html(details[9]); 
