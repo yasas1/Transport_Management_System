@@ -116,7 +116,7 @@ class BacklogJourneyController extends Controller
 
             $emailAddress = Employee::where('emp_id','=',$approvedID)->first()->emp_email.'@ucsc.cmb.ac.lk';
 
-           // $emailAddress= 'ranawaka.y@gmail.com'; // for testing 
+            //$emailAddress= 'ranawaka.y@gmail.com'; // for testing 
 
             $msg= 'Place --  '.$journey->places_to_be_visited.' __ Start --  '.$journey->real_start_date_time.' __End --  '.$journey->real_end_date_time.' __Applicant -- '.$journey->applicant->emp_title.' '.$journey->applicant->emp_initials.'. '.$journey->applicant->emp_surname;
 

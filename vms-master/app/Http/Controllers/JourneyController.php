@@ -430,12 +430,12 @@ class JourneyController extends Controller
 
         $journey->funds_allocated_from_id = $request->funds_allocated_from_id;
         $journey->divisional_head_id = $request->divisional_head_id;
-        //$journey->save();   
+        $journey->save();   
 
         $devHead_id =$request->divisional_head_id;
         
-        //$emailAddress = Employee::where('emp_id','=',$devHead_id)->first()->emp_email.'@ucsc.cmb.ac.lk';
-        $emailAddress= 'ranawaka.y@gmail.com'; //test
+        $emailAddress = Employee::where('emp_id','=',$devHead_id)->first()->emp_email.'@ucsc.cmb.ac.lk';
+        //$emailAddress= 'ranawaka.y@gmail.com'; //test
 
         $msg= 'Place --  '.$journey->places_to_be_visited.' __ Start --  '.$journey->real_start_date_time.' __End --  '.$journey->real_end_date_time.' __Applicant -- '.$journey->applicant->emp_title.' '.$journey->applicant->emp_initials.'. '.$journey->applicant->emp_surname;
 

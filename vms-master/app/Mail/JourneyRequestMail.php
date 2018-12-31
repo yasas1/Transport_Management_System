@@ -34,6 +34,6 @@ class JourneyRequestMail extends Mailable
      */
     public function build()
     {
-        return $this->view('Mail.mailForApprovedBy',['msg'=>$this->msg])->to($this->address);
+        return $this->view('Mail.mailJourneyRequest',['msg'=>$this->msg])->to($this->address);
     }
 }
