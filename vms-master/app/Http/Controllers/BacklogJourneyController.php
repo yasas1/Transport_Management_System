@@ -121,7 +121,7 @@ class BacklogJourneyController extends Controller
             $end=' END --  '.$journey->real_end_date_time->toDayDateTimeString();
             $applicant= 'APPLICANT -- '.$journey->applicant->emp_title.' '.$journey->applicant->emp_initials.'. '.$journey->applicant->emp_surname;
 
-            //Mail::send(new ApprovedByMail($emailAddress,$place,$start,$end,$applicant));
+            Mail::send(new ApprovedByMail($emailAddress,$place,$start,$end,$applicant));
 
             $journey->journey_status_id = '6';
             
@@ -129,8 +129,8 @@ class BacklogJourneyController extends Controller
         else{
             $divisional_head_id = $request->divisional_head_id;
 
-            //$emailAddress = Employee::where('emp_id','=',$divisional_head_id)->first()->emp_email.'@ucsc.cmb.ac.lk';
-            $emailAddress= 'ranawaka.y@gmail.com'; // for testing 
+            $emailAddress = Employee::where('emp_id','=',$divisional_head_id)->first()->emp_email.'@ucsc.cmb.ac.lk';
+            //$emailAddress= 'ranawaka.y@gmail.com'; // for testing 
 
             $place= 'PLACE --  '.$journey->places_to_be_visited;
             $start= 'START --  '.$journey->real_start_date_time->toDayDateTimeString();

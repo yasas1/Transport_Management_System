@@ -39,6 +39,6 @@ class BacklogJourneyToApprove extends Mailable
      */
     public function build()
     {
-        return $this->view('Mail.mailJourneyRequest',['place'=>$this->place,'start'=>$this->start,'end'=>$this->end,'applicant'=>$this->applicant])->to($this->address);
+        return $this->view('Mail.mailBacklogToApprove',['place'=>$this->place,'start'=>$this->start,'end'=>$this->end,'applicant'=>$this->applicant])->to($this->address);
     }
 }

@@ -77,8 +77,8 @@
                         <td class="m_-7480336755895581727content__text" style="border-collapse:collapse;padding:0">
                             <p style="color:#666;font-size:14px;margin:0">Welcome!</p>
                             <p style="color:#666;font-size:14px;margin:0"> 
-                                This is to inform that you have a <b> Journey request </b> to approve as a divisional head.
-                            </p> <br><br>
+                                This is to inform that you have a <b> backlog Journey </b>  to approve as a divisional head.
+                            </p> <br> <br>
                             <div style="color:#000000;font-size:14px;margin:0"> 
                                 {{$place}}
                             </div><br>
@@ -90,10 +90,7 @@
                             </div><br>
                             <div style="color:#000000;font-size:14px;margin:0"> 
                                 {{$applicant}}
-                            </div><br><br><br>
-                            <p style="color:#666;font-size:14px;margin:0"> 
-                                Please pay your attention to request approval.
-                            </p>
+                            </div>
                             
                         </td>
                     </tr>
@@ -114,9 +111,10 @@
                 </table>
             </td>
         </tr>
+       
         <tr>
             <td style="border-collapse:collapse;color:#666;font-size:12px;padding:20px;text-align:center;width:100%" bgcolor="#f7f7f7">
-                Vehicle Management System @ UCSC
+                    Vehicle Management System @ UCSC
             </td>
         </tr>
         <tr>
