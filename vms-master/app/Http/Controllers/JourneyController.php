@@ -637,10 +637,24 @@ class JourneyController extends Controller
 
         if(Auth::user()->canViewOngoingJourneys()){
 
+            $userlogid = Auth::user()->emp_id;  
+
             $drivers = Driver::all()->pluck('fullName','id');
             //$vehicles = Vehical::all()->pluck('fullName','id');
             $vehicles = Vehical::all();
-            $journeys = Journey::confirmed();
+
+            if(Auth::user()->role_id == 2){ // for devissional head
+
+                $journeys = Journey::where('journey_status_id','=','4')
+                ->where('divisional_head_id','=',$userlogid)
+                ->get();
+            }
+            else{
+                $journeys = Journey::confirmed();
+            }
+
+            
+            
             return view('journey.confirmed',compact('journeys','drivers','vehicles'));
         }
         return redirect('home');
@@ -649,23 +663,31 @@ class JourneyController extends Controller
     public function completed(){ // view Journey History {Completed journeys}
 
         if(Auth::user()->canViewCompletedJourneys()){
+            
+            $vehicles = Vehical::all();
+            $userlogid = Auth::user()->emp_id;  
 
-            if(Auth::user()->role_id == 4){
-                $driverEmp = Auth::user()->emp_id;
-                $driverId = Driver::where('emp_id','=',$driverEmp)->first()->id;
+            if(Auth::user()->role_id == 4){ // fo driver
+
+                $driverId = Driver::where('emp_id','=',$userlogid)->first()->id; // driver id
                 
                 $journeys = Journey::where('journey_status_id','=','6')
                 ->where('driver_id','=',$driverId)
                 ->get();
     
-                $vehicles = Vehical::all(); // for vehicle color button {delete}
+                 // for vehicle color button {delete}
                 return view('journey.completed',compact('journeys','vehicles'));
+            }
+            else if(Auth::user()->role_id == 2){ // fo divissional head
+                $journeys = Journey::where('journey_status_id','=','6')
+                ->where('divisional_head_id','=',$userlogid)
+                ->get();
             }
             else{
                 $journeys = Journey::completed();
-                $vehicles = Vehical::all(); // for vehicle color button {delete}
-                return view('journey.completed',compact('journeys','vehicles'));
+                
             }
+            return view('journey.completed',compact('journeys','vehicles'));
         }
         return redirect('home');
         
