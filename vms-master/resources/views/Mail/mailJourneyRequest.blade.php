@@ -62,7 +62,7 @@
                     <tbody>
                     <tr>
                         <td style="border-collapse:collapse;padding:20px 0 20px 4%;width:40%">
-                            <h2>Vehicle Management System</h2>
+                            <h2>Vehicle Management System @ UCSC</h2>
                         </td>
                     </tr>
                     </tbody>
@@ -77,11 +77,20 @@
                         <td class="m_-7480336755895581727content__text" style="border-collapse:collapse;padding:0">
                             <p style="color:#666;font-size:14px;margin:0">Welcome!</p>
                             <p style="color:#666;font-size:14px;margin:0"> 
-                                This is to inform that you have a Journey request to approve as a devisional head.
+                                This is to inform that you have a <b> Journey request </b> to approve as a devisional head.
                             </p> <br><br>
-                            <p style="color:#000000;font-size:14px;margin:0"> 
-                                {{$msg}}
-                            </p><br><br>
+                            <div style="color:#000000;font-size:14px;margin:0"> 
+                                {{$place}}
+                            </div><br>
+                            <div style="color:#000000;font-size:14px;margin:0"> 
+                                {{$start}}
+                            </div><br>
+                            <div style="color:#000000;font-size:14px;margin:0"> 
+                                {{$end}}
+                            </div><br>
+                            <div style="color:#000000;font-size:14px;margin:0"> 
+                                {{$applicant}}
+                            </div><br><br><br>
                             <p style="color:#666;font-size:14px;margin:0"> 
                                 Please pay your attention to request approval.
                             </p>
@@ -94,7 +103,7 @@
                                 <tbody class="m_-7480336755895581727pin__body">
                                 <tr class="m_-7480336755895581727pin__row">
                                     <td class="m_-7480336755895581727pin__cell m_-7480336755895581727pin__cell--text" style="border-collapse:collapse;color:#000;font-size:18px;font-weight:700;letter-spacing:2px;min-width:160px;padding:0 16px;text-align:center">
-                                        <a class="btn" href="#">Link</a>
+                                        <a class="btn" href="#">Vehicle Management System</a>
                                     </td>
                                 </tr>
                                 </tbody>

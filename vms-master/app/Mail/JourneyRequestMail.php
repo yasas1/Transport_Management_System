@@ -18,12 +18,18 @@ class JourneyRequestMail extends Mailable
      */
 
     public $address;
-    public $msg;
+    public $place;
+    public $start;
+    public $end;
+    public $applicant;
 
-    public function __construct($address,$msg)
+    public function __construct($address,$place,$start,$end,$applicant)
     {
         $this->address = $address;
-        $this->msg = $msg;
+        $this->place = $place;
+        $this->start = $start;
+        $this->end = $end;
+        $this->applicant = $applicant;
     }
 
 
@@ -34,6 +40,6 @@ class JourneyRequestMail extends Mailable
      */
     public function build()
     {
-        return $this->view('Mail.mailJourneyRequest',['msg'=>$this->msg])->to($this->address);
+        return $this->view('Mail.mailJourneyRequest',['place'=>$this->place,'start'=>$this->start,'end'=>$this->end,'applicant'=>$this->applicant])->to($this->address);
     }
 }

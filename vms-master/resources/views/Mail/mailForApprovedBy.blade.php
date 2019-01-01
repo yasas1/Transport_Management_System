@@ -62,7 +62,7 @@
                     <tbody>
                     <tr>
                         <td style="border-collapse:collapse;padding:20px 0 20px 4%;width:40%">
-                            <h2>Vehicle Management System</h2>
+                            <h2>Vehicle Management System @ UCSC</h2>
                         </td>
                     </tr>
                     </tbody>
@@ -77,11 +77,20 @@
                         <td class="m_-7480336755895581727content__text" style="border-collapse:collapse;padding:0">
                             <p style="color:#666;font-size:14px;margin:0">Welcome!</p>
                             <p style="color:#666;font-size:14px;margin:0"> 
-                                This is to inform that you have been appointed as an approver of a recent backlog journey.
+                                This is to inform that you have been appointed as an approver of a recent <b> backlog journey </b>.
                             </p> <br> <br>
-                            <p style="color:#000000;font-size:14px;margin:0"> 
-                                {{$msg}}
-                            </p>
+                            <div style="color:#000000;font-size:14px;margin:0"> 
+                                {{$place}}
+                            </div><br>
+                            <div style="color:#000000;font-size:14px;margin:0"> 
+                                {{$start}}
+                            </div><br>
+                            <div style="color:#000000;font-size:14px;margin:0"> 
+                                {{$end}}
+                            </div><br>
+                            <div style="color:#000000;font-size:14px;margin:0"> 
+                                {{$applicant}}
+                            </div>
                             
                         </td>
                     </tr>
@@ -91,7 +100,7 @@
                                 <tbody class="m_-7480336755895581727pin__body">
                                 <tr class="m_-7480336755895581727pin__row">
                                     <td class="m_-7480336755895581727pin__cell m_-7480336755895581727pin__cell--text" style="border-collapse:collapse;color:#000;font-size:18px;font-weight:700;letter-spacing:2px;min-width:160px;padding:0 16px;text-align:center">
-                                        {{-- <a class="btn" href="{{url('/request/verify/'.$email.'/'.$token)}}">CONFIRM KEY REQUEST</a> --}}
+                                        <a class="btn" href="#">Vehicle Management System</a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -105,6 +114,11 @@
         <tr>
             <td style="border-collapse:collapse;color:#666;font-size:12px;padding:20px;text-align:center;width:100%" bgcolor="#f7f7f7">
                 If you didn't approve this, you can inform.
+            </td>
+        </tr><br>
+        <tr>
+            <td style="border-collapse:collapse;color:#666;font-size:12px;padding:20px;text-align:center;width:100%" bgcolor="#f7f7f7">
+                    Vehicle Management System @ UCSC
             </td>
         </tr>
         <tr>
