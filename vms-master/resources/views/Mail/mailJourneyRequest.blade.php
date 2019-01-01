@@ -92,7 +92,7 @@
                                 {{$applicant}}
                             </div><br><br><br>
                             <p style="color:#666;font-size:14px;margin:0"> 
-                                Please pay your attention to request approval.
+                                Please pay your attention for request approval.
                             </p>
                             
                         </td>

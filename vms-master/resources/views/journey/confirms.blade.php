@@ -203,7 +203,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <input type="submit" class="btn btn-success" name="submitType" value="CONFIRM">
-                                    <input type="submit" class="btn btn-danger" name="submitType" value="DENY">
+                                    <input type="submit" class="btn btn-danger" name="submitType" value="NOT CONFIRM">
                                     {!! Form::close() !!}
                                 </div>
                             </div>
@@ -386,11 +386,15 @@
                         <div class="col-md-9">
                         </div>
                         <div class="col-md-3">
+                        
                         {!! Form::open(['method' => 'post','id'=>'formCancel','action'=>['JourneyController@cancel']]) !!}   
                             <input type="hidden" name="id" id="journeyId">  
-                            <input type="submit" class="btn btn-warning" name="cancel" value="Cancel Journey "> 
-                            <button type="button" class="btn btn-danger" id="close" data-dismiss="modal">Close</button>                          
+                            @if(Auth::user()->canCancelJourney())
+                                <input type="submit" class="btn btn-warning" name="cancel" value="Cancel Journey ">    
+                            @endif         
+                            <button type="button" class="btn btn-danger pull-right" id="close" data-dismiss="modal">Close</button>                                         
                         {!! Form::close() !!}  
+                        
                         
                         </div>    
                     </div>

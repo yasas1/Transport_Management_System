@@ -129,6 +129,11 @@ class User extends Authenticatable
         return $this->checkPrivilege('Journey','Delete');
     }
 
+    public function canCancelJourney(){
+
+        return $this->checkPrivilege('Journey','Cancel');
+    }
+
     public function canRequestJourney(){
 
         return $this->checkPrivilege('Journey','Request');

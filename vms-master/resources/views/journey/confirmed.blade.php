@@ -225,7 +225,9 @@
                         </div>
                     </div>                                       
                     <div class="modal-footer">
-                        <input type="submit" class="btn btn-warning" name="cancel" value="Cancel Journey "> 
+                        @if(Auth::user()->canCancelJourney())
+                            <input type="submit" class="btn btn-warning" name="cancel" value="Cancel Journey "> 
+                        @endif
                         <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button>                          
                             {!! Form::close() !!}
                     </div> 
