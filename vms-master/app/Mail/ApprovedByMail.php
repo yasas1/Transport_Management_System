@@ -17,12 +17,18 @@ class ApprovedByMail extends Mailable
      * @return void
      */
     public $address;
-    public $msg;
+    public $place;
+    public $start;
+    public $end;
+    public $applicant;
 
-    public function __construct($address,$msg)
+    public function __construct($address,$place,$start,$end,$applicant)
     {
         $this->address = $address;
-        $this->msg = $msg;
+        $this->place = $place;
+        $this->start = $start;
+        $this->end = $end;
+        $this->applicant = $applicant;
     }
 
     /**
@@ -32,6 +38,6 @@ class ApprovedByMail extends Mailable
      */
     public function build()
     {
-        return $this->view('Mail.mailForApprovedBy',['msg'=>$this->msg])->to($this->address);
+        return $this->view('Mail.mailForApprovedBy',['place'=>$this->place,'start'=>$this->start,'end'=>$this->end,'applicant'=>$this->applicant])->to($this->address);
     }
 }

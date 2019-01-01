@@ -113,14 +113,15 @@ class BacklogJourneyController extends Controller
             $approvedID = $request->approved_by;
 
                     /* Sending email -- send from webmaster email -- check after uploaded to sever */
-
             $emailAddress = Employee::where('emp_id','=',$approvedID)->first()->emp_email.'@ucsc.cmb.ac.lk';
-
             //$emailAddress= 'ranawaka.y@gmail.com'; // for testing 
 
-            $msg= 'Place --  '.$journey->places_to_be_visited.' __ Start --  '.$journey->real_start_date_time.' __End --  '.$journey->real_end_date_time.' __Applicant -- '.$journey->applicant->emp_title.' '.$journey->applicant->emp_initials.'. '.$journey->applicant->emp_surname;
+            $place= 'PLACE --  '.$journey->places_to_be_visited;
+            $start= 'START --  '.$journey->real_start_date_time->toDayDateTimeString();
+            $end=' END --  '.$journey->real_end_date_time->toDayDateTimeString();
+            $applicant= 'APPLICANT -- '.$journey->applicant->emp_title.' '.$journey->applicant->emp_initials.'. '.$journey->applicant->emp_surname;
 
-            //Mail::send(new ApprovedByMail($emailAddress,$msg));
+            Mail::send(new ApprovedByMail($emailAddress,$place,$start,$end,$applicant));
 
             $journey->journey_status_id = '6';
             
@@ -129,7 +130,6 @@ class BacklogJourneyController extends Controller
             $journey->journey_status_id = '8';
         }    
 
-        //return $journey; 
         $journey->save();
         
         if($request->vehical_id == 0){
