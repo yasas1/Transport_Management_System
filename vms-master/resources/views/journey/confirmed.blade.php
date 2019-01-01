@@ -172,7 +172,7 @@
                             </dl>                                              
                         </div>
                     </div>
-    
+                    @if(Auth::user()->canChangeJourneyDetails())
                     <div class="row">
                         <div class="col-md-12">
                             <h4>Change Journey details</h4>
@@ -217,6 +217,7 @@
                         
                             {!! Form::close() !!}
                     </div> 
+                    @endif
                     <br>
                     <div class="row">
                         <div class="col-md-12">
