@@ -9,9 +9,9 @@
             </div>
             <div class="login-box">
                 <div class="login-logo">
-                    <i class="fa fa-key fa-2x"></i>
+                    <i class="fa fa-car"></i>
                     <br>
-                    <a href="{{route('home')}}"><b> MANAGEMENT SYSTEM FOR VEHICLES  </b><br>@ UCSC</a>
+                    <a href="{{route('home')}}"><b> VEHICLE MANAGEMENT SYSTEM  </b><br>@ UCSC</a>
                 </div>
                 <!-- /.login-logo -->
                 <div class="login-box-body">

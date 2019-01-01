@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class JourneyRequestMail extends Mailable
+class BacklogJourneyToApprove extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,7 +16,6 @@ class JourneyRequestMail extends Mailable
      *
      * @return void
      */
-
     public $address;
     public $place;
     public $start;
@@ -42,5 +41,4 @@ class JourneyRequestMail extends Mailable
     {
         return $this->view('Mail.mailJourneyRequest',['place'=>$this->place,'start'=>$this->start,'end'=>$this->end,'applicant'=>$this->applicant])->to($this->address);
     }
-    
 }

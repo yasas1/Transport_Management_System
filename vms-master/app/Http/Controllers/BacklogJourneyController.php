@@ -22,8 +22,9 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Requests\CreateJourneyRequest;
 use Session;
-use View;
+use View; 
 use App\Mail\ApprovedByMail;
+use App\Mail\BacklogJourneyToApprove;
 use Mail;
 
 class BacklogJourneyController extends Controller
@@ -59,8 +60,7 @@ class BacklogJourneyController extends Controller
             'time_range' => 'required',
             'real_distance' => 'required',
             'divisional_head_id' => 'required',
-            'purpose' => 'required', 
-            'funds_allocated_from_id' => 'required',
+            'divisional_head_id' => 'required',
         ]);
         
         $journey = new Journey;
@@ -121,12 +121,24 @@ class BacklogJourneyController extends Controller
             $end=' END --  '.$journey->real_end_date_time->toDayDateTimeString();
             $applicant= 'APPLICANT -- '.$journey->applicant->emp_title.' '.$journey->applicant->emp_initials.'. '.$journey->applicant->emp_surname;
 
-            Mail::send(new ApprovedByMail($emailAddress,$place,$start,$end,$applicant));
+            //Mail::send(new ApprovedByMail($emailAddress,$place,$start,$end,$applicant));
 
             $journey->journey_status_id = '6';
             
         }
         else{
+            $divisional_head_id = $request->divisional_head_id;
+
+            //$emailAddress = Employee::where('emp_id','=',$divisional_head_id)->first()->emp_email.'@ucsc.cmb.ac.lk';
+            $emailAddress= 'ranawaka.y@gmail.com'; // for testing 
+
+            $place= 'PLACE --  '.$journey->places_to_be_visited;
+            $start= 'START --  '.$journey->real_start_date_time->toDayDateTimeString();
+            $end=' END --  '.$journey->real_end_date_time->toDayDateTimeString();
+            $applicant= 'APPLICANT -- '.$journey->applicant->emp_title.' '.$journey->applicant->emp_initials.'. '.$journey->applicant->emp_surname;
+
+            Mail::send(new BacklogJourneyToApprove($emailAddress,$place,$start,$end,$applicant));
+
             $journey->journey_status_id = '8';
         }    
 

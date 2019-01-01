@@ -380,7 +380,7 @@ desired effect
     <footer class="main-footer">
         <!-- To the right -->
         <div class="pull-right hidden-xs">
-            Management System For Vehicles
+            Vehicle Management System
         </div>
         <!-- Default to the left -->
         <strong>Copyright &copy; 2018 <a href="http://ucsc.cmb.ac.lk/" target="_blank">UCSC</a>.</strong> All rights reserved.
