@@ -101,12 +101,24 @@
                             <a href="{{url('/journey/myjourneys')}}" class="btn btn-success" role="button"><span class="glyphicon glyphicon-user"></span> <br/>My Journey</a>
                         @endif                                
                     </div>
-                </div>             
+                </div>  
                 
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
-                        <a href="{{url('/journey/createBacklog')}}" class="btn btn-danger  " role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/> New Backlog </a>                      
-                        <a href="{{url('/journey/createAprrovedBacklog')}}" class="btn btn-warning  " role="button"><span class="glyphicon glyphicon-pencil"></span> <br/> Approve Backlog </a>
+                        @if(Auth::user()->canCompleteJourney())
+                            <a href="{{url('/journey/requests/complete')}}" class="btn btn-default" role="button"><span class="fa fa-edit"></span> <br/> Running Chart </a>  
+                        @endif
+                    </div>
+                </div> 
+                
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        @if(Auth::user()->canCreateViewBacklogJourneys())
+                            <a href="{{url('/journey/createBacklog')}}" class="btn btn-danger  " role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/> New Backlog </a>  
+                        @endif
+                        @if(Auth::user()->canApproveBacklogJourneys())
+                            <a href="{{url('/journey/createAprrovedBacklog')}}" class="btn btn-warning  " role="button"><span class="glyphicon glyphicon-pencil"></span> <br/> Approve Backlog </a>
+                        @endif
                     </div>
                 </div> 
                     

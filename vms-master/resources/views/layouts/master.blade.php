@@ -225,15 +225,19 @@ desired effect
                     {{-- <li><a href="{{url('/journey/')}}"><i class="fa fa-eye"></i> <span>VIEW CURRENT JOURNEYS</span></a></li>--}}
                         @if(Auth::user()->canRequestJourney())
                             <li class="{{url()->current() == url('/journey/create')?'active':''}}" ><a href="{{url('/journey/create')}}"><i class="fa fa-plus"></i> <span>NEW JOURNEY REQUEST</span></a></li>
-                        @endif
-
-                        <li class="{{url()->current() == url('/journey/createBacklog')?'active':''}}"><a href="{{url('/journey/createBacklog')}}"><i class="fa fa-plus"></i> <span>NEW BACKLOG JOURNEYS</span></a></li>
+                        @endif           
 
                         @if(Auth::user()->canApproveJourney()) 
                             <li class="{{url()->current() == url('/journey/requests')?'active':''}}" ><a href="{{url('/journey/requests')}}"><i class="fa fa-edit"></i> <span>APPROVE REQUESTS (HEAD)</span></a></li>
                         @endif
 
-                        <li class="{{url()->current() == url('/journey/createAprrovedBacklog')?'active':''}}" ><a href="{{url('/journey/createAprrovedBacklog')}}"><i class="fa fa-edit"></i> <span>APPROVE BACKLOGS (HEAD)</span></a></li>
+                        @if(Auth::user()->canCreateViewBacklogJourneys()) 
+                            <li class="{{url()->current() == url('/journey/createBacklog')?'active':''}}"><a href="{{url('/journey/createBacklog')}}"><i class="fa fa-plus"></i> <span>NEW BACKLOG JOURNEYS</span></a></li>
+                        @endif
+
+                        @if(Auth::user()->canApproveBacklogJourneys())
+                            <li class="{{url()->current() == url('/journey/createAprrovedBacklog')?'active':''}}" ><a href="{{url('/journey/createAprrovedBacklog')}}"><i class="fa fa-edit"></i> <span>APPROVE BACKLOGS (HEAD)</span></a></li>
+                        @endif
 
                         @if(Auth::user()->canConfirmJourney())
                             <li  class="{{url()->current() == url('/journey/requests/notconfirmed')?'active':''}}"><a href="{{url('/journey/requests/notconfirmed')}}"><i class="fa fa-edit"></i> <span>CONFIRM REQUESTS (CLARK)</span></a></li>
