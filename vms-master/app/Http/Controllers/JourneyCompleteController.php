@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Driver;
 
 class JourneyCompleteController extends Controller
 {
@@ -20,12 +21,14 @@ class JourneyCompleteController extends Controller
 
             if(Auth::user()->role_id == 4){
 
-                $journeys = Journey::where('divisional_head_id','=',$userlogid)
-                    ->where('journey_status_id','=','14')->get();
+                $driverid = Driver::where('emp_id','=',$userlogid)->first()->id;
+
+                $journeys = Journey::where('driver_id','=',$driverid)->where('journey_status_id','=','4')->get();
 
             }
-
-            $journeys = Journey::confirmed();
+            else{
+                $journeys = Journey::confirmed();
+            }   
             return view('journey.complete',compact('journeys'));
         }
         return redirect('home');

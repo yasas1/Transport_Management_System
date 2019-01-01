@@ -168,7 +168,17 @@ class User extends Authenticatable
     }
 
     public function canViewMyJourneys(){
+
         return $this->checkPrivilege('Journey','View My Journey Requests');
+    }
+
+    public function canCreateViewBacklogJourneys(){
+
+        return $this->checkPrivilege('Journey','Create View Backlog Journey');
+    }
+    public function canApproveBacklogJourneys(){
+        
+        return $this->checkPrivilege('Journey','Approve Backlog Journey');
     }
 
     public function division(){
