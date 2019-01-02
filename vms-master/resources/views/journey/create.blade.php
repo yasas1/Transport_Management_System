@@ -414,7 +414,7 @@
                             var moment = $('#calendar').fullCalendar('getDate');
                             
                             $.ajax({
-                                url: '/journey/readJourneyForCreate/{id}',
+                                url: '{{ URL::to('/journey/readJourneyForCreate/{id}') }}',
                                 type: 'GET',
                                 data: { id: event.id },
                                 success: function(data)

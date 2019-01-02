@@ -467,7 +467,7 @@
             type: 'GET',
             success: function(data)
             {
-                console.log(data);
+                console.log(data[0]);
             
             },
             error: function(xhr, textStatus, error){
