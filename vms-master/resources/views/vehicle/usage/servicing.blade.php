@@ -458,19 +458,28 @@
     });
 </script>
 
-{{-- <script>
+<script>
 
     $(document).ready(function() {
 
-        $.get("{{ URL::to('/vehicle/serivceNotification/') }}",function(data){ 
-        
-           console.log(data);
-        
-        });
+        $.ajax({
+            url: '/vehicle/serivceNotification',
+            type: 'GET',
+            success: function(data)
+            {
+                console.log(data);
+            
+            },
+            error: function(xhr, textStatus, error){
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
+            }
+        });        
 
     });
 
 
-</script> --}}
+</script>
     
 @endsection

@@ -188,7 +188,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::post('/vehicle/service','VehicleUsageController@deleteService')->name('service.delete'); 
     Route::get('/vehicle/viewService/{id}','VehicleUsageController@viewService');  
     Route::post('/vehicle/service/update','VehicleUsageController@updateService');
-    Route::get('/vehicle/serivceNotification/','VehicleUsageController@serivceNotification');
+    Route::get('/vehicle/serivceNotification','VehicleUsageController@serivceNotification');
 
         /* Vehicle annual licence */
     Route::get('/vehicle/annualLicences','VehicleUsageController@viewAnnualLicences');
