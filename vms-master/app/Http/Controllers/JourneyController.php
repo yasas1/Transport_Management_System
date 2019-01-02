@@ -121,14 +121,14 @@ class JourneyController extends Controller
         ->get();
         return response($journeys);
     }
-    public function ForCompletedByVehicle(){ 
+    public function ForCompletedByVehicle(){ // for history
         $vid = $_GET['id'];
         //$journeys = Journey::journeyByVehicleCompleted($vid); 
+        $userlogid = Auth::user()->emp_id;  
 
         if(Auth::user()->role_id == 4){
-            $driverEmp = Auth::user()->emp_id;
 
-            $driverId = Driver::where('emp_id','=',$driverEmp)->first()->id;
+            $driverId = Driver::where('emp_id','=',$userlogid)->first()->id;
 
             $journeys = DB::table('journey')
             ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
@@ -138,6 +138,18 @@ class JourneyController extends Controller
             ->where('driver_id','=',$driverId)
             ->get();
             return response($journeys);
+        }
+        else if(Auth::user()->role_id == 2){ // fo divissional head
+
+            $journeys = DB::table('journey')
+            ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
+            ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
+            ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
+            ->where('vehical_id','=',$vid)->where('journey_status_id','=','6')
+            ->where('divisional_head_id','=',$userlogid)
+            ->get();
+            return response($journeys);
+
         }
         else{
 
@@ -178,11 +190,11 @@ class JourneyController extends Controller
     public function readcompletedJourney(){
             // for Completed journey calender view URL -> /journey/readCompleted
         //$journeys = Journey::completed();
+        $userlogid = Auth::user()->emp_id;  
 
         if(Auth::user()->role_id == 4){
-            $driverEmp = Auth::user()->emp_id;
 
-            $driverId = Driver::where('emp_id','=',$driverEmp)->first()->id;
+            $driverId = Driver::where('emp_id','=',$userlogid)->first()->id;
 
             $journeys = DB::table('journey')
             ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
@@ -192,6 +204,19 @@ class JourneyController extends Controller
             ->where('driver_id','=',$driverId)
             ->get();
             return response($journeys);
+        }
+        else if(Auth::user()->role_id == 2){ // fo divissional head
+
+            $journeys = DB::table('journey')
+            ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
+            ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
+            ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
+            ->where('journey_status_id','=','6')
+            ->where('divisional_head_id','=',$userlogid)
+            ->get();
+            return response($journeys);
+
+
         }
         else{
             $journeys = DB::table('journey')
