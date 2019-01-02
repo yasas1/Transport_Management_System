@@ -486,6 +486,10 @@
                         dayClick: function(date) {
                             //alert('clicked ' + date.format());
                         },
+                        selectConstraint: {
+                            //start: $.fullCalendar.moment().add(10, 'minutes'), //subtract
+                            end:$.fullCalendar.moment().add(5, 'minutes')// $.fullCalendar.moment().startOf('year').add(2, 'year')
+                        },
                         select: function(startDate, endDate) {                 
                             $('#myModal').modal('toggle');
                             //alert('selected ' + startDate.format() + ' to ' + endDate.format());

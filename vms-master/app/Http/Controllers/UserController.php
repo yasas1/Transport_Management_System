@@ -134,6 +134,7 @@ class UserController extends Controller
                     $user = new User;
                     $user->emp_id = $employee->emp_id;
                     $user->role_id = 5;
+                    $user->name = $employee->emp_firstname.' '.$employee->emp_surname;
                     $user->email = $employee->emp_email;
                     $user->password = str_random(10);
                 }
@@ -163,6 +164,7 @@ class UserController extends Controller
                     $user->emp_id = $employee->emp_id;
                     $user->role_id = $request->role_id;
                     $user->email = $employee->emp_email;
+                    $user->name = $employee->emp_firstname.' '.$employee->emp_surname;
                     $user->password = str_random(10);
                     $user->update();
                 }else{
@@ -170,6 +172,7 @@ class UserController extends Controller
                     $user->emp_id = $employee->emp_id;
                     $user->role_id = $request->role_id;
                     $user->email = $employee->emp_email;
+                    $user->name = $employee->emp_firstname.' '.$employee->emp_surname;
                     $user->password = str_random(10);
                     $user->save();
                 }

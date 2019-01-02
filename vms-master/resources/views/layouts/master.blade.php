@@ -319,7 +319,7 @@ desired effect
                     url()->current() == url('/vehicle/accidents')||
                     url()->current() == url('/vehicle/annualLicences')?'active':''
                     }} ">
-                    <a href="#"><i class="fa fa-bar-chart"></i> <span>Vehicle Usage</span>
+                    <a href="#"><i class="fa fa-bar-chart"></i> <span>VEHICLE USAGE</span>
                         <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
 
