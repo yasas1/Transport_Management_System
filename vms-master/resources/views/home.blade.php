@@ -206,7 +206,7 @@
     var qEvent=[]; // for calender events
     var journey_colors = [];///journey/readVehicle/             
             // get Journet Color
-    $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
+    $.get("{{ URL::to('/journey/readVehicleColor/') }}",function(data){ 
         $.each(data,function(i,value){   
             $('#v'+value.id).css('background-color','#'+value.journey_color); // For button color    
             journey_colors[value.id]='#'+value.journey_color;
@@ -220,7 +220,7 @@
             qEvent=[];                       
             $('#calendar').fullCalendar('removeEvents');
             $.ajax({
-                url: '/journey/ForCreateByVehicle/{id}',
+                url: "{{ URL::to('/journey/ForCreateByVehicle/{id}') }}",
                 type: 'GET',
                 data: { id: vid },
                 success: function(data)
@@ -249,7 +249,7 @@
         $(".all").click(function(evt){
             qEvent=[]; 
             $('#calendar').fullCalendar('removeEvents');
-            $.get("{{ URL::to('journey/read') }}",function(data){ 
+            $.get("{{ URL::to('/journey/read') }}",function(data){ 
                 $.each(data,function(i,value){       
                     if(value.vehical_id != null){
                         qEvent.push({ 
@@ -286,7 +286,7 @@
         $(".external").click(function(evt){
             qEvent=[]; 
             $('#calendar').fullCalendar('removeEvents');
-            $.get("{{ URL::to('journey/readExternal') }}",function(data){
+            $.get("{{ URL::to('/journey/readExternal') }}",function(data){
                 console.log(data); 
                 $.each(data,function(i,value){       
                     qEvent.push(
@@ -311,7 +311,7 @@
        
         $.ajax({
             method:'GET',
-            url:'{{url('journey/read')}}',
+            url:"{{url('/journey/read')}}",
             success:function (data) {
                 
                 $.each(data,function(i,value){ 
@@ -366,7 +366,7 @@
                         var moment = $('#calendar').fullCalendar('getDate');
                         
                         $.ajax({
-                            url: '/journey/readJourneyForCreate/{id}',
+                            url: "{{ URL::to('/journey/readJourneyForCreate/{id}') }}" ,
                             type: 'GET',
                             data: { id: event.id },
                             success: function(data)

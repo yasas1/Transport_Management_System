@@ -495,7 +495,7 @@
                 
     var journey_colors = [];
                 /*Get Journey color from db */
-    $.get("{{ URL::to('journey/readVehicleColor/') }}",function(data){ 
+    $.get("{{ URL::to('/journey/readVehicleColor/') }}",function(data){ 
         
         $.each(data,function(i,value){  
             //console.log(value.id);
@@ -514,7 +514,7 @@
             qEvent=[];                       
             $('#calendar').fullCalendar('removeEvents');
             $.ajax({
-                url: '/journey/ForConfirmationByVehicle/{id}',
+                url: "{{ URL::to('/journey/ForConfirmationByVehicle/{id}') }}" ,
                 type: 'GET',
                 data: { id: vid },
                 success: function(data)
@@ -543,7 +543,7 @@
         $(".all").click(function(evt){
             qEvent=[]; 
             $('#calendar').fullCalendar('removeEvents');
-            $.get("{{ URL::to('journey/confirmationJourneys') }}",function(data){ 
+            $.get("{{ URL::to('/journey/confirmationJourneys') }}",function(data){ 
                 $.each(data,function(i,value){       
                     qEvent.push(
                     { 
@@ -575,7 +575,7 @@
         
         $.ajax({
             method:'GET',
-            url:'{{ URL::to('journey/confirmationJourneys') }}',
+            url:"{{ URL::to('/journey/confirmationJourneys') }}",
             success:function (data) {
 
                 $.each(data,function(i,value){   
@@ -618,7 +618,7 @@
                         $('#dtpEnd').val(event.end.format('MM/DD/YYYY HH:mm'));
 
                         $.ajax({
-                            url: '/journey/read/{id}',
+                            url: "{{ URL::to('/journey/read/{id}') }}" ,
                             type: 'GET',
                             data: { id: event.id },
                             success: function(data)
@@ -673,7 +673,7 @@
                         $('#dtpEnd').val(event.end.format('MM/DD/YYYY HH:mm'));
 
                         $.ajax({
-                            url: '/journey/read/{id}',
+                            url: "{{ URL::to('/journey/read/{id}') }}" ,
                             type: 'GET',
                             data: { id: event.id },
                             success: function(data)
@@ -720,7 +720,7 @@
                         $('#dtpEnd').val(event.end.format('MM/DD/YYYY HH:mm'));
                                           
                         $.ajax({
-                            url: '/journey/read/{id}',
+                            url: "{{ URL::to('/journey/read/{id}') }}",
                             type: 'GET',
                             data: { id: event.id },
                             success: function(data)
@@ -773,7 +773,7 @@
 
             qEvent=[]; 
             $('#calendar').fullCalendar('removeEvents');
-            $.get("{{ URL::to('journey/confirmationJourneys') }}",function(data){ 
+            $.get("{{ URL::to('/journey/confirmationJourneys') }}",function(data){ 
                 $.each(data,function(i,value){       
                     qEvent.push(
                     { 
