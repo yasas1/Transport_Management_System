@@ -10,6 +10,7 @@ use App\Models\TyrePositionChange;
 use App\Models\VehicleMileage;
 use App\Models\FuelUsage;
 use App\Models\Driver; 
+use App\Models\Journey;
 use App\Models\AnnualLicence;
 use App\Models\AnnualLicenceDoc;
 use Illuminate\Support\Carbon;
@@ -130,6 +131,21 @@ class VehicleUsageController extends Controller
             Session::flash('success', 'Vehicle Service Updated successfully !');
             return View::make('layouts/success');
         }
+
+    }
+
+    public function distanceCount(){
+
+        $vid = $_GET['vid']; 
+        $date = $_GET['date'];
+
+        $disCount = DB::table('journey')
+            ->sum('real_distance')
+            ->where('vehical_id','=',$vid)
+            ->where('journey_status_id','=','6')
+            ->get(); 
+
+        return response($disCount); 
 
     }
     

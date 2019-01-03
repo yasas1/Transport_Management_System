@@ -351,7 +351,7 @@
 
            /* getting existing data to modal */
         $.ajax({
-            url: '/vehicle/viewService/{id}',
+            url: "{{ URL::to('/vehicle/viewService/{id}') }}",
             type: 'GET',
             data: { id: id },
             success: function(data)
@@ -400,7 +400,7 @@
         var id = $(this).data('id'); //get annual licence id
 
         $.ajax({
-            url: '/vehicle/viewService/{id}',
+            url: "{{ URL::to('/vehicle/viewService/{id}') }}" ,
             type: 'GET',
             data: { id: id },
             success: function(data)
@@ -462,12 +462,36 @@
 
     $(document).ready(function() {
 
+        var services={};
+
         $.ajax({
-            url: '/vehicle/serivceNotification',
+            url: "{{ URL::to('/vehicle/serivceNotification') }}",
             type: 'GET',
             success: function(data)
-            {
-                console.log(data[0]);
+            {   
+                services =data;
+                console.log(services);
+
+                $.each( services, function( i, value ) {
+                    console.log(value.date);
+
+                    $.ajax({
+                        url: "{{ URL::to('/vehicle/distanceCount') }}" ,
+                        type: 'GET',
+                        data: { vid: value.vehical_id, date: value.date },
+                        success: function(data)
+                        {
+                            console.log(data);           
+
+                        },
+                        error: function(xhr, textStatus, error){
+                            console.log(xhr.statusText);
+                            console.log(textStatus);
+                            console.log(error);
+                        }
+                    });
+
+                });
             
             },
             error: function(xhr, textStatus, error){
@@ -475,7 +499,31 @@
                 console.log(textStatus);
                 console.log(error);
             }
-        });        
+        }); 
+
+        
+
+        // $.ajax({
+        //     url: "{{ URL::to('/vehicle/distanceCount') }}" ,
+        //     type: 'GET',
+        //     data: { id: id },
+        //     success: function(data)
+        //     {
+        //             /* set values to html tag for view */  
+        //         $('#view-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+" Vehicle Service" );
+        //         $('#view_date').html(data[0].date );
+        //         $('#view_meter').html(data[0].meter_reading ); 
+        //         $('#view_cost').html(data[0].cost );  
+        //         $('#view_details').html(data[0].details);
+                
+
+        //     },
+        //     error: function(xhr, textStatus, error){
+        //         console.log(xhr.statusText);
+        //         console.log(textStatus);
+        //         console.log(error);
+        //     }
+        // });       
 
     });
 

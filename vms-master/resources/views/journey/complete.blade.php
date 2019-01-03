@@ -212,7 +212,8 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="real_distance">Approximate Distance</label>
-                                                        {{Form::text('real_distance',null,['class'=>'form-control','placeholder'=>'Km'])}}
+                                              
+                                                        {{Form::number('real_distance',null,['class'=>'form-control','placeholder'=>'Km' ])}}
                                                     </div>
                                                 </div>
                                             </div>

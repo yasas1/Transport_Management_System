@@ -199,6 +199,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/vehicle/viewService/{id}','VehicleUsageController@viewService');  
     Route::post('/vehicle/service/update','VehicleUsageController@updateService');
     Route::get('/vehicle/serivceNotification','VehicleUsageController@serivceNotification');
+    Route::get('/vehicle/distanceCount','VehicleUsageController@distanceCount');
 
         /* Vehicle annual licence */
     Route::get('/vehicle/annualLicences','VehicleUsageController@viewAnnualLicences');

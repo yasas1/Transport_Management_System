@@ -144,7 +144,8 @@
                                         <div class="form-group">
                                             <label for="expected_distance" class="col-sm-7">Approximate Distance (km)</label>
                                             <div class="col-lg-5">
-                                                {{Form::text('expected_distance',null,['class'=>'form-control','placeholder'=>'km','id'=>'txtDistance'])}}
+                                                {{-- {{Form::text('expected_distance',null,['class'=>'form-control','placeholder'=>'km','id'=>'txtDistance'])}} --}}
+                                                {{Form::number('expected_distance',null,['class'=>'form-control','placeholder'=>'km','id'=>'txtDistance'])}}
                                             </div>
                                         </div>
                                     </div>
