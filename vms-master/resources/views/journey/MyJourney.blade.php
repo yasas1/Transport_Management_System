@@ -502,7 +502,7 @@
             qEvent=[];                       
             $('#calendar').fullCalendar('removeEvents');
             $.ajax({
-                url: '/journey/myJourneyByVehicle/{id}',
+                url: "{{ URL::to('/journey/myJourneyByVehicle/{id}') }}",
                 type: 'GET',
                 data: { id: vid },
                 success: function(data)
@@ -546,7 +546,7 @@
         $(".all").click(function(evt){
             qEvent=[]; 
             $('#calendar').fullCalendar('removeEvents');
-            $.get("{{ URL::to('journey/readMyJourney') }}",function(data){ 
+            $.get("{{ URL::to('/journey/readMyJourney') }}",function(data){ 
                 $.each(data,function(i,value){       
                     if(value.vehical_id != null){
                         qEvent.push({ 
@@ -596,7 +596,7 @@
         $(".external").click(function(evt){
             qEvent=[]; 
             $('#calendar').fullCalendar('removeEvents');
-            $.get("{{ URL::to('journey/myJourneyExternal') }}",function(data){
+            $.get("{{ URL::to('/journey/myJourneyExternal') }}",function(data){
                 console.log(data); 
                 $.each(data,function(i,value){       
                     qEvent.push(
@@ -622,7 +622,7 @@
         var aaa;
         $.ajax({
             method:'GET',
-            url:'{{ URL::to('journey/readMyJourney') }}',
+            url:"{{ URL::to('/journey/readMyJourney') }}",
             success:function (data) {
 
                 $.each(data,function(i,value){                       
@@ -690,7 +690,7 @@
                         //console.log(event.id );
 
                         $.ajax({
-                            url: '/journey/clickMyJourneys/{id}',
+                            url: "{{ URL::to('/journey/clickMyJourneys/{id}') }}" ,
                             type: 'GET',
                             data: { id: event.id },
                             success: function(data)

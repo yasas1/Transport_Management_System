@@ -100,7 +100,7 @@
                                 <tbody class="m_-7480336755895581727pin__body">
                                 <tr class="m_-7480336755895581727pin__row">
                                     <td class="m_-7480336755895581727pin__cell m_-7480336755895581727pin__cell--text" style="border-collapse:collapse;color:#000;font-size:18px;font-weight:700;letter-spacing:2px;min-width:160px;padding:0 16px;text-align:center">
-                                        <a class="btn" href="#">Vehicle Management System</a>
+                                        <a class="btn" href="http://staff.ucsc.cmb.ac.lk/vms/public/">Vehicle Management System</a>
                                     </td>
                                 </tr>
                                 </tbody>
