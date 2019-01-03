@@ -4,6 +4,9 @@
 
 @section('styles')
 
+<link rel="stylesheet" href="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.css')}}">
+<link rel="stylesheet" href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css')}}">
+
 @endsection
 
 @section('header', 'Running Chart --Ongoing Journey Requests--')
@@ -72,7 +75,7 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <h3>Journey Request Confirmation
+                                            <h3> <i class="fa fa-car"></i>&nbsp Journey Running Chart
                                                 @if($journey->journey_status_id == 1)
                                                     <span class="label label-danger pull-right">Not Approved</span>
                                                     <span class="label label-danger pull-right">Not Confirmed</span>
@@ -277,7 +280,7 @@
                 "minDate": moment(),
                 drops:"up",
                 locale: {
-                    format: 'MM/DD/YYYY HH:MM'
+                    format: 'MM/DD/YYYY HH:mm'
                 }
             }, function(start, end, label) {
                 console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:MM') + ' to ' + end.format('YYYY-MM-DD HH:MM') + ' (predefined range: ' + label + ')');

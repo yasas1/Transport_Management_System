@@ -198,7 +198,8 @@
                                     </div>
                                     <div class="form-group" id="companycost">
                                         <label for="company_cost">Cost</label>
-                                        {!! Form::text('cost',null,['class'=>'form-control','id'=>'cost','placeholder'=>'Cost' ]) !!}
+                                        {!! Form::number('cost', null,['class'=>'form-control ','id'=>'cost','placeholder'=>'Cost']) !!}
+                                        
                                     </div>
                                 </div>
                                 <div class="col-md-6">

@@ -239,7 +239,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <div class="row">
                     <div class="col-md-12">
-                        <h3>Journey Request Confirmation                                   
+                        <h3><i class="fa fa-car"></i>&nbsp Journey Request Confirmation                                   
                             <span class="label label-success pull-right">Approved</span>
                             <span class="label label-danger pull-right">Not Confirmed</span>                                
                         </h3>
@@ -454,10 +454,10 @@
         }, function(start, end, label) {
             console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:mm') + ' to ' + end.format('YYYY-MM-DD HH:mm') + ' (predefined range: ' + label + ')');
         });
-        $('#dtp').on('show.daterangepicker', function(e){
-            var modalZindex = $(e.target).closest('.modal').css('z-index');
-            $('.daterangepicker').css('z-index', modalZindex+100);
-        });
+        // $('#dtp').on('show.daterangepicker', function(e){
+        //     var modalZindex = $(e.target).closest('.modal').css('z-index');
+        //     $('.daterangepicker').css('z-index', modalZindex+100);
+        // });
     });
 </script>
 

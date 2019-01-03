@@ -12,9 +12,19 @@
 */
 
 Route::get('/', function () {
+
     if(Auth::user()){
         return redirect('home');
     }
+
+    $sess_email = session()->get('staff.email');
+    $user_email = DB::table('users')->select('email')->where('email','=',$sess_email)->get(); 
+
+    if(!$user_email->isEmpty()){
+        redirect('home');
+       // return $user_email; // 
+    }
+
     return view('auth.login');
 });
 

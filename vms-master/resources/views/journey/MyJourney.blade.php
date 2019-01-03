@@ -114,7 +114,7 @@
                                                 <span class="label label-info pull-right">Cancelled</span>
                                             
                                             @endif
-                                            @if($journey->journey_status_id == 8)
+                                            @if($journey->expected_start_date_time == null)
                                                 <span class="label label-info pull-right">Backlog</span>
                                             @endif
                                         </h3>
@@ -239,7 +239,9 @@
                                         <div class="col-md-6">
                                             @if($journey->journey_status_id != 4 && $journey->journey_status_id != 2)
                                             <dl class="dl-horizontal">
+                                                @if($journey->real_start_date_time != null)
                                                 <h4>Final Details</h4>
+                                                @endif
                                                 @if($journey->vehical_id != null && $journey->driver_completed_at != null)
                                                     <dt>Driver Filled At</dt>
                                                     <dd>{{$journey->driver_completed_at->toDayDateTimeString()}}</dd>
