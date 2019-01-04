@@ -140,10 +140,11 @@ class VehicleUsageController extends Controller
         $date = $_GET['date'];
 
         $disCount = DB::table('journey')
-            ->sum('real_distance')
+            //->select(DB::raw("SUM(real_distance) as distance"))
             ->where('vehical_id','=',$vid)
-            ->where('journey_status_id','=','6')
-            ->get(); 
+            ->where('real_end_date_time','>=', $date)
+            ->where('journey_status_id','=','6')->sum('real_distance');
+            //->get(); 
 
         return response($disCount); 
 

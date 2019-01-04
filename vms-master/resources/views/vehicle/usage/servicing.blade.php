@@ -20,6 +20,11 @@
     @include('layouts.errors')
     @include('layouts.success')
     <div class="flash-message" id="flash-message" ></div>
+
+    <div id="dis_noti" style="display:none" class="alert alert-info alert-dismissible fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <p id="service_noti">  </p>
+    </div>
   
     <div class="box box-primary">
     
@@ -481,7 +486,14 @@
                         data: { vid: value.vehical_id, date: value.date },
                         success: function(data)
                         {
-                            console.log(data);           
+                            console.log(value.vehical_id);
+                            console.log(value.date);
+                            console.log(data);   //service_noti dis_noti
+
+                            if(data >= 400){
+                                $('#service_noti').html("Approximately");
+
+                            }         
 
                         },
                         error: function(xhr, textStatus, error){
