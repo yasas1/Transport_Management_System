@@ -69,7 +69,7 @@
 
                     <h4> <i class="fas fa-fill-drip"></i> &nbsp Drawn &nbsp(Liter)</h4> 
                     <dl>
-                        {{Form::number('drawn', null,['class'=>'form-control meterfields','id'=>'input_drawn','placeholder'=>'Drawn Liter'])}}                       
+                        {{Form::number('drawn', 0,['class'=>'form-control meterfields','id'=>'input_drawn','placeholder'=>'Drawn Liter'])}}                       
                     </dl>
 
                 </div>
@@ -106,7 +106,7 @@
 
                 <div class="col-md-4"> 
                     <button type="submit" id="input_submit" class="btn btn-success pull-left"> <i class="glyphicon glyphicon-arrow-up"></i>&nbsp SUBMIT </button> &nbsp  
-                    {{Form::reset('CLEAR', ['class'=>'btn btn-warning'])}}
+                    {{Form::reset('CLEAR', ['class'=>'btn btn-warning','id'=>'clear'])}}
                 </div>  
             </div>
             {!! Form::close() !!} <br>
@@ -150,10 +150,15 @@
         format: 'yyyy-mm-dd',
         todayHighlight: true,
        
-    });
+    }); clear
 
     $('#vid').on('change', function(){
         $('#input_date').val("");
+        $('#alert_mileage').html("");
+    });
+
+    $(document).on('click','#clear',function(e){
+        $('#alert_mileage').html("");
     });
 
     var consumed;
