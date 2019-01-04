@@ -21,9 +21,15 @@
     @include('layouts.success')
     <div class="flash-message" id="flash-message" ></div>
 
-    <div id="dis_noti" style="display:none" class="alert alert-info alert-dismissible fade in">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <p id="service_noti">  </p>
+    <div>   
+        @foreach ($vehiclesNoti as $vehicle)
+
+            <div id="dis_noti{{$vehicle->id}}" style="display:none" class="alert alert-info alert-dismissible fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{$vehicle->registration_no}} 
+                <p id="service_noti{{$vehicle->id}}" >  </p>
+            </div>
+        @endforeach
     </div>
   
     <div class="box box-primary">
@@ -491,7 +497,9 @@
                             console.log(data);   //service_noti dis_noti
 
                             if(data >= 400){
-                                $('#service_noti').html("Approximately");
+                                //$('.service_noti').add('<div>Insert Div Content</div>');
+                                $('#service_noti'+value.vehical_id).html("Approximately Vehicle");
+                                $('#dis_noti'+value.vehical_id).show();
 
                             }         
 
@@ -511,31 +519,7 @@
                 console.log(textStatus);
                 console.log(error);
             }
-        }); 
-
-        
-
-        // $.ajax({
-        //     url: "{{ URL::to('/vehicle/distanceCount') }}" ,
-        //     type: 'GET',
-        //     data: { id: id },
-        //     success: function(data)
-        //     {
-        //             /* set values to html tag for view */  
-        //         $('#view-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+" Vehicle Service" );
-        //         $('#view_date').html(data[0].date );
-        //         $('#view_meter').html(data[0].meter_reading ); 
-        //         $('#view_cost').html(data[0].cost );  
-        //         $('#view_details').html(data[0].details);
-                
-
-        //     },
-        //     error: function(xhr, textStatus, error){
-        //         console.log(xhr.statusText);
-        //         console.log(textStatus);
-        //         console.log(error);
-        //     }
-        // });       
+        });        
 
     });
 

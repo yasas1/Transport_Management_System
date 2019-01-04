@@ -32,23 +32,10 @@ class VehicleUsageController extends Controller
             /* -------------- Service ------------------------- */
 
     public function viewAddServicing(){
-        $vehicles = Vehical::all()->pluck('fullName','id');
+        $vehicles = Vehical::all()->pluck('fullName','id'); 
+        $vehiclesNoti = Vehical::all();
 
-        return view('vehicle.usage.servicing',compact('vehicles'));
-    }
-
-    public function serivceNotification(){
-        
-        $services = DB::table('services')
-        ->select('date','vehical_id')
-        ->whereIn('id', function($query){
-            $query->select(DB::raw('max(id) as id'))
-                ->from('services')
-                ->groupBy('services.vehical_id');
-        })->get();
-
-        return response($services); 
-       
+        return view('vehicle.usage.servicing',compact('vehicles','vehiclesNoti'));
     }
 
     public function storeServicing(Request $request){
@@ -132,6 +119,20 @@ class VehicleUsageController extends Controller
             return View::make('layouts/success');
         }
 
+    }
+
+    public function serivceNotification(){
+        
+        $services = DB::table('services')
+        ->select('services.date','services.vehical_id')
+        ->whereIn('id', function($query){
+            $query->select(DB::raw('max(id) as id'))
+                ->from('services')
+                ->groupBy('services.vehical_id');
+        })->get();
+
+        return response($services); 
+       
     }
 
     public function distanceCount(){
