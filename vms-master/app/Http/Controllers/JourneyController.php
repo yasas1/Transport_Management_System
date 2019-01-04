@@ -444,7 +444,8 @@ class JourneyController extends Controller
         $journey->places_to_be_visited = $request->places_to_be_visited;
         $journey->number_of_persons = $request->number_of_persons;
         $journey->expected_distance = $request->expected_distance;
-        //check long distance
+            
+            /* check long distance */
         if($request->expected_distance>=150){
             $journey->is_long_distance = 1;
         }
@@ -461,7 +462,8 @@ class JourneyController extends Controller
         $journey->save();   
 
         $devHead_id =$request->divisional_head_id;
-        
+
+            /*  Divisional head Email */
         $emailAddress = Employee::where('emp_id','=',$devHead_id)->first()->emp_email.'@ucsc.cmb.ac.lk';
         //$emailAddress= 'ranawaka.y@gmail.com'; //test
 
@@ -470,7 +472,7 @@ class JourneyController extends Controller
         $end=' END --  '.$journey->expected_end_date_time->toDayDateTimeString();
         $applicant= 'APPLICANT -- '.$journey->applicant->emp_title.' '.$journey->applicant->emp_initials.'. '.$journey->applicant->emp_surname;
 
-        Mail::send(new JourneyRequestMail($emailAddress,$place,$start,$end,$applicant));
+        //Mail::send(new JourneyRequestMail($emailAddress,$place,$start,$end,$applicant));
 
         return redirect()->back()->with(['success'=>'Journey added successfully !']);
     }

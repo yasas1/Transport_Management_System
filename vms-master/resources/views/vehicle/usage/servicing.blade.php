@@ -26,8 +26,12 @@
 
             <div id="dis_noti{{$vehicle->id}}" style="display:none" class="alert alert-info alert-dismissible fade in">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                {{$vehicle->registration_no}} 
-                <p id="service_noti{{$vehicle->id}}" >  </p>
+                <table>                   
+                    <tr>
+                      <th>{{$vehicle->registration_no}} &nbsp  <th>
+                      <td id="service_noti{{$vehicle->id}}"></td>
+                    </tr>              
+                </table>
             </div>
         @endforeach
     </div>
@@ -40,7 +44,7 @@
                 {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeServicing','files'=>true]) !!}
                 <div class="col-md-4"> 
 
-                    <h4><i class="fa fa-car"></i> Vehicle </h4>
+                    <h4><i class="fa fa-car"></i>&nbsp  Vehicle </h4>
                     <div>             
                         {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Select a Vehicle'])}}
                     </div>                  
@@ -55,7 +59,7 @@
 
                 <div class="col-md-4"> 
     
-                    <h4><i class="fa fa-calendar"></i> Date </h4>
+                    <h4><i class="fa fa-calendar"></i>&nbsp  Date </h4>
                                                         
                     <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
                         <input id="date" name="date" class="form-control" type="text" readonly />
@@ -70,7 +74,7 @@
 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fas fa-tachometer-alt"></i> Meter Reading </h4>  
+                    <h4><i class="fas fa-tachometer-alt"></i>&nbsp  Meter Reading </h4>  
     
                     <div>  
                         {{Form::number('meter_reading', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Meter Reading'])}}                      
@@ -82,7 +86,7 @@
 
                 <div class="col-md-4"> 
 
-                    <h4><i class="fas fa-comments-dollar"></i> Cost </h4>  
+                    <h4><i class="fas fa-comments-dollar"></i>&nbsp  Cost </h4>  
     
                     <div>  
                         {{Form::number('cost', null,['class'=>'form-control ','placeholder'=>'Cost of Service'])}}                      
@@ -93,7 +97,7 @@
 
                 <div class="col-md-4"> 
 
-                    <h4><i class="glyphicon glyphicon-list-alt"></i> Details </h4>  
+                    <h4><i class="glyphicon glyphicon-list-alt"></i>&nbsp  Details </h4>  
     
                     <div>  
                         {!! Form::textarea('details',null,['class'=>'form-control','placeholder'=>'Service Details','rows'=>'2'  ]) !!}                      
@@ -492,21 +496,21 @@
                         data: { vid: value.vehical_id, date: value.date },
                         success: function(data)
                         {
-                            console.log(value.vehical_id);
-                            console.log(value.date);
-                            console.log(data);   //service_noti dis_noti
-
-                            if(data >= 400){
+                            // console.log(value.vehical_id);
+                            // console.log(value.date);
+                            // console.log(data);  
+                            if(data >= 200){
                                 //$('.service_noti').add('<div>Insert Div Content</div>');
-                                $('#service_noti'+value.vehical_id).html("Approximately Vehicle");
+                                $('#service_noti'+value.vehical_id).html("Vehicle's mileage is approximately more than 200 km since last servicing ");
                                 $('#dis_noti'+value.vehical_id).show();
 
-                            }         
+                            }  
+                            else{
+                                $('#dis_noti'+value.vehical_id).hide();
+                            }       
 
                         },
                         error: function(xhr, textStatus, error){
-                            console.log(xhr.statusText);
-                            console.log(textStatus);
                             console.log(error);
                         }
                     });
