@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Vehical;
 use App\Models\Service;
 use App\Models\Accident;
+use App\Models\Division;
 use App\Models\Repaire; 
 use App\Models\TyreReplace;
 use App\Models\TyrePositionChange;
@@ -452,8 +453,9 @@ class VehicleUsageController extends Controller
     public function viewRepairsPage(){
 
         $vehicles = Vehical::all()->pluck('fullName','id'); 
+        $divHeads = Division::all();
 
-        return view('vehicle.usage.repairs',compact('vehicles'));
+        return view('vehicle.usage.repairs',compact('vehicles','divHeads'));
 
     }
 

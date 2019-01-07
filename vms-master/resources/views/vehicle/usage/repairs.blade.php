@@ -148,7 +148,27 @@
                     <h4> <i class="fas fa-user-shield"></i> &nbsp Authorized by  </h4> 
                                                         
                     <div>  
-                        {!! Form::text('authorized_by',null,['class'=>'form-control','placeholder'=>'Authorized by' ]) !!}                    
+                        {{-- {!! Form::text('authorized_by',null,['class'=>'form-control','placeholder'=>'Authorized by' ]) !!}                     --}}
+                        {!! Form::hidden('authorized_by', null,['id'=>'txtauthorized_by']); !!}
+                        <div class="btn-group dropup col-md-12">
+                            <button type="button" class="btn btn-default" id="divDiviHead">Select Divisional Head</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                @foreach($divHeads as $divHead)
+                                    @if($divHead->head !='')
+                                        <li class="cmbDivHead dropdown-item" data-value="{{$divHead->head}}">
+                                        <span>
+                                            {{$divHead->getHead()->first()->emp_initials.'. '.$divHead->getHead()->first()->emp_surname.' ( '.$divHead->dept_name.' )'}}
+                                        </span>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            </ul>
+
+                        </div>
                     </div>
             
                 </div>
@@ -491,6 +511,13 @@
 @section('scripts')
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+
+<script>
+    $('.cmbDivHead').on('click',function () {
+        $('#txtauthorized_by').val($(this).attr('data-value'));
+        $('#divDiviHead').html($(this).html());
+    });
+</script>
 
 <script>
 

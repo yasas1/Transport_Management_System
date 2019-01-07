@@ -28,8 +28,11 @@ class Repaire extends Eloquent
 {
 	public $timestamps = false;
 
+	protected $table = 'repaires';
+
 	protected $casts = [
 		'vehical_id' => 'int',
+		'divisional_head_id'=>'int',
 		'cost' => 'float'
 	];
 
@@ -57,4 +60,9 @@ class Repaire extends Eloquent
 	{
 		return $this->belongsTo(\App\Models\Vehical::class);
 	}
+
+	public function divisional_head()
+    {
+        return $this->belongsTo(\App\Models\Employee::class,'authorized_by','emp_id');
+    }
 }
