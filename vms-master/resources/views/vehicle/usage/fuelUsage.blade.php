@@ -49,12 +49,12 @@
                 </div>                 
                 
             </div><br>
-        
+
             <h4> <i class="fas fa-gas-pump"></i>&nbsp Fuel Position</h4> 
             
             <div  class="row">
 
-                {{-- <div class="col-md-1"> </div> --}}
+                <div class="col-md-1"> </div>
 
                 <div class="col-md-4">
             
@@ -68,34 +68,34 @@
             
             </div> 
 
-            <div class="row">
-
-                {{-- <div class="col-md-1"> </div> --}}
-
-                <div class="col-md-4">
-
-                    <h4> <i class="fas fa-fill-drip"></i> &nbsp Fuel Quantity &nbsp(Liter)</h4> 
-                    <dl>
-                        {{Form::number('fuel_liter', null,['class'=>'form-control meterfields','id'=>'input_fuel_liter','placeholder'=>'Drawn Liter'])}}                       
-                    </dl>
-
-                </div>
-
-                
-            <div> <br>
-
-            
             <div class="row"> 
+
+                <div class="col-md-1"> </div>
+
+                <div class="col-md-4"> 
+    
+                    <h4> <i class="fas fa-fill-drip"></i> &nbsp Fuel Quantity &nbsp(Liter)</h4> 
+                    <div>
+                        {{Form::number('fuel_liter', null,['class'=>'form-control','step'=>'0.01','placeholder'=>'Drawn Liter'])}}                       
+                    </div>
+            
+                </div>                 
+                
+            </div><br>
+
+            <div class="row">
+                
+                <div class="col-md-1"> </div>
 
                 <div class="col-md-4"> 
                     <h4> <i class="fas fa-comments-dollar"></i> &nbsp Cost</h4>
                     <dl>
-                        {{Form::number('cost', null,['class'=>'form-control meterfields','step'=>'0.01','placeholder'=>'cost'])}}                       
+                        {{Form::number('cost', null,['class'=>'form-control','step'=>'0.01','placeholder'=>'cost'])}}                       
                     </dl>
                 </div> 
                 
-            </div><br>   
-
+            </div><br> 
+            
             <div class="row"> 
 
                 <div class="col-md-4"> 
@@ -106,6 +106,7 @@
             {!! Form::close() !!}
 
             <br>
+
             <h3 id="table_header"style="text-align:center;display: none;"> </h3> 
             <div class="box box-primary" id="table_box" style="height:400px; overflow: auto; display: none;" data-target="#exampleModalCenter">
             
@@ -147,77 +148,26 @@
        
     }); clear
 
-    $('#vid').on('change', function(){
-        $('#input_date').val("");
-        $('#alert_mileage').html("");
-    });
-
-    $(document).on('click','#clear',function(e){
-        $('#alert_mileage').html("");
-    });
-
-    var consumed;
-
     // $( document ).ready(function() {
        
     // });
 
-    $('#datepicker').on('change', function() {
-       
-       var date = $('#datepicker').datepicker('getFormattedDate');
-       var vid = $('#vid').val();
-
-       $.ajax({
-            url: '/vehicle/getVehicleMileage/{id}',
-            type: 'GET',
-            data: { vid: vid , date:date },
-            success: function(data)
-            {    
-                if(data.length != 0){
-                    consumed = parseFloat(data[0].mileage) / parseFloat(data[0].kilometer_per_liter);
-
-                    $('#input_consumed').val(consumed.toFixed(2));
-                    $('#alert_mileage').html("");
-                    $('#input_submit').prop('disabled', false);
-                }
-                else{
-                    consumed = null;
-                    $('#input_consumed').val(""); 
-                    $('#alert_mileage').html("There is no mileage entered for this vehicle and date");
-                    $("#input_submit").attr("disabled","disabled");
-                }
-                
-            },
-            error: function(xhr, textStatus, error){
-                console.log(xhr.statusText);
-            }
-        });
-
-
-    });
-
     
    // $('#input_in_tank_liter','#input_drawn').on('keyup', function() {
-    $('#input_in_tank_liter').add('#input_drawn').keyup(function(){
-        var input_in_tank_liter = parseFloat($('#input_in_tank_liter').val());
-        var input_drawn = parseFloat($('#input_drawn').val()); 
+    // $('#input_in_tank_liter').add('#input_drawn').keyup(function(){
+    //     var input_in_tank_liter = parseFloat($('#input_in_tank_liter').val());
+    //     var input_drawn = parseFloat($('#input_drawn').val()); 
 
-        var in_tank_liter = input_in_tank_liter.toFixed(2) ;
+    //     var in_tank_liter = input_in_tank_liter.toFixed(2) ;
 
-        var balance = (input_in_tank_liter +  input_drawn) - consumed.toFixed(2) ;
+    //     var balance = (input_in_tank_liter +  input_drawn) - consumed.toFixed(2) ;
 
-        console.log(balance.toFixed(2));
+    //     console.log(balance.toFixed(2));
 
-        $('#input_balance').val(balance.toFixed(2));
+    //     $('#input_balance').val(balance.toFixed(2));
 
-    });
+    // });
 
-</script>
-
-<script>
-
-    
-       
 </script>
 
 @endsection

@@ -768,20 +768,20 @@ class VehicleUsageController extends Controller
         return redirect()->back()->with(['success'=>'Vehicle Fuel Usage added successfully !']);
     }
 
-    public function getVehicleMileage(){
+    // public function getVehicleMileage(){
 
-        $vid = $_GET['vid'];
-        $date = $_GET['date'];
+    //     $vid = $_GET['vid'];
+    //     $date = $_GET['date'];
 
-        $tyreReplaces = DB::table('vehicle_mileage')
-        ->select('vehicle_mileage.kilometer_per_liter','vehicle_mileage.mileage')
-        ->where('vehicle_mileage.vehical_id','=',$vid)
-        ->where('vehicle_mileage.date','=',$date)
-        ->get();      
+    //     $tyreReplaces = DB::table('vehicle_mileage')
+    //     ->select('vehicle_mileage.kilometer_per_liter','vehicle_mileage.mileage')
+    //     ->where('vehicle_mileage.vehical_id','=',$vid)
+    //     ->where('vehicle_mileage.date','=',$date)
+    //     ->get();      
         
-        return response($tyreReplaces);
+    //     return response($tyreReplaces);
 
-    }
+    // }
 
     /* ----------------- Vehicle Mileage ------------------------- */
 
