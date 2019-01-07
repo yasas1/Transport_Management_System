@@ -332,8 +332,8 @@ desired effect
                         <li class="{{url()->current() == url('/vehicle/tyres')?'active':''}}" ><a href="{{url('/vehicle/tyres')}}"> <i class="fa fa-circle-o-notch"></i> <span>&nbsp TYRES</span></a></li>
                         <li class="{{url()->current() == url('/vehicle/annualLicences')?'active':''}}" ><a href="{{url('/vehicle/annualLicences')}}"><i class="fas fa-list-alt"></i> <span>&nbsp ANNUAL LICENCES</span></a></li>                       
                         <li class="{{url()->current() == url('/vehicle/accidents')?'active':''}}" ><a href="{{url('/vehicle/accidents')}}"><i class="fas fa-car-crash"></i><span>&nbsp ACCIDENTS</span></a></li>
-                        <li class="{{url()->current() == url('/vehicle/mileage')?'active':''}}" ><a href="{{url('/vehicle/mileage')}}"> <i class="fas fa-tachometer-alt"></i> <span>&nbsp MILEAGE</span></a></li>
-                        <li class="{{url()->current() == url('/vehicle/fuelUsage')?'active':''}}" ><a href="{{url('/vehicle/fuelUsage')}}"> <i class="fas fa-gas-pump"></i> <span>&nbsp FUEL USAGE </span></a></li>
+                        <li class="{{url()->current() == url('/vehicle/mileage')?'active':''}}" ><a href="{{url('/vehicle/mileage')}}"> <i class="fas fa-tachometer-alt"></i> <span>&nbsp VEHICLE MILEAGE</span></a></li>
+                        <li class="{{url()->current() == url('/vehicle/fuelUsage')?'active':''}}" ><a href="{{url('/vehicle/fuelUsage')}}"> <i class="fas fa-gas-pump"></i> <span>&nbsp FILLING FUEL </span></a></li>
                     </ul>
                     
                 </li>

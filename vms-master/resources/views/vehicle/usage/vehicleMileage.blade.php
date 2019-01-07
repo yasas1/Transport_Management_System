@@ -33,15 +33,6 @@
                 </div>
                 <div class="col-md-2"> </div>
 
-                <div class="col-md-4"> 
-
-                    <h4><i class="fa fa-user"></i>&nbsp Driver </h4>  
-    
-                    <div>  
-                        {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','placeholder'=>'Select Driver'])}}                     
-                    </div>                      
-                </div>
-
             </div> <br>
 
             <div class="row"> 
@@ -64,9 +55,9 @@
 
                 <div class="col-md-4">
               
-                    <h4> <i class="glyphicon glyphicon-log-out"></i> &nbsp Out</h4>
+                    <h4> <i class="glyphicon glyphicon-log-out"></i> &nbsp Begin Of The Day</h4>
                     <dl>
-                        {{Form::number('meter_reading_out', null,['class'=>'form-control meterfields','id'=>'input_out','placeholder'=>'Meter Reading Out'])}}                       
+                        {{Form::number('meter_reading_day_begin', null,['class'=>'form-control meterfields','id'=>'input_begin','placeholder'=>'Begin of the day'])}}                       
                     </dl>
 
                 </div>
@@ -75,9 +66,9 @@
 
                 <div class="col-md-4">
 
-                    <h4> <i class="glyphicon glyphicon-log-in"></i> &nbsp In</h4>
+                    <h4> <i class="glyphicon glyphicon-log-in"></i> &nbsp End of The Day</h4>
                     <dl>
-                        {{Form::number('meter_reading_in', null,['class'=>'form-control meterfields','id'=>'input_in','placeholder'=>'Meter Reading Out'])}}                       
+                        {{Form::number('meter_reading_day_end', null,['class'=>'form-control meterfields','id'=>'input_end','placeholder'=>'End of the day'])}}                       
                     </dl>
 
                 </div>
@@ -88,9 +79,9 @@
 
                 <div class="col-md-4"> 
     
-                    <h4> <i class="glyphicon glyphicon-new-window"></i> Mileage &nbsp (km) </h4>
+                    <h4> <i class="fa fa-car"></i>&nbsp Meter Reading Mileage &nbsp (km) </h4>
                     
-                    <input id="input_mileage" name="mileage" class="form-control" type="text" readonly />
+                    <input id="input_meter_reading_mileage" name="meter_reading_mileage" class="form-control" type="text" readonly />
             
                 </div>                 
                     
@@ -99,14 +90,13 @@
             <div class="row"> 
 
                 <div class="col-md-4"> 
-
-                    <h4><i class="far fa-window-maximize"></i>&nbsp Kilometer Per Lliter </h4>  
     
-                    <div>  
-                        {{Form::number('kilometer_per_liter', null,['class'=>'form-control ','step'=>'0.01','placeholder'=>'Kilometer Per Lliter'])}}                      
-                    </div>                      
-                </div>
-
+                    <h4> <i class="fa fa-road"></i>&nbsp Journey Mileage &nbsp (km) </h4>
+                    
+                    <input id="input_journey_mileage" name="journey_mileage" class="form-control" type="text" readonly />
+            
+                </div>                 
+                    
             </div><br>
 
             <div class="row"> 
@@ -169,12 +159,14 @@
 
     $('#input_out, #input_in').keyup(function(){
 
-        var meter_out = $('#input_out').val();
-        var meter_in = $('#input_in').val();
-        var mileage= meter_in - meter_out ;
+        var meter_begin = $('#input_begin').val();
+        var meter_end = $('#input_end').val();
+        var meter_reading_mileage= meter_end - meter_begin ;
 
-        console.log(mileage);
-        $('#input_mileage').val(mileage);
+        console.log(meter_reading_mileage);
+        $('#input_meter_reading_mileage').val(meter_reading_mileage); 
+        
+        // input_journey_mileage
 
     });
 
