@@ -12,8 +12,10 @@ class VehicleMileage extends Model
 
 	protected $casts = [
 		'vehical_id' => 'int',
-        'driver_id' => 'int',
-        'kilometer_per_liter' => 'float'
+		'meter_reading_day_begin' => 'int',
+		'meter_reading_day_end' => 'int',
+		'meter_reading_mileage' => 'float',
+		'journey_mileage' => 'float'
 	];
 
 	protected $dates = [
@@ -22,13 +24,11 @@ class VehicleMileage extends Model
 
 	protected $fillable = [
         'vehical_id',
-        'driver_id',
 		'date',	
-		'meter_reading_out',
-		'meter_reading_in',
-		'mileage',
-		'kilometer_per_liter'
-		
+		'meter_reading_day_begin',
+		'meter_reading_day_end',
+		'meter_reading_mileage',
+		'journey_mileage'	
 
 	];
 
