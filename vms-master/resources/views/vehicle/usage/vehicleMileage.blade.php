@@ -53,6 +53,8 @@
             <h4 class="modal-title" > <i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading &nbsp (km)</h4>
             <div class="row">
 
+                <div class="col-md-1"> </div>
+
                 <div class="col-md-4">
               
                     <h4> <i class="glyphicon glyphicon-log-out"></i> &nbsp Begin Of The Day</h4>
@@ -62,7 +64,7 @@
 
                 </div>
 
-                <div class="col-md-2"> </div>
+                <div class="col-md-1"> </div>
 
                 <div class="col-md-4">
 
@@ -77,25 +79,25 @@
 
             <div class="row"> 
 
+                <div class="col-md-1"> </div>
+
                 <div class="col-md-4"> 
     
-                    <h4> <i class="fa fa-car"></i>&nbsp Meter Reading Mileage &nbsp (km) </h4>
+                    <h4> <i class="fa fa-car"></i>&nbsp Mileage From Meter Reading &nbsp (km) </h4>
                     
                     <input id="input_meter_reading_mileage" name="meter_reading_mileage" class="form-control" type="text" readonly />
             
-                </div>                 
-                    
-            </div><br>
+                </div>  
 
-            <div class="row"> 
-
+                <div class="col-md-1"> </div>
+                
                 <div class="col-md-4"> 
     
-                    <h4> <i class="fa fa-road"></i>&nbsp Journey Mileage &nbsp (km) </h4>
+                    <h4> <i class="fa fa-road"></i>&nbsp Mileage From Journey &nbsp (km) </h4>
                     
-                    <input id="input_journey_mileage" name="journey_mileage" class="form-control" type="text" readonly />
+                    <input id="input_journey_mileage" name="journey_mileage" class="form-control" type="text" /> <!-- readonly -->
             
-                </div>                 
+                </div>  
                     
             </div><br>
 
@@ -106,7 +108,7 @@
                     {{Form::reset('CLEAR', ['class'=>'btn btn-warning'])}}
                 </div>  
                 <div class="col-md-offset-10"> 
-                    <a href="{{ url('/vehicle/mileage') }}" class="btn btn-info" role="button">Vehicle Fuel Usage</a>
+                    <a href="{{ url('/vehicle/fuelUsage') }}" class="btn btn-info" role="button">Filling Fuel</a>
                 </div>  
             </div>
             {!! Form::close() !!} <br>
@@ -157,7 +159,7 @@
         todayHighlight: true
     });
 
-    $('#input_out, #input_in').keyup(function(){
+    $('#input_begin, #input_end').keyup(function(){
 
         var meter_begin = $('#input_begin').val();
         var meter_end = $('#input_end').val();

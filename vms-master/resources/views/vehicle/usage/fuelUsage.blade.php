@@ -102,6 +102,10 @@
                     <button type="submit" id="input_submit" class="btn btn-success pull-left"> <i class="glyphicon glyphicon-arrow-up"></i>&nbsp SUBMIT </button> &nbsp  
                     {{Form::reset('CLEAR', ['class'=>'btn btn-warning','id'=>'clear'])}}
                 </div>  
+
+                <div class="col-md-offset-10"> 
+                    <a href="{{ url('/vehicle/mileage') }}" class="btn btn-info" role="button">Vehicle Mileage</a>
+                </div>  
             </div>
             {!! Form::close() !!}
 

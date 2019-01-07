@@ -788,9 +788,8 @@ class VehicleUsageController extends Controller
     public function viewMileagePage(){
 
         $vehicles = Vehical::all()->pluck('fullName','id'); 
-        $drivers = Driver::all()->pluck('fullName','id');
 
-        return view('vehicle.usage.vehicleMileage',compact('vehicles','drivers'));
+        return view('vehicle.usage.vehicleMileage',compact('vehicles'));
 
     }
 
@@ -798,21 +797,20 @@ class VehicleUsageController extends Controller
 
         $request->validate([
             'vehical_id' => 'required',
-            'driver_id' => 'required',
-            'meter_reading_out' => 'required',
-            'meter_reading_in' => 'required',
+            'date' => 'required',
+            'meter_reading_day_begin' => 'required',
+            'meter_reading_day_end' => 'required',
             
         ]);
 
         $vehicleMileage = new VehicleMileage; 
 
         $vehicleMileage->vehical_id = $request->vehical_id;
-        $vehicleMileage->driver_id = $request->driver_id;
         $vehicleMileage->date = $request->date;
-        $vehicleMileage->meter_reading_out = $request->meter_reading_out;
-        $vehicleMileage->meter_reading_in = $request->meter_reading_in;
-        $vehicleMileage->mileage = $request->mileage;
-        $vehicleMileage->kilometer_per_liter = $request->kilometer_per_liter;
+        $vehicleMileage->meter_reading_day_begin = $request->meter_reading_day_begin;
+        $vehicleMileage->meter_reading_day_end = $request->meter_reading_day_end;
+        $vehicleMileage->meter_reading_mileage = $request->meter_reading_mileage;
+        $vehicleMileage->journey_mileage = $request->journey_mileage;
         
 
         $vehicleMileage->save(); 
