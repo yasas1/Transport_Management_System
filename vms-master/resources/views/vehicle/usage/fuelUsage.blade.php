@@ -11,7 +11,7 @@
     </style>
 @endsection
 
-@section('header', 'Vehicle Fuel Usage')
+@section('header', 'Filling Fuel')
 
 @section('content')
     @include('layouts.errors')
@@ -52,55 +52,49 @@
         
             <h4> <i class="fas fa-gas-pump"></i>&nbsp Fuel Position</h4> 
             
-            <div class="col-md-offset-1" class="row">
+            <div  class="row">
+
+                {{-- <div class="col-md-1"> </div> --}}
 
                 <div class="col-md-4">
             
-                    <h4> <i class="fa fa-archive"></i> &nbsp In Tank Liter</h4>
+                    <h4> <i class="fas fa-tachometer-alt"></i> &nbsp Meter Reading</h4>
                     <dl>
-                        {{Form::number('in_tank_liter', null,['class'=>'form-control meterfields','step'=>'0.01','id'=>'input_in_tank_liter','placeholder'=>'In Tank Liter'])}}                       
+                        {{Form::number('meter_reading', null,['class'=>'form-control','step'=>'0.01','id'=>'input_meter_reading','placeholder'=>'Meter Reading'])}}                       
                     </dl>
 
                 </div>
 
-                <div class="col-md-1"> </div>
+            
+            </div> 
+
+            <div class="row">
+
+                {{-- <div class="col-md-1"> </div> --}}
 
                 <div class="col-md-4">
 
-                    <h4> <i class="fas fa-fill-drip"></i> &nbsp Drawn &nbsp(Liter)</h4> 
+                    <h4> <i class="fas fa-fill-drip"></i> &nbsp Fuel Quantity &nbsp(Liter)</h4> 
                     <dl>
-                        {{Form::number('drawn', 0,['class'=>'form-control meterfields','id'=>'input_drawn','placeholder'=>'Drawn Liter'])}}                       
+                        {{Form::number('fuel_liter', null,['class'=>'form-control meterfields','id'=>'input_fuel_liter','placeholder'=>'Drawn Liter'])}}                       
                     </dl>
 
                 </div>
+
+                
+            <div> <br>
+
             
-            </div>
-
-            <div class="col-md-offset-1" class="row"> 
+            <div class="row"> 
 
                 <div class="col-md-4"> 
-                    <h4> <i class="fa fa-gears"></i> &nbsp Consumed</h4>
+                    <h4> <i class="fas fa-comments-dollar"></i> &nbsp Cost</h4>
                     <dl>
-                        {{Form::number('consumed', null,['class'=>'form-control meterfields','step'=>'0.01','id'=>'input_consumed','readonly' => 'true'])}}      <!-- ,'readonly' => 'true' -->                 
-                    </dl>
-                </div>
-
-                <div class="col-md-1"> </div>
-
-                <div class="col-md-4"> 
-                    <h4> <i class="fas fa-fill"></i> &nbsp Balance</h4>
-                    <dl>
-                        {{Form::number('balance', null,['class'=>'form-control meterfields','step'=>'0.01','id'=>'input_balance','readonly' => 'true'])}}                       
+                        {{Form::number('cost', null,['class'=>'form-control meterfields','step'=>'0.01','placeholder'=>'cost'])}}                       
                     </dl>
                 </div> 
                 
-            </div>
-
-            <br>   <br>  
-            
-            <div class="col-md-12">
-                <span class="text-orange" id="alert_mileage"></span>
-            </div>
+            </div><br>   
 
             <div class="row"> 
 
@@ -109,8 +103,9 @@
                     {{Form::reset('CLEAR', ['class'=>'btn btn-warning','id'=>'clear'])}}
                 </div>  
             </div>
-            {!! Form::close() !!} <br>
+            {!! Form::close() !!}
 
+            <br>
             <h3 id="table_header"style="text-align:center;display: none;"> </h3> 
             <div class="box box-primary" id="table_box" style="height:400px; overflow: auto; display: none;" data-target="#exampleModalCenter">
             
@@ -120,7 +115,7 @@
                         <tr > 
                             <th scope="col"> Date </th>
                             <th scope="col"> Meter Reading</th>
-                            <th scope="col"> Details </th>
+                            <th scope="col"> Furl Liter </th>
                             <th scope="col"> Cost (Rs.) </th>
                             <th scope="col"> Action</th>
                         </tr>

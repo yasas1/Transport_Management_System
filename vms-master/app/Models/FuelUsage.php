@@ -12,10 +12,9 @@ class FuelUsage extends Model
 
 	protected $casts = [
 		'vehical_id' => 'int',
-        'driver_id' => 'int',
-		'in_tank_liter' => 'float',
-		'consumed' => 'float',
-		'balance' => 'float',
+		'meter_reading' => 'int',
+		'fuel_liter' => 'float',
+		'cost' => 'float',
 	];
 
 	protected $dates = [
@@ -25,11 +24,9 @@ class FuelUsage extends Model
 	protected $fillable = [
         'vehical_id',
 		'date',	
-		'in_tank_liter',
-		'drawn',
-		'consumed',
-		'balance'
-		
+		'meter_reading',
+		'fuel_liter',
+		'cost',	
 
 	];
 

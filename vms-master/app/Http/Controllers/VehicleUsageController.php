@@ -749,9 +749,9 @@ class VehicleUsageController extends Controller
         $request->validate([
             'vehical_id' => 'required',
             'date' => 'required',
-            'in_tank_liter' => 'required',
-            'consumed' => 'required',
-            'balance' => 'required',
+            'meter_reading' => 'required',
+            'fuel_liter' => 'required',
+            'cost' => 'required',
             
         ]);
 
@@ -759,10 +759,9 @@ class VehicleUsageController extends Controller
 
         $fuelUsage->vehical_id = $request->vehical_id;
         $fuelUsage->date = $request->date;
-        $fuelUsage->in_tank_liter = $request->in_tank_liter;
-        $fuelUsage->consumed = $request->consumed;
-        $fuelUsage->balance = $request->balance;
-        $fuelUsage->drawn = $request->drawn;        
+        $fuelUsage->meter_reading = $request->meter_reading;
+        $fuelUsage->fuel_liter = $request->fuel_liter;
+        $fuelUsage->cost = $request->cost;       
 
         $fuelUsage->save(); 
 
