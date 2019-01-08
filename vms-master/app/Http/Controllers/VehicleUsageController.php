@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Vehical;
 use App\Models\Service;
-use App\Models\Accident;
+use App\Models\Accident; 
 use App\Models\Division;
 use App\Models\Repaire; 
 use App\Models\TyreReplace;
@@ -14,6 +14,7 @@ use App\Models\Driver;
 use App\Models\Journey;
 use App\Models\AnnualLicence;
 use App\Models\AnnualLicenceDoc;
+use App\Models\EmissionTestDoc;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 
