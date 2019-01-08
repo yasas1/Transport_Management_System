@@ -346,6 +346,36 @@ class VehicleUsageController extends Controller
                     }
                     $annualLicence->annualLicenceDoc()->associate($licence_file);
                 }
+
+                if ($request->hasFile('emission_file')) {
+
+                    $emission_file = $request->file('emission_file');
+                    $extension =  '.'.$emission_file->getClientOriginalExtension();
+                    $oName = $emission_file->getClientOriginalName();
+                    $name = md5($oName.Carbon::now()).$extension;
+    
+                    $path =  $emission_file->move('documents/emissionFile',$name);
+    
+                    if($annualLicence->annualLicenceDoc&&$emission_file = EmissionTestDoc::whereId($annualLicence->emissionTestDoc->id)->first()){
+                        $emission_file->name = $oName;
+                        $emission_file->path = $path;
+                        $emission_file->update();
+                    }else{
+                        $emission_file = new EmissionTestDoc;
+                        $emission_file->path = $path;
+                        $emission_file->name = $oName;
+                        $emission_file->save();
+                    }
+    
+    
+                    if($annualLicence->emissionTestDoc){
+                        $oldEmission_file = $annualLicence->emissionTestDoc->path;
+                        if(file_exists($oldEmission_file)){
+                            unlink(public_path().'/'. $oldEmission_file);
+                        }
+                    }
+                    $annualLicence->emissionTestDoc()->associate($emission_file);
+                }
                 
 
                 $annualLicence->update(); 

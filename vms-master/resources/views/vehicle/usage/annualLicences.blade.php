@@ -294,7 +294,7 @@
                             <h4> <i class="fas fa-award"></i>&nbsp Emission Test Details </h4>  
                             <div>  
                                 {!! Form::text('emission_test_details',null,['class'=>'form-control','id'=>'edit_emission_test_details' ]) !!}
-                            </div> 
+                            </div> <br>
 
                             {{-- <h4> <i class="glyphicon glyphicon-upload"></i>&nbsp Emission Test File Upload </h4>   --}}
                             <div>
@@ -547,6 +547,7 @@
                         /* refresh data table in the view */
                     readAnnualLicenc(vid);      
                     $("#edit_file").val("");
+                    $("#edit_emission_file").val("");
                 },
                 error: function(xhr, textStatus, error){
                     console.log(xhr.statusText);
