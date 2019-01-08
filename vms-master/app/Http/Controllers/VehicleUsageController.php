@@ -245,24 +245,37 @@ class VehicleUsageController extends Controller
 
         if($request->ajax() && $annualLicence = AnnualLicence::find($request->id)  ){
             
+                /* Deleting annual licence document */
             if($licence_doc_id = $annualLicence->annual_licence_doc_id){
-                // return $licence_doc_id;
-                
+                // return $licence_doc_id;          
                 $oldlicence_file = $annualLicence->annualLicenceDoc->path;
                 if(file_exists($oldlicence_file)){
                     unlink(public_path().'/'. $oldlicence_file);
                 }
 
-                $annualLicence->delete();
-
                 $licence_doc = AnnualLicenceDoc::whereId($licence_doc_id)->first();
                 $licence_doc->delete();
 
-                Session::flash('success', 'Annual Licence Deleted successfully !');
-                return View::make('layouts/success');
-
+            
             }
-                           
+
+                /* Deleting emission test details document */
+            if($emission_doc_id = $annualLicence->emission_test_doc_id){
+                          
+                $oldemission_file = $annualLicence->emissionTestDoc->path;
+                if(file_exists($oldemission_file)){
+                    unlink(public_path().'/'. $oldemission_file);
+                }
+
+                $emission_doc = EmissionTestDoc::whereId($emission_doc_id)->first();
+                $emission_doc->delete();
+        
+            }
+             
+            $annualLicence->delete();
+
+            Session::flash('success', 'Annual Licence Deleted successfully !');
+            return View::make('layouts/success');
             
         }
         Session::flash('errors', 'Annual Licence Deleted Error !');
