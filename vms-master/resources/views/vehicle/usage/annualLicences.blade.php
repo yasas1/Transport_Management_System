@@ -132,6 +132,7 @@
                     <div >  
                         {!! Form::textarea('emission_test_details',null,['class'=>'form-control','placeholder'=>'Emission Test Details','rows'=>'2' ]) !!}
                     </div> 
+                    {{Form::file('emission_file',['class'=>'btn btn-default'])}}  <br>
 
                 </div> 
                 
@@ -291,9 +292,15 @@
                     <div class="row">
                         <div class="col-md-6"> 
                             <h4> <i class="fas fa-award"></i>&nbsp Emission Test Details </h4>  
-                            <div >  
+                            <div>  
                                 {!! Form::text('emission_test_details',null,['class'=>'form-control','id'=>'edit_emission_test_details' ]) !!}
                             </div> 
+
+                            {{-- <h4> <i class="glyphicon glyphicon-upload"></i>&nbsp Emission Test File Upload </h4>   --}}
+                            <div>
+                                <input type="file" name="emission_file" class="btn btn-default" id="edit_emission_file" > <br>
+                            </div> 
+
                         </div> 
 
                         <div class="col-md-6">
@@ -408,7 +415,7 @@
                         <div class="col-md-6">
                             <h4 class="modal-title" > <i class="fas fa-award"></i>&nbsp Emission Test Details</h4>
                             <dl class="col-md-offset-3">
-                            <p style="font-size:16px" id="view_emission_test_details"> <p>                        
+                                <p style="font-size:16px" id="view_emission_test_details"> <p>                        
                             </dl>
                         </div>
                         <div id="document_view" class="col-md-6">

@@ -203,6 +203,23 @@ class VehicleUsageController extends Controller
             $annualLicence->annualLicenceDoc()->associate($licence_file);
         }
 
+        if ($request->hasFile('emission_file')) {
+
+            $emission_file = $request->file('emission_file');
+            $extension =  '.'.$emission_file->getClientOriginalExtension();
+            $oName = $emission_file->getClientOriginalName();
+            $name = $request->registration_no.md5($oName.Carbon::now()).$extension;
+
+            $path =  $emission_file->move('documents/emissionFile',$name);
+
+            $emission_file = new EmissionTestDoc;
+            $emission_file->path = $path;
+            $emission_file->name = $oName;
+            $emission_file->save();
+
+            $annualLicence->emissionTestDoc()->associate($emission_file);
+        }
+
         $annualLicence->save(); 
 
         return redirect()->back()->with(['success'=>'Vehicle Annual Licence added successfully !']);
