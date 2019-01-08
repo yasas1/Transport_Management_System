@@ -467,10 +467,12 @@ class VehicleUsageController extends Controller
             'meter_reading_out' => 'required',
             'executed_at' => 'required',
             'authorized_by' => 'required',
-            // 'invoice_no' => 'required',
-            // 'invoice_date' => 'required',
+            'invoice_no' => 'required',
+            'invoice_date' => 'required',
             
         ]);
+
+        //return $request->authorized_by;
 
         $repaire = new Repaire; 
 
