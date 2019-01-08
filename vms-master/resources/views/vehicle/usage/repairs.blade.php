@@ -62,8 +62,9 @@
                     <div id="out_date" class="input-group date" data-date-format="yyyy-mm-dd">
                         <input name="workshop_out_date" class="form-control" type="text" readonly />
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                    </div>                     
-            </div>   
+                    </div> 
+
+                </div>   
             </div><br>
 
             <div class="row">
@@ -101,6 +102,18 @@
                     </div>                      
                 </div> 
 
+                <div class="col-md-2"> </div>
+
+                <div class="col-md-4"> 
+
+                    <h4> <i class="fas fa-place-of-worship"></i> &nbsp Workshop Details  </h4> 
+                                                        
+                    <div>  
+                        {!! Form::textarea('executed_at',null,['class'=>'form-control','placeholder'=>'Executed at ','rows'=>'2'  ]) !!}                    
+                    </div>
+                
+                </div>
+
             </div><br>
 
             <div class="row">
@@ -126,7 +139,7 @@
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                     </div>                     
                 </div>   
-            </div><br>
+            </div><br><br>
 
             <div class="row"> 
 
@@ -143,7 +156,7 @@
 
             <div class="row">
                 
-                <div class="col-md-4"> 
+                <div class="col-md-6"> 
 
                     <h4> <i class="fas fa-user-shield"></i> &nbsp Authorized by  </h4> 
                                                         
@@ -171,18 +184,6 @@
                         </div>
                     </div>
             
-                </div>
-                
-                <div class="col-md-2"> </div>
-
-                <div class="col-md-4"> 
-
-                    <h4> <i class="fas fa-place-of-worship"></i> &nbsp Executed at (workshop)  </h4> 
-                                                        
-                    <div>  
-                        {!! Form::text('executed_at',null,['class'=>'form-control','placeholder'=>'Executed at ' ]) !!}                    
-                    </div>
-                
                 </div>
  
             </div><br>

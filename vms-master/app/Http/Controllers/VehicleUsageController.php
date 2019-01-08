@@ -71,6 +71,7 @@ class VehicleUsageController extends Controller
         ->join('vehical', 'services.vehical_id', '=', 'vehical.id')
         ->select('services.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
         ->where('vehical_id','=',$vid)
+        ->orderBy('services.date','DESC')
         ->get();
 
         return view('vehicle.usageList.serviceList',compact('services'));
@@ -215,6 +216,7 @@ class VehicleUsageController extends Controller
         ->join('vehical', 'annual_licences.vehical_id', '=', 'vehical.id') 
         ->select('annual_licences.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
         ->where('vehical_id','=',$vid)
+        ->orderBy('annual_licences.licence_date','DESC')
         ->get();
 
         return view('vehicle.usageList.annLicenceList',compact('licences'));
@@ -390,6 +392,7 @@ class VehicleUsageController extends Controller
         ->join('title', 'driver.title_id', '=', 'title.id') // join title for get driver's title
         ->select('accidents.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg','driver.firstname as firstname','driver.surname as surname','title.name as title')
         ->where('vehical_id','=',$vid)
+        ->orderBy('accidents.date','DESC')
         ->get();
 
         return view('vehicle.usageList.accidentList',compact('accidents'));
@@ -501,6 +504,7 @@ class VehicleUsageController extends Controller
         ->join('vehical', 'repaires.vehical_id', '=', 'vehical.id') // join vehicle for get vehicle name
         ->select('repaires.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
         ->where('vehical_id','=',$vid)
+        ->orderBy('repaires.workshop_in_date','DESC')
         ->get();
 
         return view('vehicle.usageList.repairList',compact('repaires'));
