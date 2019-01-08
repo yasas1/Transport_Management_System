@@ -296,21 +296,37 @@ class VehicleUsageController extends Controller
 
         $annualLicence = AnnualLicence::find($id);
 
-        if($annualLicence->annual_licence_doc_id == null){
+        if($annualLicence->annual_licence_doc_id == null && $annualLicence->emission_test_doc_id == null ){
             $licences = DB::table('annual_licences')
             ->join('vehical', 'annual_licences.vehical_id', '=', 'vehical.id') 
             ->select('annual_licences.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
             ->where('annual_licences.id','=',$id)
             ->get();       
         }
-        else{
+        else  if($annualLicence->annual_licence_doc_id != null && $annualLicence->emission_test_doc_id == null){
             $licences = DB::table('annual_licences')
             ->join('vehical', 'annual_licences.vehical_id', '=', 'vehical.id') 
             ->join('annual_licence_doc', 'annual_licences.annual_licence_doc_id', '=', 'annual_licence_doc.id') 
             ->select('annual_licences.*','annual_licence_doc.name as doc_name','annual_licence_doc.path as doc_path','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
             ->where('annual_licences.id','=',$id)
-            ->get();
-            
+            ->get();    
+        }
+        else  if($annualLicence->emission_test_doc_id != null && $annualLicence->annual_licence_doc_id == null){
+            $licences = DB::table('annual_licences')
+            ->join('vehical', 'annual_licences.vehical_id', '=', 'vehical.id') 
+            ->join('emission_test_doc', 'annual_licences.emission_test_doc_id', '=', 'emission_test_doc.id') 
+            ->select('annual_licences.*','emission_test_doc.name as emi_doc_name','emission_test_doc.path as emi_doc_path','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
+            ->where('annual_licences.id','=',$id)
+            ->get();    
+        }
+        else{
+            $licences = DB::table('annual_licences')
+            ->join('vehical', 'annual_licences.vehical_id', '=', 'vehical.id') 
+            ->join('annual_licence_doc', 'annual_licences.annual_licence_doc_id', '=', 'annual_licence_doc.id') 
+            ->join('emission_test_doc', 'annual_licences.emission_test_doc_id', '=', 'emission_test_doc.id') 
+            ->select('annual_licences.*','annual_licence_doc.name as doc_name','annual_licence_doc.path as doc_path','emission_test_doc.name as emi_doc_name','emission_test_doc.path as emi_doc_path','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
+            ->where('annual_licences.id','=',$id)
+            ->get();  
         }
 
         return response($licences); 

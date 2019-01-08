@@ -417,6 +417,13 @@
                             <dl class="col-md-offset-3">
                                 <p style="font-size:16px" id="view_emission_test_details"> <p>                        
                             </dl>
+                            
+                                <a class="col-md-offset-3" href="" download="" id ="emi_document_download"> 
+                                    <button type="button" class="btn btn-success btn-md">
+                                        <i class="glyphicon glyphicon-download-alt"></i>&nbsp <i id="emi_doc_name"></i>
+                                    </button>
+                                </a>
+                            
                         </div>
                         <div id="document_view" class="col-md-6">
                             <h4 class="modal-title" > <i class="glyphicon glyphicon-download-alt"></i>&nbsp Annual Licence Document</h4>
@@ -572,6 +579,7 @@
             data: { id: id },
             success: function(data)
             {
+                console.log(data);
                     /* set values to html tag for view */  
                 $('#view-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+"Annual Licence" );
                 $('#period-from').html(data[0].from );
@@ -591,6 +599,16 @@
                     $('#document_download').attr("href","/"+data[0].doc_path);
                     $('#document_download').attr("download",data[0].doc_name);
                     $('#doc_name').html(data[0].doc_name);
+                }
+
+                if(data[0].emission_test_doc_id == null){
+                    $('#emi_document_download').hide(); //hide document download button
+                }
+                else{
+                    $('#emi_document_download').show(); //show document download button__(there is a document)
+                    $('#emi_document_download').attr("href","/"+data[0].emi_doc_path);
+                    $('#emi_document_download').attr("download",data[0].emi_doc_name);
+                    $('#emi_doc_name').html(data[0].emi_doc_name);
                 }
    
             },
