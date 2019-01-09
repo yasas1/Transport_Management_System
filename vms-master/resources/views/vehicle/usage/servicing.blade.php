@@ -485,10 +485,10 @@
             success: function(data)
             {   
                 services =data;
-                console.log(services);
+                //console.log(services);
 
                 $.each( services, function( i, value ) {
-                    console.log(value.date);
+                    // console.log(value.date);
 
                     $.ajax({
                         url: "{{ URL::to('/vehicle/distanceCount') }}" ,
@@ -496,12 +496,12 @@
                         data: { vid: value.vehical_id, date: value.date },
                         success: function(data)
                         {
-                            // console.log(value.vehical_id);
-                            // console.log(value.date);
-                            // console.log(data);  
+                            console.log(value.vehical_id);
+                            console.log(value.date);
+                            console.log(data);  
                             if(data >= 200){
                                 //$('.service_noti').add('<div>Insert Div Content</div>');
-                                $('#service_noti'+value.vehical_id).html("Vehicle has used more than 200 km from the next shedule");
+                                $('#service_noti'+value.vehical_id).html("Vehicle has used more than 200 km from the next shedule service");
                                 $('#dis_noti'+value.vehical_id).show();
 
                             }  

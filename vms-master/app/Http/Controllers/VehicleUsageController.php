@@ -126,14 +126,20 @@ class VehicleUsageController extends Controller
 
     public function serivceNotification(){
         
-        $services = DB::table('services')
-        ->select('services.date','services.vehical_id')
-        ->whereIn('id', function($query){
-            $query->select(DB::raw('max(id) as id'))
-                ->from('services')
-                ->groupBy('services.vehical_id');
-        })->get();
+        // $services = DB::table('services')
+        // ->select('services.date','services.vehical_id')
+        // ->whereIn('id', function($query){
+        //     $query->select(DB::raw('max(id) as id'))
+        //         ->from('services')
+        //         ->groupBy('services.vehical_id');
+        // })->get();
 
+        $services = DB::table('services')
+            ->select('date','vehical_id')
+            ->orderBy('date', 'desc')
+            ->get()
+            ->unique('vehical_id');
+            
         return response($services); 
        
     }
