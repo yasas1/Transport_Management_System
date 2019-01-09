@@ -485,7 +485,7 @@
             success: function(data)
             {   
                 services =data;
-                //console.log(services);
+                console.log(services);
 
                 $.each( services, function( i, value ) {
                     // console.log(value.date);
@@ -499,9 +499,10 @@
                             console.log(value.vehical_id);
                             console.log(value.date);
                             console.log(data);  
-                            if(data >= 200){
-                                //$('.service_noti').add('<div>Insert Div Content</div>');
-                                $('#service_noti'+value.vehical_id).html("Vehicle has used more than 200 km from the next shedule service");
+                            console.log(value.mileage_service);
+                            if(data >= value.mileage_service){
+                               
+                                $('#service_noti'+value.vehical_id).html("Vehicle has used more than "+ data + " km since last servicing");
                                 $('#dis_noti'+value.vehical_id).show();
 
                             }  

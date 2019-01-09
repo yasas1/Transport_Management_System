@@ -135,8 +135,9 @@ class VehicleUsageController extends Controller
         // })->get();
 
         $services = DB::table('services')
-            ->select('date','vehical_id')
-            ->orderBy('date', 'desc')
+            ->join('vehical', 'services.vehical_id', '=', 'vehical.id')
+            ->select('services.date','services.vehical_id','vehical.mileage_service')
+            ->orderBy('services.date', 'desc')
             ->get()
             ->unique('vehical_id');
             

@@ -165,15 +165,22 @@ desired effect
 
                             </span>
                         </a>
-                        <ul class="treeview-menu">
+                        <ul class="treeview-menu
+                            {{
+                                url()->current() == url('/vehicle/')||
+                                url()->current() == url('/vehicle/create')||
+                                url()->current() == url('/vehicle/')?'active':''
+                            }}
+                            ">
+
                             @if(Auth::user()->canReadVehicle())
-                                <li><a href="{{url('/vehicle/')}}"><i class="fa fa-eye"></i> <span>VIEW CURRENT VEHICLES</span></a></li>
+                                <li class="{{url()->current() == url('/vehicle/')?'active':''}}" > <a href="{{url('/vehicle/')}}"><i class="fa fa-eye"></i> <span>VIEW CURRENT VEHICLES</span></a></li>
                             @endif
                             @if(Auth::user()->canCreateVehicle())
-                                    <li><a href="{{url('/vehicle/create')}}"><i class="fa fa-plus"></i> <span>CREATE NEW VEHICLE</span></a></li>
+                                <li class="{{url()->current() == url('/vehicle/create')?'active':''}}" > <a href="{{url('/vehicle/create')}}"><i class="fa fa-plus"></i> <span>CREATE NEW VEHICLE</span></a></li>
                             @endif
                             @if(Auth::user()->canUpdateVehicle())
-                                    <li><a href="{{url('/vehicle/')}}"><i class="fa fa-edit"></i> <span>EDIT A VEHICLE</span></a></li>
+                                <li class="{{url()->current() == url('/vehicle/')?'active':''}}" > <a href="{{url('/vehicle/')}}"><i class="fa fa-edit"></i> <span>EDIT A VEHICLE</span></a></li>
                             @endif
                         </ul>
                     </li>
