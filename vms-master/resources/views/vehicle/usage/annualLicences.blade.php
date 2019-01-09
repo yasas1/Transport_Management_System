@@ -640,6 +640,7 @@
                 data: { id: id },
                 success: function(data)
                 {   
+                    console.log(data);
                     $('#flash-message').html(data); 
     
                     $('tr#'+id).remove();

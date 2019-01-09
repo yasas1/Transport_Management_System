@@ -244,12 +244,15 @@ class VehicleUsageController extends Controller
     public function deleteAnnualLicenc(Request $request){
 
         if($request->ajax() && $annualLicence = AnnualLicence::find($request->id)  ){
+
+            $annualLicence->delete();
             
                 /* Deleting annual licence document */
             if($licence_doc_id = $annualLicence->annual_licence_doc_id){
-                // return $licence_doc_id;          
+                         
                 $oldlicence_file = $annualLicence->annualLicenceDoc->path;
-                if(file_exists($oldlicence_file)){
+                
+                if( file_exists(public_path($oldlicence_file)) ){
                     unlink(public_path().'/'. $oldlicence_file);
                 }
 
@@ -272,7 +275,7 @@ class VehicleUsageController extends Controller
         
             }
              
-            $annualLicence->delete();
+           
 
             Session::flash('success', 'Annual Licence Deleted successfully !');
             return View::make('layouts/success');
