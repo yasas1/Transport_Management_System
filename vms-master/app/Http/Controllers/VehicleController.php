@@ -198,7 +198,10 @@ class VehicleController extends Controller
                 }
                 $vehicle->photo()->associate($photo);
             }
+
             $vehicle->journey_color = $request->journey_color;
+            $vehicle->driver_id = $request->driver_id;
+            $vehicle->mileage_service = $request->mileage_service;
             $vehicle->name = $request->name;
             $vehicle->registration_no = $request->registration_no;
             $vehicle->dept_no = $request->dept_no;

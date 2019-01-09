@@ -65,6 +65,16 @@
 
             </div> <br>
 
+            <div class="form-group"> 
+
+                <label>Mileage for Service &nbsp (km) <span class="text text-danger">*</span></label>
+
+                <div>  
+                    {{Form::number('mileage_service',null,['class'=>'form-control','placeholder'=>'Mileage for Service','required'])}}                   
+                </div>   
+
+            </div> <br>
+
             <div class="form-group">
                 <label for="number">Registration No <span class="text text-danger">*</span></label>
                 {{Form::text('registration_no',null,['class'=>'form-control','placeholder'=>'Registration Number Of The Vehicle','required'])}}
