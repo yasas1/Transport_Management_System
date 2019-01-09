@@ -82,7 +82,8 @@ class VehicleController extends Controller
 
         }
         $vehicle->journey_color = $request->journey_color;
-        $vehicle->driver_id = $request->driver_id; // driver id
+        $vehicle->driver_id = $request->driver_id; // driver id 
+        $vehicle->mileage_service = $request->mileage_service;
         $vehicle->registration_no = $request->registration_no;
         $vehicle->dept_no = $request->dept_no;
         $vehicle->date_of_registration = $request->date_of_registration;

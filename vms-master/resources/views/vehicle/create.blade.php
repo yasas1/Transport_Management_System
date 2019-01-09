@@ -41,7 +41,16 @@
                 <h4><i class="fa fa-user"></i>&nbsp Assign Driver <span class="text text-danger">*</span> </h4>  
 
                 <div>  
-                    {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','placeholder'=>'Select Driver'])}}                     
+                    {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','placeholder'=>'Select Driver','required'])}}                     
+                </div>                      
+            </div> <br>
+
+            <div class="box-body"> 
+
+                <h4><i class="fas fa-tachometer-alt"></i> Mileage for Service &nbsp (km) <span class="text text-danger">*</span> </h4>  
+
+                <div>                       
+                    {{Form::number('mileage_service',null,['class'=>'form-control','placeholder'=>'Mileage for Service','required'])}}
                 </div>                      
             </div> <br>
 

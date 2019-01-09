@@ -24,7 +24,7 @@
     <div>   
         @foreach ($vehiclesNoti as $vehicle)
 
-            <div id="dis_noti{{$vehicle->id}}" style="display:none" class="alert alert-info alert-dismissible fade in">
+            <div id="dis_noti{{$vehicle->id}}" style="display:none" class="alert alert-warning alert-dismissible fade in">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 <table>                   
                     <tr>

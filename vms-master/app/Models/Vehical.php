@@ -169,6 +169,7 @@ class Vehical extends Eloquent
 		'id_card_id',
 		'reg_book_id',
 		'driver_id',
+		'mileage_service',
 		'journey_color'
 	];
 
