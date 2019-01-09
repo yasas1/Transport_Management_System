@@ -388,7 +388,7 @@ class VehicleUsageController extends Controller
     
                     $path =  $emission_file->move('documents/emissionFile',$name);
     
-                    if($annualLicence->annualLicenceDoc&&$emission_file = EmissionTestDoc::whereId($annualLicence->emissionTestDoc->id)->first()){
+                    if($annualLicence->emissionTestDoc && $emission_file = EmissionTestDoc::whereId($annualLicence->emissionTestDoc->id)->first()){
                         $emission_file->name = $oName;
                         $emission_file->path = $path;
                         $emission_file->update();

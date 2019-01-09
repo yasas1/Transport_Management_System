@@ -59,7 +59,7 @@
 
                 <div class="col-md-4"> 
     
-                    <h4><i class="fa fa-calendar"></i>&nbsp  Date </h4>
+                    <h4><i class="fa fa-calendar"></i>&nbsp  Date of Service</h4>
                                                         
                     <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
                         <input id="date" name="date" class="form-control" type="text" readonly />
@@ -501,7 +501,7 @@
                             // console.log(data);  
                             if(data >= 200){
                                 //$('.service_noti').add('<div>Insert Div Content</div>');
-                                $('#service_noti'+value.vehical_id).html("Vehicle's mileage is approximately more than 200 km since last servicing ");
+                                $('#service_noti'+value.vehical_id).html("Vehicle has used more than 200 km from the next shedule");
                                 $('#dis_noti'+value.vehical_id).show();
 
                             }  
