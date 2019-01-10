@@ -124,6 +124,7 @@
                         <tr > 
                             <th scope="col"> Date </th>
                             <th scope="col"> Meter Reading</th>
+                            <th scope="col"> Mileage From Last</th>
                             <th scope="col"> Details </th>
                             <th scope="col"> Cost (Rs.) </th>
                             <th scope="col"> Action</th>
@@ -485,7 +486,7 @@
             success: function(data)
             {   
                 services =data;
-                console.log(services);
+                console.log(data);
 
                 $.each( services, function( i, value ) {
                     // console.log(value.date);
@@ -500,13 +501,15 @@
                             console.log(value.date);
                             console.log(data);  
                             console.log(value.mileage_service);
+                            
                             if(data >= value.mileage_service){
                                
-                                $('#service_noti'+value.vehical_id).html("Vehicle has used more than "+ data + " km since last servicing");
+                                $('#service_noti'+value.vehical_id).html(" ( Mileage for Service - "+value.mileage_service+" km ) Vehicle has used "+ data + " km since last servicing");
                                 $('#dis_noti'+value.vehical_id).show();
 
                             }  
                             else{
+                                //$('#service_noti'+value.vehical_id).html("Vehicle has used more than "+ data + " km since last servicing");
                                 $('#dis_noti'+value.vehical_id).hide();
                             }       
 

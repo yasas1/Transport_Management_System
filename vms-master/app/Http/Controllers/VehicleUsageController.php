@@ -72,7 +72,7 @@ class VehicleUsageController extends Controller
         ->join('vehical', 'services.vehical_id', '=', 'vehical.id')
         ->select('services.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
         ->where('vehical_id','=',$vid)
-        ->orderBy('services.date','DESC')
+        // ->orderBy('services.date','DESC')
         ->get();
 
         return view('vehicle.usageList.serviceList',compact('services'));
