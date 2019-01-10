@@ -677,6 +677,8 @@ class VehicleUsageController extends Controller
         $tyreReplace->size = $request->size;
         $tyreReplace->type = $request->type;
         $tyreReplace->meter_reading = $request->meter_reading;
+        $tyreReplace->cost = $request->cost;
+        $tyreReplace->invoice = $request->invoice;
         $tyreReplace->remarks = $request->remarks;
        
         $tyreReplace->save(); 

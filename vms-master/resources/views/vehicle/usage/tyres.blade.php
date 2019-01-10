@@ -73,7 +73,7 @@
     
                     <div class="col-md-4"> 
     
-                        <h4> <i class="fas fa-arrows-alt-h"></i> &nbsp Size </h4>  
+                        <h4> <i class="fas fa-arrows-alt-h"></i> &nbsp Tyre Size </h4>  
         
                         <div>  
                             {!! Form::text('size',null,['class'=>'form-control','placeholder'=>'Size' ]) !!}                       
@@ -82,7 +82,7 @@
     
                     <div class="col-md-4"> 
     
-                        <h4><i class="fas fa-cube"></i> &nbsp Type </h4>  
+                        <h4><i class="fas fa-cube"></i> &nbsp Tyre Type/Mode </h4>  
         
                         <div>  
                             {!! Form::text('type',null,['class'=>'form-control','placeholder'=>'Type' ]) !!}                      
@@ -101,6 +101,34 @@
                             {{Form::number('meter_reading', null,['class'=>'form-control ','id'=>'vid','placeholder'=>'Enter Meter Reading'])}}                      
                         </div>                      
                     </div>   
+                </div><br>
+
+                <div class="row"> 
+
+                    <div class="col-md-4"> 
+
+                        <h4><i class="fas fa-puzzle-piece"></i>&nbsp Cost </h4>  
+        
+                        <div>  
+                            {!! Form::text('cost',null,['class'=>'form-control','placeholder'=>'Cost' ]) !!}                       
+                        </div>
+
+                    </div>
+    
+                    <div class="col-md-2"> 
+    
+                                            
+                    </div>
+    
+                    <div class="col-md-4"> 
+    
+                        <h4><i class="fas fa-cube"></i> &nbsp Invoice </h4>  
+        
+                        <div>  
+                            {!! Form::text('invoice',null,['class'=>'form-control','placeholder'=>'Invoice Number' ]) !!}                      
+                        </div>                      
+                    </div> 
+    
                 </div><br>
 
                 <div class="row"> 

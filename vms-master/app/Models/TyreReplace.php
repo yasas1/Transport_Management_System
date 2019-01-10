@@ -45,6 +45,8 @@ class TyreReplace extends Eloquent
 		'size',
 		'type',
 		'meter_reading',
+		'cost',
+		'invoice',
 		'remarks'
 	];
 
