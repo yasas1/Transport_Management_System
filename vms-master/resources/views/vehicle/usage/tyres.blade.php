@@ -378,6 +378,34 @@
                             </div>                      
                         </div>   
                     </div><br>
+
+                    <div class="row"> 
+
+                        <div class="col-md-4"> 
+    
+                            <h4><i class="fas fa-puzzle-piece"></i>&nbsp Cost </h4>  
+            
+                            <div>  
+                                {!! Form::text('cost',null,['class'=>'form-control','placeholder'=>'Cost','id'=>'edit_cost' ]) !!}                       
+                            </div>
+    
+                        </div>
+        
+                        <div class="col-md-2"> 
+        
+                                                
+                        </div>
+        
+                        <div class="col-md-4"> 
+        
+                            <h4><i class="fas fa-cube"></i> &nbsp Invoice </h4>  
+            
+                            <div>  
+                                {!! Form::text('invoice',null,['class'=>'form-control','placeholder'=>'Invoice Number','id'=>'edit_invoice' ]) !!}                      
+                            </div>                      
+                        </div> 
+        
+                    </div><br>
     
                     <div class="row"> 
         
@@ -619,6 +647,8 @@
                 $('#edit_replace_meter_reading').val(data[0].meter_reading);
                 $('#edit_replace_size').val(data[0].size);
                 $('#edit_replace_type').val(data[0].type);
+                $('#edit_cost').val(data[0].cost);
+                $('#edit_invoice').val(data[0].invoice); 
                 $('#edit_replace_remarks').val(data[0].remarks);
    
             },
