@@ -197,49 +197,55 @@
 
                     {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeTyrePositionChange']) !!}
 
-                    <div class="col-md-4"> 
-    
-                        <h4><i class="fa fa-car"></i>&nbsp Vehicle </h4>
-                        <div>             
-                            {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid_position_changing','placeholder'=>'Select a Vehicle'])}}
-                        </div>                  
-                    </div>
+                    <div>
 
-                    <div class="col-md-1"> </div>
+                        <div class="col-md-4"> 
 
-                    <div class="col-md-4"> 
-            
-                        <h4><i class="fa fa-calendar"></i>&nbsp Date </h4>
-                                                            
-                        <div id="dateposition" class="input-group date" data-date-format="yyyy-mm-dd">
-                            <input id="date_position" name="date" class="form-control" type="text" readonly />
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            <h4><i class="fa fa-car"></i>&nbsp Vehicle </h4>
+                            <div>             
+                                {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid_position_changing','placeholder'=>'Select a Vehicle'])}}
+                            </div>                  
                         </div>
+        
+                        <div class="col-md-1"> </div>
+    
+                        <div class="col-md-4"> 
                 
-                    </div> 
-                
+                            <h4><i class="fa fa-calendar"></i>&nbsp Date </h4>
+                                                                
+                            <div id="dateposition" class="input-group date" data-date-format="yyyy-mm-dd">
+                                <input id="date_position" name="date" class="form-control" type="text" readonly />
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                    
+                        </div> 
+
+                    </div>
+          
                 </div> <br>
     
                 <div class="row"> 
                     
-                    <div class="col-md-4 field_wrapper"> 
+                    <h4><i class="fas fa-puzzle-piece"></i>&nbsp Position </h4> 
 
-                        <h4><i class="fas fa-puzzle-piece"></i>&nbsp Position </h4>  
+                    <div class="field_wrapper"> 
 
-                        <div>                           
-                            {{Form::select('position',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','4 running tyres'=>'4 Running Tyres','5 tyres'=>'5 Tyres'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position'])}}   
-                            <select name="position[]" class="form-control">
-                                <option value="front left">Front Left</option>
-                                <option value="front right">Front Right</option>
-                                <option value="back left">back left</option>
-                                <option value="back right">back Right</option>
-                                <option value="spare wheel">Spare Wheel</option>
-                                <option value="4 running tyres">4 Running Tyres</option>
-                                <option value="5 tyres">5 tyres</option>
-                            </select>
-                            <a href="javascript:void(0);" class="add_button" title="Add field"><i class="fa fa-plus" aria-hidden="true"></i></a>             
+                         
+
+                        <div class="col-md-4 ">                           
+                            {{Form::select('position_pre',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position'])}}   
+                            
+                                      
                         </div>
 
+                        <div class="col-md-1">    </div>
+
+                        <div class="col-md-4 ">   
+
+                            {{Form::select('position_after',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','exclude'=>'Exclude'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position'])}}   
+                                      
+                        </div>
+                        <a href="javascript:void(0);" class="add_button" title="Add field"><i class="fa fa-plus" aria-hidden="true"></i></a>  <br>  <br> 
                     </div>
                     
                 </div><br>
@@ -864,13 +870,22 @@
         var wrapper = $('.field_wrapper'); 
         //var fieldHTML = '<div><input type="text" name="field_name[]" value=""/> &nbsp <a href="javascript:void(0);" class="remove_button"><i class="fa fa-trash" aria-hidden="true"></i></a></div>'; //New input field html 
         //{{Form::select('position',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','4 running tyres'=>'4 Running Tyres','5 tyres'=>'5 Tyres'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position'])}} 
-        var fieldHTML = '<div><select name="position[]" class="form-control">'+
+        var fieldHTML = '<div><div class="col-md-4"><select name="position_prev" class="form-control">'+
             '<option value="front left">Front Left</option>'+
             '<option value="front right">Front Right</option>'+
             '<option value="back left">back left</option>'+
             '<option value="back right">back Right</option>'+
             '<option value="spare wheel">Spare Wheel</option>'+ 
-            '</select> &nbsp <a href="javascript:void(0);" class="remove_button"><i class="fa fa-trash" aria-hidden="true"></i></a> </div></p>';
+            '</select> </div>'+
+            '<div class="col-md-1"></div>'+
+            '<div class="col-md-4"><select name="position_after" class="form-control">'+
+            '<option value="front left">Front Left</option>'+
+            '<option value="front right">Front Right</option>'+
+            '<option value="back left">back left</option>'+
+            '<option value="back right">back Right</option>'+
+            '<option value="spare wheel">Spare Wheel</option>'+ 
+            '</select></div>'+
+            '&nbsp <a href="javascript:void(0);" class="remove_button"><i class="fa fa-trash" aria-hidden="true"></i></a> <div> <br>';
         var x = 1; 
         
         //Once add button is clicked
