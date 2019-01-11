@@ -41,11 +41,9 @@
                             {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid_replacement','placeholder'=>'Select a Vehicle'])}}
                         </div>                  
                     </div>
-                
-                </div> <br>
-    
-                <div class="row"> 
-    
+
+                    <div class="col-md-1"> </div>
+
                     <div class="col-md-4"> 
         
                         <h4><i class="fa fa-calendar"></i>&nbsp Date </h4>
@@ -55,21 +53,25 @@
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                 
+                    </div>   
+                
+                </div> <br>
+
+                <div class="row"> 
+    
+                    <div class="col-md-4"> 
+        
+                        <h4><i class="fas fa-puzzle-piece"></i> &nbsp Position </h4>  
+        
+                        <div>                           
+                            {{Form::select('position',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','4 running tyres'=>'4 Running Tyres','5 tyres'=>'5 Tyres'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position'])}}                
+                        </div>
+                
                     </div>                 
                     
                 </div><br>
 
                 <div class="row"> 
-
-                    <div class="col-md-4"> 
-
-                        <h4><i class="fas fa-puzzle-piece"></i>&nbsp Position </h4>  
-        
-                        <div>  
-                            {!! Form::text('position',null,['class'=>'form-control','placeholder'=>'Position' ]) !!}                       
-                        </div>
-
-                    </div>
     
                     <div class="col-md-4"> 
     
@@ -79,6 +81,8 @@
                             {!! Form::text('size',null,['class'=>'form-control','placeholder'=>'Size' ]) !!}                       
                         </div>                      
                     </div>
+
+                    <div class="col-md-1"> </div>
     
                     <div class="col-md-4"> 
     
@@ -115,10 +119,7 @@
 
                     </div>
     
-                    <div class="col-md-2"> 
-    
-                                            
-                    </div>
+                    <div class="col-md-1"> </div>
     
                     <div class="col-md-4"> 
     
@@ -349,7 +350,7 @@
 
                         <div class="col-md-6"> 
         
-                            <h4> <i class="fas fa-arrows-alt-h"></i> &nbsp Size </h4>  
+                            <h4> <i class="fas fa-arrows-alt-h"></i> &nbsp Tyre Size </h4>  
             
                             <div>  
                                 {!! Form::text('size',null,['class'=>'form-control','id'=>'edit_replace_size' ]) !!}                       
@@ -358,7 +359,7 @@
         
                         <div class="col-md-6"> 
         
-                            <h4><i class="fas fa-cube"></i> &nbsp Type </h4>  
+                            <h4><i class="fas fa-cube"></i> &nbsp Tyre Type/Mode </h4>  
             
                             <div>  
                                 {!! Form::text('type',null,['class'=>'form-control','id'=>'edit_replace_type' ]) !!}                      
