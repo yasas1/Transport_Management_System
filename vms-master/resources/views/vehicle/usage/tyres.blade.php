@@ -59,17 +59,29 @@
 
                 <div class="row"> 
     
-                    <div class="col-md-4"> 
+                    <div class="col-md-4 field_wrapper" > 
         
                         <h4><i class="fas fa-puzzle-piece"></i> &nbsp Position </h4>  
         
                         <div>                           
-                            {{Form::select('position',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','4 running tyres'=>'4 Running Tyres','5 tyres'=>'5 Tyres'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position'])}}                
+                            {{Form::select('position',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','4 running tyres'=>'4 Running Tyres','5 tyres'=>'5 Tyres'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position'])}}   
+                            <a href="javascript:void(0);" class="add_button" title="Add field">Add</a>             
                         </div>
                 
                     </div>                 
                     
                 </div><br>
+{{-- 
+                <div class="row"> 
+                    <div class="field_wrapper">
+                        <div>
+                            <input type="text" name="field_name[]" value=""/>
+                            <a href="javascript:void(0);" class="add_button" title="Add field">Add</a>
+                             
+                        </div>
+                        
+                    </div>
+                </div> --}}
 
                 <div class="row"> 
     
@@ -193,7 +205,9 @@
             <div class="tab-pane" id="positionChanges">
 
                 <div class="row">                  
+
                     {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeTyrePositionChange']) !!}
+
                     <div class="col-md-4"> 
     
                         <h4><i class="fa fa-car"></i>&nbsp Vehicle </h4>
@@ -201,13 +215,11 @@
                             {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid_position_changing','placeholder'=>'Select a Vehicle'])}}
                         </div>                  
                     </div>
-                
-                </div> <br>
-    
-                <div class="row"> 
-    
+
+                    <div class="col-md-1"> </div>
+
                     <div class="col-md-4"> 
-        
+            
                         <h4><i class="fa fa-calendar"></i>&nbsp Date </h4>
                                                             
                         <div id="dateposition" class="input-group date" data-date-format="yyyy-mm-dd">
@@ -216,8 +228,10 @@
                         </div>
                 
                     </div> 
-
-                    <div class="col-md-2"> </div>
+                
+                </div> <br>
+    
+                <div class="row"> 
                     
                     <div class="col-md-4"> 
 
@@ -339,7 +353,8 @@
                             <h4><i class="fas fa-puzzle-piece"></i>&nbsp Position </h4>  
             
                             <div>  
-                                {!! Form::text('position',null,['class'=>'form-control','id'=>'edit_replace_position' ]) !!}                       
+                                
+                                {{Form::select('position',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','4 running tyres'=>'4 Running Tyres','5 tyres'=>'5 Tyres'),null,['class'=>'form-control ','id'=>'edit_replace_position'])}}                     
                             </div>
     
                         </div>
@@ -841,5 +856,36 @@
     })
 
 </script>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        var maxField = 5; 
+        var addButton = $('.add_button'); 
+        var wrapper = $('.field_wrapper'); 
+        //var fieldHTML = '<div><input type="text" name="field_name[]" value=""/> &nbsp <a href="javascript:void(0);" class="remove_button"><i class="fa fa-trash" aria-hidden="true"></i></a></div>'; //New input field html 
+        //{{Form::select('position',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','4 running tyres'=>'4 Running Tyres','5 tyres'=>'5 Tyres'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position'])}} 
+        var fieldHTML = '<p><div><select class="form-control"><option value="volvo">Volvo</option><option value="saab">Saab</option><option value="mercedes">Mercedes</option><option value="audi">Audi</option></select> &nbsp <a href="javascript:void(0);" class="remove_button"><i class="fa fa-trash" aria-hidden="true"></i></a> </div></p>';
+        var x = 1; 
+        
+        //Once add button is clicked
+        $(addButton).click(function(){
+            
+            if(x < maxField){ 
+                x++; 
+                $(wrapper).append(fieldHTML); 
+            }
+        });
+        
+        //Once remove button is clicked
+        $(wrapper).on('click', '.remove_button', function(e){
+            e.preventDefault();
+            $(this).parent('div').remove(); 
+            x--;
+        });
+    });
+    
+</script>
+    
     
 @endsection
