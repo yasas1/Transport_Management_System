@@ -59,29 +59,18 @@
 
                 <div class="row"> 
     
-                    <div class="col-md-4 field_wrapper" > 
+                    <div class="col-md-4" > 
         
                         <h4><i class="fas fa-puzzle-piece"></i> &nbsp Position </h4>  
         
                         <div>                           
                             {{Form::select('position',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','4 running tyres'=>'4 Running Tyres','5 tyres'=>'5 Tyres'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position'])}}   
-                            <a href="javascript:void(0);" class="add_button" title="Add field">Add</a>             
+                                        
                         </div>
                 
                     </div>                 
                     
                 </div><br>
-{{-- 
-                <div class="row"> 
-                    <div class="field_wrapper">
-                        <div>
-                            <input type="text" name="field_name[]" value=""/>
-                            <a href="javascript:void(0);" class="add_button" title="Add field">Add</a>
-                             
-                        </div>
-                        
-                    </div>
-                </div> --}}
 
                 <div class="row"> 
     
@@ -233,12 +222,22 @@
     
                 <div class="row"> 
                     
-                    <div class="col-md-4"> 
+                    <div class="col-md-4 field_wrapper"> 
 
                         <h4><i class="fas fa-puzzle-piece"></i>&nbsp Position </h4>  
-        
-                        <div>  
-                            {!! Form::text('position',null,['class'=>'form-control','placeholder'=>'Position' ]) !!}                       
+
+                        <div>                           
+                            {{Form::select('position',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','4 running tyres'=>'4 Running Tyres','5 tyres'=>'5 Tyres'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position'])}}   
+                            <select name="position[]" class="form-control">
+                                <option value="front left">Front Left</option>
+                                <option value="front right">Front Right</option>
+                                <option value="back left">back left</option>
+                                <option value="back right">back Right</option>
+                                <option value="spare wheel">Spare Wheel</option>
+                                <option value="4 running tyres">4 Running Tyres</option>
+                                <option value="5 tyres">5 tyres</option>
+                            </select>
+                            <a href="javascript:void(0);" class="add_button" title="Add field"><i class="fa fa-plus" aria-hidden="true"></i></a>             
                         </div>
 
                     </div>
@@ -865,7 +864,13 @@
         var wrapper = $('.field_wrapper'); 
         //var fieldHTML = '<div><input type="text" name="field_name[]" value=""/> &nbsp <a href="javascript:void(0);" class="remove_button"><i class="fa fa-trash" aria-hidden="true"></i></a></div>'; //New input field html 
         //{{Form::select('position',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','4 running tyres'=>'4 Running Tyres','5 tyres'=>'5 Tyres'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position'])}} 
-        var fieldHTML = '<p><div><select class="form-control"><option value="volvo">Volvo</option><option value="saab">Saab</option><option value="mercedes">Mercedes</option><option value="audi">Audi</option></select> &nbsp <a href="javascript:void(0);" class="remove_button"><i class="fa fa-trash" aria-hidden="true"></i></a> </div></p>';
+        var fieldHTML = '<div><select name="position[]" class="form-control">'+
+            '<option value="front left">Front Left</option>'+
+            '<option value="front right">Front Right</option>'+
+            '<option value="back left">back left</option>'+
+            '<option value="back right">back Right</option>'+
+            '<option value="spare wheel">Spare Wheel</option>'+ 
+            '</select> &nbsp <a href="javascript:void(0);" class="remove_button"><i class="fa fa-trash" aria-hidden="true"></i></a> </div></p>';
         var x = 1; 
         
         //Once add button is clicked

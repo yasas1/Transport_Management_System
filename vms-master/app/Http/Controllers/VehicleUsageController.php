@@ -681,7 +681,7 @@ class VehicleUsageController extends Controller
         $tyreReplace->invoice = $request->invoice;
         $tyreReplace->remarks = $request->remarks;
        
-        $tyreReplace->save(); 
+       // $tyreReplace->save(); 
 
         return redirect()->back()->with(['success'=>'Tyre Replacement Added Successfully !']);
     }
