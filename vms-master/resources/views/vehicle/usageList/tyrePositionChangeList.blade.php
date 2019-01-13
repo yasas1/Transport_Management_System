@@ -2,7 +2,6 @@
 
 <tr id="posChange{{$tyrePositionChange->id}}">        
         <td> {{$tyrePositionChange->date}} </td>
-        <td> {{$tyrePositionChange->position}} </td> 
         <td> {{$tyrePositionChange->meter_reading}} </td>
         <td> {{$tyrePositionChange->remarks}} </td>
         <td> 

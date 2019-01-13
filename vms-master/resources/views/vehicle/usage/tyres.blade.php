@@ -311,7 +311,6 @@
                         <thead class="table-dark">  
                             <tr > 
                                 <th scope="col"> Date </th>
-                                <th scope="col"> Position </th>
                                 <th scope="col"> Meter Reading</th>
                                 <th scope="col"> Remarks</th>
                                 <th scope="col"> Action</th>
@@ -490,17 +489,29 @@
                            
                     </div><br>
 
+                    <h4><i class="fas fa-puzzle-piece"></i>&nbsp Position </h4> 
                     <div class="row"> 
-        
-                        <div class="col-md-6"> 
 
-                            <h4><i class="fas fa-puzzle-piece"></i>&nbsp Position </h4>  
-            
-                            <div>  
-                                {!! Form::text('position',null,['class'=>'form-control','id'=>'edit_posChange_position' ]) !!}                       
-                            </div>
+                        <div class="col-md-4 ">  
+                            <p>&nbsp Position One Previous </p>                          
+                            {{Form::select('position_one_pre',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel'),null,['class'=>'form-control ','id'=>'edit_pos_one_pre'])}} <br> 
+                                
+                            <p id="pre_two_id">&nbsp Position Two Previous </p>                          
+                            {{Form::select('position_two_pre',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel'),null,['class'=>'form-control ','id'=>'edit_pos_two_pre','placeholder'=>'Select Tyre Position'])}}
     
                         </div>
+                        
+                        <div class="col-md-1">    </div>
+                        
+    
+                        <div class="col-md-4 ">   
+                            <p>&nbsp Position One After </p> 
+                            {{Form::select('position_one_after',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','exclude'=>'Exclude'),null,['class'=>'form-control ','id'=>'edit_pos_one_after'])}}   <br> 
+                            
+                            <p id="after_two_id">&nbsp Position Two After </p> 
+                            {{Form::select('position_two_after',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','exclude'=>'Exclude'),null,['class'=>'form-control ','id'=>'edit_pos_two_after','placeholder'=>'Select Tyre Position'])}}   
+                                            
+                        </div><br> 
                         
                     </div><br>
                     
@@ -727,7 +738,17 @@
 
                 $('#edit_posChange_title').html('<i class="fa fa-car"></i>'+' '+data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Tyre Position Changed Editing" ); 
                 $('#edit_date_posChange').val(data[0].date);
-                $('#edit_posChange_position').val(data[0].position);
+
+                $('#edit_pos_one_pre').val(data[0].position_one_pre);
+                $('#edit_pos_one_after').val(data[0].position_one_after);
+
+                if(data[0].position_two_pre != null){
+                    $('#edit_pos_two_pre').val(data[0].position_two_pre);
+                }
+                if(data[0].position_two_after != null){
+                    $('#edit_pos_two_after').val(data[0].position_two_after);
+                }
+                
                 $('#edit_posChange_meter_reading').val(data[0].meter_reading);
                 $('#edit_posChange_remarks').val(data[0].remarks);
    

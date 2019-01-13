@@ -795,7 +795,10 @@ class VehicleUsageController extends Controller
         if($request->ajax() && $tyrePositionChange = TyrePositionChange::find($request->id)){ 
 
             $tyrePositionChange->date = $request->date;
-            $tyrePositionChange->position = $request->position;       
+            $tyrePositionChange->position_one_pre = $request->position_one_pre;       
+            $tyrePositionChange->position_one_after = $request->position_one_after;  
+            $tyrePositionChange->position_two_pre = $request->position_two_pre;       
+            $tyrePositionChange->position_two_after = $request->position_two_after;      
             $tyrePositionChange->meter_reading = $request->meter_reading;
             $tyrePositionChange->remarks = $request->remarks;
 
