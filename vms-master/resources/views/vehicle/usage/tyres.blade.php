@@ -250,12 +250,11 @@
                                      
                     </div><br> 
 
-                    <div class="col-md-1">  
+                    {{-- <div class="col-md-1">  
                         <a href="javascript:void(0);" class="add_button" title="Add field"><i class="fa fa-plus" aria-hidden="true"></i></a> 
                     </div>
-                    <br>  <br> 
+                    <br>  <br>  --}}
                         
-                    
                 </div><br>
 
                 <div class="row"> 

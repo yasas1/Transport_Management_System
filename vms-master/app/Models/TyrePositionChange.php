@@ -41,8 +41,10 @@ class TyrePositionChange extends Eloquent
 	protected $fillable = [
 		'vehical_id',
 		'date',
-		'position_pre',
-		'position_after',
+		'position_one_pre',
+		'position_one_after',
+		'position_two_pre',
+		'position_two_after',
 		'meter_reading',
 		'remarks'
 	];

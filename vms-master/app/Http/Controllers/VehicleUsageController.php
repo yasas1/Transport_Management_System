@@ -690,8 +690,8 @@ class VehicleUsageController extends Controller
 
         $request->validate([
             'vehical_id' => 'required',
-            'position_pre' => 'required',
-            'position_after' => 'required',
+            'position_one_pre' => 'required',
+            'position_one_after' => 'required',
             'date' => 'required'
         ]);
 
@@ -699,8 +699,10 @@ class VehicleUsageController extends Controller
 
         $tyrePositionChange->vehical_id = $request->vehical_id;
         $tyrePositionChange->date = $request->date;
-        $tyrePositionChange->position_pre = $request->position_pre;       
-        $tyrePositionChange->position_after = $request->position_after;  
+        $tyrePositionChange->position_one_pre = $request->position_one_pre;       
+        $tyrePositionChange->position_one_after = $request->position_one_after;  
+        $tyrePositionChange->position_two_pre = $request->position_two_pre;       
+        $tyrePositionChange->position_two_after = $request->position_two_after;  
         $tyrePositionChange->meter_reading = $request->meter_reading;
         $tyrePositionChange->remarks = $request->remarks;
        
