@@ -29,7 +29,7 @@
         </ul>
         <div class="tab-content">
 
-                <!---------------- Tyre Replacement------------------->
+                        <!---------------- Tyre Replacement------------------->
             <div class="active tab-pane" id="replacement">
 
                 <div class="row"> 
@@ -190,7 +190,7 @@
 
             </div> <!-- /.tab-Replacement -->
                         
-                <!---------------- Tyre Position Change ------------------->
+                        <!---------------- Tyre Position Change ------------------->
             <div class="tab-pane" id="positionChanges">
 
                 <div class="row">                  
@@ -223,30 +223,38 @@
                     </div>
           
                 </div> <br>
+
+                <h4><i class="fas fa-puzzle-piece"></i>&nbsp Position </h4> 
     
-                <div class="row"> 
-                    
-                    <h4><i class="fas fa-puzzle-piece"></i>&nbsp Position </h4> 
+                <div class="row field_wrapper"> 
 
-                    <div class="field_wrapper"> 
+       
+                    <div class="col-md-4 ">  
+                        <p>&nbsp Position One Previous </p>                          
+                        {{Form::select('position_one_pre',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position'])}} <br> 
+                           
+                        <p>&nbsp Position Two Previous </p>                          
+                        {{Form::select('position_two_pre',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position'])}}
 
-                         
-
-                        <div class="col-md-4 ">                           
-                            {{Form::select('position_pre',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position'])}}   
-                            
-                                      
-                        </div>
-
-                        <div class="col-md-1">    </div>
-
-                        <div class="col-md-4 ">   
-
-                            {{Form::select('position_after',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','exclude'=>'Exclude'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position'])}}   
-                                      
-                        </div>
-                        <a href="javascript:void(0);" class="add_button" title="Add field"><i class="fa fa-plus" aria-hidden="true"></i></a>  <br>  <br> 
                     </div>
+                    
+                    <div class="col-md-1">    </div>
+                    
+
+                    <div class="col-md-4 ">   
+                        <p>&nbsp Position One After </p> 
+                        {{Form::select('position_one_after',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','exclude'=>'Exclude'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position'])}}   <br> 
+                        
+                        <p>&nbsp Position Two After </p> 
+                        {{Form::select('position_two_after',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','exclude'=>'Exclude'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position'])}}   
+                                     
+                    </div><br> 
+
+                    <div class="col-md-1">  
+                        <a href="javascript:void(0);" class="add_button" title="Add field"><i class="fa fa-plus" aria-hidden="true"></i></a> 
+                    </div>
+                    <br>  <br> 
+                        
                     
                 </div><br>
 
@@ -862,7 +870,7 @@
 
 </script>
 
-<script type="text/javascript">
+{{-- <script type="text/javascript">
 
     $(document).ready(function(){
         var maxField = 5; 
@@ -905,7 +913,7 @@
         });
     });
     
-</script>
+</script> --}}
     
     
 @endsection
