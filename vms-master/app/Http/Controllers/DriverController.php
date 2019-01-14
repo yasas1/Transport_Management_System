@@ -29,7 +29,7 @@ class DriverController extends Controller
             'nic'=>'required',
             'licence_no'=>'required',
             'mobile'=>'required',
-            'emp_id'=>'required',
+            'email'=>'required',
         ],[
             'title_id.required'=>'Driver title is required.'
         ]); 
@@ -43,7 +43,7 @@ class DriverController extends Controller
         $driver->licence_no = $request->licence_no;
         $driver->licence_expire_date = Carbon::parse($request->licence_expire_date);
         $driver->mobile = $request->mobile;
-        $driver->emp_id = $request->emp_id;
+        $driver->email = $request->email;
 
         $driver->save();
 
@@ -70,7 +70,7 @@ class DriverController extends Controller
             'nic'=>'required',
             'licence_no'=>'required',
             'mobile'=>'required',
-            'emp_id'=>'required',
+            'email'=>'email',
 
         ],[
             'title_id.required'=>'Driver title is required.'
@@ -86,7 +86,7 @@ class DriverController extends Controller
             $driver->licence_no = $request->licence_no;
             $driver->licence_expire_date = Carbon::parse($request->licence_expire_date);
             $driver->mobile = $request->mobile;
-            $driver->emp_id = $request->emp_id;
+            $driver->email = $request->email;
 
             $driver->save();
 

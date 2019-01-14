@@ -21,7 +21,9 @@ class JourneyCompleteController extends Controller
 
             if(Auth::user()->role_id == 4){
 
-                $driverid = Driver::where('emp_id','=',$userlogid)->first()->id;
+                $email = Auth::user()->email;
+
+                $driverid = Driver::where('email','=',$email)->first()->id;
 
                 $journeys = Journey::where('driver_id','=',$driverid)->where('journey_status_id','=','4')->get();
 

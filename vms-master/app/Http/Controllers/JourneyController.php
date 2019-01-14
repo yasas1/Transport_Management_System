@@ -700,7 +700,9 @@ class JourneyController extends Controller
 
             if(Auth::user()->role_id == 4){ // fo driver
 
-                $driverId = Driver::where('emp_id','=',$userlogid)->first()->id; // driver id
+                $email = Auth::user()->email;
+
+                $driverId = Driver::where('email','=',$email)->first()->id; // driver id
                 
                 $journeys = Journey::where('journey_status_id','=','6')
                 ->where('driver_id','=',$driverId)
