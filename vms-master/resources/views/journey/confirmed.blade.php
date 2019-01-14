@@ -269,7 +269,14 @@
                     $('#driver_name').html(details[3]);
                     $('#appl_name').html(details[4]);
                     $('#appl_dept').html(details[5]);
-                    $('#appl_email').html(details[6]);
+                    if(details[6] != ''){
+                        $('#appl_email').html(details[6]+'@ucsc.cmb.ac.lk');
+                    }
+                    else{
+                        $('#appl_email').html(''); 
+                    }
+                    console.log(details[6]);
+                    console.log(details[5]);
                     $('#devisional_head').html(details[7]);
                     $('#approved_by').html(details[8]);
                     $('#approved_at').html(details[9]); 

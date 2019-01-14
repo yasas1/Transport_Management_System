@@ -48,7 +48,7 @@ class Employee extends Eloquent
     protected $connection = 'con_employee';
 
 	protected $table = 'employee';
-	protected $primaryKey = 'emp_id';
+	protected $primaryKey = 'r_id';
 	public $incrementing = false;
 	public $timestamps = false;
 
