@@ -47,7 +47,7 @@ class UserController extends Controller
 
             if($employee->emp_state === 'active'){
 
-                if($user = User::where('emp_id','=',$employee->emp_id)->first()){
+                if($user = User::where('emp_id','=',$employee->r_id)->first()){
                     $user->avatar = $gUser->avatar;
                     $user->name = $gUser->name;
                     $user->update();
@@ -55,7 +55,7 @@ class UserController extends Controller
                     return redirect('/home');
                 }else{
                     $user = new User;
-                    $user->emp_id = $employee->emp_id;
+                    $user->emp_id = $employee->r_id;
                     $user->name = $gUser->name;
                     $user->email = $gEmail;
                     $user->avatar = $gUser->avatar;
@@ -126,13 +126,13 @@ class UserController extends Controller
 
         if(Auth::user()->canUpdateUser()){
 
-            if ($employee = Employee::where('emp_id','=',$id)->first()){
+            if ($employee = Employee::where('r_id','=',$id)->first()){
 
-                if ($user = User::where('emp_id','=',$employee->emp_id)->first()){
+                if ($user = User::where('emp_id','=',$employee->r_id)->first()){
 
                 }else{
                     $user = new User;
-                    $user->emp_id = $employee->emp_id;
+                    $user->emp_id = $employee->r_id;
                     $user->role_id = 5;
                     $user->name = $employee->emp_firstname.' '.$employee->emp_surname;
                     $user->email = $employee->emp_email;
@@ -161,7 +161,7 @@ class UserController extends Controller
             if ($employee = Employee::where('emp_id','=',$request->emp_id)->first()){
 
                 if ($user = User::where('emp_id','=',$employee->emp_id)->first()){
-                    $user->emp_id = $employee->emp_id;
+                    $user->emp_id = $employee->r_id;
                     $user->role_id = $request->role_id;
                     $user->email = $employee->emp_email;
                     $user->name = $employee->emp_firstname.' '.$employee->emp_surname;
@@ -169,7 +169,7 @@ class UserController extends Controller
                     $user->update();
                 }else{
                     $user = new User;
-                    $user->emp_id = $employee->emp_id;
+                    $user->emp_id = $employee->r_id;
                     $user->role_id = $request->role_id;
                     $user->email = $employee->emp_email;
                     $user->name = $employee->emp_firstname.' '.$employee->emp_surname;
