@@ -53,7 +53,6 @@ class Employee extends Eloquent
 	public $timestamps = false;
 
 	protected $casts = [
-		'r_id' => 'int',
 		'increament_scale' => 'int',
 		'emp_comment' => 'int'
 	];
@@ -66,7 +65,6 @@ class Employee extends Eloquent
 	];
 
 	protected $fillable = [
-		'r_id',
 		'emp_email',
 		'fp_id',
 		'emp_fullname',
