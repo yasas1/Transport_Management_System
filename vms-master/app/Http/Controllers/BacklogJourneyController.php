@@ -113,7 +113,7 @@ class BacklogJourneyController extends Controller
             $approvedID = $request->approved_by;
 
                     /* Sending email -- send from webmaster email -- check after uploaded to sever */
-            $emailAddress = Employee::where('emp_id','=',$approvedID)->first()->emp_email.'@ucsc.cmb.ac.lk';
+            $emailAddress = Employee::where('r_id','=',$approvedID)->first()->emp_email.'@ucsc.cmb.ac.lk';
             //$emailAddress= 'ranawaka.y@gmail.com'; // for testing 
 
             $place= 'PLACE --  '.$journey->places_to_be_visited;
@@ -129,7 +129,7 @@ class BacklogJourneyController extends Controller
         else{
             $divisional_head_id = $request->divisional_head_id;
 
-            $emailAddress = Employee::where('emp_id','=',$divisional_head_id)->first()->emp_email.'@ucsc.cmb.ac.lk';
+            $emailAddress = Employee::where('r_id','=',$divisional_head_id)->first()->emp_email.'@ucsc.cmb.ac.lk';
             //$emailAddress= 'ranawaka.y@gmail.com'; // for testing 
 
             $place= 'PLACE --  '.$journey->places_to_be_visited;
@@ -160,7 +160,7 @@ class BacklogJourneyController extends Controller
     public function readBcaklogJourney(){ 
             // for creating Backlog journey calender view '
         $journeys = DB::table('journey')
-        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
+        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.r_id')
         ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
         ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
         ->where('journey_status_id','=','8')
@@ -172,7 +172,7 @@ class BacklogJourneyController extends Controller
     public function readExternalBacklog(){ 
             // for Backlog journey calender view External vehicle journeys' 
         $journeys = DB::table('journey')
-        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
+        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.r_id')
         ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
         ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
         ->where('vehical_id','=',NULL)->where('journey_status_id','=','8')
@@ -185,7 +185,7 @@ class BacklogJourneyController extends Controller
         $vid = $_GET['id'];
         //$journeys = Journey::journeyByVehicle($vid); 
         $journeys = DB::table('journey')
-        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
+        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.r_id')
         ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
         ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
         ->where('vehical_id','=',$vid)->where('journey_status_id','=','8')
