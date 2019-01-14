@@ -28,6 +28,8 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('/token_login/{email}/{token}','UserController@tokenLogin');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
