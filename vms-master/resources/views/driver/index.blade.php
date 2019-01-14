@@ -76,11 +76,12 @@
                                 @endif
                             </div>
                             <div class="card-body">
-                                <h4 class="card-title text-center">{{$driver->initials?$driver->initials.' '.$driver->surname:''}}</h4>
-                                <p class="card-text text-center">NIC: {{$driver->nic?$driver->nic:''}}</p>
-                                <p class="card-text text-center">Mobile No: {{$driver->mobile?$driver->mobile:''}}</p>
-                                <p class="card-text text-center">Licence No: {{$driver->licence_no?$driver->licence_no:''}}</p>
-                                <p class="card-text text-center">Licence Expire Date: {{$driver->licence_expire_date?$driver->licence_expire_date->formatLocalized('%d %B %Y').' ( '.$driver->licence_expire_date->diffForHumans().' )':''}}</p>
+                                <h3 class="card-title text-center">{{$driver->initials?$driver->initials.' '.$driver->surname:''}}</h3>
+                                <h4 class="card-title text-center">Email:&nbsp {{$driver->email?$driver->email.'@ucsc.cmb.ac.lk':''}}</h4>
+                                <p class="card-text text-center">NIC:&nbsp {{$driver->nic?$driver->nic:''}}</p>
+                                <p class="card-text text-center">Mobile No:&nbsp {{$driver->mobile?$driver->mobile:''}}</p>
+                                <p class="card-text text-center">Licence No:&nbsp {{$driver->licence_no?$driver->licence_no:''}}</p>
+                                <p class="card-text text-center">Licence Expire Date:&nbsp {{$driver->licence_expire_date?$driver->licence_expire_date->formatLocalized('%d %B %Y').' ( '.$driver->licence_expire_date->diffForHumans().' )':''}}</p>
                                 <a href="{{url('/driver/'.$driver->id.'/edit')}}" class="btn btn-success btn-large">Edit Driver Details</a>
                             </div>
                         </div>
