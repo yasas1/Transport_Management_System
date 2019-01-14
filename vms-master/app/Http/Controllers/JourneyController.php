@@ -178,7 +178,7 @@ class JourneyController extends Controller
             // for Confirmation journey calender view
         //$journeys = Journey::notConfirmed();
         $journeys = DB::table('journey')
-        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.emp_id')
+        ->join('employee.employee as db2', 'journey.applicant_id', '=', 'db2.r_id')
         ->join('journey_status', 'journey.journey_status_id', '=', 'journey_status.id')
         ->select('journey.*','journey_status.name as status', 'db2.emp_title', 'db2.emp_firstname', 'db2.emp_surname')
         ->where('journey_status_id','=','2')
@@ -464,7 +464,7 @@ class JourneyController extends Controller
         $devHead_id =$request->divisional_head_id;
 
             /*  Divisional head Email */
-        $emailAddress = Employee::where('emp_id','=',$devHead_id)->first()->emp_email.'@ucsc.cmb.ac.lk';
+        $emailAddress = Employee::where('r_id','=',$devHead_id)->first()->emp_email.'@ucsc.cmb.ac.lk';
         //$emailAddress= 'ranawaka.y@gmail.com'; //test
 
         $place= 'PLACE --  '.$journey->places_to_be_visited;

@@ -128,21 +128,21 @@ class Journey extends Eloquent
 
     public function applicant()
     {
-        return $this->belongsTo(\App\Models\Employee::class,'applicant_id','emp_id');
+        return $this->belongsTo(\App\Models\Employee::class,'applicant_id','r_id');
     }
 
     public function divisional_head()
     {
-        return $this->belongsTo(\App\Models\Employee::class,'divisional_head_id','emp_id');
+        return $this->belongsTo(\App\Models\Employee::class,'divisional_head_id','r_id');
     }
 
     public function approvedBy()
     {
-        return $this->belongsTo(\App\Models\Employee::class,'approved_by','emp_id');
+        return $this->belongsTo(\App\Models\Employee::class,'approved_by','r_id');
     }
 
     public function confirmedBy(){
-        return $this->belongsTo(\App\Models\Employee::class,'confirmed_by','emp_id');
+        return $this->belongsTo(\App\Models\Employee::class,'confirmed_by','r_id');
     }
 
     public static function notApproved(){
