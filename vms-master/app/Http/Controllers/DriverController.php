@@ -70,7 +70,6 @@ class DriverController extends Controller
             'nic'=>'required',
             'licence_no'=>'required',
             'mobile'=>'required',
-            'email'=>'email',
 
         ],[
             'title_id.required'=>'Driver title is required.'
