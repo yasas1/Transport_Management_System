@@ -739,6 +739,60 @@
 
     });
 
+        /* one Tyre Replacement view click event */
+    $(document).on('click','#view_replace',function(e){
+        var id = $(this).data('id'); //get annual licence id
+
+        $.ajax({
+            url: '/vehicle/viewTyreReplacement/{id}',
+            type: 'GET',
+            data: { id: id },
+            success: function(data)
+            {
+                console.log(data);
+                    /* set values to html tag for view */  
+                // $('#view-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+"Annual Licence" );
+                // $('#period-from').html(data[0].from );
+                // $('#period-to').html(data[0].to ); 
+                // $('#licensing_authority').html(data[0].licensing_authority );  
+                // $('#licence_no').html(data[0].licence_no);
+                // $('#licence_date').html(data[0].licence_date);
+                // $('#amount').html(data[0].amount); 
+                // $('#view_emission_test_details').html(data[0].emission_test_details);
+
+                //     /* check that is there a document for licence */
+                // if(data[0].annual_licence_doc_id == null){
+                //     $('#document_view').hide(); //hide document download button
+                // }
+                // else{
+                //     $('#document_view').show(); //show document download button__(there is a document)
+                //     $('#document_download').attr("href","/"+data[0].doc_path);
+                //     $('#document_download').attr("download",data[0].doc_name);
+                //     $('#doc_name').html(data[0].doc_name);
+                // }
+
+                // if(data[0].emission_test_doc_id == null){
+                //     $('#emi_document_download').hide(); //hide document download button
+                // }
+                // else{
+                //     $('#emi_document_download').show(); //show document download button__(there is a document)
+                //     $('#emi_document_download').attr("href","/"+data[0].emi_doc_path);
+                //     $('#emi_document_download').attr("download",data[0].emi_doc_name);
+                //     $('#emi_doc_name').html(data[0].emi_doc_name);
+                // }
+   
+            },
+            error: function(xhr, textStatus, error){
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
+            }
+        });
+            //show view modal
+        //$("#view-modal").modal('show');
+
+    });
+
         /* Editing Tyre Position Changing */
     $(document).on('click','#edit_posChange',function(e){
         var id = $(this).data('id');

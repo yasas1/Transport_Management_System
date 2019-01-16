@@ -228,7 +228,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::post('/vehicle/deleteRepaire','VehicleUsageController@deleteRepaire')->name('repaire.delete'); 
     Route::post('/vehicle/repair/update','VehicleUsageController@updateRepair');
 
-        /* Vehicle Repairs */
+        /* Vehicle Tyres */
     Route::get('/vehicle/tyres','VehicleUsageController@viewTyresPage'); 
     Route::post('/vehicle/storeTyreReplacement','VehicleUsageController@storeTyreReplacement');
     Route::post('/vehicle/storeTyrePositionChange','VehicleUsageController@storeTyrePositionChange');

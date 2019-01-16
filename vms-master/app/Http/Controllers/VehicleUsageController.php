@@ -762,14 +762,24 @@ class VehicleUsageController extends Controller
     public function viewTyreReplacement(){
 
         $id = $_GET['id'];
+         
         
-        $tyreReplaces = DB::table('tyre_replaces')
-        ->join('vehical', 'tyre_replaces.vehical_id', '=', 'vehical.id') // join vehicle for get vehicle name
-        ->select('tyre_replaces.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
-        ->where('tyre_replaces.id','=',$id)
-        ->get();      
+        if($annualLicence->annual_licence_doc_id == null && $annualLicence->emission_test_doc_id == null ){
+            $tyreReplaces = DB::table('tyre_replaces')
+            ->join('vehical', 'tyre_replaces.vehical_id', '=', 'vehical.id') // join vehicle for get vehicle name
+            ->select('tyre_replaces.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
+            ->where('tyre_replaces.id','=',$id)
+            ->get();      
+        }
+        else{
+            $tyreReplaces = DB::table('tyre_replaces')
+            ->join('vehical', 'tyre_replaces.vehical_id', '=', 'vehical.id') // join vehicle for get vehicle name
+            ->join('tyre_replaces_doc', 'tyre_replaces.tyre_replace_doc_id', '=', 'tyre_replaces_doc.id') 
+            ->select('tyre_replaces.*','tyre_replaces_doc.name as doc_name','tyre_replaces_doc.path as doc_path','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
+            ->where('tyre_replaces.id','=',$id)
+            ->get(); 
+        }
         
-
         return response($tyreReplaces);
 
     }
