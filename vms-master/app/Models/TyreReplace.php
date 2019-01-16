@@ -48,7 +48,7 @@ class TyreReplace extends Eloquent
 		'cost',
 		'invoice',
 		'remarks',
-		'tyre_replaces_doc_id'
+		'tyre_replace_doc_id'
 	];
 
 	public function vehical()

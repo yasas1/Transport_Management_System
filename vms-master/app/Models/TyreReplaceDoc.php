@@ -16,6 +16,6 @@ class TyreReplaceDoc extends Model
 
 	public function tyreReplace()
 	{
-		return $this->hasOne(\App\Models\TyreReplace::class,'tyre_replaces_doc_id');
+		return $this->hasOne(\App\Models\TyreReplace::class,'tyre_replace_doc_id');
 	}
 }

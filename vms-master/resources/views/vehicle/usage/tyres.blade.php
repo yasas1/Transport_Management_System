@@ -33,7 +33,7 @@
             <div class="active tab-pane" id="replacement">
 
                 <div class="row"> 
-                    {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeTyreReplacement']) !!}
+                    {!! Form::open(['method' => 'post','action'=>'VehicleUsageController@storeTyreReplacement','files'=>true]) !!}
                     <div class="col-md-4"> 
     
                         <h4><i class="fa fa-car"></i>&nbsp Vehicle </h4>
@@ -349,7 +349,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <form action="{{ URL::to('/vehicle/tyreReplacement/update')}}" method="POST" id="replacement_edit">
+                    <form action="{{ URL::to('/vehicle/tyreReplacement/update')}}" method="POST" id="replacement_edit" enctype="multipart/form-data">
                         {{csrf_field()}}
                     <input type="hidden" name="id" id="replacement_id">
 

@@ -14,6 +14,7 @@ use App\Models\Driver;
 use App\Models\Journey;
 use App\Models\AnnualLicence;
 use App\Models\AnnualLicenceDoc;
+use App\Models\TyreReplaceDoc;
 use App\Models\EmissionTestDoc;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -738,6 +739,7 @@ class VehicleUsageController extends Controller
         ->join('vehical', 'tyre_replaces.vehical_id', '=', 'vehical.id') // join vehicle for get vehicle name
         ->select('tyre_replaces.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
         ->where('vehical_id','=',$vid)
+        ->orderBy('tyre_replaces.date','DESC')
         ->get();
 
         return view('vehicle.usageList.tyreReplaceList',compact('tyreReplaces'));
@@ -783,6 +785,36 @@ class VehicleUsageController extends Controller
             $tyreReplace->cost = $request->cost;
             $tyreReplace->invoice = $request->invoice;
             $tyreReplace->remarks = $request->remarks;
+
+            if ($request->hasFile('invoice_file')) {
+
+                $invoice_file = $request->file('invoice_file');
+                $extension =  '.'.$invoice_file->getClientOriginalExtension();
+                $oName = $invoice_file->getClientOriginalName();
+                $name = md5($oName.Carbon::now()).$extension;
+
+                $path =  $invoice_file->move('documents/tyreInvoiceFile',$name);
+
+                if($tyreReplace->tyreReplaceDoc && $invoice_file = TyreReplaceDoc::whereId($tyreReplace->tyreReplaceDoc->id)->first()){
+                    $invoice_file->name = $oName;
+                    $invoice_file->path = $path;
+                    $invoice_file->update();
+                }else{
+                    $invoice_file = new AnnualLicenceDoc;
+                    $invoice_file->path = $path;
+                    $invoice_file->name = $oName;
+                    $invoice_file->save();
+                }
+
+
+                if($tyreReplace->tyreReplaceDoc){
+                    $oldinvoice_file = $tyreReplace->tyreReplaceDoc->path;
+                    if(file_exists($oldinvoice_file)){
+                        unlink(public_path().'/'. $oldinvoice_file);
+                    }
+                }
+                $tyreReplace->tyreReplaceDoc()->associate($invoice_file);
+            }
 
             $tyreReplace->update();
 
