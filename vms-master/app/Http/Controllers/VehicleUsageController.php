@@ -837,6 +837,19 @@ class VehicleUsageController extends Controller
 
             $tyreReplace->delete();
 
+            if($invoice_doc_id = $tyreReplace->tyre_replaces_doc_id){
+                         
+                $oldinvoice_file = $tyreReplace->tyreReplaceDoc->path;
+                
+                if( file_exists(public_path($oldinvoice_file)) ){
+                    unlink(public_path().'/'. $oldinvoice_file);
+                }
+
+                $invoice_doc = TyreReplaceDoc::whereId($invoice_doc_id)->first();
+                $invoice_doc->delete();
+
+            }
+
             Session::flash('success', 'Vehicle Tyre Replacement Deleted successfully !');
             return View::make('layouts/success');
 
