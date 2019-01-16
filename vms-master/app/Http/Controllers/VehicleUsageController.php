@@ -753,6 +753,7 @@ class VehicleUsageController extends Controller
         ->join('vehical', 'tyre_position_changes.vehical_id', '=', 'vehical.id') // join vehicle for get vehicle name
         ->select('tyre_position_changes.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
         ->where('vehical_id','=',$vid)
+        ->orderBy('tyre_position_changes.date','DESC')
         ->get();
 
         return view('vehicle.usageList.tyrePositionChangeList',compact('tyrePositionChanges'));
@@ -800,7 +801,7 @@ class VehicleUsageController extends Controller
                     $invoice_file->path = $path;
                     $invoice_file->update();
                 }else{
-                    $invoice_file = new AnnualLicenceDoc;
+                    $invoice_file = new TyreReplaceDoc;
                     $invoice_file->path = $path;
                     $invoice_file->name = $oName;
                     $invoice_file->save();
@@ -869,7 +870,7 @@ class VehicleUsageController extends Controller
 
             $tyreReplace->delete();
 
-            if($invoice_doc_id = $tyreReplace->tyre_replaces_doc_id){
+            if($invoice_doc_id = $tyreReplace->tyre_replace_doc_id){
                          
                 $oldinvoice_file = $tyreReplace->tyreReplaceDoc->path;
                 

@@ -436,7 +436,13 @@
             
                             <div>  
                                 {!! Form::text('invoice',null,['class'=>'form-control','placeholder'=>'Invoice Number','id'=>'edit_invoice' ]) !!}                      
-                            </div>                      
+                            </div>   
+
+                            <h4> <i class="glyphicon glyphicon-upload"></i>&nbsp Invoice File Upload &nbsp(Optinal)</h4> 
+                            <div>
+                                <input type="file" name="invoice_file" class="btn btn-default" id="edit_invoice_file" > <br>
+                            </div> 
+
                         </div> 
         
                     </div><br>
@@ -708,17 +714,22 @@
         $('#replacement_edit').on('submit',function(e){
             e.preventDefault();
             var url = $(this).attr('action');
-            var data = $(this).serialize();
+            //var data = $(this).serialize();
             $.ajax({
                 url: url,
                 type: 'POST',
-                data: data,
+                data: new FormData(this),
+                cache:false,
+                contentType:false,
+                processData:false,
                 success: function(data)
                 {           
                     $('#replacement_edit_modal').modal('hide');  
                     $('#flash_message').html(data);
                         /* refresh data table in the view */
-                    readTyreReplacement(vid);      
+                    readTyreReplacement(vid);    
+
+                    $("#edit_invoice_file").val("");  
                 },
                 error: function(xhr, textStatus, error){
                     console.log(xhr.statusText);
