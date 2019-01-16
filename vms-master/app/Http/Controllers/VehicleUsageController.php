@@ -692,6 +692,8 @@ class VehicleUsageController extends Controller
             'vehical_id' => 'required',
             'position_one_pre' => 'required',
             'position_one_after' => 'required',
+            'position_two_pre' => 'required',
+            'position_two_after' => 'required',
             'date' => 'required'
         ]);
 

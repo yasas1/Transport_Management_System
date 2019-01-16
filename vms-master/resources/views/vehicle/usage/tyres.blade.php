@@ -231,10 +231,10 @@
        
                     <div class="col-md-4 ">  
                         <p>&nbsp Position One Previous </p>                          
-                        {{Form::select('position_one_pre',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position'])}} <br> 
+                        {{Form::select('position_one_pre',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position','required'])}} <br> 
                            
                         <p>&nbsp Position Two Previous </p>                          
-                        {{Form::select('position_two_pre',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position'])}}
+                        {{Form::select('position_two_pre',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position','required'])}}
 
                     </div>
                     
@@ -243,10 +243,10 @@
 
                     <div class="col-md-4 ">   
                         <p>&nbsp Position One After </p> 
-                        {{Form::select('position_one_after',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','exclude'=>'Exclude'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position'])}}   <br> 
+                        {{Form::select('position_one_after',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','exclude'=>'Exclude'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position','required'])}}   <br> 
                         
                         <p>&nbsp Position Two After </p> 
-                        {{Form::select('position_two_after',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','exclude'=>'Exclude'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position'])}}   
+                        {{Form::select('position_two_after',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','exclude'=>'Exclude'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position','required'])}}   
                                      
                     </div><br> 
 

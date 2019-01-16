@@ -29,7 +29,6 @@ class Service extends Eloquent
 
 	protected $casts = [
 		'vehical_id' => 'int',
-		'meter_reading' => 'float'
 	];
 
 	// protected $dates = [
