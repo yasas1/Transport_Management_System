@@ -29,13 +29,7 @@
                     <p class="help-block">Select a vehicle photo (max 500kb)</p>
                 </div>
             </div> 
-            
-            <div class="box-body">
-                <h4><i class="glyphicon glyphicon-th"></i>&nbsp Journey Color For Vehicle </h4>  
-                <div class="form-group">
-                    <input name="journey_color" autocomplete="off" class="jscolor" value="2A6AD7">       
-                </div>
-            </div>
+
             <div class="box-body"> 
 
                 <h4><i class="fa fa-user"></i>&nbsp Assign Driver <span class="text text-danger">*</span> </h4>  
@@ -47,12 +41,28 @@
 
             <div class="box-body"> 
 
+                <h4><i class="fas fa-tachometer-alt"></i> Starting Meter Reading &nbsp (km) <span class="text text-danger">*</span> </h4>  
+
+                <div>                       
+                    {{Form::number('starting_meter_reading',null,['class'=>'form-control','placeholder'=>'Starting Meter Reading ','required'])}}
+                </div>                      
+            </div> <br>
+
+            <div class="box-body"> 
+
                 <h4><i class="fas fa-tachometer-alt"></i> Mileage for Service &nbsp (km) <span class="text text-danger">*</span> </h4>  
 
                 <div>                       
                     {{Form::number('mileage_service',null,['class'=>'form-control','placeholder'=>'Mileage for Service','required'])}}
                 </div>                      
             </div> <br>
+
+            <div class="box-body">
+                <h4><i class="glyphicon glyphicon-th"></i>&nbsp Journey Color For Vehicle </h4>  
+                <div class="form-group">
+                    <input name="journey_color" autocomplete="off" class="jscolor" value="2A6AD7">       
+                </div>
+            </div>
 
         </div>
     </div>

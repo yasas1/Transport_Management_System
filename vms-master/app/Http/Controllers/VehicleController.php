@@ -83,7 +83,10 @@ class VehicleController extends Controller
         }
         $vehicle->journey_color = $request->journey_color;
         $vehicle->driver_id = $request->driver_id; // driver id 
-        $vehicle->mileage_service = $request->mileage_service;
+
+        $vehicle->mileage_service = $request->mileage_service; 
+        $vehicle->starting_meter_reading = $request->starting_meter_reading;
+
         $vehicle->registration_no = $request->registration_no;
         $vehicle->dept_no = $request->dept_no;
         $vehicle->date_of_registration = $request->date_of_registration;
@@ -201,7 +204,10 @@ class VehicleController extends Controller
 
             $vehicle->journey_color = $request->journey_color;
             $vehicle->driver_id = $request->driver_id;
+            
             $vehicle->mileage_service = $request->mileage_service;
+            $vehicle->starting_meter_reading = $request->starting_meter_reading;
+
             $vehicle->name = $request->name;
             $vehicle->registration_no = $request->registration_no;
             $vehicle->dept_no = $request->dept_no;

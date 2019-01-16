@@ -55,25 +55,39 @@
                 <input name="journey_color" class="jscolor" value={{$vehicle->journey_color}}> 
                 
             </div>
-            <div class="form-group"> 
+            <div class="row"> 
 
-                <label>Assign Driver <span class="text text-danger">*</span></label>
+                <div class="col-md-4 form-group"> 
 
-                <div>  
-                    {{Form::select('driver_id',$drivers,null,['class'=>'form-control '])}}                     
-                </div>   
+                    <label>Assign Driver <span class="text text-danger">*</span></label>
+    
+                    <div>  
+                        {{Form::select('driver_id',$drivers,null,['class'=>'form-control '])}}                     
+                    </div>   
+    
+                </div> 
+            
+                <div class="col-md-4 form-group"> 
+    
+                    <label>Starting Meter Reading &nbsp (km) <span class="text text-danger">*</span></label>
+    
+                    <div>  
+                        {{Form::number('starting_meter_reading',null,['class'=>'form-control','placeholder'=>'Starting Meter Reading','required'])}}                   
+                    </div>   
+    
+                </div> 
+            
+                <div class="col-md-4 form-group"> 
+    
+                    <label>Mileage for Service &nbsp (km) <span class="text text-danger">*</span></label>
+    
+                    <div>  
+                        {{Form::number('mileage_service',null,['class'=>'form-control','placeholder'=>'Mileage for Service','required'])}}                   
+                    </div>   
+            
+                </div> <br>
 
-            </div> <br>
-
-            <div class="form-group"> 
-
-                <label>Mileage for Service &nbsp (km) <span class="text text-danger">*</span></label>
-
-                <div>  
-                    {{Form::number('mileage_service',null,['class'=>'form-control','placeholder'=>'Mileage for Service','required'])}}                   
-                </div>   
-
-            </div> <br>
+            </div>
 
             <div class="form-group">
                 <label for="number">Registration No <span class="text text-danger">*</span></label>
