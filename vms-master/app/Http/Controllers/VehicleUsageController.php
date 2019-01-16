@@ -763,8 +763,9 @@ class VehicleUsageController extends Controller
 
         $id = $_GET['id'];
          
+        $tyreReplace = TyreReplace::find($id);
         
-        if($annualLicence->annual_licence_doc_id == null && $annualLicence->emission_test_doc_id == null ){
+        if($tyreReplace->tyre_replace_doc_id == null){
             $tyreReplaces = DB::table('tyre_replaces')
             ->join('vehical', 'tyre_replaces.vehical_id', '=', 'vehical.id') // join vehicle for get vehicle name
             ->select('tyre_replaces.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')

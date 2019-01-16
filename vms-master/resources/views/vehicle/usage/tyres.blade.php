@@ -564,7 +564,7 @@
         </div>
     </div>
 
-        {{----------------------- Tyre Replacement Delete Confirmation modal --------------------------}}
+                {{----------------------- Tyre Replacement Delete Confirmation modal --------------------------}}
     <div class="modal fade" id="replacement_delete_modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -585,7 +585,7 @@
         </div>
     </div>
 
-    {{----------------------- Tyre Position Changing Delete Confirmation modal --------------------------}}
+                {{----------------------- Tyre Position Changing Delete Confirmation modal --------------------------}}
     <div class="modal fade" id="posChange_delete_modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -605,6 +605,119 @@
             </div>
         </div>
     </div>
+
+                {{----------------------- Tyre Replacement View modal --------------------------}}
+    <div class="modal fade" id="view_modal_replace" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+    
+                        <i style="font-size:25px; color:gray" class="fa fa-car"></i>&nbsp  <label class="modal-title" id="view_title_replace" style="font-size:25px; color:gray;"> </label> 
+    
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+    
+                            <div class="row"> 
+
+                                    <div class="col-md-6"> 
+                        
+                                        <h4><i class="fa fa-calendar"></i>&nbsp Date </h4>
+                                                                            
+                                        <p id="view_replace_date"> </p>   
+                                
+                                    </div>
+                                    
+                                    <div class="col-md-6"> 
+                
+                                        <h4><i class="fas fa-puzzle-piece"></i>&nbsp Position </h4>  
+                        
+                                        <p id="view_replace_position"> </p>   
+                
+                                    </div>
+                                    
+                                </div><br>
+                
+                                <div class="row"> 
+            
+                                    <div class="col-md-6"> 
+                    
+                                        <h4> <i class="fas fa-arrows-alt-h"></i> &nbsp Tyre Size </h4>  
+                        
+                                        <p id="view_replace_size"> </p>   
+
+                                    </div>
+                    
+                                    <div class="col-md-6"> 
+                    
+                                        <h4><i class="fas fa-cube"></i> &nbsp Brand of Tyre </h4>  
+                        
+                                        <p id="view_replace_type"> </p>                        
+                                    </div> 
+                    
+                                </div><br>
+                                
+                                <div class="row"> 
+                    
+                                    <div class="col-md-6"> 
+                    
+                                        <h4><i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading </h4>  
+                        
+                                        <p id="view_replace_meter_reading"> </p>   
+
+                                    </div>   
+                                </div><br>
+            
+                                <div class="row"> 
+            
+                                    <div class="col-md-4"> 
+                
+                                        <h4><i class="fas fa-puzzle-piece"></i>&nbsp Cost </h4>  
+                        
+                                        <p id="view_replace_cost"> </p>   
+                
+                                    </div>
+                    
+                                    <div class="col-md-2"> 
+                    
+                                                            
+                                    </div>
+                    
+                                    <div class="col-md-4"> 
+                    
+                                        <h4><i class="fas fa-cube"></i> &nbsp Invoice </h4>  
+                        
+                                        <p id="view_replace_invoice"> </p>    
+            
+                                        <h4> <i class="glyphicon glyphicon-upload"></i>&nbsp Invoice File Upload &nbsp(Optinal)</h4> 
+                                        <div>
+                                            <input type="file" name="invoice_file" class="btn btn-default" id="edit_invoice_file" > <br>
+                                        </div> 
+            
+                                    </div> 
+                    
+                                </div><br>
+                
+                                <div class="row"> 
+                    
+                                    <div class="col-md-6"> 
+                    
+                                        <h4> <i class="fas fa-align-justify"></i> &nbsp Remarks </h4>  
+                        
+                                        <p id="view_replace_remarks"> </p>                     
+                                    </div>  
+                
+                                </div><br>
+    
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary active" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>  
 
 
 @endsection
@@ -789,7 +902,7 @@
             }
         });
             //show view modal
-        //$("#view-modal").modal('show');
+        $("#view_modal_replace").modal('show');
 
     });
 
