@@ -102,7 +102,9 @@
                                                 <dt>Division</dt>
                                                 <dd>{{$journey->applicant->division->dept_name}}</dd>
                                                 <dt>Email</dt>
-                                                <dd>{{$journey->applicant->emp_email}}</dd>
+                                                @if($journey->applicant->emp_email != null)
+                                                <dd>{{$journey->applicant->emp_email.'@ucsc.cmb.ac.lk'}}</dd>
+                                                @endif
                                             </dl>
                                             <dl class="dl-horizontal">
                                                 <h4>Resources</h4>

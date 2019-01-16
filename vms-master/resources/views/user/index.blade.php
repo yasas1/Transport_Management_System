@@ -66,7 +66,7 @@
                             </td>
 
                             @if(Auth::user()->canUpdateUser())
-                                <td><a href="{{url('/user/'.$user->emp_id.'/edit')}}" class="btn btn-primary">Edit</a></td>
+                                <td><a href="{{url('/user/'.$user->r_id.'/edit')}}" class="btn btn-primary">Edit</a></td>
                             @endif
 
                         </tr>

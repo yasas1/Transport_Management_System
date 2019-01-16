@@ -51,7 +51,7 @@ class Driver extends Eloquent
 		'licence_no',
 		'mobile',
 		'licence_expire_date',
-		'emp_id'
+		'email'
 	];
 
 	public function title()

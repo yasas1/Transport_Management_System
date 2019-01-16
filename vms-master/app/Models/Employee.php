@@ -48,12 +48,11 @@ class Employee extends Eloquent
     protected $connection = 'con_employee';
 
 	protected $table = 'employee';
-	protected $primaryKey = 'emp_id';
+	protected $primaryKey = 'r_id';
 	public $incrementing = false;
 	public $timestamps = false;
 
 	protected $casts = [
-		'r_id' => 'int',
 		'increament_scale' => 'int',
 		'emp_comment' => 'int'
 	];
@@ -66,7 +65,6 @@ class Employee extends Eloquent
 	];
 
 	protected $fillable = [
-		'r_id',
 		'emp_email',
 		'fp_id',
 		'emp_fullname',
