@@ -87,7 +87,7 @@
     
                     <div class="col-md-4"> 
     
-                        <h4><i class="fas fa-cube"></i> &nbsp Tyre Type/Mode </h4>  
+                        <h4><i class="fas fa-cube"></i> &nbsp Brand of Tyre </h4>  
         
                         <div>  
                             {!! Form::text('type',null,['class'=>'form-control','placeholder'=>'Type' ]) !!}                      
@@ -124,11 +124,18 @@
     
                     <div class="col-md-4"> 
     
-                        <h4><i class="fas fa-cube"></i> &nbsp Invoice </h4>  
+                        <h4><i class="fas fa-cube"></i> &nbsp Invoice Number </h4>  
         
                         <div>  
                             {!! Form::text('invoice',null,['class'=>'form-control','placeholder'=>'Invoice Number' ]) !!}                      
-                        </div>                      
+                        </div> 
+                        
+                        <h4> <i class="glyphicon glyphicon-upload"></i>&nbsp Invoice File Upload &nbsp(Optinal)</h4>  
+
+                        <div>
+                            {{Form::file('invoice_file',['class'=>'btn btn-default'])}}  
+                        
+                        </div> 
                     </div> 
     
                 </div><br>

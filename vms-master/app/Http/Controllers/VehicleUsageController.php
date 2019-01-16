@@ -680,8 +680,25 @@ class VehicleUsageController extends Controller
         $tyreReplace->cost = $request->cost;
         $tyreReplace->invoice = $request->invoice;
         $tyreReplace->remarks = $request->remarks;
+
+        if ($request->hasFile('invoice_file')) {
+
+            $invoice_file = $request->file('invoice_file');
+            $extension =  '.'.$invoice_file->getClientOriginalExtension();
+            $oName = $invoice_file->getClientOriginalName();
+            $name = $request->registration_no.md5($oName.Carbon::now()).$extension;
+
+            $path =  $invoice_file->move('documents/tyreInvoiceFile',$name);
+
+            $invoice_file = new TyreReplaceDoc;
+            $invoice_file->path = $path;
+            $invoice_file->name = $oName;
+            $invoice_file->save();
+
+            $tyreReplace->tyreReplaceDoc()->associate($invoice_file);
+        }
        
-       // $tyreReplace->save(); 
+        $tyreReplace->save(); 
 
         return redirect()->back()->with(['success'=>'Tyre Replacement Added Successfully !']);
     }

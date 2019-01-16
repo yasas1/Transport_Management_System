@@ -47,11 +47,17 @@ class TyreReplace extends Eloquent
 		'meter_reading',
 		'cost',
 		'invoice',
-		'remarks'
+		'remarks',
+		'tyre_replaces_doc_id'
 	];
 
 	public function vehical()
 	{
 		return $this->belongsTo(\App\Models\Vehical::class);
+	}
+
+	public function tyreReplaceDoc()
+	{
+		return $this->belongsTo(\App\Models\TyreReplaceDoc::class);
 	}
 }
