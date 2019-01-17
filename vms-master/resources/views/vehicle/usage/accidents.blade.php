@@ -234,9 +234,9 @@
                         </div>
 
                         <div class="col-md-6">
-                            <h4 class="modal-title" > <i class="fa fa-drivers-license"></i>&nbsp Action Taken Against Driver</h4>
+                            <h4 class="modal-title" > <i class="fa fa-drivers-license"></i>&nbsp Description of Accident</h4>
                             <dl class="col-md-offset-2">
-                                <p style="font-size:16px" id="view_action_taken_against_driver"> test </p>                        
+                                <p style="font-size:16px" id="view_description_of_accident"> test </p>                        
                             </dl>
                          </div>
                     
@@ -245,7 +245,7 @@
                     
                     <div class="row">
                         <div class="col-md-6">
-                            <h4 class="modal-title" > <i class="fas fa-shield-alt"></i>&nbsp Police Station (Entry Lodged)</h4>
+                            <h4 class="modal-title" > <i class="fas fa-shield-alt"></i>&nbsp Details of Police Station</h4>
                                 
                             <p style="font-size:16px" class="col-md-offset-2" id="view_police_station"> Test</p>                            
                             
@@ -254,7 +254,7 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <h4 class="modal-title" > <i class="fas fa-file-alt"></i>&nbsp Description of Damage</h4>
+                            <h4 class="modal-title" > <i class="fas fa-file-alt"></i>&nbsp Description of Damage and Remarks</h4>
                             <dl class="col-md-offset-2">
                                 <p style="font-size:16px" id="view_description_of_damage"> <p>                        
                             </dl>
@@ -347,17 +347,17 @@
 
                         <div class="col-md-6"> 
         
-                            <h4 class="modal-title" > <i class="fa fa-drivers-license"></i>&nbsp Action Taken Against Driver</h4> 
+                            <h4 class="modal-title" > <i class="fa fa-drivers-license"></i>&nbsp Description of Accident</h4> 
             
                             <div>  
-                                {!! Form::textarea('action_taken_against_driver',null,['class'=>'form-control','id'=>'edit_action_taken_against_driver','rows'=>'2'  ]) !!}                      
+                                {!! Form::textarea('description_of_accident',null,['class'=>'form-control','id'=>'edit_description_of_accident','rows'=>'2'  ]) !!}                      
                             </div>                      
                         </div> 
 
                         <div class="col-md-6">
-                            <h4 class="modal-title" > <i class="fas fa-file-alt"></i>&nbsp Description of Damage</h4> 
+                            <h4 class="modal-title" > <i class="fas fa-file-alt"></i>&nbsp Description of Damage and Remarks</h4> 
                             <div>
-                                {!! Form::textarea('description_of_damage',null,['class'=>'form-control','id'=>'edit_description_of_damage','rows'=>'2'  ]) !!}
+                                {!! Form::textarea('description_of_damage_and_remarks',null,['class'=>'form-control','id'=>'edit_description_of_damage','rows'=>'2'  ]) !!}
                             </div> 
                         </div>
     
@@ -443,9 +443,9 @@
                 $('#view_date').html(data[0].date );
                 $('#view_place').html(data[0].place );
                 $('#view_driver').html(data[0].title+" "+data[0].firstname+" "+data[0].surname ); 
-                $('#view_action_taken_against_driver').html(data[0].action_taken_against_driver );  
-                $('#view_police_station').html(data[0].police_station);
-                $('#view_description_of_damage').html(data[0].description_of_damage);
+                $('#view_description_of_accident').html(data[0].description_of_accident );  
+                $('#view_police_station').html(data[0].details_of_police_station);
+                $('#view_description_of_damage').html(data[0].description_of_damage_and_remarks);
                 $('#view_cost_of_repaire').html(data[0].cost_of_repaire); 
                 $('#view_date_of_recovery').html(data[0].date_of_recovery);
    
@@ -515,9 +515,9 @@
                 $('#edit_acDate').val(data[0].date);
                 $('#edit_place').val(data[0].place);    
                 $('#edit_driver').val(data[0].driver_id);
-                $('#edit_police_station').val(data[0].police_station);
-                $('#edit_action_taken_against_driver').val(data[0].action_taken_against_driver);
-                $('#edit_description_of_damage').val(data[0].description_of_damage); 
+                $('#edit_police_station').val(data[0].details_of_police_station);
+                $('#edit_description_of_accident').val(data[0].description_of_accident);
+                $('#edit_description_of_damage').val(data[0].description_of_damage_and_remarks); 
                 $('#edit_cost_of_repaire').val(data[0].cost_of_repaire);
                 $('#edit_date_of_recovery').val(data[0].date_of_recovery);
    

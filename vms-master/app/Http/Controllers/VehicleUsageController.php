@@ -459,7 +459,7 @@ class VehicleUsageController extends Controller
         $accident->cost_of_repaire = $request->cost_of_repaire;
         $accident->date_of_recovery = $request->date_of_recovery;
         $accident->description_of_accident = $request->description_of_accident;
-        $accident->details_of_police_station = $request->police_station;
+        $accident->details_of_police_station = $request->details_of_police_station;
         $accident->driver_id = $request->driver_id;
 
         $accident->save(); 

@@ -4,7 +4,7 @@
         <td> {{$accident->date}} </td>
         <td> {{$accident->place}} </td> 
         <td> {{$accident->title.' '.$accident->firstname.' '.$accident->surname}}</td>
-        <td> {{$accident->description_of_accident}} </td>
+        <td> {{$accident->description_of_damage_and_remarks}} </td>
         <td> 
             <a href="#" class="btn btn-success btn-sm" id="view" data-id="{{$accident->id}}"><i class="fa fa-eye"></i></a>
             <a href="#" class="btn btn-warning btn-sm" id="edit" data-id="{{$accident->id}}"><i class="fa fa-edit"></i></a>
