@@ -238,10 +238,10 @@
        
                     <div class="col-md-4 ">  
                         <p>&nbsp Position One Previous </p>                          
-                        {{Form::select('position_one_pre',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position','required'])}} <br> 
+                        {{Form::select('position_one_pre',array('Front Left' => 'Front Left','Front Right' => 'Front Right','Back Left' => 'Back Left','Back Right' => 'Back Right','Spare Wheel'=>'Spare Wheel'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position','required','id'=>'input_position_one_pre'])}} <br> 
                            
                         <p>&nbsp Position Two Previous </p>                          
-                        {{Form::select('position_two_pre',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position','required'])}}
+                        {{Form::select('position_two_pre',array('Front Left' => 'Front Left','Front Right' => 'Front Right','Back Left' => 'Back Left','Back Right' => 'Back Right','Spare Wheel'=>'Spare Wheel'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position','required','id'=>'input_position_two_pre'])}}
 
                     </div>
                     
@@ -250,10 +250,10 @@
 
                     <div class="col-md-4 ">   
                         <p>&nbsp Position One After </p> 
-                        {{Form::select('position_one_after',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','exclude'=>'Exclude'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position','required'])}}   <br> 
+                        {{Form::select('position_one_after',array('Front Left' => 'Front Left','Front Right' => 'Front Right','Back Left' => 'Back Left','Back Right' => 'Back Right','Spare Wheel'=>'Spare Wheel','Exclude'=>'Exclude'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position','required','id'=>'input_position_one_after'])}}   <br> 
                         
                         <p>&nbsp Position Two After </p> 
-                        {{Form::select('position_two_after',array('front left' => 'Front Left','front right' => 'Front Right','back left' => 'Back Left','Back right' => 'Back Right','spare wheel'=>'Spare Wheel','exclude'=>'Exclude'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position','required'])}}   
+                        {{Form::select('position_two_after',array('Front Left' => 'Front Left','Front Right' => 'Front Right','Back Left' => 'Back Left','Back Right' => 'Back Right','Spare Wheel'=>'Spare Wheel','Exclude'=>'Exclude'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position','required','id'=>'input_position_two_after'])}}   
                                      
                     </div><br> 
 
@@ -750,7 +750,15 @@
                 
             }
         });
-    }
+    } 
+
+    $('#input_position_one_pre').on('change',function () {
+        var pos1 = $(this).val();
+        console.log(pos1);  
+        $("#input_position_one_after option[value='"+pos1+"']").remove();
+
+
+    });
 
         /* View Tyre Replacement on the table*/
     $('#vid_replacement').on('change',function () {
