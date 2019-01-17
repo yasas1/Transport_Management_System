@@ -112,7 +112,7 @@
 
                     <div class="col-md-4"> 
 
-                        <h4><i class="fas fa-puzzle-piece"></i>&nbsp Cost </h4>  
+                        <h4><i class="fas fa-comments-dollar"></i>&nbsp Cost </h4>  
         
                         <div>  
                             {!! Form::text('cost',null,['class'=>'form-control','placeholder'=>'Cost' ]) !!}                       
@@ -130,7 +130,7 @@
                             {!! Form::text('invoice',null,['class'=>'form-control','placeholder'=>'Invoice Number' ]) !!}                      
                         </div> 
                         
-                        <h4> <i class="glyphicon glyphicon-upload"></i>&nbsp Invoice File Upload &nbsp(Optinal)</h4>  
+                        <h4> <i class="glyphicon glyphicon-upload"></i>&nbsp Invoice File Upload &nbsp(optional)</h4>  
 
                         <div>
                             {{Form::file('invoice_file',['class'=>'btn btn-default'])}}  
@@ -626,7 +626,7 @@
                         
                                         <h4><i class="fa fa-calendar"></i>&nbsp Date </h4>
                                                                             
-                                        <p id="view_replace_date"> </p>   
+                                        <p class="col-md-offset-1" id="view_replace_date"> </p>   
                                 
                                     </div>
                                     
@@ -634,7 +634,7 @@
                 
                                         <h4><i class="fas fa-puzzle-piece"></i>&nbsp Position </h4>  
                         
-                                        <p id="view_replace_position"> </p>   
+                                        <p class="col-md-offset-1" id="view_replace_position"> </p>   
                 
                                     </div>
                                     
@@ -646,7 +646,7 @@
                     
                                         <h4> <i class="fas fa-arrows-alt-h"></i> &nbsp Tyre Size </h4>  
                         
-                                        <p id="view_replace_size"> </p>   
+                                        <p class="col-md-offset-1" id="view_replace_size"> </p>   
 
                                     </div>
                     
@@ -654,7 +654,7 @@
                     
                                         <h4><i class="fas fa-cube"></i> &nbsp Brand of Tyre </h4>  
                         
-                                        <p id="view_replace_type"> </p>                        
+                                        <p class="col-md-offset-1" id="view_replace_type"> </p>                        
                                     </div> 
                     
                                 </div><br>
@@ -665,38 +665,40 @@
                     
                                         <h4><i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading </h4>  
                         
-                                        <p id="view_replace_meter_reading"> </p>   
+                                        <p class="col-md-offset-1" id="view_replace_meter_reading"> </p>   
 
                                     </div>   
                                 </div><br>
             
                                 <div class="row"> 
-            
+
                                     <div class="col-md-4"> 
                 
-                                        <h4><i class="fas fa-puzzle-piece"></i>&nbsp Cost </h4>  
-                        
-                                        <p id="view_replace_cost"> </p>   
-                
-                                    </div>
-                    
-                                    <div class="col-md-2"> 
-                    
-                                                            
-                                    </div>
-                    
-                                    <div class="col-md-4"> 
-                    
                                         <h4><i class="fas fa-cube"></i> &nbsp Invoice </h4>  
                         
-                                        <p id="view_replace_invoice"> </p>    
-            
-                                        <h4> <i class="glyphicon glyphicon-upload"></i>&nbsp Invoice File Upload &nbsp(Optinal)</h4> 
-                                        <div>
-                                            <input type="file" name="invoice_file" class="btn btn-default" id="edit_invoice_file" > <br>
-                                        </div> 
+                                        <p class="col-md-offset-1" id="view_replace_invoice"> </p>    
+             
+                                        <div id="document_view" >
+                                            
+                                            <a class="col-md-offset-1" href="" download="" id ="document_download"> 
+                                                <button type="button" class="btn btn-success btn-md">
+                                                    <i class="glyphicon glyphicon-download-alt"></i>&nbsp <i id="doc_name"></i>
+                                                </button>
+                                            </a>
+                                        </div>
             
                                     </div> 
+
+                                    <div class="col-md-2">                     
+                                    </div>
+            
+                                    <div class="col-md-4"> 
+                
+                                        <h4><i class="fas fa-comments-dollar"></i>&nbsp Cost </h4>  
+                        
+                                        <p class="col-md-offset-1" id="view_replace_cost"> </p>   
+                
+                                    </div>                                  
                     
                                 </div><br>
                 
@@ -706,7 +708,7 @@
                     
                                         <h4> <i class="fas fa-align-justify"></i> &nbsp Remarks </h4>  
                         
-                                        <p id="view_replace_remarks"> </p>                     
+                                        <p class="col-md-offset-1" id="view_replace_remarks"> </p>                     
                                     </div>  
                 
                                 </div><br>
@@ -864,35 +866,26 @@
             {
                 console.log(data);
                     /* set values to html tag for view */  
-                // $('#view-title').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+"Annual Licence" );
-                // $('#period-from').html(data[0].from );
-                // $('#period-to').html(data[0].to ); 
-                // $('#licensing_authority').html(data[0].licensing_authority );  
-                // $('#licence_no').html(data[0].licence_no);
-                // $('#licence_date').html(data[0].licence_date);
-                // $('#amount').html(data[0].amount); 
-                // $('#view_emission_test_details').html(data[0].emission_test_details);
+                $('#view_title_replace').html(data[0].vehicle_name+" ("+data[0].vehicle_reg+") "+"Tyre" );
+                $('#view_replace_date').html(data[0].date);
+                $('#view_replace_position').html(data[0].position);  
+                $('#view_replace_size').html(data[0].size);
+                $('#view_replace_type').html(data[0].type);
+                $('#view_replace_meter_reading').html(data[0].meter_reading); 
+                $('#view_replace_invoice').html(data[0].invoice);
+                $('#view_replace_cost').html(data[0].cost);
+                $('#view_replace_remarks').html(data[0].remarks);
 
-                //     /* check that is there a document for licence */
-                // if(data[0].annual_licence_doc_id == null){
-                //     $('#document_view').hide(); //hide document download button
-                // }
-                // else{
-                //     $('#document_view').show(); //show document download button__(there is a document)
-                //     $('#document_download').attr("href","/"+data[0].doc_path);
-                //     $('#document_download').attr("download",data[0].doc_name);
-                //     $('#doc_name').html(data[0].doc_name);
-                // }
-
-                // if(data[0].emission_test_doc_id == null){
-                //     $('#emi_document_download').hide(); //hide document download button
-                // }
-                // else{
-                //     $('#emi_document_download').show(); //show document download button__(there is a document)
-                //     $('#emi_document_download').attr("href","/"+data[0].emi_doc_path);
-                //     $('#emi_document_download').attr("download",data[0].emi_doc_name);
-                //     $('#emi_doc_name').html(data[0].emi_doc_name);
-                // }
+                    /* check that is there a document for licence */
+                if(data[0].tyre_replace_doc_id == null){
+                    $('#document_view').hide(); //hide document download button
+                }
+                else{
+                    $('#document_view').show(); //show document download button__(there is a document)
+                    $('#document_download').attr("href","/"+data[0].doc_path);
+                    $('#document_download').attr("download",data[0].doc_name);
+                    $('#doc_name').html(data[0].doc_name);
+                }
    
             },
             error: function(xhr, textStatus, error){

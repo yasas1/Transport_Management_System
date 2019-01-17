@@ -418,11 +418,11 @@
                                 <p style="font-size:16px" id="view_emission_test_details"> <p>                        
                             </dl>
                             
-                                <a class="col-md-offset-3" href="" download="" id ="emi_document_download"> 
-                                    <button type="button" class="btn btn-success btn-md">
-                                        <i class="glyphicon glyphicon-download-alt"></i>&nbsp <i id="emi_doc_name"></i>
-                                    </button>
-                                </a>
+                            <a class="col-md-offset-3" href="" download="" id ="emi_document_download"> 
+                                <button type="button" class="btn btn-success btn-md">
+                                    <i class="glyphicon glyphicon-download-alt"></i>&nbsp <i id="emi_doc_name"></i>
+                                </button>
+                            </a>
                             
                         </div>
                         <div id="document_view" class="col-md-6">
