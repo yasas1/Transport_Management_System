@@ -522,11 +522,11 @@ class VehicleUsageController extends Controller
 
             $accident->date = $request->date;
             $accident->place = $request->place;
-            $accident->description_of_damage = $request->description_of_damage;
+            $accident->description_of_damage_and_remarks = $request->description_of_damage_and_remarks;
             $accident->cost_of_repaire = $request->cost_of_repaire;
             $accident->date_of_recovery = $request->date_of_recovery;
-            $accident->action_taken_against_driver = $request->action_taken_against_driver;
-            $accident->police_station = $request->police_station;
+            $accident->description_of_accident = $request->description_of_accident;
+            $accident->details_of_police_station = $request->details_of_police_station;
             $accident->driver_id = $request->driver_id;
 
             $accident->update();

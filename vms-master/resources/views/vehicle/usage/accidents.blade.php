@@ -232,16 +232,8 @@
                                 <p style="font-size:16px" id="view_driver"> test</p>                        
                             </dl>
                         </div>
-
-                        <div class="col-md-6">
-                            <h4 class="modal-title" > <i class="fa fa-drivers-license"></i>&nbsp Description of Accident</h4>
-                            <dl class="col-md-offset-2">
-                                <p style="font-size:16px" id="view_description_of_accident"> test </p>                        
-                            </dl>
-                         </div>
                     
                     </div><br>
-
                     
                     <div class="row">
                         <div class="col-md-6">
@@ -250,16 +242,6 @@
                             <p style="font-size:16px" class="col-md-offset-2" id="view_police_station"> Test</p>                            
                             
                         </div>                       
-                    </div><br>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h4 class="modal-title" > <i class="fas fa-file-alt"></i>&nbsp Description of Damage and Remarks</h4>
-                            <dl class="col-md-offset-2">
-                                <p style="font-size:16px" id="view_description_of_damage"> <p>                        
-                            </dl>
-                        </div>
-                        
                     </div><br>
 
                     <div class="row">
@@ -276,7 +258,25 @@
                                 <label style="font-size:15px" id="view_date_of_recovery"> </label>                              
                             </dl>
                         </div>
-                    </div>                   
+                    </div> <br>
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <h4 class="modal-title" > <i class="fa fa-drivers-license"></i>&nbsp Description of Accident</h4>
+                            <dl class="col-md-offset-2">
+                                <p style="font-size:16px" id="view_description_of_accident"> test </p>                        
+                            </dl>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h4 class="modal-title" > <i class="fas fa-file-alt"></i>&nbsp Description of Damage</h4>
+                            <dl class="col-md-offset-2">
+                                <p style="font-size:16px" id="view_description_of_damage"> <p>                        
+                            </dl>
+                        </div>
+                        
+                    </div><br>                  
 
                 </div>
 
@@ -334,34 +334,18 @@
         
                         </div> 
 
+                    </div><br><br>
+
+                    <div class="row">
+
                         <div class="col-md-6"> 
-                            <h4 class="modal-title" > <i class="fas fa-shield-alt"></i>&nbsp Police Station (Entry Lodged)</h4> 
+                            <h4 class="modal-title" > <i class="fas fa-shield-alt"></i>&nbsp Details of Police Station</h4> 
                             <div >  
-                                {!! Form::text('police_station',null,['class'=>'form-control','id'=>'edit_police_station','rows'=>'2'  ]) !!} 
+                                {!! Form::textarea('details_of_police_station',null,['class'=>'form-control','id'=>'edit_police_station','rows'=>'2'  ]) !!} 
                             </div> 
                         </div> 
 
                     </div><br><br>
-
-                    <div class="row">                      
-
-                        <div class="col-md-6"> 
-        
-                            <h4 class="modal-title" > <i class="fa fa-drivers-license"></i>&nbsp Description of Accident</h4> 
-            
-                            <div>  
-                                {!! Form::textarea('description_of_accident',null,['class'=>'form-control','id'=>'edit_description_of_accident','rows'=>'2'  ]) !!}                      
-                            </div>                      
-                        </div> 
-
-                        <div class="col-md-6">
-                            <h4 class="modal-title" > <i class="fas fa-file-alt"></i>&nbsp Description of Damage and Remarks</h4> 
-                            <div>
-                                {!! Form::textarea('description_of_damage_and_remarks',null,['class'=>'form-control','id'=>'edit_description_of_damage','rows'=>'2'  ]) !!}
-                            </div> 
-                        </div>
-    
-                    </div><br> <br>
         
                     <div class="row">
         
@@ -384,7 +368,27 @@
                         
                         </div>
         
-                    </div><br>                                  
+                    </div><br>  
+                    
+                    <div class="row">   
+                        
+                        <div class="col-md-6">
+                            <h4 class="modal-title" > <i class="fas fa-file-alt"></i>&nbsp Description of Damage and Remarks</h4> 
+                            <div>
+                                {!! Form::textarea('description_of_damage_and_remarks',null,['class'=>'form-control','id'=>'edit_description_of_damage','rows'=>'2'  ]) !!}
+                            </div> 
+                        </div>
+
+                        <div class="col-md-6"> 
+        
+                            <h4 class="modal-title" > <i class="fa fa-drivers-license"></i>&nbsp Description of Accident</h4> <br>
+            
+                            <div>  
+                                {!! Form::textarea('description_of_accident',null,['class'=>'form-control','id'=>'edit_description_of_accident','rows'=>'2'  ]) !!}                      
+                            </div>                      
+                        </div> 
+    
+                    </div><br> <br>
                                         
                 </div>
 
