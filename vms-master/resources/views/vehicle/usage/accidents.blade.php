@@ -437,7 +437,7 @@
         var id = $(this).data('id'); //get annual licence id
 
         $.ajax({
-            url: '/vehicle/viewAccident/{id}',
+            url: "{{ URL::to('/vehicle/viewAccident/{id}') }}",
             type: 'GET',
             data: { id: id },
             success: function(data)

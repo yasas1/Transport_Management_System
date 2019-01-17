@@ -95,7 +95,7 @@
     
                     <h4> <i class="fa fa-road"></i>&nbsp Mileage From Journey &nbsp (km) </h4>
                     
-                    <input id="input_journey_mileage" name="journey_mileage" class="form-control" type="text" /> <!-- readonly -->
+                    <input id="input_journey_mileage" name="journey_mileage" class="form-control" type="text" readonly /> <!-- readonly -->
             
                 </div>  
                     
@@ -157,6 +157,34 @@
 @section('scripts')
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+
+<script> 
+
+    $('#vehical_id').add('#date').on('change',function(){
+
+        var vid = $('#vid').val();
+        var date = $('#date').val();
+        
+        console.log(vid);
+
+        $.ajax({
+            url: "{{ URL::to('/vehicle/distanceCount') }}",
+            type: 'GET',
+            data: {vid: vid, date: date},
+            success: function(data)
+            {
+                    /* set values to html tag for view */  
+                console.log(data);
+                $('#input_journey_mileage').val(data);
+   
+            },
+            error: function(xhr, textStatus, error){
+                console.log(error);
+            }
+        });
+        
+    });
+</script>
 
 <script>
 

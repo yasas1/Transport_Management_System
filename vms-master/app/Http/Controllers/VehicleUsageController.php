@@ -856,8 +856,7 @@ class VehicleUsageController extends Controller
         ->join('vehical', 'tyre_position_changes.vehical_id', '=', 'vehical.id') // join vehicle for get vehicle name
         ->select('tyre_position_changes.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
         ->where('tyre_position_changes.id','=',$id)
-        ->get();      
-        
+        ->get();         
 
         return response($tyreReplaces);
 
