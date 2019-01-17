@@ -102,6 +102,19 @@
             </div><br>
 
             <div class="row"> 
+    
+                <div class="col-md-6"> 
+
+                    <h4> <i class="fas fa-align-justify"></i> &nbsp Remarks </h4>  
+    
+                    <div>  
+                        {!! Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','rows'=>'2'  ]) !!}                      
+                    </div>                      
+                </div>  
+
+            </div><br>
+
+            <div class="row"> 
 
                 <div class="col-md-4"> 
                     <button type="submit" class="btn btn-success pull-left"> <i class="glyphicon glyphicon-arrow-up"></i>&nbsp SUBMIT </button> &nbsp  
@@ -121,13 +134,13 @@
                     <thead class="table-dark">  
                         <tr > 
                             <th scope="col"> Date </th>
-                            <th scope="col"> Meter Reading</th>
-                            <th scope="col"> Details </th>
-                            <th scope="col"> Cost (Rs.) </th>
+                            <th scope="col"> Mileage From Meter Reading (km)</th>
+                            <th scope="col">  Mileage From Journey (km) </th>
+                            <th scope="col"> Remarks </th>
                             <th scope="col"> Action</th>
                         </tr>
                     </thead>
-                    <tbody id="servicing_info">
+                    <tbody id="mileage_info">
 
                     </tbody>
                 </table>
