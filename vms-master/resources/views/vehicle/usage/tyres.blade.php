@@ -79,7 +79,7 @@
                         <h4> <i class="fas fa-arrows-alt-h"></i> &nbsp Tyre Size </h4>  
         
                         <div>  
-                            {!! Form::text('size',null,['class'=>'form-control','placeholder'=>'Size' ]) !!}                       
+                            {!! Form::text('size',null,['class'=>'form-control','placeholder'=>'Size','id'=>'input_tyresize' ]) !!}                       
                         </div>                      
                     </div>
 
@@ -626,7 +626,7 @@
                         
                                         <h4><i class="fa fa-calendar"></i>&nbsp Date </h4>
                                                                             
-                                        <p class="col-md-offset-1" id="view_replace_date"> </p>   
+                                        <p class="col-md-offset-2" id="view_replace_date"> </p>   
                                 
                                     </div>
                                     
@@ -634,7 +634,7 @@
                 
                                         <h4><i class="fas fa-puzzle-piece"></i>&nbsp Position </h4>  
                         
-                                        <p class="col-md-offset-1" id="view_replace_position"> </p>   
+                                        <p class="col-md-offset-2" id="view_replace_position"> </p>   
                 
                                     </div>
                                     
@@ -646,7 +646,7 @@
                     
                                         <h4> <i class="fas fa-arrows-alt-h"></i> &nbsp Tyre Size </h4>  
                         
-                                        <p class="col-md-offset-1" id="view_replace_size"> </p>   
+                                        <p class="col-md-offset-2" id="view_replace_size"> </p>   
 
                                     </div>
                     
@@ -654,7 +654,7 @@
                     
                                         <h4><i class="fas fa-cube"></i> &nbsp Brand of Tyre </h4>  
                         
-                                        <p class="col-md-offset-1" id="view_replace_type"> </p>                        
+                                        <p class="col-md-offset-2" id="view_replace_type"> </p>                        
                                     </div> 
                     
                                 </div><br>
@@ -665,7 +665,7 @@
                     
                                         <h4><i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading </h4>  
                         
-                                        <p class="col-md-offset-1" id="view_replace_meter_reading"> </p>   
+                                        <p class="col-md-offset-2" id="view_replace_meter_reading"> </p>   
 
                                     </div>   
                                 </div><br>
@@ -674,13 +674,13 @@
 
                                     <div class="col-md-4"> 
                 
-                                        <h4><i class="fas fa-cube"></i> &nbsp Invoice </h4>  
+                                        <h4><i class="fas fa-cube"></i> &nbsp Invoice Number</h4>  
                         
-                                        <p class="col-md-offset-1" id="view_replace_invoice"> </p>    
+                                        <p class="col-md-offset-2" id="view_replace_invoice"> </p>    
              
                                         <div id="document_view" >
                                             
-                                            <a class="col-md-offset-1" href="" download="" id ="document_download"> 
+                                            <a class="col-md-offset-2" href="" download="" id ="document_download"> 
                                                 <button type="button" class="btn btn-success btn-md">
                                                     <i class="glyphicon glyphicon-download-alt"></i>&nbsp <i id="doc_name"></i>
                                                 </button>
@@ -696,7 +696,7 @@
                 
                                         <h4><i class="fas fa-comments-dollar"></i>&nbsp Cost </h4>  
                         
-                                        <p class="col-md-offset-1" id="view_replace_cost"> </p>   
+                                        <p class="col-md-offset-2" id="view_replace_cost"> </p>   
                 
                                     </div>                                  
                     
@@ -708,7 +708,7 @@
                     
                                         <h4> <i class="fas fa-align-justify"></i> &nbsp Remarks </h4>  
                         
-                                        <p class="col-md-offset-1" id="view_replace_remarks"> </p>                     
+                                        <p class="col-md-offset-2" id="view_replace_remarks"> </p>                     
                                     </div>  
                 
                                 </div><br>
@@ -756,12 +756,26 @@
     $('#vid_replacement').on('change',function () {
         var vid = $(this).val();
         var vehicle = $( "#vid_replacement option:selected" ).text();
+
+        $.ajax({
+            url: '/vehicle/vehicleTyre/{id}',
+            type: 'GET',
+            data: { id: vid },
+            success: function(data)
+            {
+                console.log(data[0].tyres_size_front);   
+                $('#input_tyresize').val(data[0].tyres_size_front);                    
+                
+            }
+        });
         
         $('#table_header_replacement').html('<i class="fa fa-car"></i>'+' '+vehicle+" Vehicle Tyre Replacement History");
         $('#table_header_replacement').show();
 
         readTyreReplacement(vid); 
-        $('#table_replacement').show();    
+        $('#table_replacement').show();   
+
+
 
     });
         

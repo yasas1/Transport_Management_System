@@ -236,10 +236,11 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/vehicle/readTyrePositionChanges/{id}','VehicleUsageController@readTyrePositionChanges'); 
     Route::get('/vehicle/viewTyreReplacement/{id}','VehicleUsageController@viewTyreReplacement'); 
     Route::post('/vehicle/tyreReplacement/update','VehicleUsageController@updateTyreReplacement');
-    Route::get('/vehicle/viewTyrePositionChange/{id}','VehicleUsageController@viewTyrePositionChange'); 
+    Route::get('/vehicle/viewTyrePositionChange/{id}','VehicleUsageController@viewTyrePositionChange');  
     Route::post('/vehicle/tyrePositionChange/update','VehicleUsageController@updateTyrePositionChange');
     Route::post('/vehicle/deleteTyreReplacement','VehicleUsageController@deleteTyreReplacement')->name('tyreReplacement.delete'); 
     Route::post('/vehicle/deleteTyrePositionChange','VehicleUsageController@deleteTyrePositionChange')->name('posChange.delete'); 
+    Route::get('/vehicle/vehicleTyre/{id}','VehicleUsageController@vehicleTyreDetails'); 
 
         /* Vehicle Fuel */
     Route::get('/vehicle/fuelUsage','VehicleUsageController@viewFuelPage'); 

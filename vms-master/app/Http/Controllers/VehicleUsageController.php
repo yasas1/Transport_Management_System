@@ -745,6 +745,17 @@ class VehicleUsageController extends Controller
         return view('vehicle.usageList.tyreReplaceList',compact('tyreReplaces'));
     }
 
+    public function vehicleTyreDetails(){
+        $vid = $_GET['id'];
+
+        $tyreDetails = DB::table('vehical')
+        ->select('tyres_size_front')
+        ->where('id','=',$vid)
+        ->get();
+
+        return response($tyreDetails);
+    }
+
     public function readTyrePositionChanges(){
 
         $vid = $_GET['id'];
