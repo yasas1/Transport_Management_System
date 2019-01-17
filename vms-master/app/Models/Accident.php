@@ -42,12 +42,12 @@ class Accident extends Eloquent
 		'vehical_id',
 		'date',
 		'place',
-		'description_of_damage',
+		'description_of_damage_and_remarks',
 		'cost_of_repaire',
 		'date_of_recovery',
-		'action_taken_against_driver',
 		'file_no',
-		'police_station',
+		'description_of_accident',
+		'details_of_police_station',
 		'driver_id'
 
 	];

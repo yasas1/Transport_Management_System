@@ -28,7 +28,8 @@ class VehicleMileage extends Model
 		'meter_reading_day_begin',
 		'meter_reading_day_end',
 		'meter_reading_mileage',
-		'journey_mileage'	
+		'journey_mileage',
+		'remarks'	
 
 	];
 

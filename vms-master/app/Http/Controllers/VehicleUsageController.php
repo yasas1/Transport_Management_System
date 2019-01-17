@@ -446,7 +446,6 @@ class VehicleUsageController extends Controller
             'place' => 'required',
             'description_of_damage' => 'required',
             'cost_of_repaire' => 'required',
-            'action_taken_against_driver' => 'required',
             'driver_id' => 'required',
             
         ]);
@@ -456,11 +455,11 @@ class VehicleUsageController extends Controller
         $accident->vehical_id = $request->vehical_id;
         $accident->date = $request->date;
         $accident->place = $request->place;
-        $accident->description_of_damage = $request->description_of_damage;
+        $accident->description_of_damage_and_remarks = $request->description_of_damage_and_remarks;
         $accident->cost_of_repaire = $request->cost_of_repaire;
         $accident->date_of_recovery = $request->date_of_recovery;
-        $accident->action_taken_against_driver = $request->action_taken_against_driver;
-        $accident->police_station = $request->police_station;
+        $accident->description_of_accident = $request->description_of_accident;
+        $accident->details_of_police_station = $request->police_station;
         $accident->driver_id = $request->driver_id;
 
         $accident->save(); 
@@ -1003,7 +1002,8 @@ class VehicleUsageController extends Controller
         $vehicleMileage->meter_reading_day_begin = $request->meter_reading_day_begin;
         $vehicleMileage->meter_reading_day_end = $request->meter_reading_day_end;
         $vehicleMileage->meter_reading_mileage = $request->meter_reading_mileage;
-        $vehicleMileage->journey_mileage = $request->journey_mileage;
+        $vehicleMileage->journey_mileage = $request->journey_mileage; 
+        $vehicleMileage->remarks = $request->remarks;
         
 
         $vehicleMileage->save(); 
