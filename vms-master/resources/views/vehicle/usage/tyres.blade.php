@@ -755,35 +755,56 @@
     var pos1;
     var previous1;
 
-    $('#input_position_one_pre').on('change',function () {
+    function positionHideOne(){
 
         if(previous1 != null){
             $("#input_position_one_after option[value='"+previous1+"']").show();
         }
-        pos1 = $(this).val();
+        pos1 = $('#input_position_one_pre').val();
         
         console.log(pos1);  
         $("#input_position_one_after option[value='"+pos1+"']").hide();
 
         previous1 = pos1;
+
+    }
+
+    $('#input_position_one_pre').on('change',function () {
+
+        positionHideOne();
         
     });
 
     var pos2;
     var previous2;
 
-    $('#input_position_two_pre').on('change',function () {
+    function positionHideSecond(){
 
         if(previous2 != null){
             $("#input_position_two_after option[value='"+previous2+"']").show();
         }
-        pos2 = $(this).val();
+        pos2 = $('#input_position_two_pre').val();
 
         console.log(pos2);  
         $("#input_position_two_after option[value='"+pos2+"']").hide();
 
         previous2 = pos2;
 
+    }
+
+    $('#input_position_two_pre').on('change',function () {
+
+        positionHideSecond();
+
+    });
+
+    $('#input_position_one_after').on('change',function () {
+
+        after1 = $(this).val();
+        $('#input_position_two_pre').val(after1);
+
+        positionHideSecond();
+        
     });
 
         /* View Tyre Replacement on the table*/
