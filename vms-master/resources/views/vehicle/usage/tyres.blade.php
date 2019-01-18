@@ -236,7 +236,7 @@
                 <div class="row field_wrapper"> 
 
        
-                    <div class="col-md-4 ">  
+                    <div class="col-md-4">  
                         <p>&nbsp Position One Previous </p>                          
                         {{Form::select('position_one_pre',array('Front Left' => 'Front Left','Front Right' => 'Front Right','Back Left' => 'Back Left','Back Right' => 'Back Right','Spare Wheel'=>'Spare Wheel'),null,['class'=>'form-control ','placeholder'=>'Select Tyre Position','required','id'=>'input_position_one_pre'])}} <br> 
                            
@@ -752,11 +752,37 @@
         });
     } 
 
-    $('#input_position_one_pre').on('change',function () {
-        var pos1 = $(this).val();
-        console.log(pos1);  
-        $("#input_position_one_after option[value='"+pos1+"']").remove();
+    var pos1;
+    var previous1;
 
+    $('#input_position_one_pre').on('change',function () {
+
+        if(previous1 != null){
+            $("#input_position_one_after option[value='"+previous1+"']").show();
+        }
+        pos1 = $(this).val();
+        
+        console.log(pos1);  
+        $("#input_position_one_after option[value='"+pos1+"']").hide();
+
+        previous1 = pos1;
+        
+    });
+
+    var pos2;
+    var previous2;
+
+    $('#input_position_two_pre').on('change',function () {
+
+        if(previous2 != null){
+            $("#input_position_two_after option[value='"+previous2+"']").show();
+        }
+        pos2 = $(this).val();
+
+        console.log(pos2);  
+        $("#input_position_two_after option[value='"+pos2+"']").hide();
+
+        previous2 = pos2;
 
     });
 
