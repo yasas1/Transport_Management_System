@@ -479,6 +479,7 @@
     $(document).ready(function() {
 
         var services={};
+        var notiCount=0;
 
         $.ajax({
             url: "{{ URL::to('/vehicle/serivceNotification') }}",
@@ -503,6 +504,8 @@
                             console.log(value.mileage_service);
                             
                             if(data >= value.mileage_service){
+
+                                notiCount++;
                                
                                 $('#service_noti'+value.vehical_id).html(" ( Mileage for Service - "+value.mileage_service+" km ) Vehicle has used "+ data + " km since last servicing");
                                 $('#dis_noti'+value.vehical_id).show();

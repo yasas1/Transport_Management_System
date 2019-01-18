@@ -4,6 +4,31 @@
     <style>
         /* body { padding-top:20px; } */
         .panel-body .btn:not(.btn-block) { width:120px;margin-bottom:10px;}
+        
+        .notification {
+            background-color: #11E1DA;
+            color: white;
+            text-decoration: none;
+            padding: 15px 26px;
+            position: relative;
+            display: inline-block;
+            border-radius: 2px;
+        }
+
+        .notification:hover {
+            background: darkcyan;
+        }
+
+        .notification .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            padding: 5px 10px;
+            border-radius: 50%;
+            background: red;
+            color: white;
+        }
+
     </style>
 
     <link rel="stylesheet" href="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.css')}}">
@@ -38,6 +63,12 @@
                             @if(Auth::user()->canCreateVehicle())
                                 <a href="{{url('/vehicle/create')}}" class="btn btn-danger btn-sm" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/> New </a> 
                             @endif                           
+                        </div>
+                        <div class="col-xs-12 col-md-12" > 
+                            <a href="{{ URL::to('/vehicle/addservicing') }} " class="notification">
+                                <span>-</span>
+                                <span id="badge" class="badge"></span>
+                            </a>
                         </div>
                     </div>                  
                 </div>
@@ -406,6 +437,64 @@
         });
     });
     
+</script>
+
+<script>
+
+    $(document).ready(function() {
+
+        var services={};
+        
+
+        $.ajax({
+            url: "{{ URL::to('/vehicle/serivceNotification') }}",
+            type: 'GET',
+            success: function(data)
+            {   
+                services =data;
+                console.log(data);
+                var notiCount=0;
+
+                $.each( services, function( i, value ) {
+                    // console.log(value.date);
+
+                    $.ajax({
+                        url: "{{ URL::to('/vehicle/distanceCount') }}" ,
+                        type: 'GET',
+                        data: { vid: value.vehical_id, date: value.date },
+                        success: function(data)
+                        {
+                            console.log(value.vehical_id);
+                            console.log(value.date);
+                            console.log(data);  
+                            console.log(value.mileage_service);
+                            
+                            if(data >= value.mileage_service){
+
+                                notiCount = notiCount + 1;  
+                                console.log(notiCount);
+                                $('#badge').html(notiCount);
+                            }                           
+
+                        },
+                        error: function(xhr, textStatus, error){
+                            console.log(error);
+                        }
+                    });
+
+                });
+                
+            
+            },
+            error: function(xhr, textStatus, error){
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
+            }
+        });        
+
+    });
+
 </script>
 
 
