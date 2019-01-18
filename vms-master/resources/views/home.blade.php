@@ -2,23 +2,22 @@
 
 @section('styles')
     <style>
-        /* body { padding-top:20px; } */
+        /* body { padding-top:20px; } #6DB6FE;*/
         .panel-body .btn:not(.btn-block) { width:120px;margin-bottom:10px;}
         
         .notification {
-            background-color: #11E1DA;
-            color: white;
+            background-color: white;
+            color: black;
             text-decoration: none;
             padding: 15px 26px;
             position: relative;
             display: inline-block;
             border-radius: 2px;
+            border-style: ridge;
         }
-
         .notification:hover {
-            background: darkcyan;
+            background: green;
         }
-
         .notification .badge {
             position: absolute;
             top: -10px;
@@ -65,8 +64,12 @@
                             @endif                           
                         </div>
                         <div class="col-xs-12 col-md-12" > 
+                            {{-- <a class="col-md-offset-1"  id="noti" href="{{ URL::to('/vehicle/addservicing') }}" class="notification">
+                                <span><i class="fa fa-bars"></i> </span>
+                                <span id="badge" class="badge"></span>
+                            </a> <br> --}}
                             <a href="{{ URL::to('/vehicle/addservicing') }} " class="notification">
-                                <span>-</span>
+                                <span><i class="fa fa-bars"></i> Service</span>
                                 <span id="badge" class="badge"></span>
                             </a>
                         </div>
@@ -441,40 +444,38 @@
 
 <script>
 
+var notificationMsg;
+
     $(document).ready(function() {
 
         var services={};
         
-
         $.ajax({
             url: "{{ URL::to('/vehicle/serivceNotification') }}",
             type: 'GET',
             success: function(data)
             {   
                 services =data;
-                console.log(data);
                 var notiCount=0;
 
                 $.each( services, function( i, value ) {
                     // console.log(value.date);
-
                     $.ajax({
                         url: "{{ URL::to('/vehicle/distanceCount') }}" ,
                         type: 'GET',
                         data: { vid: value.vehical_id, date: value.date },
                         success: function(data)
                         {
-                            console.log(value.vehical_id);
-                            console.log(value.date);
-                            console.log(data);  
-                            console.log(value.mileage_service);
                             
                             if(data >= value.mileage_service){
 
                                 notiCount = notiCount + 1;  
-                                console.log(notiCount);
-                                $('#badge').html(notiCount);
-                            }                           
+                                $('#badge').html(notiCount); 
+                                
+                            }     
+                            else{
+                                
+                            }                      
 
                         },
                         error: function(xhr, textStatus, error){
@@ -482,13 +483,10 @@
                         }
                     });
 
-                });
-                
+                });                
             
             },
             error: function(xhr, textStatus, error){
-                console.log(xhr.statusText);
-                console.log(textStatus);
                 console.log(error);
             }
         });        
