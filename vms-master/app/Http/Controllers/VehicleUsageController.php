@@ -1060,4 +1060,18 @@ class VehicleUsageController extends Controller
 
     }
 
+    public function deleteMileage(Request $request){
+
+        if($request->ajax() && $mileage = VehicleMileage::find($request->id)  ){
+
+            $mileage->delete();
+
+            Session::flash('success', 'Vehicle Mileage Deleted successfully !');
+            return View::make('layouts/success');
+
+        }
+        Session::flash('errors', 'Vehicle Mileage Deleted Error !');
+        return View::make('layouts/errors');
+    }
+
 }

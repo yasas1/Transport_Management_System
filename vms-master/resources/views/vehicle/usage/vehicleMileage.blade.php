@@ -258,6 +258,26 @@
         </div>
     </div>
 
+    {{------------- Delete Confirmation modal -------------------}}
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <b> <h3 class="modal-title" id="delete-title"></h3> </b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 class="modal-title" >Please Confirm Your Delete Action</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btn-confirm">Delete</button>
+                <button type="button" class="btn btn-primary active" data-dismiss="modal">Cancel</button>
+            </div>
+            </div>
+        </div>
+    </div>
  
 @endsection
 
@@ -306,7 +326,7 @@
             {    
                 vid =data[0].vehical_id;
 
-                $('#edit-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Vehicle Mileage Editing" ); 
+                $('#edit-title').html('<i class="fas fa-car"></i>'+' '+data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Vehicle Mileage Editing" ); 
                 $('#edit_mdate').val(data[0].date);
                 $('#edit_meter_reading_day_begin').val(data[0].meter_reading_day_begin);    
                 $('#edit_meter_reading_day_end').val(data[0].meter_reading_day_end);
@@ -370,6 +390,42 @@
         });
         
     });
+
+    $(document).on('click','#delete',function(e){
+        var id = $(this).data('id');
+
+        var vehicle = $( "#vid option:selected" ).text();
+
+        $('#delete-title').html('<i class="fas fa-car"></i>'+' '+vehicle +" Vehicle Mileage Deleting" );
+
+        $("#delete-modal").modal('show'); 
+    
+        $("#btn-confirm").on("click", function(){
+            console.log("confirmed ");
+
+            $.ajax({
+                url:"{{ route('mileage.delete')}}",
+                method: "POST",
+                data: { id: id },
+                success: function(data)
+                {
+                    console.log(data);   
+                    $('#flash-message').html(data); 
+    
+                    $('tr#'+id).remove();
+                    $('#delete-modal').modal('hide');
+                },
+                error: function(xhr, textStatus, error){
+                    console.log(xhr.statusText);
+                    console.log(textStatus);
+                    console.log(error);
+                }
+            });
+
+        });
+ 
+    });
+
 </script>
 
 <script>
