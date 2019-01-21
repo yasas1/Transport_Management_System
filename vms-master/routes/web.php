@@ -246,6 +246,7 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/vehicle/fuelUsage','VehicleUsageController@viewFuelPage'); 
     Route::post('/vehicle/storeFuelUsage','VehicleUsageController@storeFuelUsage'); 
     Route::get('/vehicle/getVehicleMileage/{id}','VehicleUsageController@getVehicleMileage'); 
+    Route::get('/vehicle/readVehicleFule/{id}','VehicleUsageController@readVehicleFule'); 
 
         /* Vehicle Mileage */
     Route::get('/vehicle/mileage','VehicleUsageController@viewMileagePage');

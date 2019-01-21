@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style> 
         #datepicker > span:hover{cursor: pointer;color: blue;}
+        /* #edit_date > span:hover{cursor: pointer;color: blue;} */
     </style>
 @endsection
 
@@ -120,12 +121,12 @@
                         <tr > 
                             <th scope="col"> Date </th>
                             <th scope="col"> Meter Reading</th>
-                            <th scope="col"> Furl Liter </th>
+                            <th scope="col"> Fuel Liter </th>
                             <th scope="col"> Cost (Rs.) </th>
                             <th scope="col"> Action</th>
                         </tr>
                     </thead>
-                    <tbody id="servicing_info">
+                    <tbody id="fuelUsage_info">
 
                     </tbody>
                 </table>
@@ -145,31 +146,45 @@
 
 <script>
 
+    function readFuelUsages(vid){ 
+        $.ajax({
+            url: "{{ URL::to('/vehicle/readVehicleFule/{id}') }}",
+            type: 'GET',
+            data: { id: vid },
+            success: function(data)
+            {
+                //console.log(data);   
+                $('#fuelUsage_info').empty().html(data);            
+            }
+        });
+    }
+
+    $('#vid').on('change',function () {
+        var vid = $(this).val(); // get vehicle id
+        var vehicle = $( "#vid option:selected" ).text();
+        
+        $('#table_header').html('<i class="fas fa-car"></i>'+' '+vehicle+" Vehicle Fuel Usage History");
+        $('#table_header').show();
+        
+        readFuelUsages(vid);
+        $('#table_box').show();
+    }); 
+    
+
+</script>
+<script>
+
     $("#datepicker").datepicker({ 
         autoclose: true, 
         format: 'yyyy-mm-dd',
         todayHighlight: true,
        
-    }); clear
+    }); 
 
-    // $( document ).ready(function() {
-       
-    // });
-
-    
-   // $('#input_in_tank_liter','#input_drawn').on('keyup', function() {
-    // $('#input_in_tank_liter').add('#input_drawn').keyup(function(){
-    //     var input_in_tank_liter = parseFloat($('#input_in_tank_liter').val());
-    //     var input_drawn = parseFloat($('#input_drawn').val()); 
-
-    //     var in_tank_liter = input_in_tank_liter.toFixed(2) ;
-
-    //     var balance = (input_in_tank_liter +  input_drawn) - consumed.toFixed(2) ;
-
-    //     console.log(balance.toFixed(2));
-
-    //     $('#input_balance').val(balance.toFixed(2));
-
+    // $("#edit_date").datepicker({ 
+    //     autoclose: true, 
+    //     format: 'yyyy-mm-dd',
+    //     todayHighlight: true
     // });
 
 </script>

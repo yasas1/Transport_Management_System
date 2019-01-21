@@ -959,20 +959,19 @@ class VehicleUsageController extends Controller
         return redirect()->back()->with(['success'=>'Vehicle Fuel Usage added successfully !']);
     }
 
-    // public function getVehicleMileage(){
+    public function readVehicleFule(){
 
-    //     $vid = $_GET['vid'];
-    //     $date = $_GET['date'];
+        $vid = $_GET['id'];
 
-    //     $tyreReplaces = DB::table('vehicle_mileage')
-    //     ->select('vehicle_mileage.kilometer_per_liter','vehicle_mileage.mileage')
-    //     ->where('vehicle_mileage.vehical_id','=',$vid)
-    //     ->where('vehicle_mileage.date','=',$date)
-    //     ->get();      
-        
-    //     return response($tyreReplaces);
+        $fuelUsages = DB::table('fuel_usage')
+        ->join('vehical', 'fuel_usage.vehical_id', '=', 'vehical.id') // join vehicle for get vehicle name
+        ->select('fuel_usage.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
+        ->where('vehical_id','=',$vid)
+        ->orderBy('fuel_usage.date','DESC')
+        ->get();
 
-    // }
+        return view('vehicle.usageList.fuelList',compact('fuelUsages'));
+    }
 
     /* ----------------- Vehicle Mileage ------------------------- */
 
