@@ -973,6 +973,41 @@ class VehicleUsageController extends Controller
         return view('vehicle.usageList.fuelList',compact('fuelUsages'));
     }
 
+    public function viewFuelUsage(){
+
+        $id = $_GET['id'];
+        
+        $mileage = DB::table('fuel_usage')
+        ->join('vehical', 'fuel_usage.vehical_id', '=', 'vehical.id') // join vehicle for get vehicle name
+        ->select('fuel_usage.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
+        ->where('fuel_usage.id','=',$id)
+        ->get();      
+        
+
+        return response($mileage);
+
+    } 
+
+    public function updateFuelUsage(Request $request){       
+
+        if($request->ajax() && $fuelUsage = FuelUsage::find($request->id)){ 
+
+            $fuelUsage->date = $request->date;
+            $fuelUsage->meter_reading = $request->meter_reading;
+            $fuelUsage->fuel_liter = $request->fuel_liter;
+            $fuelUsage->cost = $request->cost;
+            // $fuelUsage->remarks = $request->remarks;
+
+            $fuelUsage->update();
+
+            Session::flash('success', 'Vehicle Fuel Usage Updated successfully !');
+            return View::make('layouts/success');
+        }
+        Session::flash('errors', 'Vehicle Fuel Usage Updating Error !');
+        return View::make('layouts/errors');
+
+    }
+
     /* ----------------- Vehicle Mileage ------------------------- */
 
     public function viewMileagePage(){
