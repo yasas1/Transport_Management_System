@@ -2,6 +2,8 @@
 
 <tr id="{{$mileage->id}}">        
         <td> {{$mileage->date}} </td>
+        <td> {{$mileage->meter_reading_day_begin}} </td> 
+        <td> {{$mileage->meter_reading_day_end}}</td>
         <td> {{$mileage->meter_reading_mileage}} </td> 
         <td> {{$mileage->journey_mileage}}</td>
         <td> {{$mileage->remarks}} </td>

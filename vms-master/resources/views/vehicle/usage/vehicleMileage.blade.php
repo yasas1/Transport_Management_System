@@ -135,6 +135,8 @@
                     <thead class="table-dark">  
                         <tr > 
                             <th scope="col"> Date </th>
+                            <th scope="col"> Meter Reading Begin Of The Day (km)</th>
+                            <th scope="col">  Meter Reading End of The Dayy (km) </th>
                             <th scope="col"> Mileage From Meter Reading (km)</th>
                             <th scope="col">  Mileage From Journey (km) </th>
                             <th scope="col"> Remarks </th>
@@ -239,7 +241,7 @@
                             <h4> <i class="fas fa-align-justify"></i> &nbsp Remarks </h4>  
             
                             <div>  
-                                {!! Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','id'=>'edit_remarks','rows'=>'2'  ]) !!}                      
+                                {!! Form::textarea('remarks',null,['class'=>'form-control','id'=>'edit_remarks','rows'=>'2'  ]) !!}                      
                             </div>                      
                         </div>  
         
@@ -399,6 +401,19 @@
         console.log(meter_reading_mileage);
         $('#input_meter_reading_mileage').val(meter_reading_mileage); 
         
+        // input_journey_mileage
+
+    });
+
+    $('#edit_meter_reading_day_begin, #edit_meter_reading_day_end').keyup(function(){
+
+        var meter_begin = $('#edit_meter_reading_day_begin').val();
+        var meter_end = $('#edit_meter_reading_day_end').val();
+        var meter_reading_mileage= meter_end - meter_begin ;
+
+        console.log(meter_reading_mileage);
+        $('#edit_meter_reading_mileage').val(meter_reading_mileage); 
+
         // input_journey_mileage
 
     });
