@@ -77,7 +77,7 @@
     
                     <h4> <i class="fas fa-fill-drip"></i> &nbsp Fuel Quantity &nbsp(Liter)</h4> 
                     <div>
-                        {{Form::number('fuel_liter', null,['class'=>'form-control','step'=>'0.01','placeholder'=>'Drawn Liter'])}}                       
+                        {{Form::number('fuel_liter', null,['class'=>'form-control','step'=>'0.01','placeholder'=>'Fuel Quantity'])}}                       
                     </div>
             
                 </div>                 
@@ -149,7 +149,7 @@
     
                     <div class="modal-body">
     
-                        <form action="{{ URL::to('/vehicle/fuelUsage/update')}}" method="POST" id="edit_mileage" enctype="multipart/form-data">
+                        <form action="{{ URL::to('/vehicle/fuelUsage/update')}}" method="POST" id="edit_fuelUsage" enctype="multipart/form-data">
                             {{csrf_field()}}
                         <input type="hidden" name="id" id="fuelUsage_id">            
         
@@ -160,7 +160,7 @@
                                 <h4><i class="fa fa-calendar"></i> Date of Filling</h4>
                                                                     
                                 <div id="edit_date" class="input-group date" data-date-format="yyyy-mm-dd">
-                                    <input id="edit_mdate" name="date" class="form-control" type="text" readonly />
+                                    <input id="edit_fdate" name="date" class="form-control" type="text" readonly />
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                 </div>
                         
@@ -178,7 +178,7 @@
             
                     <h4> <i class="fas fa-tachometer-alt"></i> &nbsp Meter Reading</h4>
                     <dl>
-                        {{Form::number('meter_reading', null,['class'=>'form-control','step'=>'0.01','id'=>'input_meter_reading','placeholder'=>'Meter Reading'])}}                       
+                        {{Form::number('meter_reading', null,['class'=>'form-control','step'=>'0.01','id'=>'edit_meter_reading'])}}                       
                     </dl>
 
                 </div>
@@ -194,7 +194,7 @@
     
                     <h4> <i class="fas fa-fill-drip"></i> &nbsp Fuel Quantity &nbsp(Liter)</h4> 
                     <div>
-                        {{Form::number('fuel_liter', null,['class'=>'form-control','step'=>'0.01','placeholder'=>'Drawn Liter'])}}                       
+                        {{Form::number('fuel_liter', null,['class'=>'form-control','step'=>'0.01','id'=>'edit_fuel_liter'])}}                       
                     </div>
             
                 </div>                 
@@ -208,7 +208,7 @@
                 <div class="col-md-4"> 
                     <h4> <i class="fas fa-comments-dollar"></i> &nbsp Cost</h4>
                     <dl>
-                        {{Form::number('cost', null,['class'=>'form-control','step'=>'0.01','placeholder'=>'cost'])}}                       
+                        {{Form::number('cost', null,['class'=>'form-control','step'=>'0.01','id'=>'edit_cost'])}}                       
                     </dl>
                 </div> 
                 
@@ -274,11 +274,10 @@
                 vid =data[0].vehical_id;
 
                 $('#edit-title').html('<i class="fas fa-car"></i>'+' '+data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Vehicle Mileage Editing" ); 
-                // $('#edit_mdate').val(data[0].date);
-                // $('#edit_meter_reading_day_begin').val(data[0].meter_reading_day_begin);    
-                // $('#edit_meter_reading_day_end').val(data[0].meter_reading_day_end);
-                // $('#edit_meter_reading_mileage').val(data[0].meter_reading_mileage);
-                // $('#edit_journey_mileage').val(data[0].journey_mileage);
+                $('#edit_fdate').val(data[0].date);
+                $('#edit_meter_reading').val(data[0].meter_reading);    
+                $('#edit_fuel_liter').val(data[0].fuel_liter);
+                $('#edit_cost').val(data[0].cost);
                 // $('#edit_remarks').val(data[0].remarks); 
    
             },
@@ -289,7 +288,7 @@
 
         $("#edit-modal").modal('show');
 
-        $('#edit_mileage').on('submit',function(e){
+        $('#edit_fuelUsage').on('submit',function(e){
             e.preventDefault();
             var data = $(this).serialize();
             var url = $(this).attr('action');
@@ -303,7 +302,7 @@
                     $('#edit-modal').modal('hide');  
                     $('#flash-message').html(data);
                         /* refresh data table in the view */
-                    readMileages(vid);      
+                    readFuelUsages(vid);      
                 },
                 error: function(xhr, textStatus, error){
                     console.log(xhr.statusText);
