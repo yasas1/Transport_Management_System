@@ -1033,7 +1033,6 @@ class VehicleUsageController extends Controller
             $milage->meter_reading_day_begin = $request->meter_reading_day_begin;
             $milage->meter_reading_day_end = $request->meter_reading_day_end;
             $milage->meter_reading_mileage = $request->meter_reading_mileage;
-            $milage->journey_mileage = $request->journey_mileage;
             $milage->remarks = $request->remarks;
 
             $milage->update();
@@ -1043,6 +1042,22 @@ class VehicleUsageController extends Controller
         }
         Session::flash('errors', 'Vehicle Mileage Updating Error !');
         return View::make('layouts/errors');
+
+    }
+
+    public function viewMileage(){
+
+        $id = $_GET['id'];
+        
+        $mileage = DB::table('vehicle_mileage')
+        ->join('vehical', 'vehicle_mileage.vehical_id', '=', 'vehical.id') // join vehicle for get vehicle name
+        ->select('vehicle_mileage.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
+        ->where('vehicle_mileage.id','=',$id)
+        ->get();      
+        
+
+        return response($mileage);
+
     }
 
 }

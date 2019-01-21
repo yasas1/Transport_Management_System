@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style> 
         #datepicker > span:hover{cursor: pointer;color: blue;}
+        #edit_date > span:hover{cursor: pointer;color: blue;}
     </style>
 @endsection
 
@@ -167,91 +168,82 @@
                         {{csrf_field()}}
                     <input type="hidden" name="id" id="mileage_id">            
     
-                    <div class="row">
-                    
+                    <div class="row"> 
+
                         <div class="col-md-6"> 
-                            <h4 class="modal-title" > <i class="fas fa-calendar-alt"></i>&nbsp Accident Date</h4> 
-        
-                            <div id="edit_date" class="input-group date" data-date-format="yyyy-mm-dd">
-                                <input id="edit_acDate" name="date" class="form-control" type="text" readonly />
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                            </div>
-                        </div>                   
-        
-                        <div class="col-md-6"> 
-                            <h4 class="modal-title" > <i class="fas fa-map-marker-alt"></i>&nbsp Place</h4>
-                            {!! Form::text('place',null,['class'=>'form-control','id'=>'edit_place' ]) !!}
-                    
-                        </div>
-                    </div><br> <br>                   
-        
-                    <div class="row">
-        
-                        <div class="col-md-6"> 
-        
-                            <h4 class="modal-title" > <i class="fa fa-user"></i>&nbsp Driver</h4> 
             
-                            <div >  
-                                {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','id'=>'edit_driver'])}}
-                            </div> 
-        
-                        </div> 
-
-                    </div><br><br>
-
-                    <div class="row">
-
-                        <div class="col-md-6"> 
-                            <h4 class="modal-title" > <i class="fas fa-shield-alt"></i>&nbsp Details of Police Station</h4> 
-                            <div >  
-                                {!! Form::textarea('details_of_police_station',null,['class'=>'form-control','id'=>'edit_police_station','rows'=>'2'  ]) !!} 
-                            </div> 
-                        </div> 
-
-                    </div><br><br>
-        
-                    <div class="row">
-        
-                        <div class="col-md-6"> 
-                            <h4 class="modal-title" > <i class="fa fa-money"></i>&nbsp Cost of Repaire</h4> 
-        
-                            <div>  
-                                {{Form::number('cost_of_repaire', null,['class'=>'form-control ','id'=>'edit_cost_of_repaire'])}}                      
-                            </div> 
-                        </div>
-        
-                        <div class="col-md-6"> 
-        
-                            <h4 class="modal-title" > <i class="fas fa-calendar-alt"></i>&nbsp Date of Recovery</h4>
+                            <h4><i class="fa fa-calendar"></i> Date </h4>
                                                                 
-                            <div id="edit_recovery_date" class="input-group date" data-date-format="yyyy-mm-dd">
-                                <input id="edit_date_of_recovery" name="date_of_recovery" class="form-control" type="text" readonly />
+                            <div id="edit_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                                <input id="edit_mdate" name="date" class="form-control" type="text" readonly />
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                             </div>
+                    
+                        </div>                 
                         
+                    </div><br>
+                
+                    <h4 class="modal-title" > <i class="fas fa-tachometer-alt"></i>&nbsp Meter Reading &nbsp (km)</h4>
+                    <div class="row">
+        
+                        <div class="col-md-1"> </div>
+        
+                        <div class="col-md-5">
+                      
+                            <h4> <i class="glyphicon glyphicon-log-out"></i> &nbsp Begin Of The Day</h4>
+                            <dl>
+                                {{Form::number('meter_reading_day_begin', null,['class'=>'form-control meterfields','id'=>'edit_meter_reading_day_begin','placeholder'=>'Begin of the day'])}}                       
+                            </dl>
+        
                         </div>
         
-                    </div><br>  
-                    
-                    <div class="row">   
-                        
-                        <div class="col-md-6">
-                            <h4 class="modal-title" > <i class="fas fa-file-alt"></i>&nbsp Description of Damage and Remarks</h4> 
-                            <div>
-                                {!! Form::textarea('description_of_damage_and_remarks',null,['class'=>'form-control','id'=>'edit_description_of_damage','rows'=>'2'  ]) !!}
-                            </div> 
+                        <div class="col-md-5">
+        
+                            <h4> <i class="glyphicon glyphicon-log-in"></i> &nbsp End of The Day</h4>
+                            <dl>
+                                {{Form::number('meter_reading_day_end', null,['class'=>'form-control meterfields','id'=>'edit_meter_reading_day_end','placeholder'=>'End of the day'])}}                       
+                            </dl>
+        
                         </div>
-
+                    
+                    </div><br>
+        
+                    <div class="row"> 
+        
+                        <div class="col-md-1"> </div>
+        
+                        <div class="col-md-4"> 
+            
+                            <h4> <i class="fa fa-car"></i>&nbsp Mileage From Meter Reading &nbsp (km) </h4>
+                            
+                            <input id="edit_meter_reading_mileage" name="meter_reading_mileage" class="form-control" type="text" readonly />
+                    
+                        </div>  
+        
+                        <div class="col-md-1"> </div>
+                        
+                        <div class="col-md-4"> 
+            
+                            <h4> <i class="fa fa-road"></i>&nbsp Mileage From Journey &nbsp (km) </h4>
+                            
+                            <input id="edit_journey_mileage" name="journey_mileage" class="form-control" type="text" readonly /> <!-- readonly -->
+                    
+                        </div>  
+                            
+                    </div><br>
+        
+                    <div class="row"> 
+            
                         <div class="col-md-6"> 
         
-                            <h4 class="modal-title" > <i class="fa fa-drivers-license"></i>&nbsp Description of Accident</h4> <br>
+                            <h4> <i class="fas fa-align-justify"></i> &nbsp Remarks </h4>  
             
                             <div>  
-                                {!! Form::textarea('description_of_accident',null,['class'=>'form-control','id'=>'edit_description_of_accident','rows'=>'2'  ]) !!}                      
+                                {!! Form::textarea('remarks',null,['class'=>'form-control','placeholder'=>'Remarks','id'=>'edit_remarks','rows'=>'2'  ]) !!}                      
                             </div>                      
-                        </div> 
-    
-                    </div><br> <br>
+                        </div>  
+        
+                    </div><br>
                                         
                 </div>
 
@@ -305,7 +297,7 @@
 
            /* getting existing data to modal */
         $.ajax({
-            url: "{{ URL::to('/vehicle/viewAccident/{id}') }}",
+            url: "{{ URL::to('/vehicle/viewMileage/{id}') }}",
             type: 'GET',
             data: { id: id },
             success: function(data)
@@ -313,7 +305,7 @@
                 vid =data[0].vehical_id;
 
                 $('#edit-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Vehicle Mileage Editing" ); 
-                $('#edit_date').val(data[0].date);
+                $('#edit_mdate').val(data[0].date);
                 $('#edit_meter_reading_day_begin').val(data[0].meter_reading_day_begin);    
                 $('#edit_meter_reading_day_end').val(data[0].meter_reading_day_end);
                 $('#edit_meter_reading_mileage').val(data[0].meter_reading_mileage);
@@ -387,6 +379,12 @@
     });
 
     $("#datepicker").datepicker({ 
+        autoclose: true, 
+        format: 'yyyy-mm-dd',
+        todayHighlight: true
+    });
+
+    $("#edit_date").datepicker({ 
         autoclose: true, 
         format: 'yyyy-mm-dd',
         todayHighlight: true

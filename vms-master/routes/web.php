@@ -251,6 +251,8 @@ Route::group(['middleware'=>['authenticate','active']],function (){
     Route::get('/vehicle/mileage','VehicleUsageController@viewMileagePage');
     Route::post('/vehicle/storeVehicleMileage','VehicleUsageController@storeVehicleMileage'); 
     Route::get('/vehicle/readVehicleMileage/{id}','VehicleUsageController@readVehicleMileage'); 
+    Route::post('/vehicle/mileage/update','VehicleUsageController@updateMileage'); 
+    Route::get('/vehicle/viewMileage/{id}','VehicleUsageController@viewMileage'); 
                                                                     
 });
 
