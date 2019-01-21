@@ -1006,6 +1006,20 @@ class VehicleUsageController extends Controller
         Session::flash('errors', 'Vehicle Fuel Usage Updating Error !');
         return View::make('layouts/errors');
 
+    } 
+
+    public function deleteFuelUsage(Request $request){
+
+        if($request->ajax() && $fuelUsage = FuelUsage::find($request->id)  ){
+            return $request->id;
+            $fuelUsage->delete();
+
+            Session::flash('success', 'Vehicle Fuel Usage Deleted successfully !');
+            return View::make('layouts/success');
+
+        }
+        Session::flash('errors', 'Vehicle Fuel Usage DeletingError !');
+        return View::make('layouts/errors');
     }
 
     /* ----------------- Vehicle Mileage ------------------------- */

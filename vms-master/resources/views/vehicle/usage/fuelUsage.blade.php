@@ -136,95 +136,115 @@
         </div>  
     </div>
 
-    {{----------------------  Edit modal  -------------------}}
+            {{----------------------  Edit modal  -------------------}}
     <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="edit-title"></h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-    
-                    <div class="modal-body">
-    
-                        <form action="{{ URL::to('/vehicle/fuelUsage/update')}}" method="POST" id="edit_fuelUsage" enctype="multipart/form-data">
-                            {{csrf_field()}}
-                        <input type="hidden" name="id" id="fuelUsage_id">            
-        
-                        <div class="row"> 
-    
-                            <div class="col-md-6"> 
-                
-                                <h4><i class="fa fa-calendar"></i> Date of Filling</h4>
-                                                                    
-                                <div id="edit_date" class="input-group date" data-date-format="yyyy-mm-dd">
-                                    <input id="edit_fdate" name="date" class="form-control" type="text" readonly />
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                </div>
-                        
-                            </div>                 
-                            
-                        </div><br>
-                    
-                        <h4> <i class="fas fa-gas-pump"></i>&nbsp Fuel Position</h4> 
-            
-            <div  class="row">
-
-                <div class="col-md-1"> </div>
-
-                <div class="col-md-4">
-            
-                    <h4> <i class="fas fa-tachometer-alt"></i> &nbsp Meter Reading</h4>
-                    <dl>
-                        {{Form::number('meter_reading', null,['class'=>'form-control','step'=>'0.01','id'=>'edit_meter_reading'])}}                       
-                    </dl>
-
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="edit-title"></h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
 
+                <div class="modal-body">
+
+                    <form action="{{ URL::to('/vehicle/fuelUsage/update')}}" method="POST" id="edit_fuelUsage" enctype="multipart/form-data">
+                        {{csrf_field()}}
+                    <input type="hidden" name="id" id="fuelUsage_id">            
+    
+                    <div class="row"> 
+
+                        <div class="col-md-6"> 
             
+                            <h4><i class="fa fa-calendar"></i> Date of Filling</h4>
+                                                                
+                            <div id="edit_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                                <input id="edit_fdate" name="date" class="form-control" type="text" readonly />
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                    
+                        </div>                 
+                        
+                    </div><br>
+                
+                    <h4> <i class="fas fa-gas-pump"></i>&nbsp Fuel Position</h4> 
+        
+        <div  class="row">
+
+            <div class="col-md-1"> </div>
+
+            <div class="col-md-4">
+        
+                <h4> <i class="fas fa-tachometer-alt"></i> &nbsp Meter Reading</h4>
+                <dl>
+                    {{Form::number('meter_reading', null,['class'=>'form-control','step'=>'0.01','id'=>'edit_meter_reading'])}}                       
+                </dl>
+
+            </div>
+
+        
+        </div> 
+
+        <div class="row"> 
+
+            <div class="col-md-1"> </div>
+
+            <div class="col-md-4"> 
+
+                <h4> <i class="fas fa-fill-drip"></i> &nbsp Fuel Quantity &nbsp(Liter)</h4> 
+                <div>
+                    {{Form::number('fuel_liter', null,['class'=>'form-control','step'=>'0.01','id'=>'edit_fuel_liter'])}}                       
+                </div>
+        
+            </div>                 
+            
+        </div><br>
+
+        <div class="row">
+            
+            <div class="col-md-1"> </div>
+
+            <div class="col-md-4"> 
+                <h4> <i class="fas fa-comments-dollar"></i> &nbsp Cost</h4>
+                <dl>
+                    {{Form::number('cost', null,['class'=>'form-control','step'=>'0.01','id'=>'edit_cost'])}}                       
+                </dl>
             </div> 
-
-            <div class="row"> 
-
-                <div class="col-md-1"> </div>
-
-                <div class="col-md-4"> 
-    
-                    <h4> <i class="fas fa-fill-drip"></i> &nbsp Fuel Quantity &nbsp(Liter)</h4> 
-                    <div>
-                        {{Form::number('fuel_liter', null,['class'=>'form-control','step'=>'0.01','id'=>'edit_fuel_liter'])}}                       
-                    </div>
             
-                </div>                 
-                
-            </div><br>
+        </div><br> 
+                                        
+                </div>
 
-            <div class="row">
-                
-                <div class="col-md-1"> </div>
-
-                <div class="col-md-4"> 
-                    <h4> <i class="fas fa-comments-dollar"></i> &nbsp Cost</h4>
-                    <dl>
-                        {{Form::number('cost', null,['class'=>'form-control','step'=>'0.01','id'=>'edit_cost'])}}                       
-                    </dl>
-                </div> 
-                
-            </div><br> 
-                                            
-                    </div>
-    
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success active" id="update">Update</button>
-                        {!! Form::close() !!} 
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="close_edit" >Close</button>
-                    </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success active" id="update">Update</button>
+                    {!! Form::close() !!} 
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="close_edit" >Close</button>
                 </div>
             </div>
         </div>
+    </div>
 
+            {{------------- Delete Confirmation modal -------------------}}
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <b> <h3 class="modal-title" id="delete-title"></h3> </b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 class="modal-title" >Please Confirm Your Delete Action</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btn-confirm">Delete</button>
+                <button type="button" class="btn btn-primary active" data-dismiss="modal">Cancel</button>
+            </div>
+            </div>
+        </div>
+    </div>
  
 @endsection
 
@@ -312,6 +332,38 @@
 
     });
     
+    $(document).on('click','#delete',function(e){
+        var id = $(this).data('id');
+
+        var vehicle = $( "#vid option:selected" ).text();
+
+        $('#delete-title').html('<i class="fas fa-car"></i>'+' '+vehicle +" Vehicle Fuel Usage Deleting" );
+
+        $("#delete-modal").modal('show'); 
+    
+        $("#btn-confirm").on("click", function(){
+            // console.log("confirmed ");
+
+            $.ajax({
+                url:"{{ route('fuelUsage.delete')}}",
+                method: "POST",
+                data: { id: id },
+                success: function(data)
+                {
+                    console.log(data);   
+                    $('#flash-message').html(data); 
+    
+                    $('tr#'+id).remove();
+                    $('#delete-modal').modal('hide');
+                },
+                error: function(xhr, textStatus, error){
+                    console.log(error);
+                }
+            });
+
+        });
+ 
+    });
 
 </script>
 <script>
