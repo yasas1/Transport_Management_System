@@ -1024,4 +1024,25 @@ class VehicleUsageController extends Controller
         return view('vehicle.usageList.mileageList',compact('mileages'));
     }
 
+    
+    public function updateMileage(Request $request){       
+
+        if($request->ajax() && $milage = VehicleMileage::find($request->id)){ 
+
+            $milage->date = $request->date;
+            $milage->meter_reading_day_begin = $request->meter_reading_day_begin;
+            $milage->meter_reading_day_end = $request->meter_reading_day_end;
+            $milage->meter_reading_mileage = $request->meter_reading_mileage;
+            $milage->journey_mileage = $request->journey_mileage;
+            $milage->remarks = $request->remarks;
+
+            $milage->update();
+
+            Session::flash('success', 'Vehicle Mileage Updated successfully !');
+            return View::make('layouts/success');
+        }
+        Session::flash('errors', 'Vehicle Mileage Updating Error !');
+        return View::make('layouts/errors');
+    }
+
 }

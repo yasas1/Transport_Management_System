@@ -147,8 +147,121 @@
             
             </div>
                     
-
         </div>  
+    </div>
+
+    {{----------------------  Edit modal  -------------------}}
+    <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="edit-title"></h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <form action="{{ URL::to('/vehicle/mileage/update')}}" method="POST" id="edit_mileage" enctype="multipart/form-data">
+                        {{csrf_field()}}
+                    <input type="hidden" name="id" id="mileage_id">            
+    
+                    <div class="row">
+                    
+                        <div class="col-md-6"> 
+                            <h4 class="modal-title" > <i class="fas fa-calendar-alt"></i>&nbsp Accident Date</h4> 
+        
+                            <div id="edit_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                                <input id="edit_acDate" name="date" class="form-control" type="text" readonly />
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                        </div>                   
+        
+                        <div class="col-md-6"> 
+                            <h4 class="modal-title" > <i class="fas fa-map-marker-alt"></i>&nbsp Place</h4>
+                            {!! Form::text('place',null,['class'=>'form-control','id'=>'edit_place' ]) !!}
+                    
+                        </div>
+                    </div><br> <br>                   
+        
+                    <div class="row">
+        
+                        <div class="col-md-6"> 
+        
+                            <h4 class="modal-title" > <i class="fa fa-user"></i>&nbsp Driver</h4> 
+            
+                            <div >  
+                                {{Form::select('driver_id',$drivers,null,['class'=>'form-control ','id'=>'edit_driver'])}}
+                            </div> 
+        
+                        </div> 
+
+                    </div><br><br>
+
+                    <div class="row">
+
+                        <div class="col-md-6"> 
+                            <h4 class="modal-title" > <i class="fas fa-shield-alt"></i>&nbsp Details of Police Station</h4> 
+                            <div >  
+                                {!! Form::textarea('details_of_police_station',null,['class'=>'form-control','id'=>'edit_police_station','rows'=>'2'  ]) !!} 
+                            </div> 
+                        </div> 
+
+                    </div><br><br>
+        
+                    <div class="row">
+        
+                        <div class="col-md-6"> 
+                            <h4 class="modal-title" > <i class="fa fa-money"></i>&nbsp Cost of Repaire</h4> 
+        
+                            <div>  
+                                {{Form::number('cost_of_repaire', null,['class'=>'form-control ','id'=>'edit_cost_of_repaire'])}}                      
+                            </div> 
+                        </div>
+        
+                        <div class="col-md-6"> 
+        
+                            <h4 class="modal-title" > <i class="fas fa-calendar-alt"></i>&nbsp Date of Recovery</h4>
+                                                                
+                            <div id="edit_recovery_date" class="input-group date" data-date-format="yyyy-mm-dd">
+                                <input id="edit_date_of_recovery" name="date_of_recovery" class="form-control" type="text" readonly />
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                        
+                        </div>
+        
+                    </div><br>  
+                    
+                    <div class="row">   
+                        
+                        <div class="col-md-6">
+                            <h4 class="modal-title" > <i class="fas fa-file-alt"></i>&nbsp Description of Damage and Remarks</h4> 
+                            <div>
+                                {!! Form::textarea('description_of_damage_and_remarks',null,['class'=>'form-control','id'=>'edit_description_of_damage','rows'=>'2'  ]) !!}
+                            </div> 
+                        </div>
+
+                        <div class="col-md-6"> 
+        
+                            <h4 class="modal-title" > <i class="fa fa-drivers-license"></i>&nbsp Description of Accident</h4> <br>
+            
+                            <div>  
+                                {!! Form::textarea('description_of_accident',null,['class'=>'form-control','id'=>'edit_description_of_accident','rows'=>'2'  ]) !!}                      
+                            </div>                      
+                        </div> 
+    
+                    </div><br> <br>
+                                        
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success active" id="update">Update</button>
+                    {!! Form::close() !!} 
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="close_edit" >Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 
  
@@ -183,6 +296,61 @@
         readMileages(vid);
         $('#table_box').show();
     }); 
+
+    $(document).on('click','#edit',function(e){
+        var id = $(this).data('id');
+        var vid;
+
+        $('#mileage_id').val(id);
+
+           /* getting existing data to modal */
+        $.ajax({
+            url: "{{ URL::to('/vehicle/viewAccident/{id}') }}",
+            type: 'GET',
+            data: { id: id },
+            success: function(data)
+            {    
+                vid =data[0].vehical_id;
+
+                $('#edit-title').html(data[0].vehicle_name+" ( "+data[0].vehicle_reg+" ) "+" Vehicle Mileage Editing" ); 
+                $('#edit_date').val(data[0].date);
+                $('#edit_meter_reading_day_begin').val(data[0].meter_reading_day_begin);    
+                $('#edit_meter_reading_day_end').val(data[0].meter_reading_day_end);
+                $('#edit_meter_reading_mileage').val(data[0].meter_reading_mileage);
+                $('#edit_journey_mileage').val(data[0].journey_mileage);
+                $('#edit_remarks').val(data[0].remarks); 
+   
+            },
+            error: function(xhr, textStatus, error){
+                console.log(xhr.statusText);
+            }
+        });
+
+        $("#edit-modal").modal('show');
+
+        $('#edit_mileage').on('submit',function(e){
+            e.preventDefault();
+            var data = $(this).serialize();
+            var url = $(this).attr('action');
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: data,
+                success: function(data)
+                {               
+                    $('#edit-modal').modal('hide');  
+                    $('#flash-message').html(data);
+                        /* refresh data table in the view */
+                    readMileages(vid);      
+                },
+                error: function(xhr, textStatus, error){
+                    console.log(xhr.statusText);
+                }
+            });     
+        });
+
+    });
 
     $('#vehical_id').add('#date').on('change',function(){
 
