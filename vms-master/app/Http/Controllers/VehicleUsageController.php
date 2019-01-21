@@ -1010,4 +1010,18 @@ class VehicleUsageController extends Controller
         return redirect()->back()->with(['success'=>'Vehicle Mileage added successfully !']);
     }
 
+    public function readVehicleMileage(){
+
+        $vid = $_GET['id'];
+
+        $mileages = DB::table('vehicle_mileage')
+        ->join('vehical', 'vehicle_mileage.vehical_id', '=', 'vehical.id') // join vehicle for get vehicle name
+        ->select('vehicle_mileage.*','vehical.name as vehicle_name', 'vehical.registration_no as vehicle_reg')
+        ->where('vehical_id','=',$vid)
+        ->orderBy('vehicle_mileage.date','DESC')
+        ->get();
+
+        return view('vehicle.usageList.mileageList',compact('mileages'));
+    }
+
 }

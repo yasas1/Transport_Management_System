@@ -126,7 +126,7 @@
             </div>
             {!! Form::close() !!} <br>
 
-            <h3 id="table_header"style="text-align:center;display: none;"> </h3> 
+            <h3 id="table_header" style="text-align:center;display: none;"> </h3> 
             <div class="box box-primary" id="table_box" style="height:400px; overflow: auto; display: none;" data-target="#exampleModalCenter">
             
                 <table id="table" class="table table-sm table-hover table-sm table-striped"> 
@@ -159,6 +159,30 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 
 <script> 
+
+    function readMileages(vid){ 
+        $.ajax({
+            url: "{{ URL::to('/vehicle/readVehicleMileage/{id}') }}",
+            type: 'GET',
+            data: { id: vid },
+            success: function(data)
+            {
+                //console.log(data);   
+                $('#mileage_info').empty().html(data);            
+            }
+        });
+    }
+
+    $('#vid').on('change',function () {
+        var vid = $(this).val(); // get vehicle id
+        var vehicle = $( "#vid option:selected" ).text();
+        
+        $('#table_header').html('<i class="fas fa-car"></i>'+' '+vehicle+" Vehicle Mileage History");
+        $('#table_header').show();
+        
+        readMileages(vid);
+        $('#table_box').show();
+    }); 
 
     $('#vehical_id').add('#date').on('change',function(){
 

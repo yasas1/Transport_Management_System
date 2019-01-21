@@ -249,7 +249,8 @@ Route::group(['middleware'=>['authenticate','active']],function (){
 
         /* Vehicle Mileage */
     Route::get('/vehicle/mileage','VehicleUsageController@viewMileagePage');
-    Route::post('/vehicle/storeVehicleMileage','VehicleUsageController@storeVehicleMileage');
+    Route::post('/vehicle/storeVehicleMileage','VehicleUsageController@storeVehicleMileage'); 
+    Route::get('/vehicle/readVehicleMileage/{id}','VehicleUsageController@readVehicleMileage'); 
                                                                     
 });
 
