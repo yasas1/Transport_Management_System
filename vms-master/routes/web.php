@@ -245,15 +245,17 @@ Route::group(['middleware'=>['authenticate','active']],function (){
         /* Vehicle Fuel */
     Route::get('/vehicle/fuelUsage','VehicleUsageController@viewFuelPage'); 
     Route::post('/vehicle/storeFuelUsage','VehicleUsageController@storeFuelUsage'); 
-    Route::get('/vehicle/getVehicleMileage/{id}','VehicleUsageController@getVehicleMileage'); 
+     
     Route::get('/vehicle/readVehicleFule/{id}','VehicleUsageController@readVehicleFule'); 
     Route::get('/vehicle/viewFuelUsage/{id}','VehicleUsageController@viewFuelUsage'); 
     Route::post('/vehicle/fuelUsage/update','VehicleUsageController@updateFuelUsage'); 
     Route::post('/vehicle/deleteFuelUsage','VehicleUsageController@deleteFuelUsage')->name('fuelUsage.delete');
+    
 
         /* Vehicle Mileage */
     Route::get('/vehicle/mileage','VehicleUsageController@viewMileagePage');
     Route::post('/vehicle/storeVehicleMileage','VehicleUsageController@storeVehicleMileage'); 
+    Route::get('/vehicle/getVehicleMileage/{id}','VehicleUsageController@getVehicleMileage');
     Route::get('/vehicle/readVehicleMileage/{id}','VehicleUsageController@readVehicleMileage'); 
     Route::post('/vehicle/mileage/update','VehicleUsageController@updateMileage'); 
     Route::get('/vehicle/viewMileage/{id}','VehicleUsageController@viewMileage'); 

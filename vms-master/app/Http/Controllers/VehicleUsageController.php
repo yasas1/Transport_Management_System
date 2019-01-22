@@ -1011,7 +1011,7 @@ class VehicleUsageController extends Controller
     public function deleteFuelUsage(Request $request){
 
         if($request->ajax() && $fuelUsage = FuelUsage::find($request->id)  ){
-            return $request->id;
+
             $fuelUsage->delete();
 
             Session::flash('success', 'Vehicle Fuel Usage Deleted successfully !');

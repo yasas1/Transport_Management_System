@@ -342,7 +342,7 @@
         $("#delete-modal").modal('show'); 
     
         $("#btn-confirm").on("click", function(){
-            // console.log("confirmed ");
+            console.log("confirmed "+id);
 
             $.ajax({
                 url:"{{ route('fuelUsage.delete')}}",
@@ -366,7 +366,14 @@
     });
 
 </script>
+
 <script>
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
     $("#datepicker").datepicker({ 
         autoclose: true, 
