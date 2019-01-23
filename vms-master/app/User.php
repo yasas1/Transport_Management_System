@@ -39,7 +39,7 @@ class User extends Authenticatable
         'token',
         'avatar',
         'emp_id',
-        'access_token',
+        'token',
         'refresh_token'
     ];
 

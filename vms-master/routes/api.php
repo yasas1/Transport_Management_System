@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('cal', 'GoogleCalenderApiClientController');
 Route::get('oauth', 'GoogleCalenderApiClientController@oauth')->name('oauthCallback');
+
+Route::get('ongoingJourney', 'DriverAppJournetController@oauth');
