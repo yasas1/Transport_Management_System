@@ -14,25 +14,17 @@ class DriverAppJourneyController extends Controller
 {
     public function confirmedJourneys(){
 
-        $userlogid = Auth::user()->emp_id;
+        $email ='driver'; //Auth::user()->email;
 
-        if(Auth::user()->canCompleteJourney()){
+        $driverid = Driver::where('email','=',$email)->first()->id;
 
-            if(Auth::user()->role_id == 4){
+        $journeys = Journey::where('driver_id','=',$driverid)->get();//->where('journey_status_id','=','4')->get();
 
-                $email = Auth::user()->email;
-
-                $driverid = Driver::where('email','=',$email)->first()->id;
-
-                $journeys = Journey::where('driver_id','=',$driverid)->where('journey_status_id','=','4')->get();
-
-            }
-            else{
-                $journeys = Journey::confirmed();
-            }   
-            return respone('journeys');
-        }
+        $data = json_encode(array(
+            $journeys  
+        ));
+            
+        return response($data);
         
-
     }
 }
