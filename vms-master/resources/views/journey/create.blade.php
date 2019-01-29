@@ -59,6 +59,16 @@
                     </div> 
                     @endif
 
+                    @if( $errors->first() )
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    @endif
+
+                    {{-- {{ dd( $errors ) }} --}}
+
                     {!! Form::open(['method' => 'post','action'=>'JourneyController@store','files'=>true]) !!}
                     <div class="row">
                         <div class="col-md-12">

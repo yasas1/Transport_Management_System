@@ -12,19 +12,25 @@ use App\Models\Driver;
 
 class DriverAppJourneyController extends Controller
 {
-    public function confirmedJourneys(){
+    public function confirmedJourneys(Request $request){
 
-        $email ='driver'; //Auth::user()->email;
+        $request->email;
+
+        $email =$request->email; //Auth::user()->email;
 
         $driverid = Driver::where('email','=',$email)->first()->id;
 
         $journeys = Journey::where('driver_id','=',$driverid)->get();//->where('journey_status_id','=','4')->get();
 
-        $data = json_encode(array(
-            $journeys  
-        ));
+
+        $data = [
             
-        return response($data);
+            "details" => $request->email
+                           
+            
+        ];
+            
+        return response()->json($data);
         
     }
 }

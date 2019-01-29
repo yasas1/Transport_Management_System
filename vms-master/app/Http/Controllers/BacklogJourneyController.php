@@ -121,7 +121,7 @@ class BacklogJourneyController extends Controller
             $end=' END --  '.$journey->real_end_date_time->toDayDateTimeString();
             $applicant= 'APPLICANT -- '.$journey->applicant->emp_title.' '.$journey->applicant->emp_initials.'. '.$journey->applicant->emp_surname;
 
-            Mail::send(new ApprovedByMail($emailAddress,$place,$start,$end,$applicant));
+            //Mail::send(new ApprovedByMail($emailAddress,$place,$start,$end,$applicant));
 
             $journey->journey_status_id = '6';
             
