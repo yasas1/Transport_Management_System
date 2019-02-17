@@ -740,7 +740,7 @@
     function readTyreReplacement(vid){ 
         
         $.ajax({
-            url: '/vehicle/readTyreReplacement/{id}',
+            url: "{{ URL::to('/vehicle/readTyreReplacement/{id}') }}" ,
             type: 'GET',
             data: { id: vid },
             success: function(data)
@@ -813,7 +813,7 @@
         var vehicle = $( "#vid_replacement option:selected" ).text();
 
         $.ajax({
-            url: '/vehicle/vehicleTyre/{id}',
+            url: "{{ URL::to('/vehicle/vehicleTyre/{id}') }}",
             type: 'GET',
             data: { id: vid },
             success: function(data)
@@ -837,7 +837,7 @@
     function readTyrePositionChanges(vid){ 
         
         $.ajax({
-            url: '/vehicle/readTyrePositionChanges/{id}',
+            url: "{{ URL::to('/vehicle/readTyrePositionChanges/{id}') }}" ,
             type: 'GET',
             data: { id: vid },
             success: function(data)
@@ -870,7 +870,7 @@
 
            /* getting existing data to modal */
         $.ajax({
-            url: '/vehicle/viewTyreReplacement/{id}',
+            url: "{{ URL::to('/vehicle/viewTyreReplacement/{id}') }}",
             type: 'GET',
             data: { id: id },
             success: function(data)
@@ -928,7 +928,7 @@
         var id = $(this).data('id'); //get annual licence id
 
         $.ajax({
-            url: '/vehicle/viewTyreReplacement/{id}',
+            url: "{{ URL::to('/vehicle/viewTyreReplacement/{id}') }}" ,
             type: 'GET',
             data: { id: id },
             success: function(data)
@@ -976,7 +976,7 @@
 
            /* getting existing data to modal */
         $.ajax({
-            url: '/vehicle/viewTyrePositionChange/{id}',
+            url: "{{ URL::to('/vehicle/viewTyrePositionChange/{id}') }}" ,
             type: 'GET',
             data: { id: id },
             success: function(data)
