@@ -191,6 +191,28 @@ class User extends Authenticatable
         return $this->checkPrivilege('Journey','Approve Backlog Journey');
     }
 
+    /// Vehicle servicing
+
+    public function canUpdateVehicleSeriving(){
+
+        return $this->checkPrivilege('Vehicle Servicing','Update');
+    }
+    public function canDeleteVehicleSeriving(){
+        
+        return $this->checkPrivilege('Vehicle Servicing','Delete');
+    }
+
+    /// Vehicle servicing
+
+    public function canUpdateVehicleSeriving(){
+
+        return $this->checkPrivilege('Vehicle Servicing','Update');
+    }
+    public function canDeleteVehicleSeriving(){
+        
+        return $this->checkPrivilege('Vehicle Servicing','Delete');
+    }
+
     public function division(){
 
         if ($employee = Employee::where('emp_email','=',$this->email)->first()){

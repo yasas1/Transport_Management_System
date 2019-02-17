@@ -596,7 +596,7 @@ class JourneyController extends Controller
         if(Auth::user()->canApproveJourney()){
 
             if(Auth::user()->role_id == 1){
-                $journeys = Journey::notApproved(); 
+                $journeys = Journey::where('journey_status_id','=','1')->where('is_long_distance', '=', '0')->get();
                 if(Journey::where('journey_status_id','=','1')->where('is_long_distance', '=', '1')->first()){
                     $longDisJourneys = Journey::notApprovedLongDistance();
                 }
