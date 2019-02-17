@@ -213,6 +213,17 @@ class User extends Authenticatable
         return $this->checkPrivilege('Vehicle Repair','Delete');
     }
 
+    /// Vehicle Annual Licences
+
+    public function canUpdateVehicleLicence(){
+
+        return $this->checkPrivilege('Vehicle Licence','Update');
+    }
+    public function canDeleteVehicleLicence(){
+        
+        return $this->checkPrivilege('Vehicle Licence','Delete');
+    }
+
     public function division(){
 
         if ($employee = Employee::where('emp_email','=',$this->email)->first()){
