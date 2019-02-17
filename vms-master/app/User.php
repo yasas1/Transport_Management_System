@@ -202,15 +202,15 @@ class User extends Authenticatable
         return $this->checkPrivilege('Vehicle Servicing','Delete');
     }
 
-    /// Vehicle servicing
+    /// Vehicle Repair
 
-    public function canUpdateVehicleSeriving(){
+    public function canUpdateVehicleRepair(){
 
-        return $this->checkPrivilege('Vehicle Servicing','Update');
+        return $this->checkPrivilege('Vehicle Repair','Update');
     }
-    public function canDeleteVehicleSeriving(){
+    public function canDeleteVehicleRepair(){
         
-        return $this->checkPrivilege('Vehicle Servicing','Delete');
+        return $this->checkPrivilege('Vehicle Repair','Delete');
     }
 
     public function division(){
