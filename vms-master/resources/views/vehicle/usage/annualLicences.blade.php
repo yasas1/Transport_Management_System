@@ -460,7 +460,7 @@
         /* read annual licence for given vehicle and display in the table */
     function readAnnualLicenc(vid){ 
         $.ajax({
-            url: '/vehicle/readAnnualLicenc/{id}',
+            url: "{{ URL::to('/vehicle/readAnnualLicenc/{id}') }}",
             type: 'GET',
             data: { id: vid },
             success: function(data)
@@ -510,7 +510,7 @@
            /* getting existing data to modal */
 
         $.ajax({
-            url: '/vehicle/viewAnnualLicenc/{id}',
+            url: "{{ URL::to('/vehicle/viewAnnualLicenc/{id}') }}",
             type: 'GET',
             data: { id: id },
             success: function(data)
@@ -574,7 +574,7 @@
         var id = $(this).data('id'); //get annual licence id
 
         $.ajax({
-            url: '/vehicle/viewAnnualLicenc/{id}',
+            url: "{{ URL::to('/vehicle/viewAnnualLicenc/{id}') }}" ,
             type: 'GET',
             data: { id: id },
             success: function(data)

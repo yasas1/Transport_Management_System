@@ -53,7 +53,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-xs-12 col-md-12">
-                            @if(Auth::user()->canReadVehicle())
+                            @if(Auth::user()->canUpdateVehicleSeriving())
                                 <a href="{{url('/vehicle/')}}" class="btn btn-warning btn-sm" role="button"><span class="glyphicon glyphicon-folder-open"></span> <br/>View</a>
                             @endif
                             @if(Auth::user()->canUpdateVehicle())

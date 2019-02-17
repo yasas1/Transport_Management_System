@@ -524,7 +524,7 @@
 
     function readRepairs(vid){     
         $.ajax({
-            url: '/vehicle/readVehicleRepairs/{id}',
+            url: "{{ URL::to('/vehicle/readVehicleRepairs/{id}') }}",
             type: 'GET',
             data: { id: vid },
             success: function(data)
@@ -551,7 +551,7 @@
         var id = $(this).data('id'); //get annual licence id
 
         $.ajax({
-            url: '/vehicle/viewRepair/{id}',
+            url: "{{ URL::to('/vehicle/viewRepair/{id}') }}" ,
             type: 'GET',
             data: { id: id },
             success: function(data)
@@ -589,7 +589,7 @@
 
            /* getting existing data to modal */
         $.ajax({
-            url: '/vehicle/viewRepair/{id}',
+            url: "{{ URL::to('/vehicle/viewRepair/{id}') }}",
             type: 'GET',
             data: { id: id },
             success: function(data)

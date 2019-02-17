@@ -411,7 +411,7 @@
 
     function readAccidents(vid){ 
         $.ajax({
-            url: '/vehicle/readVehicleAccidents/{id}',
+            url: "{{ URL::to('/vehicle/readVehicleAccidents/{id}') }}" ,
             type: 'GET',
             data: { id: vid },
             success: function(data)
@@ -508,7 +508,7 @@
 
            /* getting existing data to modal */
         $.ajax({
-            url: '/vehicle/viewAccident/{id}',
+            url: "{{ URL::to('/vehicle/viewAccident/{id}') }}" ,
             type: 'GET',
             data: { id: id },
             success: function(data)

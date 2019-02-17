@@ -335,7 +335,7 @@
     function readServicing(vid){ 
         
         $.ajax({
-            url: '/vehicle/readServicing/{id}',
+            url: "{{ URL::to('/vehicle/readServicing/{id}') }}" ,
             type: 'GET',
             data: { id: vid },
             success: function(data)
