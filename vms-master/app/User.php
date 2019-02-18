@@ -224,6 +224,28 @@ class User extends Authenticatable
         return $this->checkPrivilege('Vehicle Licence','Delete');
     }
 
+    /// Vehicle Accident
+
+    public function canUpdateVehicleAccident(){
+
+        return $this->checkPrivilege('Vehicle Accident','Update');
+    }
+    public function canDeleteVehicleAccident(){
+        
+        return $this->checkPrivilege('Vehicle Accident','Delete');
+    }
+
+    /// Vehicle Mileage
+
+    public function canUpdateVehicleMileage(){
+
+        return $this->checkPrivilege('Vehicle Mileage','Update');
+    }
+    public function canDeleteVehicleMileage(){
+        
+        return $this->checkPrivilege('Vehicle Mileage','Delete');
+    }
+
     public function division(){
 
         if ($employee = Employee::where('emp_email','=',$this->email)->first()){
