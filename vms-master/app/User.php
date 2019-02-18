@@ -268,6 +268,17 @@ class User extends Authenticatable
         return $this->checkPrivilege('Vehicle Tyre Replacement','Delete');
     }
 
+    /// Vehicle Tyre Position Change
+
+    public function canUpdateTyrePositionChange(){
+
+        return $this->checkPrivilege('Vehicle Tyre Position Change','Update');
+    }
+    public function canDeleteTyrePositionChange(){
+        
+        return $this->checkPrivilege('Vehicle Tyre Position Change','Delete');
+    }
+
     public function division(){
 
         if ($employee = Employee::where('emp_email','=',$this->email)->first()){
