@@ -246,6 +246,17 @@ class User extends Authenticatable
         return $this->checkPrivilege('Vehicle Mileage','Delete');
     }
 
+    /// Vehicle Fuel Usage
+
+    public function canUpdateVehicleFuelUsage(){
+
+        return $this->checkPrivilege('Vehicle FuelUsage','Update');
+    }
+    public function canDeleteVehicleFuelUsage(){
+        
+        return $this->checkPrivilege('Vehicle FuelUsage','Delete');
+    }
+
     public function division(){
 
         if ($employee = Employee::where('emp_email','=',$this->email)->first()){
