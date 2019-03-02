@@ -39,7 +39,7 @@
                 </div>        
 
             </div> <br>
-          
+            @if(Auth::user()->canCreateVehicleAccident())
             <div class="row">
                 
                 <div class="col-md-5"> 
@@ -150,7 +150,7 @@
                 </div>  
             </div>
             {!! Form::close() !!} <br>
-
+            @endif
             <h3 id="table_header"style="text-align:center;display: none;"> </h3> 
             <div class="box box-primary" id="table_box" style="height:400px; overflow: auto; display: none;" data-target="#exampleModalCenter">
             

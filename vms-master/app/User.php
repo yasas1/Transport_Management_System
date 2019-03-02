@@ -193,6 +193,16 @@ class User extends Authenticatable
 
     /// Vehicle servicing
 
+    public function canCreateVehicleSeriving(){
+        
+        return $this->checkPrivilege('Vehicle Servicing','Create');
+    }
+
+    public function canReadVehicleSeriving(){
+        
+        return $this->checkPrivilege('Vehicle Servicing','Read');
+    }
+
     public function canUpdateVehicleSeriving(){
 
         return $this->checkPrivilege('Vehicle Servicing','Update');
@@ -203,6 +213,11 @@ class User extends Authenticatable
     }
 
     /// Vehicle Repair
+
+    public function canCreateVehicleRepair(){
+
+        return $this->checkPrivilege('Vehicle Repair','Create');
+    }
 
     public function canUpdateVehicleRepair(){
 
@@ -215,6 +230,11 @@ class User extends Authenticatable
 
     /// Vehicle Annual Licences
 
+    public function canCreateVehicleLicence(){
+
+        return $this->checkPrivilege('Vehicle Licence','Create');
+    }
+
     public function canUpdateVehicleLicence(){
 
         return $this->checkPrivilege('Vehicle Licence','Update');
@@ -226,6 +246,11 @@ class User extends Authenticatable
 
     /// Vehicle Accident
 
+    public function canCreateVehicleAccident(){
+
+        return $this->checkPrivilege('Vehicle Accident','Create');
+    }
+
     public function canUpdateVehicleAccident(){
 
         return $this->checkPrivilege('Vehicle Accident','Update');
@@ -236,6 +261,11 @@ class User extends Authenticatable
     }
 
     /// Vehicle Mileage
+    
+    public function canCreateVehicleMileage(){
+
+        return $this->checkPrivilege('Vehicle Mileage','Create');
+    }
 
     public function canUpdateVehicleMileage(){
 
@@ -248,6 +278,11 @@ class User extends Authenticatable
 
     /// Vehicle Fuel Usage
 
+    public function canCreateVehicleFuelUsage(){
+
+        return $this->checkPrivilege('Vehicle FuelUsage','Create');
+    }
+
     public function canUpdateVehicleFuelUsage(){
 
         return $this->checkPrivilege('Vehicle FuelUsage','Update');
@@ -259,6 +294,11 @@ class User extends Authenticatable
 
     /// Vehicle Tyre Replacement
 
+    public function canCreateTyreReplacement(){
+
+        return $this->checkPrivilege('Vehicle Tyre Replacement','Create');
+    }
+
     public function canUpdateTyreReplacement(){
 
         return $this->checkPrivilege('Vehicle Tyre Replacement','Update');
@@ -269,6 +309,11 @@ class User extends Authenticatable
     }
 
     /// Vehicle Tyre Position Change
+
+    public function canCreateTyrePositionChange(){
+
+        return $this->checkPrivilege('Vehicle Tyre Position Change','Create');
+    }
 
     public function canUpdateTyrePositionChange(){
 
