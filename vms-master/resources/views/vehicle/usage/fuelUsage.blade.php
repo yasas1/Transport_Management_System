@@ -35,7 +35,7 @@
                 <div class="col-md-2"> </div>
 
             </div> <br>
-
+            @if(Auth::user()->canCreateVehicleFuelUsage())
             <div class="row"> 
 
                 <div class="col-md-4"> 
@@ -109,7 +109,7 @@
                 </div>  
             </div>
             {!! Form::close() !!}
-
+            @endif
             <br>
 
             <h3 id="table_header"style="text-align:center;display: none;"> </h3> 

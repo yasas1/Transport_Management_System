@@ -41,9 +41,9 @@
                             {{Form::select('vehical_id',$vehicles,null,['class'=>'form-control ','id'=>'vid_replacement','placeholder'=>'Select a Vehicle'])}}
                         </div>                  
                     </div>
-
+                
                     <div class="col-md-1"> </div>
-
+                    
                     <div class="col-md-4"> 
         
                         <h4><i class="fa fa-calendar"></i>&nbsp Date </h4>
@@ -152,7 +152,7 @@
                     </div>  
 
                 </div><br>
-
+                @if(Auth::user()->canCreateTyreReplacement())
                 <div class="row"> 
     
                     <div class="col-md-4"> 
@@ -161,7 +161,7 @@
                     </div>  
                 </div>
                 {!! Form::close() !!} 
-
+                @endif
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group"> <br>
@@ -288,7 +288,7 @@
                     </div>  
 
                 </div><br>
-
+                @if(Auth::user()->canCreateTyrePositionChange())
                 <div class="row"> 
     
                     <div class="col-md-4"> 
@@ -297,7 +297,7 @@
                     </div>  
                 </div>
                 {!! Form::close() !!} <br>
-                
+                @endif
 
 
                 <div class="row">
