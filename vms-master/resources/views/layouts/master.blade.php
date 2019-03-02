@@ -318,6 +318,7 @@ desired effect
 
                 </li>
                 
+                @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 3 || Auth::user()->role_id == 6) 
                 <li class="treeview {{
                     url()->current() == url('/vehicle/usage')|| 
                     url()->current() == url('/vehicle/addservicing')||
@@ -346,7 +347,7 @@ desired effect
                     </ul>
                     
                 </li>
-
+                @endif
                 <li class="treeview">
                     <a href="#"><i class="fas fa-map-marked"></i> <span>&nbsp Map</span>
                         <span class="pull-right-container">

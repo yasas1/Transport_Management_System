@@ -63,6 +63,7 @@
                                 <a href="{{url('/vehicle/create')}}" class="btn btn-danger btn-sm" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/> New </a> 
                             @endif                           
                         </div>
+                        @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 3 || Auth::user()->role_id == 6) 
                         <div class="col-xs-12 col-md-12" > 
                             {{-- <a class="col-md-offset-1"  id="noti" href="{{ URL::to('/vehicle/addservicing') }}" class="notification">
                                 <span><i class="fa fa-bars"></i> </span>
@@ -73,6 +74,7 @@
                                 <span id="badge" class="badge"></span>
                             </a>
                         </div>
+                        @endif
                     </div>                  
                 </div>
             </div>        
